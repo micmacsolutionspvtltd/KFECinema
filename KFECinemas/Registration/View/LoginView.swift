@@ -69,6 +69,7 @@ struct LoginView: View {
                 }
                 Button(action: {
                     viewModel.signIn()
+                    print(viewModel.givenName)
                   //  SocialLogin.attemptLoginGoogle()
                 }) {
                     HStack(alignment: .center, spacing: 5.0) {

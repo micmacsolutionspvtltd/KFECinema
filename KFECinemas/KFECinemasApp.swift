@@ -14,6 +14,7 @@ struct KFECinemasApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
+ 
         WindowGroup {
             LoginView().environmentObject(LoginView_Previews.order)
         }
@@ -21,7 +22,7 @@ struct KFECinemasApp: App {
 }
 class AppDelegate : NSObject , UIApplicationDelegate{
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-       // Settings.shared.appID = "636968437734329"
+        Settings.shared.appID = "fb636968437734329"
         return true
     }
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

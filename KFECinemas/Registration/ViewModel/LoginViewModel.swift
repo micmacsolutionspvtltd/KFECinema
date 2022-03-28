@@ -25,6 +25,7 @@ class UserAuthModel: ObservableObject {
         if(GIDSignIn.sharedInstance.currentUser != nil){
             let user = GIDSignIn.sharedInstance.currentUser
             guard let user = user else { return }
+            let clientId = user.userID
             let givenName = user.profile?.givenName
             let profilePicUrl = user.profile!.imageURL(withDimension: 100)!.absoluteString
             self.givenName = givenName ?? ""
