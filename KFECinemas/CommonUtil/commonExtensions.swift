@@ -2,6 +2,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import SwiftUI
 
 
 class UITextFieldPadding : UITextField {
@@ -24,6 +25,20 @@ class UITextFieldPadding : UITextField {
     return bounds.inset(by: padding)
   }
 }
+
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+}
+
 
 extension Encodable {
     var arrayDictionary: [[String: Any]]? {

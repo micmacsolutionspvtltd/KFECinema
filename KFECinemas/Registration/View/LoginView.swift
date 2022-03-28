@@ -22,14 +22,24 @@ struct LoginView: View {
                     Image("batne").resizable().scaledToFill()
                     Image("kfelogo").resizable().frame(width: 100, height: 60).offset(y: -100)
                     VStack {
-                        TextField("Enter your mobile number", text: $mobileNumber).foregroundColor(Color(uiColor: UIColor.white)).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        TextField("", text: $mobileNumber)
+                            .placeholder(when: mobileNumber.isEmpty) {
+                                Text("Enter your Mobile Number").foregroundColor(.white).opacity(0.4)
+                        }.foregroundColor(Color(uiColor: UIColor.white)).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                         
                         HStack {
                             if showPassword{
-                                TextField("Enter your password", text: $password)
+                                TextField("", text: $password)
+                                    .placeholder(when: password.isEmpty) {
+                                        Text("Enter your password").foregroundColor(.white).opacity(0.4)
                                 
+                            }
                             }else{
-                                SecureField("Enter your password", text: $password)
+                                SecureField("", text: $password)
+                                    .placeholder(when: password.isEmpty) {
+                                        Text("Enter your password").foregroundColor(.white).opacity(0.4)
+                                    }
+//                                SecureField("Enter your password", text: $password)
                                 
                             }
                             Button(action:{
@@ -40,10 +50,10 @@ struct LoginView: View {
                                 }
                             }){
                                 
-                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color(uiColor: UIColor.gray))
+                                Image(systemName: showPassword ? "eye" : "eye.slash").foregroundColor(.gray).background(Color("ColorAppGrey"))
                             }
                             
-                        }.padding().background(Color(uiColor: UIColor.gray)).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        }.padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
                     
                     NavigationLink(destination: HomeView()){
@@ -63,8 +73,8 @@ struct LoginView: View {
                 }) {
                     HStack(alignment: .center, spacing: 5.0) {
                         Spacer()
-                        Text("Continue With")
-                            .foregroundColor(.black)
+                        Text("CONTINUE WITH").font(.footnote)
+                            .foregroundColor(.white)
                         //  .padding(.trailing, 10.0)
                         Spacer()
                         Image("google")
@@ -72,14 +82,14 @@ struct LoginView: View {
                     }
                     .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
                     .frame(minWidth: geometry.size.width * 0.9)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color.white).background(Color("ColorAppGrey"))
                     .overlay(
                         RoundedRectangle(cornerRadius: .infinity)
                             .stroke(Color.red, lineWidth: 2)
                     )
                     
                 }
-                .background(Color.gray)
+                
                 .cornerRadius(.infinity)
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 2, trailing: 15))
                 
@@ -88,8 +98,8 @@ struct LoginView: View {
                 }) {
                     HStack(alignment: .center, spacing: 5.0) {
                         Spacer()
-                        Text("Continue With")
-                            .foregroundColor(.black)
+                        Text("CONTINUE WITH").font(.footnote)
+                            .foregroundColor(.white)
                         //  .padding(.trailing, 10.0)
                         Spacer()
                         Image("facebook")
@@ -97,28 +107,27 @@ struct LoginView: View {
                     }
                     .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
                     .frame(minWidth: geometry.size.width * 0.9)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color.white).background(Color("ColorAppGrey"))
                     .overlay(
                         RoundedRectangle(cornerRadius: .infinity)
                             .stroke(Color.red, lineWidth: 2)
                     )
                     
                 }
-                .background(Color.gray)
                 .cornerRadius(.infinity)
-                .padding(EdgeInsets(top: 10, leading: 15, bottom: 15, trailing: 15))
+                .padding(EdgeInsets(top: 10, leading: 15, bottom: 20, trailing: 15))
            // }
-                VStack(alignment: .center, spacing: 15.0){
+                VStack(alignment: .center, spacing: 25){
                     HStack{
-                        Text("New to KFE cinemas? ").foregroundColor(Color.gray)
+                        Text("New to KFE cinemas? ").font(.system(size: 15)).foregroundColor(Color.gray)
                        
                         NavigationLink(destination: SignupView()) {
-                            Text("Create Account").fontWeight(.bold).foregroundColor(Color.red)
+                            Text("Create Account").font(.system(size: 15)).fontWeight(.bold).foregroundColor(Color.red)
                                 }
                     }.padding(.horizontal)
                     HStack{
-                        Text("Forgot Password?").foregroundColor(Color.gray)
-                        Text("Click Here").fontWeight(.bold).foregroundColor(Color.red)
+                        Text("Forgot Password?").font(.system(size: 15)).foregroundColor(Color.gray)
+                        Text("Click Here").font(.system(size: 15)).fontWeight(.bold).foregroundColor(Color.red)
                     }.padding(.horizontal)
                 }.padding(.bottom, 30.0)
             }.background(Color.black)

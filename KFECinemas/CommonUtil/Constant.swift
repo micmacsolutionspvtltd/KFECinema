@@ -531,6 +531,7 @@ struct Constants {
         
     }
     
+    
     struct Color {
         static let appDarkThemeColor = UIColor(named:"AppOrangeThemeColor")!
         static let appLightOrangeThemeColor = UIColor(named:"AppLightOrangeThemeColor")!
@@ -543,6 +544,8 @@ struct Constants {
         static let darkGreyColor = UIColor(named:"DarkGreyColor")!
         static let redThemeColor = UIColor(named:"RedThemeColor")!
         static let yellowThemeColor = UIColor(named:"YellowThemeColor")!
+        static let appGreyColor = UIColor(named:"ColorAppGrey")!
+        
         
         static let gradient1AColor = UIColor(named: "Gradient1AColor")!
         static let gradient1BColor = UIColor(named: "Gradient1BColor")!
