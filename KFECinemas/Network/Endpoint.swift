@@ -57,6 +57,7 @@ enum Endpoint {
         return { return $0.baseURL + "/" + self.path }
     }
     
+    
     private var path: String {
         switch self {
         case .getOtp:

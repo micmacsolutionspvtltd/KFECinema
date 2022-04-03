@@ -13,7 +13,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var showPassword = false
     @EnvironmentObject var viewModel: UserAuthModel
-
+   
     var body: some View {
         GeometryReader { geometry in
             NavigationView{
@@ -55,15 +55,24 @@ struct LoginView: View {
                             
                         }.padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
-                    
-                    NavigationLink(destination: Dashboard()){
-                    Text("SIGNIN")
-                            .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
-                            .frame(minWidth: geometry.size.width * 0.9)
-                            .foregroundColor(Color.white)
-                            .background(Color.red)
-                            .cornerRadius(.infinity)
+                    Button{
+                        
+                    }label: {
+                        Text("SIGNIN")
+                                .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
+                                .frame(minWidth: geometry.size.width * 0.9)
+                                .foregroundColor(Color.white)
+                                .background(Color.red)
+                                .cornerRadius(.infinity)
                     }.padding(.top , 15.0)
+//                    NavigationLink(destination: Dashboard()){
+//                    Text("SIGNIN")
+//                            .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
+//                            .frame(minWidth: geometry.size.width * 0.9)
+//                            .foregroundColor(Color.white)
+//                            .background(Color.red)
+//                            .cornerRadius(.infinity)
+//                    }.padding(.top , 15.0)
                     
                     Text("OR").font(.system(size: 25)).fontWeight(.bold).foregroundColor(Color.white)
                 }
@@ -133,6 +142,9 @@ struct LoginView: View {
                 }.padding(.bottom, 30.0)
             }.background(Color.black)
                     .navigationBarHidden(true)
+//                NavigationLink(destination: LoginView(), isActive: $moveNextPage){
+//                    
+//                }
         }
         }
     }

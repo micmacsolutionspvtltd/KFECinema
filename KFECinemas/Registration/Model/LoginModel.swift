@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct LoginDataModel : Codable {
+    let status: Int
+    let reason: String
+}

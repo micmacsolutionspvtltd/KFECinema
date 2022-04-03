@@ -16,7 +16,7 @@ struct SignupView: View {
     @State private var showPassword = false
     @State private var confirmPasswordShow = false
     @Environment(\.presentationMode) var presentationMode
-
+    @State var moveNextPage : Bool = false
     @EnvironmentObject var viewModel: UserAuthModel
 
     var body: some View {
@@ -77,7 +77,14 @@ struct SignupView: View {
                         }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
                     
-                    Button(action: {}) {
+                    Button(action: {
+                        viewModel.signUpApi(mobno: mobileNumber, emailId: emailId, password: password, name: userName, loginMethod: "1") { result in
+                            if result.status == 1{
+                                self.presentationMode.wrappedValue.dismiss()
+                              //  moveNextPage = true
+                            }
+                        }
+                    }) {
                         Text("CREATE ACCOUNT")
                             .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
                             .frame(minWidth: geometry.size.width * 0.9)
@@ -155,6 +162,9 @@ struct SignupView: View {
                
         }.navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        NavigationLink(destination: LoginView(), isActive: $moveNextPage){
+       
+                       }
         
     }
 }
