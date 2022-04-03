@@ -20,6 +20,8 @@
 		0CF1C93027F641DF00D87F5C /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C92F27F641DF00D87F5C /* CartView.swift */; };
 		0CF1C93227F6467B00D87F5C /* CartAddItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C93127F6467B00D87F5C /* CartAddItemCell.swift */; };
 		0CF1C93427F796E600D87F5C /* CartItemContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C93327F796E600D87F5C /* CartItemContentView.swift */; };
+		0CF1C93627F9674400D87F5C /* OffersApplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C93527F9674400D87F5C /* OffersApplyView.swift */; };
+		0CF1C93827F9681600D87F5C /* OfferCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C93727F9681600D87F5C /* OfferCell.swift */; };
 		D345A43827E3BC2D00D1D5AD /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43727E3BC2D00D1D5AD /* GoogleSignIn */; };
 		D345A43B27E3BC7600D1D5AD /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43A27E3BC7600D1D5AD /* FacebookCore */; };
 		D345A43D27E3BC7600D1D5AD /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43C27E3BC7600D1D5AD /* FacebookLogin */; };
@@ -60,6 +62,8 @@
 		0CF1C92F27F641DF00D87F5C /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		0CF1C93127F6467B00D87F5C /* CartAddItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAddItemCell.swift; sourceTree = "<group>"; };
 		0CF1C93327F796E600D87F5C /* CartItemContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemContentView.swift; sourceTree = "<group>"; };
+		0CF1C93527F9674400D87F5C /* OffersApplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffersApplyView.swift; sourceTree = "<group>"; };
+		0CF1C93727F9681600D87F5C /* OfferCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferCell.swift; sourceTree = "<group>"; };
 		D345A43E27E4CBE200D1D5AD /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		D345A44027E4E08100D1D5AD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D345A44B27E50C6700D1D5AD /* RequestGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestGenerator.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				0C2C8C8227F238CD00418F99 /* SpiceKitchenView.swift */,
+				0CF1C93527F9674400D87F5C /* OffersApplyView.swift */,
 				0CF1C92F27F641DF00D87F5C /* CartView.swift */,
 				0CF1C92E27F632CE00D87F5C /* ReusableViews */,
 			);
@@ -175,6 +180,7 @@
 				0C2C8C8427F249B600418F99 /* DishViewCell.swift */,
 				0CF1C93127F6467B00D87F5C /* CartAddItemCell.swift */,
 				0CF1C93327F796E600D87F5C /* CartItemContentView.swift */,
+				0CF1C93727F9681600D87F5C /* OfferCell.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -334,6 +340,7 @@
 				D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */,
 				D345A45427E50C8300D1D5AD /* NetworkManager.swift in Sources */,
 				0CF1C93427F796E600D87F5C /* CartItemContentView.swift in Sources */,
+				0CF1C93627F9674400D87F5C /* OffersApplyView.swift in Sources */,
 				D345A45027E50C6700D1D5AD /* GenericResponse.swift in Sources */,
 				D3CC71B527E8F9C900C33787 /* Constant.swift in Sources */,
 				D3CC71B827E8F9C900C33787 /* commonExtensions.swift in Sources */,
@@ -357,6 +364,7 @@
 				0CF1C93027F641DF00D87F5C /* CartView.swift in Sources */,
 				D345A44127E4E08100D1D5AD /* Constants.swift in Sources */,
 				D345A45227E50C6700D1D5AD /* Endpoint.swift in Sources */,
+				0CF1C93827F9681600D87F5C /* OfferCell.swift in Sources */,
 				D3CC71C027EA3D1E00C33787 /* HomeView.swift in Sources */,
 				D345A45127E50C6700D1D5AD /* NetworkError.swift in Sources */,
 				D3CC71BB27E8F9C900C33787 /* FeatureManager.swift in Sources */,
@@ -499,7 +507,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -530,7 +538,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
