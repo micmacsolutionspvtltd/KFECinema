@@ -98,7 +98,8 @@ struct Dashboard: View {
             SideMenu(width:UIScreen.main.bounds.size.width,
                                 isOpen: self.menuOpen,
                                 menuClose: self.openMenu)
-        }
+        }.navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
     }
     
     func openMenu() {

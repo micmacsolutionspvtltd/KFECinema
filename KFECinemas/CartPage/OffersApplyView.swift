@@ -56,6 +56,8 @@ struct OffersApplyView: View {
 
                 }.frame(width: UIScreen.main.bounds.width)
             }
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

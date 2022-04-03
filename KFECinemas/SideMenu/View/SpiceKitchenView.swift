@@ -25,9 +25,12 @@ struct SpiceKitchenView: View {
                             .accentColor(Color.white)
                         HStack{
                                                 HStack(alignment: .bottom ){
-                                                    Button(action:{
-                                                        presentationMode.wrappedValue.dismiss()
-                                                    }){
+                                                    NavigationLink{
+                                                        Dashboard()
+                                                      //  presentationMode.wrappedValue.dismiss()
+                                                    }label: {
+                                                        
+                                                   
                                                         Image(systemName: "arrow.left")
                                                             .resizable()
                                                             .scaledToFit()
@@ -84,7 +87,7 @@ struct SpiceKitchenView: View {
                             Section(header : Text("Bakery Products")) {
                                 ForEach(0..<5){_ in
                                     DishViewCell()
-                                        .frame(width: geometry.size.width*0.7,height: 100)
+                                        .frame(width: geometry.size.width*0.65,height: 100)
                                         .padding()
                                         .padding([.leading,.trailing],25)
                                         .background(Color.black)
@@ -101,8 +104,8 @@ struct SpiceKitchenView: View {
                     
 
                 }
-                Button{
-                    
+                NavigationLink{
+                    CartPageView()
                 } label: {
                     HStack(spacing :20){
                       Text("1 Itemss")

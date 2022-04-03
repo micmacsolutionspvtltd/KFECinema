@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct CartView: View {
+struct CartPageView: View {
+    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+
     @State var deliveryCLicked : Bool = true
     @State var collectionClicked : Bool = false
     var body: some View {
-       // @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
-      
+    //
         GeometryReader { geometry in
              
             ZStack{
@@ -29,7 +30,7 @@ struct CartView: View {
                         HStack{
                             HStack(alignment: .bottom ){
                                 Button(action:{
-                                //    presentationMode.wrappedValue.dismiss()
+                                    presentationMode.wrappedValue.dismiss()
                                 }){
                                     Image(systemName: "arrow.left")
                                         .resizable()
@@ -99,8 +100,8 @@ struct CartView: View {
                         Text("Offers")
                             .foregroundColor(.white)
                             .fontWeight(.semibold)
-                        Button{
-                            
+                        NavigationLink{
+                            OffersApplyView()
                         }label: {
                             HStack{
                                 Text("Select Promo Code")
@@ -220,12 +221,14 @@ struct CartView: View {
                 }.position(x: geometry.size.width/2, y: geometry.size.height/1.07)
             }
         //}
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
     
 }
 
-struct CartView_Previews: PreviewProvider {
+struct CartPageView_Previews: PreviewProvider {
     static var previews: some View {
         CartView()
             .background(Color.black)

@@ -15,7 +15,7 @@ struct SideMenu: View {
         let menuClose: () -> Void
     var body: some View {
         
-        x
+        
         ZStack {
             GeometryReader { _ in
                             EmptyView()
