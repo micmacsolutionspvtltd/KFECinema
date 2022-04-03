@@ -15,7 +15,7 @@ struct SideMenu: View {
         let menuClose: () -> Void
     var body: some View {
         
-        
+        x
         ZStack {
             GeometryReader { _ in
                             EmptyView()
@@ -67,8 +67,8 @@ struct SideMenu: View {
     
     @ViewBuilder
     func TabButton(tittle: String , image : String) -> some View{
-        Button{
-            
+        NavigationLink{
+            SpiceKitchenView()
         }label: {
             HStack(spacing : 15){
               Image(image)
