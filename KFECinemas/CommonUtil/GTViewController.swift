@@ -71,23 +71,23 @@ class GTViewController: UIViewController {
             monitor.start(queue: queue)
         }
          else {
-           if NetworkManager.sharedInstance.isConnectedToNetwork {
-                print("We're connected!")
-            }else {
-                DispatchQueue.main.async {
-                    Common.sharedInstance.displayAlertMessage(parentView: self, title: "No Internet" , message: "Kindly connect to network connection to proceed further", buttonTitle: "Settings") { _ in
-                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                            return
-                        }
-                        
-                        if UIApplication.shared.canOpenURL(settingsUrl) {
-                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                                print("Settings opened: \(success)") // Prints true
-                            })
-                        }
-                    }
-                }
-            }
+//           if NetworkManager.sharedInstance.isConnectedToNetwork {
+//                print("We're connected!")
+//            }else {
+//                DispatchQueue.main.async {
+//                    Common.sharedInstance.displayAlertMessage(parentView: self, title: "No Internet" , message: "Kindly connect to network connection to proceed further", buttonTitle: "Settings") { _ in
+//                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+//                            return
+//                        }
+//                        
+//                        if UIApplication.shared.canOpenURL(settingsUrl) {
+//                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+//                                print("Settings opened: \(success)") // Prints true
+//                            })
+//                        }
+//                    }
+//                }
+//            }
            
         }
     }
