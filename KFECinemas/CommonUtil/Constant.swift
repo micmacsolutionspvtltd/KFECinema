@@ -9,6 +9,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 
 struct Constants {
@@ -532,19 +533,36 @@ struct Constants {
     }
     
     
-    struct Color {
-        static let appDarkThemeColor = UIColor(named:"AppOrangeThemeColor")!
-        static let appLightOrangeThemeColor = UIColor(named:"AppLightOrangeThemeColor")!
-        static let appLightOrange2ThemeColor = UIColor(named:"AppLightOrange2ThemeColor")!
-        static let appLightOrange3ThemeColor = UIColor(named:"AppLightOrange3ThemeColor")!
-        static let appLightThemeColor = UIColor(named:"AppLightThemeColor")!
-        static let appGreenThemeColor = UIColor(named:"AppGreenThemeColor")!
-        static let blueThemeColor = UIColor(named:"BlueThemeColor")!
-        static let greenThemeColor = UIColor(named:"GreenColor")!
-        static let darkGreyColor = UIColor(named:"DarkGreyColor")!
-        static let redThemeColor = UIColor(named:"RedThemeColor")!
-        static let yellowThemeColor = UIColor(named:"YellowThemeColor")!
-        static let appGreyColor = UIColor(named:"ColorAppGrey")!
+    struct CustomColors {
+        static let colorAppGrey = Color("ColorAppGrey")
+        static let colorAppleDark = Color("ColorAppleDark")
+        static let colorAppleLight = Color("ColorAppleLight")
+        static let colorBlueberryDark = Color("ColorBlueberryDark")
+        static let colorBlueberryLight = Color("ColorBlueberryLight")
+        static let colorCherryDark = Color("ColorCherryDark")
+        static let colorCherryLight = Color("ColorCherryLight")
+        static let colorGooseberryDark = Color("ColorGooseberryDark")
+        static let colorGooseberryLight = Color("ColorGooseberryLight")
+        static let colorGrapefruitDark = Color("ColorGrapefruitDark")
+        static let colorGrapefruitLight = Color("ColorGrapefruitLight")
+        static let colorLemonDark = Color("ColorLemonDark")
+        static let colorLemonLight = Color("ColorLemonLight")
+        static let colorLimeDark = Color("ColorLimeDark")
+        static let colorLimeLight = Color("ColorLimeLight")
+        static let colorMangoDark = Color("ColorMangoDark")
+        static let colorMangoLight = Color("ColorMangoLight")
+        static let colorPearDark = Color("ColorPearDark")
+        static let colorPearLight = Color("ColorPearLight")
+        static let colorPlumDark = Color("ColorPlumDark")
+        static let colorPlumLight = Color("ColorPlumLight")
+        static let colorPomegranateDark = Color("ColorPomegranateDark")
+        static let colorPomegranateLight = Color("ColorPomegranateLight")
+        static let colorStrawberryDark = Color("ColorStrawberryDark")
+        static let colorStrawberryLight = Color("ColorStrawberryLight")
+        static let colorWatermelonDark = Color("ColorWatermelonDark")
+        static let colorWatermelonLight = Color("ColorWatermelonLight")
+        static let colorText1 = Color("ColorText1")
+        static let baseColor = Color("baseColor")
         
         
         static let gradient1AColor = UIColor(named: "Gradient1AColor")!
@@ -558,26 +576,7 @@ struct Constants {
         static let gradient5AColor = UIColor(named: "Gradient5AColor")!
         static let gradient5BColor = UIColor(named: "Gradient5BColor")!
         
-        
-        static let Black = UIColor.black
-        static let White = UIColor.white
-        static let Clear = UIColor.clear
-        static let Red = UIColor.red
-        static let Green = UIColor.green
-        static let LightGray = UIColor.lightGray
-        static let Gray = UIColor.gray
-        static let Yellow = UIColor.yellow
-        static let Blue = UIColor.blue
-        static let LightBlackColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
-        static let LightWhiteColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
-        static let StatusBarColor = UIColor(red: 165/255, green: 1/255, blue: 20/255, alpha: 1)
-        static let AppOrangeColor = UIColor(red: 227/255, green: 165/255, blue: 80/255, alpha: 1)
-        static let AppPinkColor = UIColor(red: 255/255, green: 67/255, blue: 94/255, alpha: 1)
-        static let AppGrayColor = UIColor(red: 89/255, green: 89/255, blue: 89/255, alpha: 1)
-        static let AppGreenColor = UIColor(red: 100/255, green: 165/255, blue: 0/255, alpha: 1)
-        static let AppBlueColor = UIColor(red: 10/255, green: 100/255, blue: 120/255, alpha: 1)
-        static let AppRedColor = UIColor(red: 200/255, green: 40/255, blue: 0/255, alpha: 1)
-        static let AppYellowColor = UIColor(red: 250/255, green: 140/255, blue: 10/255, alpha: 1)
+    
     }
     
     

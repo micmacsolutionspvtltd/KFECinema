@@ -56,7 +56,7 @@ struct LoginView: View {
                         }.padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
                     
-                    NavigationLink(destination: HomeView()){
+                    NavigationLink(destination: Dashboard()){
                     Text("SIGNIN")
                             .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
                             .frame(minWidth: geometry.size.width * 0.9)
