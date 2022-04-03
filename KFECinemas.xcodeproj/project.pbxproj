@@ -32,6 +32,10 @@
 		D345A45127E50C6700D1D5AD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345A44D27E50C6700D1D5AD /* NetworkError.swift */; };
 		D345A45227E50C6700D1D5AD /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345A44E27E50C6700D1D5AD /* Endpoint.swift */; };
 		D345A45427E50C8300D1D5AD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D345A45327E50C8300D1D5AD /* NetworkManager.swift */; };
+		D35B1D6727F727EB007D312C /* MoviesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B1D6627F727EB007D312C /* MoviesListView.swift */; };
+		D35B1D6927F960FA007D312C /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35B1D6827F960FA007D312C /* MovieDetailView.swift */; };
+		D3B1046D27F2444A00A55E89 /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1046C27F2444A00A55E89 /* MovieCardView.swift */; };
+		D3B6931527F62E1F006A1907 /* FoodCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B6931427F62E1F006A1907 /* FoodCardView.swift */; };
 		D3CC71A927E8F93F00C33787 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71A727E8F93F00C33787 /* ConfigurationManager.swift */; };
 		D3CC71AA27E8F93F00C33787 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71A827E8F93F00C33787 /* Configuration.swift */; };
 		D3CC71B527E8F9C900C33787 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71AC27E8F9C900C33787 /* Constant.swift */; };
@@ -43,8 +47,10 @@
 		D3CC71BB27E8F9C900C33787 /* FeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B227E8F9C900C33787 /* FeatureManager.swift */; };
 		D3CC71BC27E8F9C900C33787 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B327E8F9C900C33787 /* Util.swift */; };
 		D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B427E8F9C900C33787 /* GradientView.swift */; };
-		D3CC71C027EA3D1E00C33787 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71BF27EA3D1E00C33787 /* HomeView.swift */; };
+		D3D74D0F27F4DC350076A506 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D74D0E27F4DC350076A506 /* CartView.swift */; };
 		D3DC9C7027EE4B6900BEE17F /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC9C6F27EE4B6900BEE17F /* SideMenu.swift */; };
+		D3DC9C9627F2340600BEE17F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC9C9527F2340600BEE17F /* Dashboard.swift */; };
+		D3FF143E27F6433000EE2E4F /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF143D27F6433000EE2E4F /* MovieView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,7 +77,11 @@
 		D345A44D27E50C6700D1D5AD /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		D345A44E27E50C6700D1D5AD /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		D345A45327E50C8300D1D5AD /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		D35B1D6627F727EB007D312C /* MoviesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListView.swift; sourceTree = "<group>"; };
+		D35B1D6827F960FA007D312C /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		D38C5FE727E10B24006DD708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D3B1046C27F2444A00A55E89 /* MovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
+		D3B6931427F62E1F006A1907 /* FoodCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCardView.swift; sourceTree = "<group>"; };
 		D3CC71A727E8F93F00C33787 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		D3CC71A827E8F93F00C33787 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D3CC71AC27E8F9C900C33787 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -83,8 +93,10 @@
 		D3CC71B227E8F9C900C33787 /* FeatureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureManager.swift; sourceTree = "<group>"; };
 		D3CC71B327E8F9C900C33787 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		D3CC71B427E8F9C900C33787 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		D3CC71BF27EA3D1E00C33787 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D3D74D0E27F4DC350076A506 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		D3DC9C6F27EE4B6900BEE17F /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		D3DC9C9527F2340600BEE17F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		D3FF143D27F6433000EE2E4F /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +156,9 @@
 				D3CC71A627E8F93F00C33787 /* Configuration */,
 				D345A44A27E50C6700D1D5AD /* Network */,
 				0C9CBE5527BED3FD00DC7386 /* Registration */,
+				D3D74D0D27F4DC200076A506 /* Payment */,
 				D3CC71BE27EA3CEF00C33787 /* Home */,
+				D35B1D6527F727C8007D312C /* Movie */,
 				0C2C8C8127F238A900418F99 /* SideMenu */,
 				0CE7B2BE27B7E7880021DF8D /* KFECinemasApp.swift */,
 				0C2C8C7F27EF059200418F99 /* Launch Screen.storyboard */,
@@ -197,6 +211,25 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		D35B1D6527F727C8007D312C /* Movie */ = {
+			isa = PBXGroup;
+			children = (
+				D3FF143D27F6433000EE2E4F /* MovieView.swift */,
+				D3B1046C27F2444A00A55E89 /* MovieCardView.swift */,
+				D35B1D6627F727EB007D312C /* MoviesListView.swift */,
+				D35B1D6827F960FA007D312C /* MovieDetailView.swift */,
+			);
+			path = Movie;
+			sourceTree = "<group>";
+		};
+		D3B1046B27F2414000A55E89 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D3B6931427F62E1F006A1907 /* FoodCardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D3CC71A627E8F93F00C33787 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,8 +258,9 @@
 		D3CC71BE27EA3CEF00C33787 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				D3CC71BF27EA3D1E00C33787 /* HomeView.swift */,
+				D3B1046B27F2414000A55E89 /* View */,
 				D3DC9C6F27EE4B6900BEE17F /* SideMenu.swift */,
+				D3DC9C9527F2340600BEE17F /* Dashboard.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -254,6 +288,14 @@
 				D345A43E27E4CBE200D1D5AD /* SignupView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D3D74D0D27F4DC200076A506 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				D3D74D0E27F4DC350076A506 /* CartView.swift */,
+			);
+			path = Payment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +380,8 @@
 			files = (
 				D3CC71B727E8F9C900C33787 /* StorageManager.swift in Sources */,
 				D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */,
+				D35B1D6927F960FA007D312C /* MovieDetailView.swift in Sources */,
+				D35B1D6727F727EB007D312C /* MoviesListView.swift in Sources */,
 				D345A45427E50C8300D1D5AD /* NetworkManager.swift in Sources */,
 				0CF1C93427F796E600D87F5C /* CartItemContentView.swift in Sources */,
 				0CF1C93627F9674400D87F5C /* OffersApplyView.swift in Sources */,
@@ -355,6 +399,8 @@
 				D3CC71B927E8F9C900C33787 /* ApiKeys.swift in Sources */,
 				D3DC9C7027EE4B6900BEE17F /* SideMenu.swift in Sources */,
 				D3CC71BC27E8F9C900C33787 /* Util.swift in Sources */,
+				D3B6931527F62E1F006A1907 /* FoodCardView.swift in Sources */,
+				D3DC9C9627F2340600BEE17F /* Dashboard.swift in Sources */,
 				0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */,
 				0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */,
 				0CE7B2C127B7E7880021DF8D /* ContentView.swift in Sources */,
@@ -363,6 +409,9 @@
 				0CE7B2BF27B7E7880021DF8D /* KFECinemasApp.swift in Sources */,
 				0CF1C93027F641DF00D87F5C /* CartView.swift in Sources */,
 				D345A44127E4E08100D1D5AD /* Constants.swift in Sources */,
+				D3D74D0F27F4DC350076A506 /* CartView.swift in Sources */,
+				D3B1046D27F2444A00A55E89 /* MovieCardView.swift in Sources */,
+				D3FF143E27F6433000EE2E4F /* MovieView.swift in Sources */,
 				D345A45227E50C6700D1D5AD /* Endpoint.swift in Sources */,
 				0CF1C93827F9681600D87F5C /* OfferCell.swift in Sources */,
 				D3CC71C027EA3D1E00C33787 /* HomeView.swift in Sources */,
@@ -498,7 +547,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KFECinemas/Preview Content\"";
-				DEVELOPMENT_TEAM = 4TRB7WLK3T;
+				DEVELOPMENT_TEAM = NR95N74984;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KFECinemas/Info.plist;
@@ -508,12 +557,13 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fusionKitchen;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.netrin.conqur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -529,7 +579,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KFECinemas/Preview Content\"";
-				DEVELOPMENT_TEAM = 4TRB7WLK3T;
+				DEVELOPMENT_TEAM = NR95N74984;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = KFECinemas/Info.plist;
@@ -538,13 +588,15 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+
+
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fusionKitchen;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.netrin.conqur;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
