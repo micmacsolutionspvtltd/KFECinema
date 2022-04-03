@@ -10,12 +10,11 @@ import SwiftUI
 struct SideMenu: View {
  //   @Binding var showMenu : Bool
     
+    @State var navigationType:SideMenuType?
     let width: CGFloat
-        let isOpen: Bool
+        var isOpen: Bool
         let menuClose: () -> Void
     var body: some View {
-        
-        
         ZStack {
             GeometryReader { _ in
                             EmptyView()
@@ -28,7 +27,7 @@ struct SideMenu: View {
                         }
             VStack(alignment: .leading, spacing: 20){
                 VStack(alignment: .leading, spacing: 15){
-                    Image("facebook")
+                    Image("pro")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 65, height:65 )
@@ -46,19 +45,19 @@ struct SideMenu: View {
                     .padding(.leading)
                 ScrollView(.vertical,showsIndicators: false){
                     VStack(alignment: .leading, spacing: 30){
-                        TabButton(tittle: "Home", image: "facebook")
-                        TabButton(tittle: "Movies", image: "facebook")
-                        TabButton(tittle: "Book History", image: "facebook")
-                        TabButton(tittle: "Spice Kitchen", image: "facebook")
-                        TabButton(tittle: "Concession Zone", image: "facebook")
-                        TabButton(tittle: "Change Password", image: "facebook")
-                        TabButton(tittle: "Log Out", image: "facebook")
+                        TabButton(type: SideMenuType.home)
+                        TabButton(type: SideMenuType.movies)
+                        TabButton(type: SideMenuType.bookHistory)
+                        TabButton(type: SideMenuType.spiceKitchen)
+                        TabButton(type: SideMenuType.concessionZone)
+                        TabButton(type: SideMenuType.changePassword)
+                        TabButton(type: SideMenuType.logout)
                     }.padding()
                 }
                     
             }.frame(width: self.width)
-                .background(LinearGradient(gradient: SwiftUI.Gradient(colors: [.blue,.purple]), startPoint: .bottom, endPoint: .top))
-                .offset(x: self.isOpen ? 0 : -self.width)
+                .background(LinearGradient(gradient: SwiftUI.Gradient(colors: [Constants.CustomColors.sideMenuColor1,Constants.CustomColors.sideMenuColor2]), startPoint: .top, endPoint: .bottom))
+                .offset(x: self.isOpen ? -30 : -(self.width + 50))
                 .animation(.default)
         }
                          
@@ -66,16 +65,31 @@ struct SideMenu: View {
     
     
     @ViewBuilder
-    func TabButton(tittle: String , image : String) -> some View{
+    func TabButton(type:SideMenuType) -> some View{
         NavigationLink{
-            SpiceKitchenView()
+            switch type {
+            case .home:
+                 Dashboard()
+            case .movies:
+                MovieView()
+            case .bookHistory:
+                 Dashboard()
+            case .spiceKitchen:
+                 SpiceKitchenView()
+            case .concessionZone:
+                 Dashboard()
+            case .changePassword:
+                 Dashboard()
+            case .logout:
+                 Dashboard()
+            }
         }label: {
             HStack(spacing : 15){
-              Image(image)
+                Image(type.getImageName())
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 20, height: 20)
-                Text(tittle)
+                Text(type.getTitle())
             }
             .foregroundColor(.white)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -83,8 +97,60 @@ struct SideMenu: View {
     }
 }
 
-//struct SideMenu_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SideMenu()
-//    }
-//}
+struct SideMenu_Previews: PreviewProvider {
+    static var previews: some View {
+        SideMenu(width: 300, isOpen: true, menuClose: {
+            
+        })
+    }
+}
+
+
+enum SideMenuType {
+    case home
+    case movies
+    case bookHistory
+    case spiceKitchen
+    case concessionZone
+    case changePassword
+    case logout
+    
+    
+    func getTitle()->String {
+        switch self {
+        case .home:
+            return "Home"
+        case .movies:
+            return "Movies"
+        case .bookHistory:
+            return "Book History"
+        case .spiceKitchen:
+            return "Spice Kitchen"
+        case .concessionZone:
+            return "Concession Zone"
+        case .changePassword:
+            return "Change Password"
+        case .logout:
+            return "Log out"
+        }
+    }
+    
+    func getImageName()->String {
+        switch self {
+        case .home:
+            return "clapperboard"
+        case .movies:
+            return "clapperboard"
+        case .bookHistory:
+            return "clapperboard"
+        case .spiceKitchen:
+            return "tray"
+        case .concessionZone:
+            return "fastfood1"
+        case .changePassword:
+            return "clapperboard"
+        case .logout:
+            return "clapperboard"
+        }
+    }
+}

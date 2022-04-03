@@ -48,7 +48,6 @@
 		D3CC71BB27E8F9C900C33787 /* FeatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B227E8F9C900C33787 /* FeatureManager.swift */; };
 		D3CC71BC27E8F9C900C33787 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B327E8F9C900C33787 /* Util.swift */; };
 		D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B427E8F9C900C33787 /* GradientView.swift */; };
-		D3D74D0F27F4DC350076A506 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D74D0E27F4DC350076A506 /* CartView.swift */; };
 		D3DC9C7027EE4B6900BEE17F /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC9C6F27EE4B6900BEE17F /* SideMenu.swift */; };
 		D3DC9C9627F2340600BEE17F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC9C9527F2340600BEE17F /* Dashboard.swift */; };
 		D3FF143E27F6433000EE2E4F /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF143D27F6433000EE2E4F /* MovieView.swift */; };
@@ -95,7 +94,6 @@
 		D3CC71B227E8F9C900C33787 /* FeatureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureManager.swift; sourceTree = "<group>"; };
 		D3CC71B327E8F9C900C33787 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		D3CC71B427E8F9C900C33787 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		D3D74D0E27F4DC350076A506 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		D3DC9C6F27EE4B6900BEE17F /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		D3DC9C9527F2340600BEE17F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		D3FF143D27F6433000EE2E4F /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 		D3D74D0D27F4DC200076A506 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
-				D3D74D0E27F4DC350076A506 /* CartView.swift */,
 			);
 			path = Payment;
 			sourceTree = "<group>";

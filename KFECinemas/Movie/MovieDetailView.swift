@@ -65,7 +65,7 @@ struct MovieDetailView: View {
                 Text("BOOK TICKET")
             }.padding().frame(maxWidth: .infinity).background(.red)
            
-        }.background(Color("ColorAppGrey")).ignoresSafeArea()
+        }.background(Color("ColorAppGrey")).ignoresSafeArea().navigationBarHidden(true)
     }
 }
 

@@ -95,11 +95,10 @@ struct Dashboard: View {
     //            }
                
             }.background(Color("ColorAppGrey"))
-            SideMenu(width:UIScreen.main.bounds.size.width,
+            SideMenu(width:UIScreen.main.bounds.size.width - 50,
                                 isOpen: self.menuOpen,
                                 menuClose: self.openMenu)
         }.navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
     }
     
     func openMenu() {
@@ -173,17 +172,23 @@ struct AppBarView: View {
 
 struct TableHeaderView: View {
     let title:String
+   @State var isViewAllVisible:Bool = true
     var body: some View {
         HStack{
             Image("clapperboard").resizable().frame(width: 18, height: 18)
             Text(title).font(.system(size: 16)).fontWeight(.bold).foregroundColor(.white)
             Spacer()
-            Button(action: {
-                
-            }){
-                Text("View All").font(.system(size: 13)).fontWeight(.bold).foregroundColor(.white)
-                Image(systemName: "arrow.right").foregroundColor(.white)
-            }.padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
+            if isViewAllVisible {
+               EmptyView()
+            }else{
+                Button(action: {
+                    
+                }){
+                    Text("View All").font(.system(size: 13)).fontWeight(.bold).foregroundColor(.white)
+                    Image(systemName: "arrow.right").foregroundColor(.white)
+                }.padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
+            }
+            
         }.padding(EdgeInsets(top: 15, leading: 8, bottom: 15, trailing: 5)).background(.black)
     }
 }

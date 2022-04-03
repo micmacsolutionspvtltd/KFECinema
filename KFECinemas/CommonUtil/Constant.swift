@@ -561,6 +561,8 @@ struct Constants {
         static let colorStrawberryLight = Color("ColorStrawberryLight")
         static let colorWatermelonDark = Color("ColorWatermelonDark")
         static let colorWatermelonLight = Color("ColorWatermelonLight")
+        static let sideMenuColor1 = Color("SideMenuColor1")
+        static let sideMenuColor2 = Color("SideMenuColor2")
         static let colorText1 = Color("ColorText1")
         static let baseColor = Color("baseColor")
         
