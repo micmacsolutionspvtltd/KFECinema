@@ -22,7 +22,7 @@ struct HomeView: View {
                     }
                 }
             }
-       // let sideBarWidth : CGFloat = UIScene.main.bounds.width - 100
+      
        return GeometryReader { geometry in
             ZStack(alignment: .leading){
         ScrollView{
@@ -77,7 +77,7 @@ struct HomeView: View {
             }
                 .padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 20))
                 .frame(minWidth: geometry.size.width * 1,maxHeight: 70)
-                .background(Color(uiColor: UIColor.red))
+                .background(Color.red)
             
         }
                 if showMenu{
@@ -91,7 +91,9 @@ struct HomeView: View {
 
                
     }.navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)    }
+        .navigationBarBackButtonHidden(true)
+        
+    }
 }
 
 struct HomeView_Previews: PreviewProvider {

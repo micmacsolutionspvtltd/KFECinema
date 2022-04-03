@@ -25,7 +25,7 @@ struct LoginView: View {
                         TextField("", text: $mobileNumber)
                             .placeholder(when: mobileNumber.isEmpty) {
                                 Text("Enter your Mobile Number").foregroundColor(.white).opacity(0.4)
-                        }.foregroundColor(Color(uiColor: UIColor.white)).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                         
                         HStack {
                             if showPassword{
@@ -169,21 +169,25 @@ struct GoogleSignInBtn: UIViewRepresentable {
             button.colorScheme = .light
         }
         
-        button.addAction(.init(handler: { _ in
-            guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
-            
-//            GIDSignIn.sharedInstance.signIn(
-//                with: self.userData.signIn(),
-//                presenting: presentingViewController,
-//                callback: { user, error in
-//                    if let error = error {
-//                        print("error: \(error.localizedDescription)")
-//                    }
-//                    else if let user = user {
-//                        self.userData.signIn(user: user)
-//                    }
-//                })
-        }), for: .touchUpInside)
+        if #available(iOS 14.0, *) {
+            button.addAction(.init(handler: { _ in
+                guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
+                
+                //            GIDSignIn.sharedInstance.signIn(
+                //                with: self.userData.signIn(),
+                //                presenting: presentingViewController,
+                //                callback: { user, error in
+                //                    if let error = error {
+                //                        print("error: \(error.localizedDescription)")
+                //                    }
+                //                    else if let user = user {
+                //                        self.userData.signIn(user: user)
+                //                    }
+                //                })
+            }), for: .touchUpInside)
+        } else {
+            // Fallback on earlier versions
+        }
         button.isEnabled = false
         return button
     }

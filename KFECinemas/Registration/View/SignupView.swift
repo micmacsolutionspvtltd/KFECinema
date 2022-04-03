@@ -26,9 +26,11 @@ struct SignupView: View {
                     Image("batne").resizable().scaledToFill()
                     Image("kfelogo").resizable().frame(width: 100, height: 60).offset(y: -100)
                     VStack {
-                        TextField("Enter your Name", text: $userName).foregroundColor(Color(uiColor: UIColor.white)).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
-                        TextField("Enter your mobile number", text: $mobileNumber).foregroundColor(Color(uiColor: UIColor.white)).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
-                        TextField("Enter your Email", text: $emailId).foregroundColor(Color(uiColor: UIColor.white)).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        TextField("Enter your Name", text: $userName)
+                            .foregroundColor(Color.white)
+                            .padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        TextField("Enter your mobile number", text: $mobileNumber).foregroundColor(Color.white).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        TextField("Enter your Email", text: $emailId).foregroundColor(Color.white).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                         HStack {
                             if showPassword{
                                 TextField("Enter your password", text: $password)
@@ -45,12 +47,12 @@ struct SignupView: View {
                                 }
                             }){
                                 
-                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color(uiColor: UIColor.gray))
+                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color.gray)
                                 
                                 
                             }
                             
-                        }.padding().background(Color(uiColor: UIColor.gray)).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                         HStack {
                             if showPassword{
                                 TextField("Confirm your password", text: $confirmPassword)
@@ -67,12 +69,12 @@ struct SignupView: View {
                                 }
                             }){
                                 
-                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color(uiColor: UIColor.gray))
+                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color.gray)
                                 
                                 
                             }
                             
-                        }.padding().background(Color(uiColor: UIColor.gray)).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
                     
                     Button(action: {}) {

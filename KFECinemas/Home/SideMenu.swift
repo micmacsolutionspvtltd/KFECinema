@@ -22,11 +22,11 @@ struct SideMenu: View {
                     .clipShape(Circle())
                     .padding(.leading, 35.0)
                 Text("Naveen Kumar")
-                    .font(.title2.bold())
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 Text("8248350384")
-                    .font(.title2.bold())
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
             }.padding(.horizontal)
@@ -40,6 +40,7 @@ struct SideMenu: View {
                     TabButton(tittle: "Concession Zone", image: "facebook")
                     TabButton(tittle: "Change Password", image: "facebook")
                     TabButton(tittle: "Log Out", image: "facebook")
+                    Text("Hello").padding()
                 }.padding()
             }
                 
@@ -52,8 +53,8 @@ struct SideMenu: View {
     
     @ViewBuilder
     func TabButton(tittle: String , image : String) -> some View{
-        Button{
-            
+        NavigationLink{
+            SpiceKitchenView()
         }label: {
             HStack(spacing : 15){
               Image(image)

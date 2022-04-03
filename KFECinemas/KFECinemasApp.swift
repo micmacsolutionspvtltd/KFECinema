@@ -9,6 +9,7 @@ import SwiftUI
 import GoogleSignIn
 import FBSDKCoreKit
 
+@available(iOS 14.0, *)
 @main
 struct KFECinemasApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
