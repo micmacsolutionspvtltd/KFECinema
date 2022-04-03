@@ -29,27 +29,37 @@ struct MovieView: View {
         
        return  ScrollView{
            HStack {
-               TextField("Movies", text: $searchText)
-                   .foregroundColor(.white)
-                   .accentColor(Color.white)
-               
-               
-            
                Button(action:{
                    
                }){
                    
-                   Image(systemName:  "magnifyingglass")
+                   Image(systemName:  "arrow.left").foregroundColor(.white).padding()
                }
-               
-           }
-           .padding(EdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12))
-           .overlay(
-               RoundedRectangle(cornerRadius: .infinity)
-                   .stroke(Color.black, lineWidth: 0.5)
-           ).padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 20))
-           //                .frame(minWidth: geometry.size.width * 1,maxHeight: 70)
-           .background(Color(uiColor: UIColor.red))
+               Spacer()
+               HStack {
+                  
+                   TextField("Movies", text: $searchText)
+                       .foregroundColor(.white)
+                       .accentColor(Color.white)
+                   
+                   
+                
+                   Button(action:{
+                       
+                   }){
+                       
+                       Image(systemName:  "magnifyingglass").foregroundColor(.white)
+                   }
+                   
+               }
+               .padding(EdgeInsets(top: 10, leading: 12, bottom: 10, trailing: 12))
+               .overlay(
+                   RoundedRectangle(cornerRadius: .infinity)
+                       .stroke(Color.black, lineWidth: 0.5)
+               ).padding(EdgeInsets(top: 20, leading: 10, bottom: 20, trailing: 20))
+               Spacer()
+                   
+           }.background(Color(uiColor: UIColor.red))
            TableHeaderView(title: "Movies on Theatre")
            HStack {
                Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
@@ -62,7 +72,7 @@ struct MovieView: View {
                            }
                }
            }.padding(.leading,5)
-           TableHeaderView(title: "Theatres")
+           TableHeaderView(title: "Theatres",isViewAllVisible: false)
            HStack {
                Text("Upcoming Movies").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                Spacer()
@@ -88,7 +98,7 @@ struct MovieView: View {
 //                        MovieCardView(model: movie)
 //            }
           
-       }.background(Color("ColorAppGrey"))
+       }.background(Color("ColorAppGrey")).navigationBarHidden(true)
 }
     
 }

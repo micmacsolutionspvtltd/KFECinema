@@ -37,7 +37,7 @@ struct MoviesListView: View {
                 }.padding()
                 }
            
-        }.background(Color("ColorAppGrey"))
+        }.background(Color("ColorAppGrey")).navigationBarHidden(true)
     }
 }
 

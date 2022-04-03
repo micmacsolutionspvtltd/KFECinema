@@ -18,8 +18,7 @@ struct MovieCardView: View {
                 Text("#123 min").foregroundColor(.white).opacity(0.7).font(.system(size: 13,weight: .bold))
             }.padding(EdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 5)).frame(maxWidth:.infinity)
            
-        }
-        
+        }.navigationBarHidden(true)
     }
 }
 
