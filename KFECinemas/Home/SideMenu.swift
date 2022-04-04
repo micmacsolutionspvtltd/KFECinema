@@ -81,7 +81,7 @@ struct SideMenu: View {
             case .changePassword:
                  Dashboard()
             case .logout:
-                 Dashboard()
+                 LoginView()
             }
         }label: {
             HStack(spacing : 15){

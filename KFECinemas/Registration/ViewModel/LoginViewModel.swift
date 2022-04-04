@@ -10,7 +10,7 @@ import FBSDKLoginKit
 
 class UserAuthModel: ObservableObject {
     
-    @Published var getSignUpData : LoginDataModel?
+    @Published var getSignUpData : SignUpDataModel?
     @Published var givenName: String = ""
     @Published var profilePicUrl: String = ""
     @Published var isLoggedIn: Bool = false
@@ -90,7 +90,7 @@ class UserAuthModel: ObservableObject {
            }
     }
     
-    func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String , completionHandler : @escaping((LoginDataModel) -> Void) ){
+    func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String , completionHandler : @escaping((SignUpDataModel) -> Void) ){
   //      func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String){
         let params : [String : String]?
       params = [
@@ -101,9 +101,9 @@ class UserAuthModel: ObservableObject {
         "sign_up_type" : loginMethod
       ]
        
-        let urlRequest = "http://202.83.31.153:8075/KFE_Android/save_user_details.php?"
+        let urlRequest = APIList().getUrlString(url : .SIGNUP)
         let setRequest = (try?  RequestGenerator.sharedInstance.generateURLRequest(urlValue: urlRequest, requestBody: params))!
-        NetWorkManger.sharedInstance.postData(request: setRequest, resultType: LoginDataModel.self) { (restValue, result, error) in
+        NetWorkManger.sharedInstance.postData(request: setRequest, resultType: SignUpDataModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{
                 self.getSignUpData = result!
@@ -116,28 +116,26 @@ class UserAuthModel: ObservableObject {
         }
         
     }
-    func loginApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String , completionHandler : @escaping((LoginDataModel) -> Void) ){
+    func loginApi(mobno: String,password :  String , loginMethod : String , completionHandler : @escaping((LoginDataModel) -> Void) ){
   //      func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String){
         let params : [String : String]?
       params = [
         "mble_num": mobno,
-        "email": emailId,
         "password" : password,
-        "user_name": name,
         "sign_up_type" : loginMethod
       ]
        
-        let urlRequest = "http://202.83.31.153:8075/KFE_Android/save_user_details.php?"
+        let urlRequest = APIList().getUrlString(url : .LOGIN)
         let setRequest = (try?  RequestGenerator.sharedInstance.generateURLRequest(urlValue: urlRequest, requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: setRequest, resultType: LoginDataModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
-            if restValue == true{
-                self.getSignUpData = result!
-                completionHandler(result!)
-                   // self.delegate?.diReciveWalletBalance(data: result!)
-            }else{
-              //  self.delegate?.didFailWithError(error: String(error?.localizedDescription ?? ""))
-            }
+                if restValue == true{
+                    completionHandler(result!)
+                }else{
+                    
+                }
+               
+           
             }
         }
         

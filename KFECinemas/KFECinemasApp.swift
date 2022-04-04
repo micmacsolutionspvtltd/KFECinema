@@ -18,6 +18,17 @@ struct KFECinemasApp: App {
  
         WindowGroup {
             LoginView().environmentObject(LoginView_Previews.order)
+//            if StorageManager.sharedInstance.getLoginCompleted() == true{
+//               // NavigationView{
+//                    LoginView().environmentObject(LoginView_Previews.order)
+//               // }
+//
+//            }else{
+//                NavigationView{
+//                    Dashboard()
+//                }
+//            }
+           
         }
     }
 }
