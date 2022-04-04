@@ -639,6 +639,8 @@ struct Constants {
         static let productStandQuantity = "productStandQuantity"
         static let shippingCharges = "shippingCharges"
         static let pincode = "Pincode"
+        static let userId = "userId"
+
     }
     
    

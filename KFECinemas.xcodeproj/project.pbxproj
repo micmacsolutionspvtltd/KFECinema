@@ -24,6 +24,7 @@
 		0CF1C93827F9681600D87F5C /* OfferCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C93727F9681600D87F5C /* OfferCell.swift */; };
 		0CF1C94827F9EF5B00D87F5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C94727F9EF5B00D87F5C /* NetworkManager.swift */; };
 		0CF1C94A27F9EF7500D87F5C /* RequestGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C94927F9EF7500D87F5C /* RequestGenerator.swift */; };
+		0CF1C94D27F9F99300D87F5C /* ApiList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C94C27F9F99300D87F5C /* ApiList.swift */; };
 		D345A43827E3BC2D00D1D5AD /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43727E3BC2D00D1D5AD /* GoogleSignIn */; };
 		D345A43B27E3BC7600D1D5AD /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43A27E3BC7600D1D5AD /* FacebookCore */; };
 		D345A43D27E3BC7600D1D5AD /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43C27E3BC7600D1D5AD /* FacebookLogin */; };
@@ -71,6 +72,7 @@
 		0CF1C93727F9681600D87F5C /* OfferCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferCell.swift; sourceTree = "<group>"; };
 		0CF1C94727F9EF5B00D87F5C /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0CF1C94927F9EF7500D87F5C /* RequestGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestGenerator.swift; sourceTree = "<group>"; };
+		0CF1C94C27F9F99300D87F5C /* ApiList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiList.swift; sourceTree = "<group>"; };
 		D345A43E27E4CBE200D1D5AD /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		D345A44027E4E08100D1D5AD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D345A44C27E50C6700D1D5AD /* GenericResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			children = (
 				D3CC71A727E8F93F00C33787 /* ConfigurationManager.swift */,
 				D3CC71A827E8F93F00C33787 /* Configuration.swift */,
+				0CF1C94C27F9F99300D87F5C /* ApiList.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -429,6 +432,8 @@
 				0CE7B2BF27B7E7880021DF8D /* KFECinemasApp.swift in Sources */,
 				0CF1C93027F641DF00D87F5C /* CartPageView.swift in Sources */,
 				D345A44127E4E08100D1D5AD /* Constants.swift in Sources */,
+				0CF1C94D27F9F99300D87F5C /* ApiList.swift in Sources */,
+				D3D74D0F27F4DC350076A506 /* CartView.swift in Sources */,
 				D3B1046D27F2444A00A55E89 /* MovieCardView.swift in Sources */,
 				D3FF143E27F6433000EE2E4F /* MovieView.swift in Sources */,
 				0CF1C94A27F9EF7500D87F5C /* RequestGenerator.swift in Sources */,

@@ -11,6 +11,20 @@ import Foundation
 class StorageManager {
     static let sharedInstance = StorageManager()
     
+    func setLoginCompleted(state:Bool){
+        UserDefaults.standard.set(state, forKey: Constants.demoScreenShown)
+    }
+    func getLoginCompleted()->Bool {
+      return  UserDefaults.standard.bool(forKey: Constants.demoScreenShown)
+    }
+    
+    func storeUserId(id:String){
+        UserDefaults.standard.set(id, forKey: Constants.UserDefaultkeys.userId)
+    }
+    
+    func getUserId()->String?{
+        return UserDefaults.standard.string(forKey: Constants.UserDefaultkeys.userId)
+    }
     
     func storeMobileNumber(mobile:String){
         UserDefaults.standard.set(mobile, forKey: Constants.StorageKeys.mobileNumber)
@@ -30,12 +44,7 @@ class StorageManager {
         return name
 
     }
-    func storeDemoCompleted(state:Bool){
-        UserDefaults.standard.set(state, forKey: Constants.demoScreenShown)
-    }
-    func isDemoCompleted()->Bool {
-      return  UserDefaults.standard.bool(forKey: Constants.demoScreenShown)
-    }
+   
     func storeUserDetails(dict:[String:Any]){
         UserDefaults.standard.set(dict, forKey: Constants.UserDefaultkeys.userDetails)
     }

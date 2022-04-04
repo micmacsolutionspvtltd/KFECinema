@@ -230,7 +230,7 @@ struct CartPageView: View {
 
 struct CartPageView_Previews: PreviewProvider {
     static var previews: some View {
-        CartView()
+        CartPageView()
             .background(Color.black)
     }
 }
