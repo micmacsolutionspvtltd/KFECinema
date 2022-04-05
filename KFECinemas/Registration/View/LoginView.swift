@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var showPassword = false
     @State var moveDashBoardPage : Bool = false
     @EnvironmentObject var viewModel: UserAuthModel
+    @EnvironmentObject var storageSettings:StorageSettings
    
     var body: some View {
         GeometryReader { geometry in
@@ -34,12 +35,12 @@ struct LoginView: View {
                                     .placeholder(when: password.isEmpty) {
                                         Text("Enter your password").foregroundColor(.white).opacity(0.4)
                                 
-                            }
+                                    }.foregroundColor(.white)
                             }else{
                                 SecureField("", text: $password)
                                     .placeholder(when: password.isEmpty) {
                                         Text("Enter your password").foregroundColor(.white).opacity(0.4)
-                                    }
+                                    }.foregroundColor(.white)
 //                                SecureField("Enter your password", text: $password)
                                 
                             }
@@ -56,24 +57,32 @@ struct LoginView: View {
                             
                         }.padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
-                    Button{
-                        viewModel.loginApi(mobno: mobileNumber, password: password, loginMethod: "1") { result in
-                            if result.status == 1{
-                                StorageManager.sharedInstance.setLoginCompleted(state: true)
-                                StorageManager.sharedInstance.storeUserId(id: result.data?[0].id ?? "")
-                                moveDashBoardPage = true
-                            }else{
-                                
+                    
+                    NavigationLink(destination: Dashboard(), isActive: $moveDashBoardPage){
+                        Button{
+                            viewModel.loginApi(mobno: mobileNumber, password: password, loginMethod: "1") { result in
+                                if result.status == 1{
+                                    storageSettings.userId = result.data?[0].id ?? ""
+                                    storageSettings.userName = result.data?[0].userName ?? ""
+                                    storageSettings.emailAddress = result.data?[0].email ?? ""
+                                    storageSettings.mobileNumber = result.data?[0].mbleNum ?? ""
+                                    StorageManager.sharedInstance.setLoginCompleted(state: true)
+                                    StorageManager.sharedInstance.storeUserId(id: result.data?[0].id ?? "")
+                                    moveDashBoardPage = true
+                                }else{
+                                    
+                                }
                             }
-                        }
-                    }label: {
-                        Text("SIGNIN")
-                                .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
-                                .frame(minWidth: geometry.size.width * 0.9)
-                                .foregroundColor(Color.white)
-                                .background(Color.red)
-                                .cornerRadius(.infinity)
-                    }.padding(.top , 15.0)
+                        }label: {
+                            Text("SIGNIN")
+                                    .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
+                                    .frame(minWidth: geometry.size.width * 0.9)
+                                    .foregroundColor(Color.white)
+                                    .background(Color.red)
+                                    .cornerRadius(.infinity)
+                        }.padding(.top , 15.0)
+                    }
+                   
 //                    NavigationLink(destination: Dashboard()){
 //                    Text("SIGNIN")
 //                            .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
@@ -151,9 +160,7 @@ struct LoginView: View {
                 }.padding(.bottom, 30.0)
             }.background(Color.black)
                     .navigationBarHidden(true)
-                NavigationLink(destination: Dashboard(), isActive: $moveDashBoardPage){
-                    Dashboard()
-                }
+               
         }
         }
     }

@@ -122,7 +122,7 @@ class UserAuthModel: ObservableObject {
       params = [
         "mble_num": mobno,
         "password" : password,
-        "sign_up_type" : loginMethod
+        "sign_in_type" : loginMethod
       ]
        
         let urlRequest = APIList().getUrlString(url : .LOGIN)
