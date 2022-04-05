@@ -13,11 +13,20 @@ import FBSDKCoreKit
 @main
 struct KFECinemasApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    @ObservedObject var storageSettings = StorageSettings()
+    
     var body: some Scene {
  
         WindowGroup {
-            LoginView().environmentObject(LoginView_Previews.order)
+            
+            NavigationView{
+                if storageSettings.userId != "" {
+                    Dashboard()
+                }else{
+                    LoginView()
+                }
+            }.environmentObject(storageSettings).environmentObject(UserAuthModel())
+            
 //            if StorageManager.sharedInstance.getLoginCompleted() == true{
 //               // NavigationView{
 //                    LoginView().environmentObject(LoginView_Previews.order)
