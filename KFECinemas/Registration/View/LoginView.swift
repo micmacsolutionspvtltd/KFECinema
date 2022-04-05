@@ -73,16 +73,7 @@ struct LoginView: View {
                                 .foregroundColor(Color.white)
                                 .background(Color.red)
                                 .cornerRadius(.infinity)
-                    }.padding(.top , 15.0)
-//                    NavigationLink(destination: Dashboard()){
-//                    Text("SIGNIN")
-//                            .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
-//                            .frame(minWidth: geometry.size.width * 0.9)
-//                            .foregroundColor(Color.white)
-//                            .background(Color.red)
-//                            .cornerRadius(.infinity)
-//                    }.padding(.top , 15.0)
-                    
+                    }.padding(.top , 15.0)                    
                     Text("OR").font(.system(size: 25)).fontWeight(.bold).foregroundColor(Color.white)
                 }
                 Button(action: {
