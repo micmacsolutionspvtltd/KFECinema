@@ -17,7 +17,6 @@ struct Dashboard: View {
            MovieModel(name: "Naruto"),
            MovieModel(name: "Minato"),
        ]
-    
     let movieNotes = [
         MoviesModel(imageName: "food1"),
         MoviesModel(imageName: "food2"),
@@ -43,6 +42,8 @@ struct Dashboard: View {
                             ScrollView(.horizontal) {
                                 LazyHStack {
                                     ForEach(movieNotes, id: \.id) { note in
+                                        
+//                                        CustomImageView(withURL: <#T##String#>)
                                         Image(note.imageName).resizable().frame(width:UIScreen.main.bounds.size.width,height: 200)
                                     }
                                 }
@@ -94,6 +95,8 @@ struct Dashboard: View {
     //                        MovieCardView(model: movie)
     //            }
                
+            }.onAppear(){
+                
             }.background(Color("ColorAppGrey"))
             SideMenu(width:UIScreen.main.bounds.size.width - 50,
                                 isOpen: self.menuOpen,
