@@ -66,8 +66,7 @@ struct LoginView: View {
                                     storageSettings.userName = result.data?[0].userName ?? ""
                                     storageSettings.emailAddress = result.data?[0].email ?? ""
                                     storageSettings.mobileNumber = result.data?[0].mbleNum ?? ""
-                                    StorageManager.sharedInstance.setLoginCompleted(state: true)
-                                    StorageManager.sharedInstance.storeUserId(id: result.data?[0].id ?? "")
+                                
                                     moveDashBoardPage = true
                                 }else{
                                     
@@ -91,7 +90,6 @@ struct LoginView: View {
 //                            .background(Color.red)
 //                            .cornerRadius(.infinity)
 //                    }.padding(.top , 15.0)
-                    
                     Text("OR").font(.system(size: 25)).fontWeight(.bold).foregroundColor(Color.white)
                 }
                 Button(action: {

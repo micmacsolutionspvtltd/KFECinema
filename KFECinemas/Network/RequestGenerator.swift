@@ -29,7 +29,7 @@ class RequestGenerator: NSObject {
       
 
 //        urlRequest.httpBody = requestBodyValue
-   //     urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("text/html; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         
         urlRequest.httpMethod = "post"
         urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")

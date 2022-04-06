@@ -42,7 +42,7 @@ class NetWorkManger
         URLSession.shared.dataTask(with: request) { data, response, error in
             if(error == nil && data != nil) {
                 do{
-                    let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let json = try JSONSerialization.jsonObject(with: data!, options: [.allowFragments])
                     debugPrint("----- Response ----- " ,json)
                     let response = try JSONDecoder().decode(resultType.self, from: data!)
                     completionHandler(true,response,nil)
