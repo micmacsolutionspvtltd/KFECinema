@@ -10,6 +10,8 @@
 		0C2C8C8027EF059200418F99 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C2C8C7F27EF059200418F99 /* Launch Screen.storyboard */; };
 		0C2C8C8327F238CD00418F99 /* SpiceKitchenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8C8227F238CD00418F99 /* SpiceKitchenView.swift */; };
 		0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8C8427F249B600418F99 /* DishViewCell.swift */; };
+		0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */; };
+		0C836F8627FD6E560094EC0D /* ApiFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8527FD6E560094EC0D /* ApiFactory.swift */; };
 		0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5627BED41B00DC7386 /* LoginView.swift */; };
 		0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5827BED42900DC7386 /* LoginViewModel.swift */; };
 		0C9CBE5B27BED43200DC7386 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5A27BED43200DC7386 /* LoginModel.swift */; };
@@ -43,7 +45,6 @@
 		D3CC71AA27E8F93F00C33787 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71A827E8F93F00C33787 /* Configuration.swift */; };
 		D3CC71B527E8F9C900C33787 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71AC27E8F9C900C33787 /* Constant.swift */; };
 		D3CC71B627E8F9C900C33787 /* GTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71AD27E8F9C900C33787 /* GTViewController.swift */; };
-		D3CC71B727E8F9C900C33787 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71AE27E8F9C900C33787 /* StorageManager.swift */; };
 		D3CC71B827E8F9C900C33787 /* commonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71AF27E8F9C900C33787 /* commonExtensions.swift */; };
 		D3CC71B927E8F9C900C33787 /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B027E8F9C900C33787 /* ApiKeys.swift */; };
 		D3CC71BA27E8F9C900C33787 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71B127E8F9C900C33787 /* Common.swift */; };
@@ -59,6 +60,8 @@
 		0C2C8C7F27EF059200418F99 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0C2C8C8227F238CD00418F99 /* SpiceKitchenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceKitchenView.swift; sourceTree = "<group>"; };
 		0C2C8C8427F249B600418F99 /* DishViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewCell.swift; sourceTree = "<group>"; };
+		0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
+		0C836F8527FD6E560094EC0D /* ApiFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFactory.swift; sourceTree = "<group>"; };
 		0C9CBE5627BED41B00DC7386 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0C9CBE5827BED42900DC7386 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0C9CBE5A27BED43200DC7386 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
@@ -91,7 +94,6 @@
 		D3CC71A827E8F93F00C33787 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D3CC71AC27E8F9C900C33787 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		D3CC71AD27E8F9C900C33787 /* GTViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTViewController.swift; sourceTree = "<group>"; };
-		D3CC71AE27E8F9C900C33787 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		D3CC71AF27E8F9C900C33787 /* commonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commonExtensions.swift; sourceTree = "<group>"; };
 		D3CC71B027E8F9C900C33787 /* ApiKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 		D3CC71B127E8F9C900C33787 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				D345A44C27E50C6700D1D5AD /* GenericResponse.swift */,
 				D345A44D27E50C6700D1D5AD /* NetworkError.swift */,
 				D345A44E27E50C6700D1D5AD /* Endpoint.swift */,
+				0C836F8527FD6E560094EC0D /* ApiFactory.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -273,7 +276,6 @@
 			children = (
 				D3CC71AC27E8F9C900C33787 /* Constant.swift */,
 				D3CC71AD27E8F9C900C33787 /* GTViewController.swift */,
-				D3CC71AE27E8F9C900C33787 /* StorageManager.swift */,
 				D3CC71AF27E8F9C900C33787 /* commonExtensions.swift */,
 				D3CC71B027E8F9C900C33787 /* ApiKeys.swift */,
 				D3CC71B127E8F9C900C33787 /* Common.swift */,
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				0C9CBE5A27BED43200DC7386 /* LoginModel.swift */,
+				0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 			packageReferences = (
 				D345A43627E3BC2D00D1D5AD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D345A43927E3BC7600D1D5AD /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				0C836F8227FCC64F0094EC0D /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 0CE7B2BC27B7E7880021DF8D /* Products */;
 			projectDirPath = "";
@@ -408,7 +412,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3CC71B727E8F9C900C33787 /* StorageManager.swift in Sources */,
 				D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */,
 				D35B1D6927F960FA007D312C /* MovieDetailView.swift in Sources */,
 				D35B1D6727F727EB007D312C /* MoviesListView.swift in Sources */,
@@ -429,8 +432,10 @@
 				D3CC71BC27E8F9C900C33787 /* Util.swift in Sources */,
 				0CF1C94827F9EF5B00D87F5C /* NetworkManager.swift in Sources */,
 				D3B6931527F62E1F006A1907 /* FoodCardView.swift in Sources */,
+				0C836F8627FD6E560094EC0D /* ApiFactory.swift in Sources */,
 				D3DC9C9627F2340600BEE17F /* Dashboard.swift in Sources */,
 				D38A8E8B27FCB41200B26340 /* ImageLoader.swift in Sources */,
+				0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */,
 				0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */,
 				0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */,
 				0CE7B2C127B7E7880021DF8D /* ContentView.swift in Sources */,
@@ -656,6 +661,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0C836F8227FCC64F0094EC0D /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D345A43627E3BC2D00D1D5AD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
