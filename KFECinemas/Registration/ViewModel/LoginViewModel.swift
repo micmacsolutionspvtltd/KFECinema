@@ -102,7 +102,7 @@ class UserAuthModel: ObservableObject {
       ]
        
         let urlRequest = APIList().getUrlString(url : .SIGNUP)
-        let setRequest = (try?  RequestGenerator.sharedInstance.generateURLRequest(urlValue: urlRequest, requestBody: params))!
+        let setRequest = (try?  RequestGenerator.sharedInstance.generateURLRequest(urlValue:urlRequest, requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: setRequest, resultType: SignUpDataModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{

@@ -22,7 +22,32 @@ class RequestGenerator: NSObject {
 
         }
         print(requestBodyValue)
-       var urlComponents = URLComponents(string: urlValue)
+        var urlComponents = URLComponents(string: urlValue)
+        urlComponents?.queryItems = requestBodyValue
+     
+        var urlRequest = URLRequest(url: urlComponents!.url!)
+      
+
+//        urlRequest.httpBody = requestBodyValue
+        urlRequest.setValue("text/html; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        
+        urlRequest.httpMethod = "post"
+        urlRequest.addValue("application/json", forHTTPHeaderField: "content-type")
+        return urlRequest
+    }
+    
+    func generateURLRequestTypeTwo(endpoint: Endpoint, requestBody: [String:String]? = [:],queryItem:[URLQueryItem]? = []) throws -> URLRequest {
+        print("URL = ",endpoint)
+        var requestBodyValue:[URLQueryItem] = []
+        print("Parameter = ",requestBody ?? ["":""])
+        if let requestBodyVal = requestBody {
+            for value in requestBodyVal {
+                requestBodyValue.append(URLQueryItem(name: value.key, value: value.value))
+            }
+
+        }
+        print(requestBodyValue)
+        var urlComponents = URLComponents(string: endpoint.url)
         urlComponents?.queryItems = requestBodyValue
      
         var urlRequest = URLRequest(url: urlComponents!.url!)

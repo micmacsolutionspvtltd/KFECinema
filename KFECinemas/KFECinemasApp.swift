@@ -25,7 +25,7 @@ struct KFECinemasApp: App {
                 }else{
                     LoginView()
                 }
-            }.environmentObject(storageSettings).environmentObject(UserAuthModel())
+            }.environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices())
             
 //            if StorageManager.sharedInstance.getLoginCompleted() == true{
 //               // NavigationView{

@@ -24,7 +24,7 @@ struct Dashboard: View {
         MoviesModel(imageName: "food4")
     
     ]
-    
+    @EnvironmentObject var dashboardServices:DashboardServices
 //    @State var showMenu : Bool = false
 //    @State var offset : CGFloat = 0
 //    @State var lastOffset : CGFloat = 0
@@ -41,13 +41,17 @@ struct Dashboard: View {
                 ScrollViewReader { scrollView in
                             ScrollView(.horizontal) {
                                 LazyHStack {
-                                    ForEach(movieNotes, id: \.id) { note in
-                                        
-//                                        CustomImageView(withURL: <#T##String#>)
-                                        Image(note.imageName).resizable().frame(width:UIScreen.main.bounds.size.width,height: 200)
+                                    ForEach(dashboardServices.bannerImages, id: \.id) { banner in
+                                        var bannerModel:BannerModel = banner
+                                        let url = Endpoint.bannerImages.url + bannerModel.imageURL
+                                        CustomImageView(withURL: url)
+                                    
                                     }
                                 }
                                 .onAppear {
+                                    dashboardServices.getAllBannerImages { model in
+                                        print(model)
+                                    }
                                     scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
                                 }
                             }

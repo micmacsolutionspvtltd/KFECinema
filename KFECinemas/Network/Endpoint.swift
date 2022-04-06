@@ -11,8 +11,8 @@ import SystemConfiguration
 
 
 
-var urlType1 = "http://202.83.31.153:8075/"
-var urlType2 = "http://202.83.31.153:8077/"
+var urlType1 = "http://202.83.31.153:8075"
+var urlType2 = "http://202.83.31.153:8077"
 
 enum HTTPMethod: String {
     case get = "GET"
@@ -54,8 +54,8 @@ enum Endpoint {
     case allShowsByFilm
     case dev
     
-    var url: (_ config: Configuration) -> String {
-        return { return $0.baseURL + "/" + self.path }
+    var url:String {
+        return tempUrl + "/" + self.path
     }
     
     var tempUrl:String {

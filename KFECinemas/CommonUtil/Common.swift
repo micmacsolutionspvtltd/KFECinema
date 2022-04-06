@@ -76,55 +76,6 @@ class Common {
     
 }
     
-    func getUserId()-> String? {
-        guard let userDetails = StorageManager.sharedInstance.fetchUserDetails()  else {
-            return nil
-        }
-        
-        if Constants.isTestingEnabled {
-            return "2160"
-        }else {
-            guard let id = userDetails[Constants.UserDetailsKeys.userId] as? Int else {
-                return nil
-            }
-            return "\(id)"
-        }
-    }
-    
-    func getMobileNumber()->String {
-        guard let userDetails = StorageManager.sharedInstance.fetchUserDetails()  else {
-            return ""
-        }
-        
-        if Constants.isTestingEnabled {
-            return "8248350384"
-        }else {
-            guard let id = userDetails[Constants.UserDetailsKeys.mobileNumber] as? String else {
-                return ""
-            }
-            return id
-        }
-    }
-    
-    func getAccessToken()->String {
-         guard let userDetails = StorageManager.sharedInstance.fetchUserDetails()  else {
-             return ""
-         }
-        
-        if let merchantId = userDetails[Constants.UserDetailsKeys.accessToken] as? String  {
-            return merchantId
-        }
-    
-        return ""
-    }
-    
-   func getUserName()->String {
-        guard let userDetails = StorageManager.sharedInstance.fetchUserDetails()  else {
-            return ""
-        }
-       return userDetails[Constants.UserDetailsKeys.userName] as! String
-   }
-    
     
 //    func updateUserLocation(locationDetails:[String:Any],onCompletion:@escaping (Bool,AddressModel?,Error?)->Void){
 //        let urlRequest = (try? RequestGenerator.sharedInstance.generateURLRequest(endpoint: .updateUserLocation,requestBody : locationDetails))!
