@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SpiceKitchenView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @State var getFoodListData : FoodListModel?
+    @ObservedObject var viewModel = FoodListViewModel()
     var body: some View {
         GeometryReader { geometry in
           //  ScrollView {
@@ -84,9 +86,10 @@ struct SpiceKitchenView: View {
                     }
                     if #available(iOS 14.0, *) {
                         List{
-                            Section(header : Text("Bakery Products")) {
-                                ForEach(0..<5){_ in
-                                    DishViewCell()
+                            ForEach(viewModel.getSpiceKitcehnGetData , id :\.self){ sectionData in
+                                Section(header : Text(sectionData.subCatName ?? "")) {
+                                    ForEach(sectionData.itemsInfo ?? [] , id : \.self){ rowData in
+                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "")
                                         .frame(width: geometry.size.width*0.65,height: 100)
                                         .padding()
                                         .padding([.leading,.trailing],25)
@@ -94,6 +97,7 @@ struct SpiceKitchenView: View {
                                         .cornerRadius(10)
                                 }
                             }//.background(Color.black)
+                        }
                         }.listStyle(.sidebar)
                        
                             .background(Color.black)
@@ -137,7 +141,12 @@ struct SpiceKitchenView: View {
             .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
                 .background(Color.black)
-
+                .onAppear(){
+                    viewModel.fooddListValueShowApi { result in
+                        getFoodListData = result
+                    }
+                    viewModel.spiceKitchenValueGetApi()
+                }
         }
     }
 }

@@ -54,9 +54,9 @@ enum Endpoint {
     case allShowsByFilm
     case dev
     
-    var url: (_ config: Configuration) -> String {
-        return { return $0.baseURL + "/" + self.path }
-    }
+    var url:String {
+            return tempUrl + "/" + self.path
+        }
     
     var tempUrl:String {
         switch self {
@@ -106,7 +106,7 @@ enum Endpoint {
         case .getBannerImages:
             return "KFE_Android/get_banner_images.php/"
         case .getSnacksItemTheatreWise:
-            return "KFE_Android/get_snacks_items_data_theatre_wise.php"
+            return "KFE_Android/get_snacks_items_data_theatre_wise.php?theatre_id=2"
         case .getFoodItemsCategoryWise:
             return "KFE_Android/get_food_items_data_categorywise.php"
         case .getAllFoodBannerImage:

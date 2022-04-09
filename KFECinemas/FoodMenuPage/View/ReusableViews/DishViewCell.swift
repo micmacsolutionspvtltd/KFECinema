@@ -9,16 +9,19 @@ import SwiftUI
 
 struct DishViewCell: View {
   //  var buttonClosure:()->Void
+    var textContent : String?
+    var amount : String?
+    var images : String?
     var body: some View {
         HStack(spacing : 10){
             Image("food1")
                 .resizable()
                 .frame(width: 60, height: 60)
             VStack(alignment: .leading){
-                Text("PopCorn")
+                Text(textContent ?? "")
                     .fontWeight(.bold)
                     .multilineTextAlignment(.leading)
-                Text("$ 35")
+                Text("$ \(amount ?? "")")
                     .fontWeight(.light)
                     .multilineTextAlignment(.leading)
             }.frame(width: 100)

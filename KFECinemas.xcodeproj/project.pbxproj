@@ -12,6 +12,9 @@
 		0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8C8427F249B600418F99 /* DishViewCell.swift */; };
 		0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */; };
 		0C836F8627FD6E560094EC0D /* ApiFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8527FD6E560094EC0D /* ApiFactory.swift */; };
+		0C836F8B27FE1C570094EC0D /* FoodListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8A27FE1C570094EC0D /* FoodListModel.swift */; };
+		0C836F8D27FE1E0A0094EC0D /* FoodListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8C27FE1E0A0094EC0D /* FoodListViewModel.swift */; };
+		0C836F8F27FE2B4B0094EC0D /* SpiceKitchenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8E27FE2B4B0094EC0D /* SpiceKitchenModel.swift */; };
 		0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5627BED41B00DC7386 /* LoginView.swift */; };
 		0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5827BED42900DC7386 /* LoginViewModel.swift */; };
 		0C9CBE5B27BED43200DC7386 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5A27BED43200DC7386 /* LoginModel.swift */; };
@@ -62,6 +65,9 @@
 		0C2C8C8427F249B600418F99 /* DishViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewCell.swift; sourceTree = "<group>"; };
 		0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
 		0C836F8527FD6E560094EC0D /* ApiFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFactory.swift; sourceTree = "<group>"; };
+		0C836F8A27FE1C570094EC0D /* FoodListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListModel.swift; sourceTree = "<group>"; };
+		0C836F8C27FE1E0A0094EC0D /* FoodListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListViewModel.swift; sourceTree = "<group>"; };
+		0C836F8E27FE2B4B0094EC0D /* SpiceKitchenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceKitchenModel.swift; sourceTree = "<group>"; };
 		0C9CBE5627BED41B00DC7386 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0C9CBE5827BED42900DC7386 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0C9CBE5A27BED43200DC7386 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
@@ -122,9 +128,35 @@
 		0C2C8C8127F238A900418F99 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				0CF1C92D27F632C300D87F5C /* View */,
 			);
 			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		0C836F8727FE1BE40094EC0D /* FoodMenuPage */ = {
+			isa = PBXGroup;
+			children = (
+				0C836F8927FE1C0A0094EC0D /* ViewModel */,
+				0C836F8827FE1BFF0094EC0D /* Model */,
+				0CF1C92D27F632C300D87F5C /* View */,
+			);
+			path = FoodMenuPage;
+			sourceTree = "<group>";
+		};
+		0C836F8827FE1BFF0094EC0D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0C836F8A27FE1C570094EC0D /* FoodListModel.swift */,
+				0C836F8E27FE2B4B0094EC0D /* SpiceKitchenModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0C836F8927FE1C0A0094EC0D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C836F8C27FE1E0A0094EC0D /* FoodListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		0C9CBE5527BED3FD00DC7386 /* Registration */ = {
@@ -158,11 +190,11 @@
 			children = (
 				D38C5FE727E10B24006DD708 /* Info.plist */,
 				D345A44027E4E08100D1D5AD /* Constants.swift */,
+				0C836F8727FE1BE40094EC0D /* FoodMenuPage */,
 				D3CC71AB27E8F9C900C33787 /* CommonUtil */,
 				D3CC71A627E8F93F00C33787 /* Configuration */,
 				D345A44A27E50C6700D1D5AD /* Network */,
 				0C9CBE5527BED3FD00DC7386 /* Registration */,
-				D3D74D0D27F4DC200076A506 /* Payment */,
 				0CF1C93927F972CC00D87F5C /* CartPage */,
 				D3CC71BE27EA3CEF00C33787 /* Home */,
 				D35B1D6527F727C8007D312C /* Movie */,
@@ -324,13 +356,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		D3D74D0D27F4DC200076A506 /* Payment */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Payment;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -413,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */,
+				0C836F8F27FE2B4B0094EC0D /* SpiceKitchenModel.swift in Sources */,
 				D35B1D6927F960FA007D312C /* MovieDetailView.swift in Sources */,
 				D35B1D6727F727EB007D312C /* MoviesListView.swift in Sources */,
 				0CF1C93427F796E600D87F5C /* CartItemContentView.swift in Sources */,
@@ -425,6 +451,7 @@
 				0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */,
 				0CF1C93227F6467B00D87F5C /* CartAddItemCell.swift in Sources */,
 				D345A43F27E4CBE200D1D5AD /* SignupView.swift in Sources */,
+				0C836F8B27FE1C570094EC0D /* FoodListModel.swift in Sources */,
 				D3CC71BA27E8F9C900C33787 /* Common.swift in Sources */,
 				0C9CBE5B27BED43200DC7386 /* LoginModel.swift in Sources */,
 				D3CC71B927E8F9C900C33787 /* ApiKeys.swift in Sources */,
@@ -436,6 +463,7 @@
 				D3DC9C9627F2340600BEE17F /* Dashboard.swift in Sources */,
 				D38A8E8B27FCB41200B26340 /* ImageLoader.swift in Sources */,
 				0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */,
+				0C836F8D27FE1E0A0094EC0D /* FoodListViewModel.swift in Sources */,
 				0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */,
 				0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */,
 				0CE7B2C127B7E7880021DF8D /* ContentView.swift in Sources */,
