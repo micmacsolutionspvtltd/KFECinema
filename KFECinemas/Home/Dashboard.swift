@@ -25,6 +25,7 @@ struct Dashboard: View {
     
     ]
     @EnvironmentObject var dashboardServices:DashboardServices
+   
 //    @State var showMenu : Bool = false
 //    @State var offset : CGFloat = 0
 //    @State var lastOffset : CGFloat = 0
@@ -42,17 +43,15 @@ struct Dashboard: View {
                             ScrollView(.horizontal) {
                                 LazyHStack {
                                     ForEach(dashboardServices.bannerImages, id: \.id) { banner in
-                                        var bannerModel:BannerModel = banner
+                                        let bannerModel:BannerModel = banner
                                         let url = Endpoint.bannerImages.url + bannerModel.imageURL
-                                        CustomImageView(withURL: url)
+                                        BannerImageView(withURL: url)
                                     
                                     }
                                 }
                                 .onAppear {
-                                    dashboardServices.getAllBannerImages { model in
-                                        print(model)
-                                    }
-                                    scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
+                                    dashboardServices.getAllBannerImages()
+                                   // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
                                 }
                             }
                         }
@@ -63,7 +62,7 @@ struct Dashboard: View {
                 }.padding(.leading,5)
                 ScrollView(.horizontal) {
                     HStack (spacing:30){
-                            ForEach(movies, id: \.id) { movie in
+                            ForEach(dashboardServices.allFilms, id: \.id) { movie in
                                 
                             
                                 MovieCardView(model: movie).frame(width: 150, height: 250)
@@ -73,17 +72,17 @@ struct Dashboard: View {
                 TableHeaderView(title: "Spice Kitchen")
                 ScrollView(.horizontal) {
                     HStack (spacing:20){
-                            ForEach(movies, id: \.id) { movie in
-                                FoodCardView(model: movie).frame(width: 140, height: 220)
+                        ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
+                            SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
                                 }
                     }
                 }.padding(.leading,5)
                 TableHeaderView(title: "Concession Zone")
                 ScrollView(.horizontal) {
                     HStack (spacing:20){
-                        ForEach(movies, id: \.id) { movie in
-                            FoodCardView(model: movie).frame(width: 140, height: 220)
-                            }
+                        ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
+                            ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                }
                     }
                 }.padding(.leading,5)
                 TableHeaderView(title: "Theatres")
@@ -105,6 +104,12 @@ struct Dashboard: View {
             SideMenu(width:UIScreen.main.bounds.size.width - 50,
                                 isOpen: self.menuOpen,
                                 menuClose: self.openMenu)
+        }.onAppear {
+            dashboardServices.getAllBannerImages()
+            dashboardServices.getAllFilms()
+            dashboardServices.getAllSpiceKitchenItems()
+            dashboardServices.getConcessionZoneItems()
+           // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
         }.navigationBarHidden(true)
     }
     

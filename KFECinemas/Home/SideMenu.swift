@@ -67,6 +67,7 @@ struct SideMenu: View {
     @ViewBuilder
     func TabButton(type:SideMenuType) -> some View{
         NavigationLink{
+
             switch type {
             case .home:
                  Dashboard()

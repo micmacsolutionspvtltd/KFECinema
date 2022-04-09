@@ -18,6 +18,10 @@
 		0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5627BED41B00DC7386 /* LoginView.swift */; };
 		0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5827BED42900DC7386 /* LoginViewModel.swift */; };
 		0C9CBE5B27BED43200DC7386 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CBE5A27BED43200DC7386 /* LoginModel.swift */; };
+		0CA478F62801A3FD000B5C57 /* AllFilmsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA478F52801A3FD000B5C57 /* AllFilmsResponse.swift */; };
+		0CA478F82801C41A000B5C57 /* SpiceKitchenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA478F72801C41A000B5C57 /* SpiceKitchenResponse.swift */; };
+		0CA478FA2801E4B2000B5C57 /* ConcessionZoneCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA478F92801E4B2000B5C57 /* ConcessionZoneCardView.swift */; };
+		0CA478FC2801E68B000B5C57 /* ConcessionZoneResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA478FB2801E68B000B5C57 /* ConcessionZoneResponse.swift */; };
 		0CE7B2BF27B7E7880021DF8D /* KFECinemasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7B2BE27B7E7880021DF8D /* KFECinemasApp.swift */; };
 		0CE7B2C127B7E7880021DF8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7B2C027B7E7880021DF8D /* ContentView.swift */; };
 		0CE7B2C327B7E78C0021DF8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE7B2C227B7E78C0021DF8D /* Assets.xcassets */; };
@@ -46,7 +50,7 @@
 		D38A8E9027FE0F3D00B26340 /* DashboardServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38A8E8F27FE0F3D00B26340 /* DashboardServices.swift */; };
 		D38A8E9327FE14D000B26340 /* BannerImagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38A8E9227FE14D000B26340 /* BannerImagesResponse.swift */; };
 		D3B1046D27F2444A00A55E89 /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B1046C27F2444A00A55E89 /* MovieCardView.swift */; };
-		D3B6931527F62E1F006A1907 /* FoodCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B6931427F62E1F006A1907 /* FoodCardView.swift */; };
+		D3B6931527F62E1F006A1907 /* SpiceKitchenCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B6931427F62E1F006A1907 /* SpiceKitchenCardView.swift */; };
 		D3CC71A927E8F93F00C33787 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71A727E8F93F00C33787 /* ConfigurationManager.swift */; };
 		D3CC71AA27E8F93F00C33787 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71A827E8F93F00C33787 /* Configuration.swift */; };
 		D3CC71B527E8F9C900C33787 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CC71AC27E8F9C900C33787 /* Constant.swift */; };
@@ -74,6 +78,10 @@
 		0C9CBE5627BED41B00DC7386 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		0C9CBE5827BED42900DC7386 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0C9CBE5A27BED43200DC7386 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		0CA478F52801A3FD000B5C57 /* AllFilmsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFilmsResponse.swift; sourceTree = "<group>"; };
+		0CA478F72801C41A000B5C57 /* SpiceKitchenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceKitchenResponse.swift; sourceTree = "<group>"; };
+		0CA478F92801E4B2000B5C57 /* ConcessionZoneCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcessionZoneCardView.swift; sourceTree = "<group>"; };
+		0CA478FB2801E68B000B5C57 /* ConcessionZoneResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcessionZoneResponse.swift; sourceTree = "<group>"; };
 		0CE7B2BB27B7E7880021DF8D /* KFECinemas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KFECinemas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE7B2BE27B7E7880021DF8D /* KFECinemasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KFECinemasApp.swift; sourceTree = "<group>"; };
 		0CE7B2C027B7E7880021DF8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,7 +109,7 @@
 		D38A8E9227FE14D000B26340 /* BannerImagesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerImagesResponse.swift; sourceTree = "<group>"; };
 		D38C5FE727E10B24006DD708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D3B1046C27F2444A00A55E89 /* MovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
-		D3B6931427F62E1F006A1907 /* FoodCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCardView.swift; sourceTree = "<group>"; };
+		D3B6931427F62E1F006A1907 /* SpiceKitchenCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceKitchenCardView.swift; sourceTree = "<group>"; };
 		D3CC71A727E8F93F00C33787 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		D3CC71A827E8F93F00C33787 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		D3CC71AC27E8F9C900C33787 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -304,6 +312,9 @@
 			isa = PBXGroup;
 			children = (
 				D38A8E9227FE14D000B26340 /* BannerImagesResponse.swift */,
+				0CA478F52801A3FD000B5C57 /* AllFilmsResponse.swift */,
+				0CA478F72801C41A000B5C57 /* SpiceKitchenResponse.swift */,
+				0CA478FB2801E68B000B5C57 /* ConcessionZoneResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,7 +322,8 @@
 		D3B1046B27F2414000A55E89 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D3B6931427F62E1F006A1907 /* FoodCardView.swift */,
+				D3B6931427F62E1F006A1907 /* SpiceKitchenCardView.swift */,
+				0CA478F92801E4B2000B5C57 /* ConcessionZoneCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -476,16 +488,19 @@
 				D3CC71AA27E8F93F00C33787 /* Configuration.swift in Sources */,
 				0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */,
 				D38A8E9027FE0F3D00B26340 /* DashboardServices.swift in Sources */,
+				0CA478FA2801E4B2000B5C57 /* ConcessionZoneCardView.swift in Sources */,
 				0CF1C93227F6467B00D87F5C /* CartAddItemCell.swift in Sources */,
 				D345A43F27E4CBE200D1D5AD /* SignupView.swift in Sources */,
 				0C836F8B27FE1C570094EC0D /* FoodListModel.swift in Sources */,
 				D3CC71BA27E8F9C900C33787 /* Common.swift in Sources */,
+				0CA478F82801C41A000B5C57 /* SpiceKitchenResponse.swift in Sources */,
 				0C9CBE5B27BED43200DC7386 /* LoginModel.swift in Sources */,
 				D3CC71B927E8F9C900C33787 /* ApiKeys.swift in Sources */,
+				0CA478F62801A3FD000B5C57 /* AllFilmsResponse.swift in Sources */,
 				D3DC9C7027EE4B6900BEE17F /* SideMenu.swift in Sources */,
 				D3CC71BC27E8F9C900C33787 /* Util.swift in Sources */,
 				0CF1C94827F9EF5B00D87F5C /* NetworkManager.swift in Sources */,
-				D3B6931527F62E1F006A1907 /* FoodCardView.swift in Sources */,
+				D3B6931527F62E1F006A1907 /* SpiceKitchenCardView.swift in Sources */,
 				0C836F8627FD6E560094EC0D /* ApiFactory.swift in Sources */,
 				D3DC9C9627F2340600BEE17F /* Dashboard.swift in Sources */,
 				D38A8E8B27FCB41200B26340 /* ImageLoader.swift in Sources */,
@@ -498,6 +513,7 @@
 				D3CC71B627E8F9C900C33787 /* GTViewController.swift in Sources */,
 				0CE7B2BF27B7E7880021DF8D /* KFECinemasApp.swift in Sources */,
 				0CF1C93027F641DF00D87F5C /* CartPageView.swift in Sources */,
+				0CA478FC2801E68B000B5C57 /* ConcessionZoneResponse.swift in Sources */,
 				D345A44127E4E08100D1D5AD /* Constants.swift in Sources */,
 				0CF1C94D27F9F99300D87F5C /* ApiList.swift in Sources */,
 				D3B1046D27F2444A00A55E89 /* MovieCardView.swift in Sources */,

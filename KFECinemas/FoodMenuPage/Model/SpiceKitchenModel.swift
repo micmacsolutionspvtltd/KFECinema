@@ -11,7 +11,7 @@ import Foundation
 
 struct SpiceKitchenModelElement: Codable ,Hashable{
     let subCatID, subCatName: String?
-    let itemsInfo: [SpiceKitchenItemInfo]?
+    let itemsInfo: [ItemInfo]?
 
     enum CodingKeys: String, CodingKey {
         case subCatID = "sub_cat_id"
@@ -19,7 +19,7 @@ struct SpiceKitchenModelElement: Codable ,Hashable{
         case itemsInfo = "items_info"
     }
 }
-struct SpiceKitchenItemInfo: Codable ,Hashable{
+struct ItemInfo: Codable ,Hashable{
     let itemID, id, rihID, itemName: String?
     let itemCode, status, categoryID, subCategoryID: String?
     let price, spiceKitchenModelDescription, image, availability: String?

@@ -25,12 +25,14 @@ struct MovieView: View {
         MoviesModel(imageName: "food4")
     
     ]
+    @EnvironmentObject var dashboardServices:DashboardServices
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         
        return  ScrollView{
            HStack {
                Button(action:{
-                   
+                   presentationMode.wrappedValue.dismiss()
                }){
                    
                    Image(systemName:  "arrow.left").foregroundColor(.white).padding()
@@ -67,7 +69,7 @@ struct MovieView: View {
            }.padding(.leading,5)
            ScrollView(.horizontal) {
                HStack (spacing:30){
-                       ForEach(movies, id: \.id) { movie in
+                       ForEach(dashboardServices.allFilms, id: \.id) { movie in
                            MovieCardView(model: movie).frame(width: 150, height: 250)
                            }
                }
@@ -79,7 +81,9 @@ struct MovieView: View {
            }.padding(.leading,5).background(.black)
            ScrollView(.horizontal) {
                HStack (spacing:30){
-                       ForEach(movies, id: \.id) { movie in
+                       ForEach(dashboardServices.allFilms, id: \.id) { movie in
+                           
+                       
                            MovieCardView(model: movie).frame(width: 150, height: 250)
                            }
                }

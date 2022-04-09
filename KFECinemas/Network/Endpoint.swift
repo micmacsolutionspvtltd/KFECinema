@@ -60,8 +60,8 @@ enum Endpoint {
     
     var tempUrl:String {
         switch self {
-        case .login,.snacksOrderHistory,.foodOrderedHistory,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem: return urlType1
-        case .resetSeats,.foodBannerImages,.bannerImages,.activeTheatres,.allFilms,.productImages,.allFilmsByCinema,.theaterWiseMovie,.setSeats,.allShowsByFilm,.dev: return urlType2
+        case .login,.snacksOrderHistory,.foodOrderedHistory,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem,.bannerImages,.productImages: return urlType1
+        case .resetSeats,.foodBannerImages,.activeTheatres,.allFilms,.allFilmsByCinema,.theaterWiseMovie,.setSeats,.allShowsByFilm,.dev: return urlType2
         }
     }
     
