@@ -11,8 +11,8 @@ import SystemConfiguration
 
 
 
-var urlType1 = "http://202.83.31.153:8075/"
-var urlType2 = "http://202.83.31.153:8077/"
+var urlType1 = "http://202.83.31.153:8075"
+var urlType2 = "http://202.83.31.153:8077"
 
 enum HTTPMethod: String {
     case get = "GET"
@@ -55,8 +55,8 @@ enum Endpoint {
     case dev
     
     var url:String {
-            return tempUrl + "/" + self.path
-        }
+        return tempUrl + "/" + self.path
+    }
     
     var tempUrl:String {
         switch self {

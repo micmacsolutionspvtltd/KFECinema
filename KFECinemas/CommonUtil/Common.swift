@@ -76,20 +76,7 @@ class Common {
     
 }
     
-//    func getUserId()-> String? {
-//        guard let userDetails = StorageManager.sharedInstance.fetchUserDetails()  else {
-//            return nil
-//        }
-//        
-//        if Constants.isTestingEnabled {
-//            return "2160"
-//        }else {
-//            guard let id = userDetails[Constants.UserDetailsKeys.userId] as? Int else {
-//                return nil
-//            }
-//            return "\(id)"
-//        }
-//    }
+
     
 //    func getMobileNumber()->String {
 //        guard let userDetails = StorageManager.sharedInstance.fetchUserDetails()  else {
