@@ -17,12 +17,12 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb636968437734329</string>
+				<string>fb1312073875795599</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>636968437734329</string>
+	<string>1312073875795599</string>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIImageName</key>

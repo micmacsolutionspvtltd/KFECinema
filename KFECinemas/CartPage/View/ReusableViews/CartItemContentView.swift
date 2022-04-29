@@ -11,6 +11,8 @@ struct CartItemContentView: View {
     var tittleText = "Date Of Order"
     var buttonName = "30-03-3022"
     var imageName = "calendar"
+    var getDataValue : () -> ()
+
     var body: some View {
         VStack(alignment : .leading){
         HStack{
@@ -19,7 +21,7 @@ struct CartItemContentView: View {
                 .frame(alignment: .leading)
                 Spacer()
             Button{
-                
+                getDataValue()
             }label: {
                 ZStack{
                     Text(buttonName)
@@ -54,9 +56,9 @@ struct CartItemContentView: View {
     }
 }
 
-struct CartItemContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CartItemContentView()
-            .previewLayout((.fixed( width: UIScreen.main.bounds.width, height : 70)))
-    }
-}
+//struct CartItemContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CartItemContentView()
+//            .previewLayout((.fixed( width: UIScreen.main.bounds.width, height : 70)))
+//    }
+//}

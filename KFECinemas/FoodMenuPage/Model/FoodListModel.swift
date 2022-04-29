@@ -16,7 +16,7 @@ struct FoodListModel: Codable ,Hashable{
 // MARK: - Datum
 struct FoodDatas: Codable,Hashable {
     let categoryID, categoryName: String?
-    let items: [FoodItems]?
+    let items: [ItemInfo]?
 
     enum CodingKeys: String, CodingKey {
         case categoryID = "category_id"

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct Dashboard: View {
-    
+    @ObservedObject var dbViewModel = DatabaseViewModel()
+
     @State private var searchText: String = ""
     @State var menuOpen: Bool = false
     let movies = [
@@ -109,6 +110,11 @@ struct Dashboard: View {
             dashboardServices.getAllFilms()
             dashboardServices.getAllSpiceKitchenItems()
             dashboardServices.getConcessionZoneItems()
+            if dbViewModel.getCartDataValues.count == 0{
+                
+            }else{
+                dbViewModel.deleteAllValueCoreData()
+            }
            // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
         }.navigationBarHidden(true)
     }

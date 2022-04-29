@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SideMenu: View {
  //   @Binding var showMenu : Bool
-    
     @State var navigationType:SideMenuType?
     let width: CGFloat
         var isOpen: Bool
@@ -76,9 +75,9 @@ struct SideMenu: View {
             case .bookHistory:
                  Dashboard()
             case .spiceKitchen:
-                 SpiceKitchenView()
+                SpiceKitchenView(pageName : "Spice Kitchen")
             case .concessionZone:
-                 Dashboard()
+                SpiceKitchenView(pageName : "Concession Zone")
             case .changePassword:
                  Dashboard()
             case .logout:

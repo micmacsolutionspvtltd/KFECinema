@@ -24,11 +24,12 @@ struct ItemInfo: Codable ,Hashable{
     let itemCode, status, categoryID, subCategoryID: String?
     let price, spiceKitchenModelDescription, image, availability: String?
     let createdAt, updatedAt, spiceKitchenModelCategoryID, categoryCode: String?
-    let categoryName: String
+    let categoryName: String?
+  //  var isAdded : Bool? = false
 
     enum CodingKeys: String, CodingKey {
         case itemID = "item_id"
-        case id
+        case id 
         case rihID = "rih_id"
         case itemName = "item_name"
         case itemCode = "item_code"

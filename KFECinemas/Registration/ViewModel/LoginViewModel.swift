@@ -71,7 +71,7 @@ class UserAuthModel: ObservableObject {
         self.checkStatus()
     }
     func facebookLogin() {
-        Settings.shared.appID = "636968437734329"
+        Settings.shared.appID = "1312073875795599"
            loginManager.logIn(permissions: [.publicProfile, .email], viewController: nil) { loginResult in
                switch loginResult {
                case .failed(let error):

@@ -60,8 +60,8 @@ enum Endpoint {
     
     var tempUrl:String {
         switch self {
-        case .login,.snacksOrderHistory,.foodOrderedHistory,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem,.bannerImages,.productImages: return urlType1
-        case .resetSeats,.foodBannerImages,.activeTheatres,.allFilms,.allFilmsByCinema,.theaterWiseMovie,.setSeats,.allShowsByFilm,.dev: return urlType2
+        case .login,.snacksOrderHistory,.foodOrderedHistory,.foodBannerImages,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem,.bannerImages,.productImages: return urlType1
+        case .resetSeats,.activeTheatres,.allFilms,.allFilmsByCinema,.theaterWiseMovie,.setSeats,.allShowsByFilm,.dev: return urlType2
         }
     }
     
@@ -106,7 +106,7 @@ enum Endpoint {
         case .getBannerImages:
             return "KFE_Android/get_banner_images.php/"
         case .getSnacksItemTheatreWise:
-            return "KFE_Android/get_snacks_items_data_theatre_wise.php?theatre_id=2"
+            return "KFE_Android/get_snacks_items_data_theatre_wise.php?"
         case .getFoodItemsCategoryWise:
             return "KFE_Android/get_food_items_data_categorywise.php"
         case .getAllFoodBannerImage:

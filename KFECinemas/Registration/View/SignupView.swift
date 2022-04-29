@@ -69,7 +69,7 @@ struct SignupView: View {
                                 }
                             }){
                                 
-                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color.gray)
+                                Image(systemName: confirmPasswordShow ? "eye" : "eye.slash").background(Color.gray)
                                 
                                 
                             }

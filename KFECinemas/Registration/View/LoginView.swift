@@ -18,7 +18,7 @@ struct LoginView: View {
    
     var body: some View {
         GeometryReader { geometry in
-            NavigationView{
+          //  NavigationView{
             ScrollView {
                 VStack{
                     Image("batne").resizable().scaledToFill()
@@ -60,6 +60,7 @@ struct LoginView: View {
                     
                     NavigationLink(destination: Dashboard(), isActive: $moveDashBoardPage){
                         Button{
+                            moveDashBoardPage = true
                             viewModel.loginApi(mobno: mobileNumber, password: password, loginMethod: "1") { result in
                                 if result.status == 1{
                                     storageSettings.userId = result.data?[0].id ?? ""
@@ -159,7 +160,7 @@ struct LoginView: View {
             }.background(Color.black)
                     .navigationBarHidden(true)
                
-        }
+      //  }
         }
     }
 }

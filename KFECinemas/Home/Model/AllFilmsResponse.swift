@@ -20,7 +20,7 @@ struct AllFilmsResponse: Codable {
 
 // MARK: - AllFilms
 struct AllFilms: Codable {
-    let id = UUID()
+    var id = UUID()
     var filmStrCode, filmStrTitle: String?
     let filmStrCensor: String?
     let filmStrContent, filmStrDescription, filmStrShortName, filmStrSignText: String?
