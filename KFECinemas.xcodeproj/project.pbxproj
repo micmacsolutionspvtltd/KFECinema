@@ -14,6 +14,8 @@
 		0433B6B7281C11D1004558B6 /* OrderHisroryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B6281C11D1004558B6 /* OrderHisroryViewCell.swift */; };
 		0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */; };
 		043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D6251281AADC80053F2BE /* DatePickerWithButton.swift */; };
+		047E94E828205B6D0051C289 /* CartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E94E728205B6D0051C289 /* CartDataModel.swift */; };
+		047E950528221C710051C289 /* TicketReciptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E950428221C710051C289 /* TicketReciptView.swift */; };
 		0498F5DF2813EF76007B2B24 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 0498F5DE2813EF76007B2B24 /* Algorithms */; };
 		04FE7AE82814F4D5004B9EC4 /* FoodBannerImageMOdel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */; };
 		04FE7AEB2815D029004B9EC4 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AEA2815D029004B9EC4 /* CartModel.swift */; };
@@ -87,6 +89,8 @@
 		0433B6B6281C11D1004558B6 /* OrderHisroryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHisroryViewCell.swift; sourceTree = "<group>"; };
 		0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
 		043D6251281AADC80053F2BE /* DatePickerWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithButton.swift; sourceTree = "<group>"; };
+		047E94E728205B6D0051C289 /* CartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDataModel.swift; sourceTree = "<group>"; };
+		047E950428221C710051C289 /* TicketReciptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketReciptView.swift; sourceTree = "<group>"; };
 		04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBannerImageMOdel.swift; sourceTree = "<group>"; };
 		04FE7AEA2815D029004B9EC4 /* CartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
 		04FE7AED2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAddFunctionalityViewModel.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */,
+				047E94E728205B6D0051C289 /* CartDataModel.swift */,
 				0433B6AE281C087F004558B6 /* OrderHistoryTicketModel.swift */,
 				0433B6B0281C096E004558B6 /* OrderSpiceKitchenModel.swift */,
 			);
@@ -198,6 +203,7 @@
 			children = (
 				0433B6B8281C11D7004558B6 /* ReusableViews */,
 				0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */,
+				047E950428221C710051C289 /* TicketReciptView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -602,9 +608,11 @@
 				D3DC9C7027EE4B6900BEE17F /* SideMenu.swift in Sources */,
 				D3CC71BC27E8F9C900C33787 /* Util.swift in Sources */,
 				0CF1C94827F9EF5B00D87F5C /* NetworkManager.swift in Sources */,
+				047E950528221C710051C289 /* TicketReciptView.swift in Sources */,
 				D3B6931527F62E1F006A1907 /* SpiceKitchenCardView.swift in Sources */,
 				0C836F8627FD6E560094EC0D /* ApiFactory.swift in Sources */,
 				D3DC9C9627F2340600BEE17F /* Dashboard.swift in Sources */,
+				047E94E828205B6D0051C289 /* CartDataModel.swift in Sources */,
 				D38A8E8B27FCB41200B26340 /* ImageLoader.swift in Sources */,
 				0433B6AD281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift in Sources */,
 				0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */,
