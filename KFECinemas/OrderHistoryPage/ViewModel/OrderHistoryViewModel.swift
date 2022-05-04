@@ -13,16 +13,31 @@ class OrderHistoryViewModel : ObservableObject{
     @Published var getTicketHistoryData : OrderHistoryTicketModel?
     @Published var getSpiceKitcehnData : OrderHistorySpiceKitchenModel?
     @Published var getConcessionZoneData : OrderHistoryConcessionZoneModel?
-
+    @Published var getKitchenSnacksData = [String]()
+    @Published var getConcessionSnacksData = [String]()
+    @Published var getTicketSnacksData = [String]()
     func getTicketHistoryApi(){
         let params : [String : String]?
       params = [
-        "user_id": "13"
+        "user_id": StorageSettings().userId
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.movieBookedOrderHistory,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: OrderHistoryTicketModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{
+                var snackItemName = ""
+                self.getTicketSnacksData.removeAll()
+                for values in result?.data ?? []{
+                    snackItemName = ""
+                    for finalValue in values.snacksDetails ?? []{
+                        if snackItemName == ""{
+                            snackItemName = "\(finalValue.quantity ?? "") X \(finalValue.itemName ?? "")"
+                        }else{
+                           snackItemName = "\(snackItemName) , \(finalValue.quantity ?? "") X  \(finalValue.itemName ?? "")"
+                        }
+                    }
+                    self.getTicketSnacksData.append(snackItemName)
+                }
                 self.getTicketHistoryData = result
             }else{
              
@@ -34,12 +49,25 @@ class OrderHistoryViewModel : ObservableObject{
     func getSpiceKitchenHistoryApi(){
         let params : [String : String]?
       params = [
-        "user_id": "13"
+        "user_id": StorageSettings().userId
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.foodOrderedHistory,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: OrderHistorySpiceKitchenModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
-            if restValue == true{
+                if restValue == true{
+                var snackItemName = ""
+                    self.getKitchenSnacksData.removeAll()
+                for value in result?.data ?? []{
+                    snackItemName = ""
+                    for finalValue in value{
+                        if snackItemName == ""{
+                            snackItemName = "\(finalValue.quantity ?? "") X \(finalValue.itemName ?? "")"
+                        }else{
+                           snackItemName = "\(snackItemName) , \(finalValue.quantity ?? "") X  \(finalValue.itemName ?? "")"
+                        }
+                    }
+                    self.getKitchenSnacksData.append(snackItemName)
+                }
                 self.getSpiceKitcehnData = result
             }else{
              
@@ -51,12 +79,25 @@ class OrderHistoryViewModel : ObservableObject{
     func getConcessionZoneApi(){
         let params : [String : String]?
       params = [
-        "user_id": "13"
+        "user_id": StorageSettings().userId
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.snacksOrderHistory,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: OrderHistoryConcessionZoneModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{
+                var snackItemName = ""
+                    self.getConcessionSnacksData.removeAll()
+                for value in result?.data ?? []{
+                    snackItemName = ""
+                    for finalValue in value{
+                        if snackItemName == ""{
+                            snackItemName = "\(finalValue.quantity ?? "") X \(finalValue.itemName ?? "")"
+                        }else{
+                           snackItemName = "\(snackItemName) , \(finalValue.quantity ?? "") X  \(finalValue.itemName ?? "")"
+                        }
+                    }
+                    self.getConcessionSnacksData.append(snackItemName)
+                }
                 self.getConcessionZoneData = result
             }else{
              

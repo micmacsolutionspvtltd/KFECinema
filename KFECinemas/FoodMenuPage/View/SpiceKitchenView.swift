@@ -15,6 +15,9 @@ struct SpiceKitchenView: View {
     @State var vegClicked : Bool = false
     @ObservedObject var viewModel = FoodListViewModel()
    @ObservedObject var dbViewModel = DatabaseViewModel()
+    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
+    @StateObject var getDataModel = CartAddFunctionalityViewModel()
+
     @State var getCartDatas : Bool? = false
     var body: some View {
         GeometryReader { geometry in
@@ -129,7 +132,7 @@ struct SpiceKitchenView: View {
                                                     if vegClicked{
                                                         //print(rowData.categoryName ?? "")
                                                         DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-                                                            dbViewModel.getAllDataFromTable()
+                                                   //         dbViewModel.getAllDataFromTable()
 
                                                         }) )
                                                             .frame(width: geometry.size.width*0.8,height: 100)
@@ -139,7 +142,7 @@ struct SpiceKitchenView: View {
                                                             .cornerRadius(10)
                                                     }else{
                                                         DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-                                                            dbViewModel.getAllDataFromTable()
+                                                    //        dbViewModel.getAllDataFromTable()
 
                                                         }) )
                                                             .frame(width: geometry.size.width*0.8,height: 100)
@@ -179,7 +182,7 @@ struct SpiceKitchenView: View {
                                                      //   print(rowData.categoryName!)
                                                     }else{
                                                         DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-                                                            dbViewModel.getAllDataFromTable()
+                                           //                 dbViewModel.getAllDataFromTable()
                                                             
                                                         }) )
                                                         
@@ -214,18 +217,18 @@ struct SpiceKitchenView: View {
                 }
                     
             }
-                if dbViewModel.getCartDataValues.count == 0{
+                if getDataModel.items.count == 0{
 
                 }else{
                     NavigationLink{
                         CartPageView()
                     } label: {
                         HStack(spacing :20){
-                            Text("\(dbViewModel.getCartDataValues.count) Items")
+                            Text("\(storeDataViewModel.items.count) Items")
                             //.fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .frame(height: 100)
-                            Text("$ \(dbViewModel.calculateTotalPrice())")
+                            Text("$ \(storeDataViewModel.calculateTotalPrice())")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
 

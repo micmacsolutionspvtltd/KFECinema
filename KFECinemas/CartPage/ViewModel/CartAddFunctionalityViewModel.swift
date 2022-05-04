@@ -7,42 +7,89 @@
 
 import Foundation
 
+struct CartFullDataModel : Codable , Identifiable{
+    var id = UUID()
+    var foodId : String?
+    var foodName : String?
+    var foodPrice : String?
+    var totalPrice : String?
+    var foodQuantity : String?
+}
 
-class CartAddFunctionalityViewModel : NSObject,ObservableObject{
-    @Published var items : [ItemInfo] = []
-    @Published var cartItems : [CartModel] = []
+class CartAddFunctionalityViewModel : ObservableObject{
     
-    func addItemsToCart(cartData : CartModel){
-        cartItems.append(cartData)
-        print("cartItems",cartItems)
-    }
-    func removeIndex(id : String){
-        let index = self.cartItems.firstIndex { (item1) in
-            id == item1.id
+    @Published var items = [CartFullDataModel]() {
+        didSet {
+            if let encoded = try? JSONEncoder().encode(items) {
+                UserDefaults.standard.set(encoded, forKey: "Items")
+            }
         }
-        print(index)
-        cartItems.remove(at: index!)
-        print("removeItems",cartItems)
-    }
-    func addToCart(item : ItemInfo){
-        
-//        self.items[getIndex(item: item, isCartIndex: false)].isAdded = !(item.isAdded ?? false)
-//        
-//        if item.isAdded ?? false{
-//            self.cartItems.remove(at: getIndex(item: item, isCartIndex: true))
-//            return
-//        }
-      //  self.cartItems.append(CartModel(item: item, quantity: 1))
     }
     
-    func getIndex(item : ItemInfo , isCartIndex : Bool) -> Int{
-        let index = self.items.firstIndex { (item1) -> Bool in
-            return item.id == item1.id
-        } ?? 0
-        let cartIndex = self.cartItems.firstIndex { (item1) -> Bool in
-            return item.id == item1.id
-        } ?? 0
-        return isCartIndex ? cartIndex : index
+    
+    init() {
+        if let savedItems = UserDefaults.standard.data(forKey: "Items") {
+            if let decodedItems = try? JSONDecoder().decode([CartFullDataModel].self, from: savedItems) {
+                items = decodedItems
+                return
+            }
+        }
+
+        items = []
     }
+    func calculateTotalPrice() -> String{
+      //  getAllDataFromTable()
+        var price : Float = 0
+        items.forEach { item in
+            price += ((Float(item.foodPrice ?? "") ?? 0.00) * (Float(item.foodQuantity ?? "") ?? 0.00) )
+        }
+      //  totalAmounts = String(format: "%.2f", price)
+        return String(format: "%.2f", price)
+    }
+    func updateDatas(){
+        if let encoded = try? JSONEncoder().encode(items) {
+            UserDefaults.standard.set(encoded, forKey: "Items")
+            for i in 0..<items.count{
+                if items[0].foodId == "1"{
+                    
+                }
+            }
+        }
+    }
+    func addDatas(id : String , name : String , price : String){
+        let note = CartFullDataModel()
+
+        // Create Array of Notes
+        let notes = [note]
+        do {
+            // Create JSON Encoder
+            let encoder = JSONEncoder()
+
+            // Encode Note
+            let data = try encoder.encode(notes)
+
+            // Write/Set Data
+            UserDefaults.standard.set(data, forKey: "notes")
+
+        } catch {
+            print("Unable to Encode Array of Notes (\(error))")
+        }
+    }
+    func getAllDatas(){
+        if let data = UserDefaults.standard.data(forKey: "notes") {
+            do {
+                // Create JSON Decoder
+                let decoder = JSONDecoder()
+
+                // Decode Note
+                let notes = try decoder.decode([CartFullDataModel].self, from: data)
+              print(notes)
+            } catch {
+                print("Unable to Decode Notes (\(error))")
+            }
+        }
+    }
+    
+  
     
 }

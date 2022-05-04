@@ -13,23 +13,24 @@ struct DishViewCell: View {
     var amount : String?
     var images : String?
     var buttonTittle : String?
+    
     var allRowData : ItemInfo
 
     @State var itemPrice : Float = 0.00
     @State var addButtonClick : Bool? = false
     @State var itemQuantity : Int = 0
-    @StateObject var addDataModel  = CartAddFunctionalityViewModel()
-    @State var cartItems : [CartModel] = []
     var dbViewModel : DatabaseViewModel? = DatabaseViewModel()
-  
+    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
+
   //  @Binding var addButtonClick : Bool?
     var getDataValue : () -> ()
+    @EnvironmentObject var storageSettings:StorageSettings
+
     var body: some View {
         HStack(spacing : 10){
             let imageUrl = "\(Endpoint.productImages.url)/\(allRowData.image ?? "")"
             SpiceKitchenFoodView(withURL: imageUrl)
-//                .resizable()
-//                .frame(width: 60, height: 60)
+
             VStack(alignment: .leading){
                 Text(textContent ?? "")
                     .font(.system(size: 13,weight: .bold))
@@ -58,11 +59,16 @@ struct DishViewCell: View {
                 Button {
                     addButtonClick = true
                     itemQuantity = 1
-                    itemPrice = (Float(allRowData.price ?? "0") ?? 0.0)
-                    //self.addItemsToCart(cartData: CartModel(id: allRowData.id ?? "", quantity: String(itemQuantity), totalPrice: String(itemPrice)))
-                    dbViewModel?.createDatabase(tittle: allRowData.id ?? "", price: allRowData.price ?? "",quantity: "1",itemName: allRowData.itemName ?? "")
-                    getDataValue()
-                    print("getAllDatas",dbViewModel?.getCartDataValues)
+//                    itemPrice = (Float(allRowData.price ?? "0") ?? 0.0)
+//                    //self.addItemsToCart(cartData: CartModel(id: allRowData.id ?? "", quantity: String(itemQuantity), totalPrice: String(itemPrice)))
+//                    storageSettings.cartData = [CartDataModel(id: allRowData.id ?? "", price: allRowData.price ?? "", quantity: "1", itemName: allRowData.itemName ?? "", totalPrice:  allRowData.price ?? "")]
+//
+//                    dbViewModel?.createDatabase(tittle: allRowData.id ?? "", price: allRowData.price ?? "",quantity: "1",itemName: allRowData.itemName ?? "")
+//                    getDataValue()
+//                    print("getAllDatas",dbViewModel?.getCartDataValues)
+                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: allRowData.price ?? "",foodQuantity : "1")
+                    storeDataViewModel.items.append(item)
+                    print("storeDatas",storeDataViewModel.items)
                 } label: {
                         Text("Add")
                         .font(.system(size: 13))
@@ -73,18 +79,38 @@ struct DishViewCell: View {
                 .padding()
                 .background(Color.red)
                 .cornerRadius(.infinity)
+                .buttonStyle(BorderlessButtonStyle())
             }else{
                 HStack{
                     Button{
                         itemQuantity -= 1
-                        calculatePrice(price: (Float(allRowData.price ?? "0") ?? 0.00))
-                        print("getAllDatas",dbViewModel?.getCartDataValues)
-                        if itemQuantity == 0{
-                            addButtonClick = false
-                            dbViewModel?.deleteCartItems(id: allRowData.id ?? "")
-                        }else{
-                            dbViewModel?.edirCartItemsValue(id: allRowData.id ?? "", price: String(itemPrice), quantity: String(itemQuantity), itemName: allRowData.itemName ?? "")
+                        //calculatePrice(price: (Float(allRowData.price ?? "0") ?? 0.00))
+                      //  print("getAllDatas",dbViewModel?.getCartDataValues)
+                        
+                        for i in 0..<storeDataViewModel.items.count{
+                            if storeDataViewModel.items[i].foodId == allRowData.id ?? ""{
+                                storeDataViewModel.items.remove(at: i)
+                                if itemQuantity == 0{
+                                    addButtonClick = false
+                                }else{
+                                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity))
+                                    storeDataViewModel.items.insert(item, at: i)
+                                }
+                            }
                         }
+                        
+//                        if itemQuantity == 0{
+//                            addButtonClick = false
+//
+//                            for i in 0..<storeDataViewModel.items.count{
+//                                if storeDataViewModel.items[i].foodId == allRowData.id ?? ""{
+//                                    storeDataViewModel.items.remove(at: i)
+//                                }
+//                            }
+//                        }else{
+//                            dbViewModel?.edirCartItemsValue(id: allRowData.id ?? "", price: String(itemPrice), quantity: String(itemQuantity), itemName: allRowData.itemName ?? "")
+//                        }
+                        print("storeDatas",storeDataViewModel.items)
                         getDataValue()
                     }label: {
                         Text("-")
@@ -94,10 +120,23 @@ struct DishViewCell: View {
                     Text(String(itemQuantity))
                     Button{
                         itemQuantity += 1
-                        calculatePrice(price: (Float(allRowData.price ?? "0") ?? 0.00))
-                        dbViewModel?.edirCartItemsValue(id: allRowData.id ?? "", price: String(itemPrice), quantity: String(itemQuantity), itemName: allRowData.itemName ?? "")
-                        getDataValue()
-                        print("getAllDatas",dbViewModel?.getCartDataValues)
+//                        //calculatePrice(price: (Float(allRowData.price ?? "0") ?? 0.00))
+//
+//                        dbViewModel?.edirCartItemsValue(id: allRowData.id ?? "", price: String(itemPrice), quantity: String(itemQuantity), itemName: allRowData.itemName ?? "")
+//                        getDataValue()
+//                        print("getAllDatas",dbViewModel?.getCartDataValues)
+                        for i in 0..<storeDataViewModel.items.count{
+                            if storeDataViewModel.items[i].foodId == allRowData.id ?? ""{
+                                storeDataViewModel.items.remove(at: i)
+//                                if itemQuantity == 0{
+//                                    
+//                                }else{
+                                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity))
+                                    storeDataViewModel.items.insert(item, at: i)
+                              //  }
+                            }
+                        }
+                        print("storeDatas",storeDataViewModel.items)
                     }label: {
                         Text("+")
                     }
@@ -114,19 +153,19 @@ struct DishViewCell: View {
         }.frame( height: 100)
         
     }
-    func addItemsToCart(cartData : CartModel){
-        cartItems.insert(cartData, at: 0)
-        print("cartItems",cartItems)
-    }
-    
-    func removeIndex(id : String){
-        let index = self.cartItems.firstIndex { (item1) in
-            id == item1.id
-        }
-        print(index)
-       // cartItems.remove(at: index!)
-        print("removeItems",cartItems)
-    }
+//    func addItemsToCart(cartData : CartModel){
+//        cartItems.insert(cartData, at: 0)
+//        print("cartItems",cartItems)
+//    }
+//    
+//    func removeIndex(id : String){
+//        let index = self.cartItems.firstIndex { (item1) in
+//            id == item1.id
+//        }
+//        print(index)
+//       // cartItems.remove(at: index!)
+//        print("removeItems",cartItems)
+//    }
     
 //    func getIndex(item : ItemInfo) -> Int{
 //        return addDataModel.items.firstIndex { (item1) -> Bool in
@@ -134,9 +173,9 @@ struct DishViewCell: View {
 //        } ?? 0
 //    }
     
-    func calculatePrice(price : Float){
-        itemPrice = (price * (Float(itemQuantity)))
-        print("itemPrice",itemPrice)
+    func calculatePrice(price : Float ,quantity : Float) -> String{
+        
+        return String(format: "%.2f", (price * quantity))
     }
  
 }

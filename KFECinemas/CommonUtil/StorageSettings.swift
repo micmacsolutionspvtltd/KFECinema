@@ -33,7 +33,7 @@ class StorageSettings:ObservableObject{
         }
     }
     
-    @Published var cartData : Any{
+    @Published var cartData : [CartDataModel]{
         didSet{
             UserDefaults.standard.set(cartData , forKey: "cartData")
         }
@@ -44,6 +44,7 @@ class StorageSettings:ObservableObject{
         userName = UserDefaults.standard.string(forKey: "userName") ?? ""
         emailAddress = UserDefaults.standard.string(forKey: "emailAddress") ?? ""
         mobileNumber = UserDefaults.standard.string(forKey: "mobileNumber") ?? ""
-        cartData = UserDefaults.standard.object(forKey: "cartData") ?? ""
+            //  cartData = UserDefaults.standard.object(forKey: "cartData") ?? [CartDataModel]()
+        cartData = (UserDefaults.standard.value(forKey: "cartData")) as? [CartDataModel] ?? [CartDataModel]()
     }
 }

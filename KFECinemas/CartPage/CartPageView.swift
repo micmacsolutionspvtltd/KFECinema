@@ -17,7 +17,11 @@ struct CartPageView: View {
     @State private var birthDate = Date()
     @State var clickBookingDate : Bool = false
     @State var selectionMovieDate : Date? = nil
-    
+    var theaterNames = ["M1 Cinemas", "Spice Cinemas"]
+    var screenNames = ["Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"]
+    var showTimes = ["11.30 AM", "03.00 PM", "06.30 PM", "09.45 PM"]
+    var seatArea = ["Premium", "Elite", "Gold"]
+    var takeAwatTime = ["15 Mins", "30 Mins", "45 Mins", "1 Hour"]
     var body: some View {
     //
         GeometryReader { geometry in
@@ -141,24 +145,24 @@ struct CartPageView: View {
                     if deliveryCLicked{
                         VStack{
                            
-                            CartItemContentView(tittleText: "Date Of Order", buttonName: "30/03/2022", imageName: "calendar",getDataValue: {
+                            CartItemContentView(tittleText: "Date Of Order", buttonName: Date().currentDateOnly, imageName: "calendar" ,getDataValue: {
                                 clickBookingDate = true
                                
                             })
                                 .frame(width: geometry.size.width, height: 70)
-                            CartItemContentView(tittleText: "Theatre Name", buttonName: "M1 Cinemas", imageName: "chevron.down",getDataValue: {
+                            CartItemContentView(tittleText: "Theatre Name", buttonName: theaterNames[0], imageName: "chevron.down", dropDownDatas : theaterNames,getDataValue: {
                                 
                             })
                                 .frame(width: geometry.size.width, height: 70)
-                            CartItemContentView(tittleText: "Select Screen Name", buttonName: "Screen 1", imageName: "chevron.down",getDataValue: {
+                            CartItemContentView(tittleText: "Select Screen Name", buttonName: screenNames[0], imageName: "chevron.down", dropDownDatas : screenNames,getDataValue: {
                                 
                             })
                                 .frame(width: geometry.size.width, height: 70)
-                            CartItemContentView(tittleText: "Select Show", buttonName: "6.00am", imageName: "chevron.down",getDataValue: {
+                            CartItemContentView(tittleText: "Select Show", buttonName: showTimes[0], imageName: "chevron.down", dropDownDatas : showTimes,getDataValue: {
                                 
                             })
                                 .frame(width: geometry.size.width, height: 70)
-                            CartItemContentView(tittleText: "Select Seat Area", buttonName: "Elite", imageName: "chevron.down"  ,getDataValue: {
+                            CartItemContentView(tittleText: "Select Seat Area", buttonName: seatArea[0], imageName: "chevron.down" , dropDownDatas : seatArea ,getDataValue: {
                                 
                             })
                                 .frame(width: geometry.size.width, height: 70)
@@ -200,11 +204,11 @@ struct CartPageView: View {
                     }else{
                         VStack{
                             
-                            CartItemContentView(tittleText: "Date Of Order", buttonName: "30/03/2022", imageName: "calendar" ,getDataValue: {
-                                
+                            CartItemContentView(tittleText: "Date Of Order", buttonName: Date().currentDateOnly, imageName: "calendar" ,getDataValue: {
+                                clickBookingDate = true
                             })
                                 .frame(width: geometry.size.width, height: 70)
-                            CartItemContentView(tittleText: "Select Takeaway Time", buttonName: "15 mins", imageName: "chevron.down" ,getDataValue: {
+                            CartItemContentView(tittleText: "Select Takeaway Time", buttonName: takeAwatTime[0], imageName: "chevron.down" , dropDownDatas : takeAwatTime,getDataValue: {
                                 
                             })
                                 .frame(width: geometry.size.width, height: 70)
@@ -215,7 +219,7 @@ struct CartPageView: View {
                                     .fontWeight(.semibold)
                                     .foregroundColor(.white)
                                 Spacer()
-                                Text("20000")
+                                Text("$ \(getTotalAmount)")
                                       .fontWeight(.semibold)
                                       .foregroundColor(.white)
                             }

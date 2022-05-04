@@ -12,6 +12,9 @@ struct OrderHistoryView: View {
     @State var clickingButton : String = "Ticket"
    
     @ObservedObject var viewModel = OrderHistoryViewModel()
+   @State var name : String = ""
+    @State private var linkActive = false
+
     var body: some View {
         GeometryReader { geometry in
         ZStack{
@@ -58,7 +61,7 @@ struct OrderHistoryView: View {
                     }
                     .frame(height: 56)
                     .background(clickingButton == "Ticket" ? Color.red : Color.black)
-                    .padding(3)
+                   // .padding(3)
                     .cornerRadius(10)
                     Button{
                         clickingButton = "Concession Zone"
@@ -91,40 +94,54 @@ struct OrderHistoryView: View {
                 .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 20))
                 .frame(minWidth: geometry.size.width,maxHeight: 60)
                 .background(Color.black)
+                ZStack{
                 if clickingButton == "Ticket"{
-                    List(viewModel.getTicketHistoryData?.data ?? [] , id : \.self){ value in
-                        Text(value.movieDetails?.movieName ?? "")
+               //     List(viewModel.getTicketHistoryData?.data ?? [] , id : \.self){ value in
+                        List(0..<(viewModel.getTicketHistoryData?.data?.count ?? 0), id : \.self){ (finalValues) in
+//                       )
+                            Button(action: { linkActive = true }){
+                            OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieAmount ?? "", date: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "", bookingId: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingID ?? "", bookingSeat: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "", snacksItems: viewModel.getTicketSnacksData[finalValues])
+                                .listStyle(GroupedListStyle())
+                                                          .background(Color.black)
+                            }
+                            .overlay(VStack {
+                                if linkActive {
+                                    NavigationLink(destination:  TicketReciptView(reciptDatas : viewModel.getTicketHistoryData?.data?[finalValues].movieDetails), isActive: $linkActive) {
+                                        
+//                                        (viewModel.getTicketHistoryData?.data?[finalValues] ?? [])
+                                    }.opacity(0)
+                                        .background(Color.red)
+                                    
+                                }
+                            })
                     }
                 }else if clickingButton == "Spice Kitchen"{
                     if viewModel.getSpiceKitcehnData?.data?.count != 0{
+                        
                        
-                        List(viewModel.getSpiceKitcehnData?.data ?? [] , id : \.self){ value in
-                            ForEach(value , id : \.self){ finalValues in
-                                Text(finalValues.itemName ?? "")
-                            }
-                        }
-//                        ForEach(viewModel.getSpiceKitcehnData?.data ?? [] , id : \.self){ value in
-//                            List(value , id : \.self){ finalValues in
-//                                Text(finalValues.itemName ?? "")
+                        List(0..<(viewModel.getSpiceKitcehnData?.data?.count ?? 0), id : \.self){ (finalValues) in
+                            OrderHisroryViewCell(movieName : "Spice Kitchen" , theaterName: "Order ID \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].foodOrderID ?? "")", amount: viewModel.getSpiceKitcehnData?.data?[finalValues][0].totalPrice ?? "", date: "Ordered on : \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].orderDate ?? "")", snacksItems: viewModel.getKitchenSnacksData[finalValues])
+
+                                    .listStyle(GroupedListStyle())
+                                    .background(Color.black)
 //                            }
-//                        }
+                        }
+
                     }
                   
                 }else{
                     if viewModel.getConcessionZoneData?.data?.count != 0{
                        
-                        List(viewModel.getConcessionZoneData?.data ?? [] , id : \.self){ value in
-                          //  var orderItemValue = ""
-                            ForEach(value , id : \.self){ finalValues in
-                                
-                              //  orderItemNames = "\(finalValues.quantity ?? "") X \(finalValues.itemName ?? "")"
-                
-                              //  orderItemValue = ""
-                                Text(finalValues.itemName ?? "")
-                            }
+                            List(0..<(viewModel.getConcessionZoneData?.data?.count ?? 0), id : \.self){ (finalValues) in
+                            OrderHisroryViewCell(movieName : "Concession Zone" , theaterName: "Order ID \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderID ?? "")", amount: viewModel.getConcessionZoneData?.data?[finalValues][0].totalPrice ?? "", date: "Ordered on : \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderDate ?? "")", snacksItems: viewModel.getConcessionSnacksData[finalValues])
+                            
+                                    .listStyle(GroupedListStyle())
+                                    .background(Color.black)
+
                         }
                     }
                 }
+                }//.listRowBackground(Color.black)
                
                 
             }
@@ -141,5 +158,6 @@ struct OrderHistoryView: View {
 struct OrderHistoryView_Previews: PreviewProvider {
     static var previews: some View {
         OrderHistoryView()
+            .background(Color.black)
     }
 }

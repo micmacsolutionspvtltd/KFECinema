@@ -17,14 +17,14 @@ struct OrderHistoryConcessionZoneModel: Codable , Hashable{
 struct ConcessionHistoryData: Codable  , Hashable {
     let id, orderID, totalPrice, orderDate: String?
     let itemName: String?
-    let quantity: String
+    let quantity: String?
     let zone: String?
-    let itemPrice: String
+    let itemPrice: String?
     let paymentType: String?
     let gst, deliveryAmount: String
     let paidStatus: String?
     let showTime: String?
-    let mbleNum: String
+    let mbleNum: String?
     let email: String?
     let orderDuring: String?
     let theatreName, screenName, seatNo: String?

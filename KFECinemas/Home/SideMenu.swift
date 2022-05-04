@@ -73,7 +73,7 @@ struct SideMenu: View {
             case .movies:
                 MovieView()
             case .bookHistory:
-                 Dashboard()
+                 OrderHistoryView()
             case .spiceKitchen:
                 SpiceKitchenView(pageName : "Spice Kitchen")
             case .concessionZone:

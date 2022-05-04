@@ -60,7 +60,7 @@ struct LoginView: View {
                     
                     NavigationLink(destination: Dashboard(), isActive: $moveDashBoardPage){
                         Button{
-                            moveDashBoardPage = true
+                           // moveDashBoardPage = true
                             viewModel.loginApi(mobno: mobileNumber, password: password, loginMethod: "1") { result in
                                 if result.status == 1{
                                     storageSettings.userId = result.data?[0].id ?? ""
@@ -200,17 +200,7 @@ struct GoogleSignInBtn: UIViewRepresentable {
             button.addAction(.init(handler: { _ in
                 guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
                 
-                //            GIDSignIn.sharedInstance.signIn(
-                //                with: self.userData.signIn(),
-                //                presenting: presentingViewController,
-                //                callback: { user, error in
-                //                    if let error = error {
-                //                        print("error: \(error.localizedDescription)")
-                //                    }
-                //                    else if let user = user {
-                //                        self.userData.signIn(user: user)
-                //                    }
-                //                })
+  
             }), for: .touchUpInside)
         } else {
             // Fallback on earlier versions

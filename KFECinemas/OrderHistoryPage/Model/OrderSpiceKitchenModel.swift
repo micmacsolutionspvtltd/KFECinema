@@ -26,6 +26,8 @@ struct HistorySpiceKitchen: Codable , Hashable {
     let email: String?
     let orderDuring: String?
     let theatreName, screenName: String?
+//    let snacksName:String?
+    
 
     enum CodingKeys: String, CodingKey {
         case foodOrderID = "food_order_id"
@@ -45,5 +47,6 @@ struct HistorySpiceKitchen: Codable , Hashable {
         case orderDuring = "order_during"
         case theatreName = "theatre_name"
         case screenName = "screen_name"
+     //   case snacksName = "snacksName"
     }
 }

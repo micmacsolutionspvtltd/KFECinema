@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Dashboard: View {
-    @ObservedObject var dbViewModel = DatabaseViewModel()
+  //  @ObservedObject var dbViewModel = DatabaseViewModel()
 
     @State private var searchText: String = ""
     @State var menuOpen: Bool = false
@@ -99,7 +99,10 @@ struct Dashboard: View {
     //                        MovieCardView(model: movie)
     //            }
                
-            }.onAppear(){
+            }.navigationBarTitle("")
+            .navigationBarHidden(true)
+                .navigationBarBackButtonHidden(true)
+            .onAppear(){
                 
             }.background(Color("ColorAppGrey"))
             SideMenu(width:UIScreen.main.bounds.size.width - 50,
@@ -110,13 +113,13 @@ struct Dashboard: View {
             dashboardServices.getAllFilms()
             dashboardServices.getAllSpiceKitchenItems()
             dashboardServices.getConcessionZoneItems()
-            if dbViewModel.getCartDataValues.count == 0{
-                
-            }else{
-                dbViewModel.deleteAllValueCoreData()
-            }
+//            if dbViewModel.getCartDataValues.count == 0{
+//
+//            }else{
+//                dbViewModel.deleteAllValueCoreData()
+//            }
            // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-        }.navigationBarHidden(true)
+        }
     }
     
     func openMenu() {
