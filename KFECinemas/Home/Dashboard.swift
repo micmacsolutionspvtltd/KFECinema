@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct Dashboard: View {
-  //  @ObservedObject var dbViewModel = DatabaseViewModel()
-
+    
     @State private var searchText: String = ""
     @State var menuOpen: Bool = false
     let movies = [
@@ -56,7 +55,11 @@ struct Dashboard: View {
                                 }
                             }
                         }
-                TableHeaderView(title: "Movies in Cinemas")
+                
+        
+                TableHeaderView(title: "Movies in Cinemas",isViewAllVisible: true) {
+                    MovieView()
+                }
                 HStack {
                     Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                     Spacer()
@@ -70,7 +73,9 @@ struct Dashboard: View {
                                 }
                     }
                 }.padding(.leading,5)
-                TableHeaderView(title: "Spice Kitchen")
+                TableHeaderView(title: "Spice Kitchen",isViewAllVisible: true){
+                    SpiceKitchenView()
+                }
                 ScrollView(.horizontal) {
                     HStack (spacing:20){
                         ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
@@ -78,7 +83,9 @@ struct Dashboard: View {
                                 }
                     }
                 }.padding(.leading,5)
-                TableHeaderView(title: "Concession Zone")
+                TableHeaderView(title: "Concession Zone",isViewAllVisible: true){
+                    SpiceKitchenView()
+                }
                 ScrollView(.horizontal) {
                     HStack (spacing:20){
                         ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
@@ -86,7 +93,9 @@ struct Dashboard: View {
                                 }
                     }
                 }.padding(.leading,5)
-                TableHeaderView(title: "Theatres")
+                TableHeaderView(title: "Theatres"){
+                    
+                }
     //            ScrollView(.horizontal) {
     //                HStack (spacing:20){
     //                        ForEach(movies, id: \.id) { movie in
@@ -99,10 +108,7 @@ struct Dashboard: View {
     //                        MovieCardView(model: movie)
     //            }
                
-            }.navigationBarTitle("")
-            .navigationBarHidden(true)
-                .navigationBarBackButtonHidden(true)
-            .onAppear(){
+            }.onAppear(){
                 
             }.background(Color("ColorAppGrey"))
             SideMenu(width:UIScreen.main.bounds.size.width - 50,
@@ -113,13 +119,8 @@ struct Dashboard: View {
             dashboardServices.getAllFilms()
             dashboardServices.getAllSpiceKitchenItems()
             dashboardServices.getConcessionZoneItems()
-//            if dbViewModel.getCartDataValues.count == 0{
-//
-//            }else{
-//                dbViewModel.deleteAllValueCoreData()
-//            }
            // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-        }
+        }.navigationBarHidden(true)
     }
     
     func openMenu() {
@@ -191,23 +192,28 @@ struct AppBarView: View {
     }
 }
 
-struct TableHeaderView: View {
+struct TableHeaderView<Content: View>: View {
     let title:String
-   @State var isViewAllVisible:Bool = true
+   @State var isViewAllVisible:Bool = false
+    @ViewBuilder var content: Content
     var body: some View {
         HStack{
             Image("clapperboard").resizable().frame(width: 18, height: 18)
             Text(title).font(.system(size: 16)).fontWeight(.bold).foregroundColor(.white)
             Spacer()
-            if isViewAllVisible {
+            if !isViewAllVisible {
                EmptyView()
             }else{
-                Button(action: {
-                    
-                }){
-                    Text("View All").font(.system(size: 13)).fontWeight(.bold).foregroundColor(.white)
-                    Image(systemName: "arrow.right").foregroundColor(.white)
-                }.padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
+                NavigationLink{
+                    content
+                }label: {
+                    HStack(spacing : 15){
+                        Text("View All").font(.system(size: 13)).fontWeight(.bold).foregroundColor(.white)
+                        Image(systemName: "arrow.right").foregroundColor(.white)
+                    }
+                    .padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
+                }
+                
             }
             
         }.padding(EdgeInsets(top: 15, leading: 8, bottom: 15, trailing: 5)).background(.black)
