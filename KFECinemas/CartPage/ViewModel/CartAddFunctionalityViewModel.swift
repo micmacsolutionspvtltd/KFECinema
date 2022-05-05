@@ -17,7 +17,7 @@ struct CartFullDataModel : Codable , Identifiable{
 }
 
 class CartAddFunctionalityViewModel : ObservableObject{
-    
+
     @Published var items = [CartFullDataModel]() {
         didSet {
             if let encoded = try? JSONEncoder().encode(items) {
@@ -37,6 +37,30 @@ class CartAddFunctionalityViewModel : ObservableObject{
 
         items = []
     }
+    
+    func promocodeValuesGetApi(completionHandler : @escaping((PromoCheckModel) -> Void) ){
+        let params : [String : String]?
+      params = [
+        "user_id": StorageSettings().userId,
+        "booking_date":"2022-05-07",
+        "order_variety":"s",
+        "order_total_amt":"1084"
+        ]
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.checkPromoCode,requestBody: params))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoCheckModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async {
+            if restValue == true{
+            //    self.getPromoCodeData = result
+                completionHandler(result!)
+            }else{
+             
+            }
+            }
+        }
+        
+    }
+    
+    
     func calculateTotalPrice() -> String{
       //  getAllDataFromTable()
         var price : Float = 0

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct OffersApplyView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @ObservedObject var viewModel = CartAddFunctionalityViewModel()
+    @State var getPromoCodeData : PromoCheckModel?
 
     var body: some View {
         GeometryReader { geometry in
@@ -43,12 +45,12 @@ struct OffersApplyView: View {
                     .padding(EdgeInsets(top: 30, leading: 10, bottom: 20, trailing: 20))
                     .frame(minWidth: geometry.size.width,maxHeight: 60)
                         .background(Color.red)
-                    List{
-                        ForEach(0..<5){_ in
-                            OfferCell()
+                    List(getPromoCodeData?.data ?? [] , id : \.self){ promoValues in
+                      //  ForEach(0..<5){_ in
+                            OfferCell(promoCodeValue : promoValues.promocode ?? "")
                                 .background(Color.black)
                                 .cornerRadius(10)
-                        }
+                      //  }
                     }
                    
                     .frame(width: UIScreen.main.bounds.width)
@@ -58,6 +60,11 @@ struct OffersApplyView: View {
             }
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+            .onAppear(){
+                viewModel.promocodeValuesGetApi { result in
+                    getPromoCodeData = result
+                }
+            }
         }
     }
 }

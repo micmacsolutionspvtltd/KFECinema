@@ -13,6 +13,7 @@
 		0433B6B4281C0A08004558B6 /* OrderHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B3281C0A08004558B6 /* OrderHistoryViewModel.swift */; };
 		0433B6B7281C11D1004558B6 /* OrderHisroryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B6281C11D1004558B6 /* OrderHisroryViewCell.swift */; };
 		0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */; };
+		043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C5E282379D2009166DF /* PromoCodeModel.swift */; };
 		043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D6251281AADC80053F2BE /* DatePickerWithButton.swift */; };
 		047E94E828205B6D0051C289 /* CartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E94E728205B6D0051C289 /* CartDataModel.swift */; };
 		047E950528221C710051C289 /* TicketReciptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E950428221C710051C289 /* TicketReciptView.swift */; };
@@ -88,6 +89,7 @@
 		0433B6B3281C0A08004558B6 /* OrderHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewModel.swift; sourceTree = "<group>"; };
 		0433B6B6281C11D1004558B6 /* OrderHisroryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHisroryViewCell.swift; sourceTree = "<group>"; };
 		0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
+		043B5C5E282379D2009166DF /* PromoCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeModel.swift; sourceTree = "<group>"; };
 		043D6251281AADC80053F2BE /* DatePickerWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithButton.swift; sourceTree = "<group>"; };
 		047E94E728205B6D0051C289 /* CartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDataModel.swift; sourceTree = "<group>"; };
 		047E950428221C710051C289 /* TicketReciptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketReciptView.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				04FE7AEA2815D029004B9EC4 /* CartModel.swift */,
+				043B5C5E282379D2009166DF /* PromoCodeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */,
 				D38A8E9027FE0F3D00B26340 /* DashboardServices.swift in Sources */,
 				0CA478FA2801E4B2000B5C57 /* ConcessionZoneCardView.swift in Sources */,
+				043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */,
 				0CF1C93227F6467B00D87F5C /* CartAddItemCell.swift in Sources */,
 				D345A43F27E4CBE200D1D5AD /* SignupView.swift in Sources */,
 				0C836F8B27FE1C570094EC0D /* FoodListModel.swift in Sources */,

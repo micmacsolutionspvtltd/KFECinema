@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OfferCell: View {
+    var promoCodeValue : String? 
     var body: some View {
         VStack(alignment : .leading,spacing: 8){
             HStack{
