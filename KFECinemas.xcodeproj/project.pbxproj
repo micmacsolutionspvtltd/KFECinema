@@ -25,6 +25,7 @@
 		0C2C8C8027EF059200418F99 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C2C8C7F27EF059200418F99 /* Launch Screen.storyboard */; };
 		0C2C8C8327F238CD00418F99 /* SpiceKitchenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8C8227F238CD00418F99 /* SpiceKitchenView.swift */; };
 		0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8C8427F249B600418F99 /* DishViewCell.swift */; };
+		0C2F2F712823E4E80046FA97 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F2F702823E4E80046FA97 /* ChangePasswordView.swift */; };
 		0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */; };
 		0C836F8627FD6E560094EC0D /* ApiFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8527FD6E560094EC0D /* ApiFactory.swift */; };
 		0C836F8B27FE1C570094EC0D /* FoodListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8A27FE1C570094EC0D /* FoodListModel.swift */; };
@@ -99,6 +100,7 @@
 		0C2C8C7F27EF059200418F99 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0C2C8C8227F238CD00418F99 /* SpiceKitchenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceKitchenView.swift; sourceTree = "<group>"; };
 		0C2C8C8427F249B600418F99 /* DishViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewCell.swift; sourceTree = "<group>"; };
+		0C2F2F702823E4E80046FA97 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
 		0C836F8527FD6E560094EC0D /* ApiFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFactory.swift; sourceTree = "<group>"; };
 		0C836F8A27FE1C570094EC0D /* FoodListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListModel.swift; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 			children = (
 				D3B6931427F62E1F006A1907 /* SpiceKitchenCardView.swift */,
 				0CA478F92801E4B2000B5C57 /* ConcessionZoneCardView.swift */,
+				0C2F2F702823E4E80046FA97 /* ChangePasswordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D38A8E8E27FCBCEA00B26340 /* CustomImageView.swift in Sources */,
+				0C2F2F712823E4E80046FA97 /* ChangePasswordView.swift in Sources */,
 				D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */,
 				0C836F8F27FE2B4B0094EC0D /* SpiceKitchenModel.swift in Sources */,
 				D35B1D6927F960FA007D312C /* MovieDetailView.swift in Sources */,

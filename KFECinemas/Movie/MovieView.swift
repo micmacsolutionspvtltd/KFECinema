@@ -62,7 +62,9 @@ struct MovieView: View {
                Spacer()
                    
            }.background(Color(uiColor: UIColor.red))
-           TableHeaderView(title: "Movies on Theatre")
+           TableHeaderView(title: "Movies on Theatre"){
+               Text("")
+           }
            HStack {
                Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                Spacer()
@@ -74,7 +76,9 @@ struct MovieView: View {
                            }
                }
            }.padding(.leading,5)
-           TableHeaderView(title: "Theatres",isViewAllVisible: false)
+           TableHeaderView(title: "Theatres",isViewAllVisible: false){
+               Text("")
+           }
            HStack {
                Text("Upcoming Movies").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                Spacer()

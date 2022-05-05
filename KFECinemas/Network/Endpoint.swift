@@ -92,7 +92,7 @@ enum Endpoint {
         case .bannerImages:
             return "KFE_4/public/kfe_banner_images/"
         case .activeTheatres:
-            return "api/kfecinema/Active_Theaters"
+            return "api/kfecinema/allcinema"
         case .updatePassword:
             return "KFE_Android/update_password.php"
         case .allFilms:
