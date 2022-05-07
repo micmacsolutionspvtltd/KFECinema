@@ -32,7 +32,7 @@ struct KFECinemasApp: App {
                     }
                    
                 }
-            }.environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices())
+            }.environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel())
             
 //            if StorageManager.sharedInstance.getLoginCompleted() == true{
 //               // NavigationView{

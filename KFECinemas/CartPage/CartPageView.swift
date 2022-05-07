@@ -9,14 +9,15 @@ import SwiftUI
 
 struct CartPageView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
-    @ObservedObject var dbViewModel = DatabaseViewModel()
-    
+  //  @ObservedObject var dbViewModel = DatabaseViewModel()
+    @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
+
     @State var deliveryCLicked : Bool = true
     @State var collectionClicked : Bool = false
     @State var getTotalAmount : String = ""
     @State private var birthDate = Date()
     @State var clickBookingDate : Bool = false
-    @State var selectionMovieDate : Date? = nil
+    @State var selectionMovieDate : Date? = Date.now
     var theaterNames = ["M1 Cinemas", "Spice Cinemas"]
     var screenNames = ["Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"]
     var showTimes = ["11.30 AM", "03.00 PM", "06.30 PM", "09.45 PM"]
@@ -58,15 +59,15 @@ struct CartPageView: View {
                     .frame(minWidth: geometry.size.width,maxHeight: 60)
                     .background(Color.red)
                    // if #available(iOS 14.0, *) {
-                    if dbViewModel.getCartDataValues.count == 0{
+                    if storeDataViewModel.items.count == 0{
                         
                     }else{
                     List{
-                        ForEach((dbViewModel.getCartDataValues), id : \.self){ item in
+                        ForEach((storeDataViewModel.items), id : \.self){ item in
                             
-                            CartAddItemCell(itemNames: item.itemName, itemPrice: (Float(item.price ?? "0.00") ?? 0.00), itemQuantity: (Int(item.quantity ?? "0") ?? 0),itemId: item.id, getDataValue:({
+                            CartAddItemCell(itemNames: item.foodName, itemPrice: (Float(item.foodPrice ?? "0.00") ?? 0.00), itemQuantity: (Int(item.foodQuantity ?? "0") ?? 0),itemId: item.foodId, getDataValue:({
                               //  dbViewModel.getAllDataFromTable()
-                                getTotalAmount = calculatingTotalPrice()
+                             //   getTotalAmount = calculatingTotalPrice()
                             }))
                                 .background(Color("ColorAppGrey"))
                                 .frame(height: 70)
@@ -74,7 +75,7 @@ struct CartPageView: View {
                                 .background(Color.black)
                         }
                     }.listStyle(GroupedListStyle())
-                        .frame(height: geometry.size.height-100)
+                        .frame(height: geometry.size.height/2)
                 }
                 }
                        // .frame( height: geometry.size.height)
@@ -125,7 +126,7 @@ struct CartPageView: View {
                             .foregroundColor(.white)
                             .fontWeight(.semibold)
                         NavigationLink{
-                            OffersApplyView()
+                            OffersApplyView(totalAmount: storeDataViewModel.calculateTotalPrice(), orderDate: selectionMovieDate)
                         }label: {
                             HStack{
                                 Text("Select Promo Code")
@@ -219,7 +220,7 @@ struct CartPageView: View {
                                     .fontWeight(.semibold)
                                     .foregroundColor(.white)
                                 Spacer()
-                                Text("$ \(getTotalAmount)")
+                                Text("$ \(storeDataViewModel.calculateTotalPrice())")
                                       .fontWeight(.semibold)
                                       .foregroundColor(.white)
                             }
@@ -254,7 +255,7 @@ struct CartPageView: View {
                             .padding(EdgeInsets(top: 0, leading: 2, bottom: 0, trailing: 5))
                         
                     // Spacer()
-                        Text("$ \(getTotalAmount)")
+                        Text("₹ \(storeDataViewModel.calculateTotalPrice())")
                             .foregroundColor(.white)
                             .fontWeight(.semibold)
                             .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
@@ -275,20 +276,21 @@ struct CartPageView: View {
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear(){
-                dbViewModel.getAllDataFromTable()
-                getTotalAmount = calculatingTotalPrice()
+                storeDataViewModel.
+//               / dbViewModel.getAllDataFromTable()
+               // getTotalAmount = calculatingTotalPrice()
             }
         }
     }
-    func calculatingTotalPrice() -> String{
-      //  getAllDataFromTable()
-        var price : Float = 0
-        dbViewModel.getCartDataValues.forEach { item in
-            price += ((Float(item.price ?? "") ?? 0.00) * (Float(item.quantity ?? "") ?? 0.00) )
-        }
-      //  totalAmounts = String(format: "%.2f", price)
-        return String(format: "%.2f", price)
-    }
+//    func calculatingTotalPrice() -> String{
+//      //  getAllDataFromTable()
+//        var price : Float = 0
+//        dbViewModel.getCartDataValues.forEach { item in
+//            price += ((Float(item.price ?? "") ?? 0.00) * (Float(item.quantity ?? "") ?? 0.00) )
+//        }
+//      //  totalAmounts = String(format: "%.2f", price)
+//        return String(format: "%.2f", price)
+//    }
 }
 
 struct CartPageView_Previews: PreviewProvider {

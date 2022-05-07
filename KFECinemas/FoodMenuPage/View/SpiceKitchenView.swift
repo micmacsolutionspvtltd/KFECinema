@@ -15,9 +15,9 @@ struct SpiceKitchenView: View {
     @State var vegClicked : Bool = false
     @ObservedObject var viewModel = FoodListViewModel()
    @ObservedObject var dbViewModel = DatabaseViewModel()
-    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
-    @StateObject var getDataModel = CartAddFunctionalityViewModel()
-
+//    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
+ //   @StateObject var getDataModel = CartAddFunctionalityViewModel()
+    @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
     @State var getCartDatas : Bool? = false
     var body: some View {
         GeometryReader { geometry in
@@ -217,18 +217,18 @@ struct SpiceKitchenView: View {
                 }
                     
             }
-                if getDataModel.items.count == 0{
+                if $storeDataViewModel.items.count == 0{
 
                 }else{
                     NavigationLink{
                         CartPageView()
                     } label: {
                         HStack(spacing :20){
-                            Text("\(storeDataViewModel.items.count) Items")
+                            Text("\($storeDataViewModel.items.count) Items")
                             //.fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .frame(height: 100)
-                            Text("$ \(storeDataViewModel.calculateTotalPrice())")
+                            Text("₹ \(storeDataViewModel.calculateTotalPrice())")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
 
@@ -262,7 +262,7 @@ struct SpiceKitchenView: View {
             // .background(Color.black)
         
             .onAppear(){
-                dbViewModel.getAllDataFromTable()
+              //  dbViewModel.getAllDataFromTable()
                // viewModel.getApiData()
                 if pageName == "Spice Kitchen"{
                     viewModel.spiceKitchenValueGetApi()

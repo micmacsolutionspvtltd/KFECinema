@@ -1,70 +1,68 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AppAuth",
-        "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
-        "state": {
-          "branch": null,
-          "revision": "33660c271c961f8ce1084cc13f2ea8195e864f7d",
-          "version": "1.5.0"
-        }
-      },
-      {
-        "package": "Facebook",
-        "repositoryURL": "https://github.com/facebook/facebook-ios-sdk",
-        "state": {
-          "branch": "main",
-          "revision": "175ae01651dc4cd2dde80634fc4b4098f9b980ac",
-          "version": null
-        }
-      },
-      {
-        "package": "GoogleSignIn",
-        "repositoryURL": "https://github.com/google/GoogleSignIn-iOS.git",
-        "state": {
-          "branch": "main",
-          "revision": "a1f1a3ef482075a8d00fe8355dfe477448f6e95a",
-          "version": null
-        }
-      },
-      {
-        "package": "GTMSessionFetcher",
-        "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
-        "state": {
-          "branch": null,
-          "revision": "4e9bbf2808b8fee444e84a48f5f3c12641987d3e",
-          "version": "1.7.2"
-        }
-      },
-      {
-        "package": "GTMAppAuth",
-        "repositoryURL": "https://github.com/google/GTMAppAuth.git",
-        "state": {
-          "branch": null,
-          "revision": "e803d09da0147fbf1bbb30e126c47ff43254e057",
-          "version": "1.2.3"
-        }
-      },
-      {
-        "package": "swift-algorithms",
-        "repositoryURL": "https://github.com/apple/swift-algorithms.git",
-        "state": {
-          "branch": null,
-          "revision": "b14b7f4c528c942f121c8b860b9410b2bf57825e",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "swift-numerics",
-        "repositoryURL": "https://github.com/apple/swift-numerics",
-        "state": {
-          "branch": null,
-          "revision": "0a5bc04095a675662cf24757cc0640aa2204253b",
-          "version": "1.0.2"
-        }
+  "pins" : [
+    {
+      "identity" : "appauth-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/openid/AppAuth-iOS.git",
+      "state" : {
+        "revision" : "33660c271c961f8ce1084cc13f2ea8195e864f7d",
+        "version" : "1.5.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "facebook-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/facebook/facebook-ios-sdk",
+      "state" : {
+        "branch" : "main",
+        "revision" : "0ab188aafeefb2b9ba91c31e212700189dccc500"
+      }
+    },
+    {
+      "identity" : "googlesignin-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/GoogleSignIn-iOS.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b44618cc9effdd6350518ff41683cd099fa5a787"
+      }
+    },
+    {
+      "identity" : "gtm-session-fetcher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/gtm-session-fetcher.git",
+      "state" : {
+        "revision" : "eca9404a18f53727e4698211aaf2615eb93b962a",
+        "version" : "1.7.1"
+      }
+    },
+    {
+      "identity" : "gtmappauth",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/GTMAppAuth.git",
+      "state" : {
+        "revision" : "e803d09da0147fbf1bbb30e126c47ff43254e057",
+        "version" : "1.2.3"
+      }
+    },
+    {
+      "identity" : "swift-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-algorithms.git",
+      "state" : {
+        "revision" : "b14b7f4c528c942f121c8b860b9410b2bf57825e",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics",
+      "state" : {
+        "revision" : "0a5bc04095a675662cf24757cc0640aa2204253b",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
 }

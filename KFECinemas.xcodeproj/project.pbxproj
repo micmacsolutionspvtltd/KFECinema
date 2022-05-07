@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0422AFD028262557004B9871 /* PromoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422AFCF28262557004B9871 /* PromoViewModel.swift */; };
 		0433B6AD281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */; };
 		0433B6AF281C087F004558B6 /* OrderHistoryTicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6AE281C087F004558B6 /* OrderHistoryTicketModel.swift */; };
 		0433B6B1281C096E004558B6 /* OrderSpiceKitchenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B0281C096E004558B6 /* OrderSpiceKitchenModel.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0422AFCF28262557004B9871 /* PromoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewModel.swift; sourceTree = "<group>"; };
 		0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryConcessionZoneModel.swift; sourceTree = "<group>"; };
 		0433B6AE281C087F004558B6 /* OrderHistoryTicketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryTicketModel.swift; sourceTree = "<group>"; };
 		0433B6B0281C096E004558B6 /* OrderSpiceKitchenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSpiceKitchenModel.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				04FE7AED2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift */,
+				0422AFCF28262557004B9871 /* PromoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				04FE7AEE2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift in Sources */,
 				0CA478F62801A3FD000B5C57 /* AllFilmsResponse.swift in Sources */,
 				D3DC9C7027EE4B6900BEE17F /* SideMenu.swift in Sources */,
+				0422AFD028262557004B9871 /* PromoViewModel.swift in Sources */,
 				D3CC71BC27E8F9C900C33787 /* Util.swift in Sources */,
 				0CF1C94827F9EF5B00D87F5C /* NetworkManager.swift in Sources */,
 				047E950528221C710051C289 /* TicketReciptView.swift in Sources */,

@@ -19,8 +19,8 @@ struct DishViewCell: View {
     @State var itemPrice : Float = 0.00
     @State var addButtonClick : Bool? = false
     @State var itemQuantity : Int = 0
-    var dbViewModel : DatabaseViewModel? = DatabaseViewModel()
-    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
+  //  var dbViewModel : DatabaseViewModel? = DatabaseViewModel()
+    @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
 
   //  @Binding var addButtonClick : Bool?
     var getDataValue : () -> ()
@@ -68,7 +68,7 @@ struct DishViewCell: View {
 //                    print("getAllDatas",dbViewModel?.getCartDataValues)
                     let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: allRowData.price ?? "",foodQuantity : "1")
                     storeDataViewModel.items.append(item)
-                    print("storeDatas",storeDataViewModel.items)
+                   
                 } label: {
                         Text("Add")
                         .font(.system(size: 13))
@@ -110,7 +110,7 @@ struct DishViewCell: View {
 //                        }else{
 //                            dbViewModel?.edirCartItemsValue(id: allRowData.id ?? "", price: String(itemPrice), quantity: String(itemQuantity), itemName: allRowData.itemName ?? "")
 //                        }
-                        print("storeDatas",storeDataViewModel.items)
+                       
                         getDataValue()
                     }label: {
                         Text("-")
@@ -136,7 +136,7 @@ struct DishViewCell: View {
                               //  }
                             }
                         }
-                        print("storeDatas",storeDataViewModel.items)
+                        
                     }label: {
                         Text("+")
                     }

@@ -119,6 +119,7 @@ struct Dashboard: View {
             dashboardServices.getAllFilms()
             dashboardServices.getAllSpiceKitchenItems()
             dashboardServices.getConcessionZoneItems()
+            UserDefaults.standard.removeObject(forKey: "Items")
            // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
         }.navigationBarHidden(true)
     }

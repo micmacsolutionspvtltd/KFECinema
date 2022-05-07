@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CartFullDataModel : Codable , Identifiable{
+struct CartFullDataModel : Codable , Identifiable , Hashable{
     var id = UUID()
     var foodId : String?
     var foodName : String?
@@ -17,7 +17,7 @@ struct CartFullDataModel : Codable , Identifiable{
 }
 
 class CartAddFunctionalityViewModel : ObservableObject{
-
+   
     @Published var items = [CartFullDataModel]() {
         didSet {
             if let encoded = try? JSONEncoder().encode(items) {
@@ -26,8 +26,10 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
     }
     
-    
+  
+   
     init() {
+       // self.promoId = promoId
         if let savedItems = UserDefaults.standard.data(forKey: "Items") {
             if let decodedItems = try? JSONDecoder().decode([CartFullDataModel].self, from: savedItems) {
                 items = decodedItems
@@ -36,15 +38,16 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
 
         items = []
+        
     }
     
-    func promocodeValuesGetApi(completionHandler : @escaping((PromoCheckModel) -> Void) ){
+    func promocodeValuesGetApi(totalAmount : String , date : String , completionHandler : @escaping((PromoCheckModel) -> Void) ){
         let params : [String : String]?
       params = [
         "user_id": StorageSettings().userId,
-        "booking_date":"2022-05-07",
+        "booking_date": date,
         "order_variety":"s",
-        "order_total_amt":"1084"
+        "order_total_amt":totalAmount
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.checkPromoCode,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoCheckModel.self) { (restValue, result, error) in
@@ -59,7 +62,26 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    
+    func offerCalculationApi(promoId : String , totalAmt : String , completionHandler : @escaping((PromoCheckModel) -> Void) ){
+        let params : [String : String]?
+      params = [
+        "promo_id": promoId,
+        "order_total_amount": totalAmt,
+     
+        ]
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.selectedPromo,requestBody: params))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoCheckModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async {
+            if restValue == true{
+            //    self.getPromoCodeData = result
+                completionHandler(result!)
+            }else{
+             
+            }
+            }
+        }
+        
+    }
     
     func calculateTotalPrice() -> String{
       //  getAllDataFromTable()
@@ -70,50 +92,5 @@ class CartAddFunctionalityViewModel : ObservableObject{
       //  totalAmounts = String(format: "%.2f", price)
         return String(format: "%.2f", price)
     }
-    func updateDatas(){
-        if let encoded = try? JSONEncoder().encode(items) {
-            UserDefaults.standard.set(encoded, forKey: "Items")
-            for i in 0..<items.count{
-                if items[0].foodId == "1"{
-                    
-                }
-            }
-        }
-    }
-    func addDatas(id : String , name : String , price : String){
-        let note = CartFullDataModel()
-
-        // Create Array of Notes
-        let notes = [note]
-        do {
-            // Create JSON Encoder
-            let encoder = JSONEncoder()
-
-            // Encode Note
-            let data = try encoder.encode(notes)
-
-            // Write/Set Data
-            UserDefaults.standard.set(data, forKey: "notes")
-
-        } catch {
-            print("Unable to Encode Array of Notes (\(error))")
-        }
-    }
-    func getAllDatas(){
-        if let data = UserDefaults.standard.data(forKey: "notes") {
-            do {
-                // Create JSON Decoder
-                let decoder = JSONDecoder()
-
-                // Decode Note
-                let notes = try decoder.decode([CartFullDataModel].self, from: data)
-              print(notes)
-            } catch {
-                print("Unable to Decode Notes (\(error))")
-            }
-        }
-    }
-    
-  
     
 }
