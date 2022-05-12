@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct CartItemContentView: View {
+    @Binding var selectedItemName : String?
     var tittleText = "Date Of Order"
-    var buttonName = "30-03-3022"
+    @State var buttonName = "30-03-3022"
     var imageName = "calendar"
     @State var dropDownDatas : [String] = []
     var getDataValue : () -> ()
     @State var text = "Hello World"
-//    public String[] country = {"Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"};
-//    public String[] theatre = {"M1 Cinemas", "Spice Cinemas"};
-//    public String[] shows = {"11.30 AM", "03.00 PM", "06.30 PM", "09.45 PM"};
-//    public String[] seatArea = {"Premium", "Elite", "Gold"};
-//    public String[] takeawaytime = {"15 Mins", "30 Mins", "45 Mins", "1 Hour"};
+
    
     var body: some View {
         VStack(alignment : .leading){
@@ -34,14 +31,14 @@ struct CartItemContentView: View {
                     Menu {
                         VStack{
                             ForEach(dropDownDatas , id :\.self){ names in
-                                Button(action: { text = "Hello there" }) {
+                                Button(action: {
+                                    buttonName = names
+                                  selectedItemName = names
+                                }) {
                                     Label(names, systemImage: "pencil")
                                 }
                             }
-                            
-                            
                         }
-                        
                     } label: {
                         ZStack{
                         Text(buttonName)

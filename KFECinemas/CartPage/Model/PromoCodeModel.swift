@@ -51,3 +51,26 @@ struct PromoData: Codable , Hashable{
         case noOfTimes = "no_of_times"
     }
 }
+
+
+// MARK: - PromoCalculateModel
+struct PromoAmtCalculateModel: Codable {
+    let status, reason: String?
+    let data: PromoAmtCalculateData?
+}
+
+// MARK: - DataClass
+struct PromoAmtCalculateData: Codable {
+    let appliedPromo, orderTotalAmount, discoutPer, discountMaxAmt: String?
+    let calculatedDiscountAmount: String?
+    let discountedAmountFromTotal: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case appliedPromo = "applied_promo"
+        case orderTotalAmount = "order_total_amount"
+        case discoutPer = "discout_per"
+        case discountMaxAmt = "discount_max_amt"
+        case calculatedDiscountAmount = "calculated_discount_amount"
+        case discountedAmountFromTotal = "discounted_amount_from_total"
+    }
+}

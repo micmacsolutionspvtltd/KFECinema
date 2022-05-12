@@ -57,6 +57,7 @@ struct Constants {
            static let forgotPassword = "Forgot Password".localized
            static let continueValue  = "Continue".localized
            static let signUp = "Signup"
+           static let enterPassword = "Please enter Password"
        }
        
        struct OtpVerificationKeys {

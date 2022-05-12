@@ -14,6 +14,7 @@ struct CartFullDataModel : Codable , Identifiable , Hashable{
     var foodPrice : String?
     var totalPrice : String?
     var foodQuantity : String?
+    var categoryId : String?
 }
 
 class CartAddFunctionalityViewModel : ObservableObject{
@@ -62,7 +63,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    func offerCalculationApi(promoId : String , totalAmt : String , completionHandler : @escaping((PromoCheckModel) -> Void) ){
+    func offerCalculationApi(promoId : String , totalAmt : String , completionHandler : @escaping((PromoAmtCalculateModel) -> Void) ){
         let params : [String : String]?
       params = [
         "promo_id": promoId,
@@ -70,7 +71,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
      
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.selectedPromo,requestBody: params))!
-        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoCheckModel.self) { (restValue, result, error) in
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoAmtCalculateModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{
             //    self.getPromoCodeData = result
@@ -82,7 +83,88 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    
+    func orderSnackItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((PromoAmtCalculateModel) -> Void) ){
+        let params : [String : String]?
+        params = [
+            "user_id" : StorageSettings().userId,
+            "item_id" : itemId,
+            "categoryId": categoryId,
+            "sub_categoryId" : "",
+            "quantity" : quantity,
+            "price" : price,
+            "gst" : gst,
+            "payment_type" : "1",
+            "ordered_during" : "0",
+            "order_total_amount" : totalPrice,
+            "theatre_id" : theaterId,
+            "screen_id" : screenId,
+            "seat_no" : seatNo,
+            "show_time" : showTime,
+            "zone" : seatRow,
+            "deliver_to_seat_or_pickup_at_counter" : totalPrice,
+            "order_date" : orderDate,
+            "promocode_id" : promoCode,
+            "total_amt_discounted" : discountPrice,
+            "total_amt_after_discounted" : totalPrice,
+            "is_vip_card_used" : "",
+            "vip_card_id" : "",
+          
+            
+        ]
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertSnacksOrderItem,requestBody: params))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoAmtCalculateModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async {
+            if restValue == true{
+            //    self.getPromoCodeData = result
+                completionHandler(result!)
+            }else{
+             
+            }
+            }
+        }
+        
+    }
+    func orderFoodItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((PromoAmtCalculateModel) -> Void) ){
+        let params : [String : String]?
+        params = [
+            "order_date" : orderDate ,
+            "user_id" : StorageSettings().userId,
+            "item_id" : itemId,
+            "categoryId": categoryId,
+            "quantity" : quantity,
+            "price" : price,
+            "gst" : gst,
+            "payment_type" : "1",
+            "ordered_during" : "0",
+            "deliver_to_seat_or_pickup_at_counter" : pickUpCounter,
+            "theatre_id" : theaterId,
+            "screen_id" : screenId,
+            "seat_no" : seatNo,
+            "order_total_price" : totalPrice,
+            "show_time" : showTime,
+            "zone" : seatRow,
+            "deliver_to_seat_or_pickup_at_counter" : totalPrice,
+            "order_date" : orderDate,
+            "promocode_id" : promoCode,
+            "total_amt_discounted" : discountPrice,
+            "total_amt_after_discounted" : totalPrice,
+            "is_vip_card_used" : "",
+            "vip_card_id" : "",
+            "snacks_delivery_at_beg_inter" : "1",
+        ]
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertOrderItem,requestBody: params))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoAmtCalculateModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async {
+            if restValue == true{
+            //    self.getPromoCodeData = result
+                completionHandler(result!)
+            }else{
+             
+            }
+            }
+        }
+        
+    }
     func calculateTotalPrice() -> String{
       //  getAllDataFromTable()
         var price : Float = 0

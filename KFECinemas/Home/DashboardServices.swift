@@ -77,6 +77,26 @@ class DashboardServices:ObservableObject {
             }
         }
     }
-    
+    func changePassWordApi(newPassword : String ,oldPassword : String , completionHandler : @escaping (SignUpDataModel) -> Void){
+     //   let params : [String : String]
+        let params : [String : String] = [
+            "new_password":newPassword,
+            "old_password" : oldPassword,
+            "user_id" : StorageSettings().userId
+        ]
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.updatePassword , requestBody : params))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: SignUpDataModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true {
+                    completionHandler(result!)
+              //      concessionZoneItems = result?.data ?? []
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+    }
     
 }

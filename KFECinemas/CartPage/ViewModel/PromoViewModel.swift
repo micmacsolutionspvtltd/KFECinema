@@ -11,5 +11,5 @@ import Foundation
 class PromoViewModel : ObservableObject{
     
     @Published var promoId : String? = ""
-
+    @Published var promoCode : String? = ""
 }

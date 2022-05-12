@@ -16,9 +16,13 @@
 		0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */; };
 		043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C5E282379D2009166DF /* PromoCodeModel.swift */; };
 		043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D6251281AADC80053F2BE /* DatePickerWithButton.swift */; };
+		0460A1B7282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */; };
+		0460A1B9282A4CA700EA4A88 /* ForgetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */; };
+		0460A1BB282A545A00EA4A88 /* ForgetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */; };
 		047E94E828205B6D0051C289 /* CartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E94E728205B6D0051C289 /* CartDataModel.swift */; };
 		047E950528221C710051C289 /* TicketReciptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E950428221C710051C289 /* TicketReciptView.swift */; };
 		0498F5DF2813EF76007B2B24 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 0498F5DE2813EF76007B2B24 /* Algorithms */; };
+		04DDB6ED282814D200E3DD28 /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DDB6EC282814D200E3DD28 /* CustomToastView.swift */; };
 		04FE7AE82814F4D5004B9EC4 /* FoodBannerImageMOdel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */; };
 		04FE7AEB2815D029004B9EC4 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AEA2815D029004B9EC4 /* CartModel.swift */; };
 		04FE7AEE2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AED2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift */; };
@@ -94,8 +98,12 @@
 		0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
 		043B5C5E282379D2009166DF /* PromoCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeModel.swift; sourceTree = "<group>"; };
 		043D6251281AADC80053F2BE /* DatePickerWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithButton.swift; sourceTree = "<group>"; };
+		0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordPopupView.swift; sourceTree = "<group>"; };
+		0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewModel.swift; sourceTree = "<group>"; };
+		0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordModel.swift; sourceTree = "<group>"; };
 		047E94E728205B6D0051C289 /* CartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDataModel.swift; sourceTree = "<group>"; };
 		047E950428221C710051C289 /* TicketReciptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketReciptView.swift; sourceTree = "<group>"; };
+		04DDB6EC282814D200E3DD28 /* CustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBannerImageMOdel.swift; sourceTree = "<group>"; };
 		04FE7AEA2815D029004B9EC4 /* CartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
 		04FE7AED2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAddFunctionalityViewModel.swift; sourceTree = "<group>"; };
@@ -460,6 +468,7 @@
 				D38A8E8A27FCB41200B26340 /* ImageLoader.swift */,
 				04FE7AF22816009D004B9EC4 /* CoreDataViewModel.swift */,
 				043D6251281AADC80053F2BE /* DatePickerWithButton.swift */,
+				04DDB6EC282814D200E3DD28 /* CustomToastView.swift */,
 			);
 			path = CommonUtil;
 			sourceTree = "<group>";
@@ -480,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				0C9CBE5827BED42900DC7386 /* LoginViewModel.swift */,
+				0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -489,6 +499,7 @@
 			children = (
 				0C9CBE5A27BED43200DC7386 /* LoginModel.swift */,
 				0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */,
+				0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -497,6 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				0C9CBE5627BED41B00DC7386 /* LoginView.swift */,
+				0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */,
 				D345A43E27E4CBE200D1D5AD /* SignupView.swift */,
 			);
 			path = View;
@@ -614,6 +626,7 @@
 				0433B6B1281C096E004558B6 /* OrderSpiceKitchenModel.swift in Sources */,
 				0C9CBE5B27BED43200DC7386 /* LoginModel.swift in Sources */,
 				D3CC71B927E8F9C900C33787 /* ApiKeys.swift in Sources */,
+				04DDB6ED282814D200E3DD28 /* CustomToastView.swift in Sources */,
 				04FE7AEE2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift in Sources */,
 				0CA478F62801A3FD000B5C57 /* AllFilmsResponse.swift in Sources */,
 				D3DC9C7027EE4B6900BEE17F /* SideMenu.swift in Sources */,
@@ -638,6 +651,7 @@
 				0CE7B2BF27B7E7880021DF8D /* KFECinemasApp.swift in Sources */,
 				0433B6AF281C087F004558B6 /* OrderHistoryTicketModel.swift in Sources */,
 				0CF1C93027F641DF00D87F5C /* CartPageView.swift in Sources */,
+				0460A1B9282A4CA700EA4A88 /* ForgetPasswordViewModel.swift in Sources */,
 				0CA478FC2801E68B000B5C57 /* ConcessionZoneResponse.swift in Sources */,
 				D345A44127E4E08100D1D5AD /* Constants.swift in Sources */,
 				0CF1C94D27F9F99300D87F5C /* ApiList.swift in Sources */,
@@ -653,6 +667,8 @@
 				0CF1C93827F9681600D87F5C /* OfferCell.swift in Sources */,
 				D345A45127E50C6700D1D5AD /* NetworkError.swift in Sources */,
 				D3CC71BB27E8F9C900C33787 /* FeatureManager.swift in Sources */,
+				0460A1B7282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift in Sources */,
+				0460A1BB282A545A00EA4A88 /* ForgetPasswordModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

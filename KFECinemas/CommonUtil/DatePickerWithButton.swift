@@ -23,7 +23,7 @@ struct DatePickerWithButtons: View {
             
             VStack {
                 if #available(iOS 14.0, *) {
-                    DatePicker("Test", selection: $selectedDate, in: ...Date() , displayedComponents: [.date])
+                    DatePicker("Test", selection: $selectedDate, in: Date.now...(Calendar.current.date(byAdding: .day, value: 7, to: Date.now) ?? Date.now) , displayedComponents: [.date])
                         .datePickerStyle(GraphicalDatePickerStyle())
                 } else {
                     DatePicker("Test", selection: $selectedDate , displayedComponents: [.date])

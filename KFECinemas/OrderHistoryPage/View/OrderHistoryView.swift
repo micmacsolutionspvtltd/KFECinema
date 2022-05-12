@@ -14,7 +14,10 @@ struct OrderHistoryView: View {
     @ObservedObject var viewModel = OrderHistoryViewModel()
    @State var name : String = ""
     @State private var linkActive = false
-
+    init(){
+        UITableView.appearance().backgroundColor = .clear
+        UITableViewCell.appearance().backgroundColor = .clear
+    }
     var body: some View {
         GeometryReader { geometry in
         ZStack{
@@ -95,15 +98,19 @@ struct OrderHistoryView: View {
                 .frame(minWidth: geometry.size.width,maxHeight: 60)
                 .background(Color.black)
                 ZStack{
+                    Color.black
+                        .edgesIgnoringSafeArea(.all)
                 if clickingButton == "Ticket"{
                //     List(viewModel.getTicketHistoryData?.data ?? [] , id : \.self){ value in
                         List(0..<(viewModel.getTicketHistoryData?.data?.count ?? 0), id : \.self){ (finalValues) in
 //                       )
                             Button(action: { linkActive = true }){
                             OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieAmount ?? "", date: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "", bookingId: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingID ?? "", bookingSeat: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "", snacksItems: viewModel.getTicketSnacksData[finalValues])
-                                .listStyle(GroupedListStyle())
-                                                          .background(Color.black)
-                            }
+                        //        .listStyle(GroupedListStyle())
+                          //      .background(Color.black)
+                                    .listRowBackground(Color.black)
+                               
+                            }//.listRowBackground(.black)
                             .overlay(VStack {
                                 if linkActive {
                                     NavigationLink(destination:  TicketReciptView(reciptDatas : viewModel.getTicketHistoryData?.data?[finalValues].movieDetails), isActive: $linkActive) {
@@ -122,8 +129,9 @@ struct OrderHistoryView: View {
                         List(0..<(viewModel.getSpiceKitcehnData?.data?.count ?? 0), id : \.self){ (finalValues) in
                             OrderHisroryViewCell(movieName : "Spice Kitchen" , theaterName: "Order ID \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].foodOrderID ?? "")", amount: viewModel.getSpiceKitcehnData?.data?[finalValues][0].totalPrice ?? "", date: "Ordered on : \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].orderDate ?? "")", snacksItems: viewModel.getKitchenSnacksData[finalValues])
 
-                                    .listStyle(GroupedListStyle())
-                                    .background(Color.black)
+                                 //   .listStyle(GroupedListStyle())
+                                   // .background(Color.black)
+                                    .listRowBackground(Color.black)
 //                            }
                         }
 
@@ -135,8 +143,9 @@ struct OrderHistoryView: View {
                             List(0..<(viewModel.getConcessionZoneData?.data?.count ?? 0), id : \.self){ (finalValues) in
                             OrderHisroryViewCell(movieName : "Concession Zone" , theaterName: "Order ID \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderID ?? "")", amount: viewModel.getConcessionZoneData?.data?[finalValues][0].totalPrice ?? "", date: "Ordered on : \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderDate ?? "")", snacksItems: viewModel.getConcessionSnacksData[finalValues])
                             
-                                    .listStyle(GroupedListStyle())
-                                    .background(Color.black)
+                               //     .listStyle(GroupedListStyle())
+                                   // .background(Color.black)
+                                    .listRowBackground(Color.black)
 
                         }
                     }

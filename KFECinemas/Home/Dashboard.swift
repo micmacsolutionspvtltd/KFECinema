@@ -96,21 +96,13 @@ struct Dashboard: View {
                 TableHeaderView(title: "Theatres"){
                     
                 }
-    //            ScrollView(.horizontal) {
-    //                HStack (spacing:20){
-    //                        ForEach(movies, id: \.id) { movie in
-    //                            MovieCardView(model: movie).frame(width: 200, height: 400)
-    //                            }
-    //                }
-    //            }.padding(.leading,5)
-            
-    //            List(movies) { movie in
-    //                        MovieCardView(model: movie)
-    //            }
                
-            }.onAppear(){
-                
-            }.background(Color("ColorAppGrey"))
+               
+            } //.edgesIgnoringSafeArea([.top, .bottom])
+             //   .navigationBarTitle(Text("Next Screen"), displayMode: .inline)
+                        .navigationBarHidden(true)
+         
+                .background(Color("ColorAppGrey"))
             SideMenu(width:UIScreen.main.bounds.size.width - 50,
                                 isOpen: self.menuOpen,
                                 menuClose: self.openMenu)
@@ -121,7 +113,11 @@ struct Dashboard: View {
             dashboardServices.getConcessionZoneItems()
             UserDefaults.standard.removeObject(forKey: "Items")
            // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-        }.navigationBarHidden(true)
+        }
+      
+           // .navigationBarTitle(Text(""))
+            
+           
     }
     
     func openMenu() {

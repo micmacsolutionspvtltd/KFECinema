@@ -12,6 +12,7 @@ struct CartAddItemCell: View {
     @State var itemPrice : Float
     @State var itemQuantity : Int = 0
     @State var itemId : String?
+    @State var catId : String?
     @State var getCartValues : CartDataStorage?
    // var dbViewModel : DatabaseViewModel? = DatabaseViewModel()
     var getDataValue : () -> ()
@@ -22,10 +23,8 @@ struct CartAddItemCell: View {
             VStack(alignment: .leading){
                 Text(itemNames ?? "")
                     .foregroundColor(Color.white.opacity(0.7))
-             //   multilineTextAlignment(.leading)
                 Text("$ " + String(Float(itemPrice) * Float(itemQuantity)))
                     .foregroundColor(Color.white.opacity(0.7))
-              //  multilineTextAlignment(.leading)
             }
             Spacer()
             HStack{
@@ -37,18 +36,11 @@ struct CartAddItemCell: View {
                             if itemQuantity == 0{
                           //      addButtonClick = false
                             }else{
-                                let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity))
+                                let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: catId)
                                 storeDataViewModel.items.insert(item, at: i)
                             }
                         }
                     }
-                   // calculatePrice(price: (itemPrice ))
-//                    if itemQuantity == 0{
-//                      
-//                        dbViewModel?.deleteCartItems(id: itemId ?? "")
-//                    }else{
-//                        dbViewModel?.edirCartItemsValue(id: itemId ?? "", price: String((itemPrice * (Float(itemQuantity)))), quantity: String(itemQuantity), itemName: itemNames ?? "")
-//                    }
                     getDataValue()
                 } label: {
                     Text("-")
@@ -67,14 +59,12 @@ struct CartAddItemCell: View {
 //                                if itemQuantity == 0{
 //
 //                                }else{
-                            let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity))
+                            let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity), categoryId: catId)
                             storeDataViewModel.items.insert(item, at: i)
                           //  }
                         }
                     }
-                    
-//                   // calculatePrice(price: (Float(itemPrice) ))
-//                    dbViewModel?.edirCartItemsValue(id: itemId ?? "", price: String((itemPrice * (Float(itemQuantity)))), quantity: String(itemQuantity), itemName: itemNames ?? "")
+
                     getDataValue()
                 } label: {
                     Text("+")

@@ -29,7 +29,13 @@ class Common {
        
         
     }
-    
+    func changingDateFormat(date : Date) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+       // formatter.date(from: date)
+        let finalDate = formatter.string(from: date)
+        return finalDate
+    }
     //MARK: - Common Details
     
     func getDefaultHistoryDate()->(String,String) {
@@ -37,6 +43,7 @@ class Common {
         let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .day, value: -30, to: today)!
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
+        
         let fromDate = formatter.string(from: thirtyDaysBeforeToday)
         let toDate = formatter.string(from: today)
         

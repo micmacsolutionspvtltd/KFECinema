@@ -15,10 +15,12 @@ struct LoginView: View {
     @State var moveDashBoardPage : Bool = false
     @EnvironmentObject var viewModel: UserAuthModel
     @EnvironmentObject var storageSettings:StorageSettings
-   
+    @State var errorPopup : Bool? = false
+    @State var toastMsg : String = "Not valid"
+    @State var forgetPasswordPopupShow : Bool? = false
     var body: some View {
         GeometryReader { geometry in
-          //  NavigationView{
+            ZStack{
             ScrollView {
                 VStack{
                     Image("batne").resizable().scaledToFill()
@@ -61,16 +63,25 @@ struct LoginView: View {
                     NavigationLink(destination: Dashboard(), isActive: $moveDashBoardPage){
                         Button{
                            // moveDashBoardPage = true
+                            if mobileNumber.count != 10{
+                                errorPopup = true
+                                toastMsg = Constants.LoginKeys.header4
+                                return
+                            }else if password == ""{
+                                errorPopup = true
+                                toastMsg = Constants.LoginKeys.enterPassword
+                                return
+                            }
                             viewModel.loginApi(mobno: mobileNumber, password: password, loginMethod: "1") { result in
                                 if result.status == 1{
                                     storageSettings.userId = result.data?[0].id ?? ""
                                     storageSettings.userName = result.data?[0].userName ?? ""
                                     storageSettings.emailAddress = result.data?[0].email ?? ""
                                     storageSettings.mobileNumber = result.data?[0].mbleNum ?? ""
-                                
                                     moveDashBoardPage = true
                                 }else{
-                                    
+                                    errorPopup = true
+                                    toastMsg = result.reason ?? ""
                                 }
                             }
                         }label: {
@@ -83,18 +94,12 @@ struct LoginView: View {
                         }.padding(.top , 15.0)
                     }
                    
-//                    NavigationLink(destination: Dashboard()){
-//                    Text("SIGNIN")
-//                            .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
-//                            .frame(minWidth: geometry.size.width * 0.9)
-//                            .foregroundColor(Color.white)
-//                            .background(Color.red)
-//                            .cornerRadius(.infinity)
-//                    }.padding(.top , 15.0)
                     Text("OR").font(.system(size: 25)).fontWeight(.bold).foregroundColor(Color.white)
                 }
                 Button(action: {
-                    viewModel.signIn()
+                    viewModel.signIn(completionHandler: { resulting in
+                        socialMedoaLogin(email: resulting.profile?.email ?? "", name: resulting.profile?.name ?? "", typeOfLogin: "2")
+                    })
                     print(viewModel.givenName)
                   //  SocialLogin.attemptLoginGoogle()
                 }) {
@@ -152,17 +157,56 @@ struct LoginView: View {
                             Text("Create Account").font(.system(size: 15)).fontWeight(.bold).foregroundColor(Color.red)
                                 }
                     }.padding(.horizontal)
-                    HStack{
-                        Text("Forgot Password?").font(.system(size: 15)).foregroundColor(Color.gray)
-                        Text("Click Here").font(.system(size: 15)).fontWeight(.bold).foregroundColor(Color.red)
-                    }.padding(.horizontal)
+                    Button{
+                        forgetPasswordPopupShow = true
+                    }label: {
+                        HStack{
+                            Text("Forgot Password?").font(.system(size: 15)).foregroundColor(Color.gray)
+                            Text("Click Here").font(.system(size: 15)).fontWeight(.bold).foregroundColor(Color.red)
+                        }.padding(.horizontal)
+                    }
+                    
                 }.padding(.bottom, 30.0)
-            }.background(Color.black)
+            }
+                if forgetPasswordPopupShow == true{
+                    GeometryReader{_ in
+                        ForgetPasswordPopupView( popupShow: $forgetPasswordPopupShow, errorPopup: $errorPopup, toastMsg: $toastMsg)
+                        .frame(width: 350, height: 250)
+                        //.padding()
+                      //.background(Color.init(Constants.Color.yellowColor))
+                        .background(Color.black)
+                         .cornerRadius(8)
+                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                    }
+                        .background(Color.black.opacity(0.6)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                                withAnimation {
+                                    forgetPasswordPopupShow = false
+                                }
+                            })
+                }
+        }.background(Color.black)
                     .navigationBarHidden(true)
-               
+                    .toast(isShowing: $errorPopup,textContent: toastMsg)
       //  }
         }
     }
+    func socialMedoaLogin(email : String , name : String ,typeOfLogin : String){
+        viewModel.googleLoginApi(email: email, userName: name, typeOfLogin: typeOfLogin) { result in
+            if result.status == 1{
+                storageSettings.userId = result.data?[0].id ?? ""
+                storageSettings.userName = result.data?[0].userName ?? ""
+                storageSettings.emailAddress = result.data?[0].email ?? ""
+                storageSettings.mobileNumber = result.data?[0].mbleNum ?? ""
+                moveDashBoardPage = true
+            }else{
+                errorPopup = true
+                toastMsg = result.reason ?? ""
+            }
+        }
+        }
+    
 }
 
 struct LoginView_Previews: PreviewProvider {

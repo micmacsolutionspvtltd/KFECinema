@@ -120,6 +120,8 @@ struct SpiceKitchenView: View {
                     }
                 }
                 }
+                    ZStack{
+                        Color.black
                     VStack{
                     if #available(iOS 14.0, *) {
                         if pageName == "Spice Kitchen"{
@@ -128,6 +130,7 @@ struct SpiceKitchenView: View {
                                     if let itemDatas = sectionData.itemsInfo{
                                         if itemDatas.count != 0{
                                             Section(header : Text(sectionData.subCatName ?? "")) {
+                                                List{
                                                 ForEach(sectionData.itemsInfo ?? [] , id : \.self){ rowData in
                                                     if vegClicked{
                                                         //print(rowData.categoryName ?? "")
@@ -144,16 +147,21 @@ struct SpiceKitchenView: View {
                                                         DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
                                                     //        dbViewModel.getAllDataFromTable()
 
-                                                        }) )
+                                                        }) ) //.listRowBackground(.black)
                                                             .frame(width: geometry.size.width*0.8,height: 100)
                                                         //    .padding(10)
                                                             .padding([.leading,.trailing],10)
-                                                            .background(Color.black)
+                                                           .background(Color.black)
                                                             .cornerRadius(10)
+                                                           
                                                     }
                                                 
                                                 }
+                                            }
+                                                //.listRowBackground(Color.black)
                                             }//.background(Color.black)
+                                            
+                                            .foregroundColor(.white)
                                         }
                                     }
                                 
@@ -212,7 +220,7 @@ struct SpiceKitchenView: View {
                         // Fallback on earlier versions
                     }
                 }
-                    
+                }
                     
                 }
                     
@@ -221,7 +229,7 @@ struct SpiceKitchenView: View {
 
                 }else{
                     NavigationLink{
-                        CartPageView()
+                        CartPageView(pageNames : pageName)
                     } label: {
                         HStack(spacing :20){
                             Text("\($storeDataViewModel.items.count) Items")
