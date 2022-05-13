@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct MovieDetailView: View {
+    @Environment(\.presentationMode) var presentationMode
+    var movie:AllFilms
     var body: some View {
-        ScrollView{
+        ScrollView(showsIndicators:false){
             VStack {
                 HStack(alignment: .top) {
                     Button(action:{
-                        
+                        self.presentationMode.wrappedValue.dismiss()
                     }){
                         
                         Image(systemName:  "arrow.left").foregroundColor(.white).padding()
@@ -27,19 +29,19 @@ struct MovieDetailView: View {
             }
             VStack(spacing:5){
                 HStack() {
-                    Text("BAD BOYS FOR LIFE").foregroundColor(.white)
+                    Text("\(movie.filmStrTitle ?? "")").foregroundColor(.white)
                     Divider().background(.white).frame(height:30)
-                    Text("Telugu").foregroundColor(.white)
+                    Text("\(movie.filmStrShortNameAlt ?? "")").foregroundColor(.white)
                     Spacer()
                 }
                 HStack {
-                    Text("ACTION-CRIME-DRAMA").fontWeight(.semibold).foregroundColor(.blue)
+                    Text("\(movie.filmCatStrName ?? "")").fontWeight(.semibold).foregroundColor(.blue)
                     Spacer()
                 }
                 
                 HStack {
                     Image(systemName:  "clock.fill").foregroundColor(.white)
-                    Text("123 mins").foregroundColor(.white).font(.system(size: 15))
+                    Text("\(movie.filmIntDuration ?? 0) mins").foregroundColor(.white).font(.system(size: 15))
                     Spacer()
                 }
             }.padding(.leading,20)
@@ -48,29 +50,29 @@ struct MovieDetailView: View {
             
             VStack(alignment:.leading,spacing: 10) {
                 Text("Storyline").padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)).foregroundColor(.white).font(.system(size: 14)).background(Color(hue: 1.0, saturation: 0.081, brightness: 0.866)).cornerRadius(5)
-                Text("Old-school cops Mike Lowery and Marcus Burnett team up again to take down the vicious leader of a Miami drug carterl.An agin Burnett becomes a police inspector while Mike going through his mid-life crisis get asssigned as the head as AMMO")
+                Text("\(movie.filmStrDescription ?? "")")
                     .foregroundColor(Color.white).font(.system(size: 14))
                 Text("CAST OVERVIEW").fontWeight(.bold).foregroundColor(.white).font(.system(size: 16))
-                Text("Martin Lawrence, Vanessa Hudgens, Will Smith")
+                Text("\(movie.filmStrContent ?? "")")
                     .foregroundColor(Color.white).font(.system(size: 14))
                 Text("Director").fontWeight(.bold).foregroundColor(.white).font(.system(size: 15))
                 Text("White walker")
                     .foregroundColor(Color.white).font(.system(size: 14))
             }.padding(.leading,20).padding(.bottom,20)
             Spacer()
-            Button(action:{
-                
-            }){
-                
-                Text("BOOK TICKET")
-            }.padding().frame(maxWidth: .infinity).background(.red)
+            NavigationLink{
+                BookTicketView(movie: movie)
+            }label: {
+                Text("BOOK TICKET").padding().frame(maxWidth: .infinity).background(.red)
+            }
+           
            
         }.background(Color("ColorAppGrey")).ignoresSafeArea().navigationBarHidden(true)
     }
 }
 
-struct MovieDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieDetailView()
-    }
-}
+//struct MovieDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MovieDetailView()
+//    }
+//}

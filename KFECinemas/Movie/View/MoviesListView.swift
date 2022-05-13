@@ -12,7 +12,7 @@ struct MoviesListView: View {
     private var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
     private var symbols = ["food1", "food2", "food3","food4","food5","food6","food1", "food2", "food3","food4","food5","food6"]
     var body: some View {
-        ScrollView{
+        ScrollView(showsIndicators:false){
             HStack {
                 Button(action:{
                     

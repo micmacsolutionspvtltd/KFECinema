@@ -698,10 +698,12 @@ struct Constants {
         static let ThreeLetterMonthFormat = "MMM"
         static let TwoLetterMonthFormat = "MM"
         static let YearFormat = "yyyy"
-        static let LongDateTimeFormat = "dd MMMM, yyyy hh:mm a"
+        static let LongDateTimeFormat = "yyyy-MM-dd'T'HH:mm:ss"
         static let UTCDateFormat = "yyyy-MM-dd HH:mm:ss.S"
         static let DateFormat = "dd MMMM, yyyy"
+        static let normalDateFormat = "dd-MM-yyyy"
         static let TimeFormat = "hh:mm a"
+        static let TimeFormat2 = "HH:mm:ss"
     }
     
     struct WebViewType {

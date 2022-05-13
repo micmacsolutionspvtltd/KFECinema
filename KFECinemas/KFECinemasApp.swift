@@ -22,17 +22,11 @@ struct KFECinemasApp: App {
             
             NavigationView{
                 if storageSettings.userId != "" {
-                    NavigationView{
-                        Dashboard()
-                    }
-                   
+                    Dashboard()
                 }else{
-                    NavigationView{
                         LoginView()
-                    }
-                   
                 }
-            }.environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices())
+            }.environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(MovieServices())
             
 //            if StorageManager.sharedInstance.getLoginCompleted() == true{
 //               // NavigationView{

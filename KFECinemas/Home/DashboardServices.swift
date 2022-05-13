@@ -13,7 +13,7 @@ class DashboardServices:ObservableObject {
     @Published var allFilms:[AllFilms] = []
     @Published var spiceKitchenItems:[SpiceKitchen] = []
     @Published var concessionZoneItems:[ConcessionZoneItem] = []
-    
+    @Published var activeTheatres:[Theatre] = []
     func getAllBannerImages(){
         
  
@@ -69,6 +69,21 @@ class DashboardServices:ObservableObject {
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
                     concessionZoneItems = result?.data ?? []
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+    }
+    
+    func getAllActiveTheatres(){
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.activeTheatres))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: ActiveTheatreResponse.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true {
+                    activeTheatres = result?.data ?? []
                 }else{
                     
                 }

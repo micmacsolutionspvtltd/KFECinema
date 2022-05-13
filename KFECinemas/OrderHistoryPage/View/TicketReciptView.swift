@@ -12,7 +12,7 @@ struct TicketReciptView: View {
     var body: some View {
         GeometryReader{ geometry in
             ZStack{
-                ScrollView{
+                ScrollView(showsIndicators:false){
                 GeometryReader{ innerGeometry in
                 VStack(alignment : .leading,spacing: 50){
                     VStack{

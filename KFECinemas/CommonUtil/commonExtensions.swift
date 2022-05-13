@@ -273,6 +273,26 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var currentDayDate: String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "IST")
+        //        formatter.amSymbol = "AM"
+        //        formatter.pmSymbol = "PM"
+        formatter.dateFormat = "dd"
+        
+        return formatter.string(from: self)
+    }
+    
+    var currentDay: String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "IST")
+        //        formatter.amSymbol = "AM"
+        //        formatter.pmSymbol = "PM"
+        formatter.dateFormat = "EEE"
+        
+        return formatter.string(from: self)
+    }
+    
     var currentTime: String {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "IST")
@@ -1082,5 +1102,31 @@ private struct HSBColor {
         get {
             return UIColor(hue: h, saturation: s, brightness: b, alpha: alpha)
         }
+    }
+}
+
+let dateComponents = Calendar(identifier: .gregorian).dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+let startOfWeek = Calendar(identifier: .gregorian).date(from: dateComponents)!
+let startOfWeekNoon = Calendar(identifier: .gregorian).date(bySettingHour: 12, minute: 0, second: 0, of: startOfWeek)!
+let weekDays = (0...6).map { Calendar(identifier: .gregorian).date(byAdding: .day, value: $0, to: startOfWeekNoon)! }
+//weekDays  // ["Jun 7, 2020 at 12:00 PM", "Jun 8, 2020 at 12:00 PM", "Jun 9, 2020 at 12:00 PM", "Jun 10, 2020 at 12:00 PM", "Jun 11, 2020 at 12:00 PM", "Jun 12, 2020 at 12:00 PM", "Jun 13, 2020 at 12:00 PM"]
+extension Calendar {
+    static let iso8601 = Calendar(identifier: .iso8601)
+    static let gregorian = Calendar(identifier: .gregorian)
+}
+extension Date {
+    func byAdding(component: Calendar.Component, value: Int, wrappingComponents: Bool = false, using calendar: Calendar = .current) -> Date? {
+        calendar.date(byAdding: component, value: value, to: self, wrappingComponents: wrappingComponents)
+    }
+    func dateComponents(_ components: Set<Calendar.Component>, using calendar: Calendar = .current) -> DateComponents {
+        calendar.dateComponents(components, from: self)
+    }
+    func startOfWeek(using calendar: Calendar = .current) -> Date {
+        calendar.date(from: dateComponents([.yearForWeekOfYear, .weekOfYear], using: calendar))!
+    }
+    
+    func daysOfWeek(using calendar: Calendar = .current) -> [Date] {
+        let startOfWeek = Date()
+        return (0...6).map { startOfWeek.byAdding(component: .day, value: $0, using: calendar)! }
     }
 }

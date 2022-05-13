@@ -29,7 +29,7 @@ struct MovieView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         
-       return  ScrollView{
+       return  ScrollView(showsIndicators:false){
            HStack {
                Button(action:{
                    presentationMode.wrappedValue.dismiss()
@@ -69,7 +69,7 @@ struct MovieView: View {
                Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                Spacer()
            }.padding(.leading,5)
-           ScrollView(.horizontal) {
+           ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
                        ForEach(dashboardServices.allFilms, id: \.id) { movie in
                            MovieCardView(model: movie).frame(width: 150, height: 250)
@@ -83,7 +83,7 @@ struct MovieView: View {
                Text("Upcoming Movies").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                Spacer()
            }.padding(.leading,5).background(.black)
-           ScrollView(.horizontal) {
+           ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
                        ForEach(dashboardServices.allFilms, id: \.id) { movie in
                            

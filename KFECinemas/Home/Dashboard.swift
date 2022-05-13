@@ -36,91 +36,89 @@ struct Dashboard: View {
 //        }
 //    }
     var body: some View {
-        ZStack {
-            ScrollView{
-                AppBarView(openMenu: self.openMenu)
-                ScrollViewReader { scrollView in
-                            ScrollView(.horizontal) {
-                                LazyHStack {
-                                    ForEach(dashboardServices.bannerImages, id: \.id) { banner in
-                                        let bannerModel:BannerModel = banner
-                                        let url = Endpoint.bannerImages.url + bannerModel.imageURL
-                                        BannerImageView(withURL: url)
-                                    
+            ZStack {
+                ScrollView(showsIndicators: false){
+                    AppBarView(openMenu: self.openMenu)
+                    ScrollViewReader { scrollView in
+                                ScrollView(.horizontal,showsIndicators: false) {
+                                    LazyHStack {
+                                        ForEach(dashboardServices.bannerImages, id: \.id) { banner in
+                                            let bannerModel:BannerModel = banner
+                                            let url = Endpoint.bannerImages.url + bannerModel.imageURL
+                                            BannerImageView(withURL: url)
+
+                                        }
+                                    }
+                                    .onAppear {
+                                        dashboardServices.getAllBannerImages()
+                                       // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
                                     }
                                 }
-                                .onAppear {
-                                    dashboardServices.getAllBannerImages()
-                                   // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-                                }
                             }
+                    TableHeaderView(title: "Movies in Cinemas",isViewAllVisible: true) {
+                        MovieView()
+                    }
+                    HStack {
+                        Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
+                        Spacer()
+                    }.padding(.leading,5)
+                    ScrollView(.horizontal,showsIndicators:false) {
+                        HStack (spacing:30){
+                                ForEach(dashboardServices.allFilms, id: \.id) { movie in
+                                    NavigationLink(destination: MovieDetailView(movie:movie)) {
+                                        MovieCardView(model: movie).frame(width: 150, height: 250)
+                                            }
+                                   
+                                    }
                         }
-                
-        
-                TableHeaderView(title: "Movies in Cinemas",isViewAllVisible: true) {
-                    MovieView()
-                }
-                HStack {
-                    Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
-                    Spacer()
-                }.padding(.leading,5)
-                ScrollView(.horizontal) {
-                    HStack (spacing:30){
-                            ForEach(dashboardServices.allFilms, id: \.id) { movie in
-                                
-                            
-                                MovieCardView(model: movie).frame(width: 150, height: 250)
-                                }
+                    }.padding(.leading,5)
+                    TableHeaderView(title: "Spice Kitchen",isViewAllVisible: true){
+                        SpiceKitchenView()
                     }
-                }.padding(.leading,5)
-                TableHeaderView(title: "Spice Kitchen",isViewAllVisible: true){
-                    SpiceKitchenView()
-                }
-                ScrollView(.horizontal) {
-                    HStack (spacing:20){
-                        ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
-                            SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
-                                }
-                    }
-                }.padding(.leading,5)
-                TableHeaderView(title: "Concession Zone",isViewAllVisible: true){
-                    SpiceKitchenView()
-                }
-                ScrollView(.horizontal) {
-                    HStack (spacing:20){
-                        ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
-                            ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
-                                }
-                    }
-                }.padding(.leading,5)
-                TableHeaderView(title: "Theatres"){
+                    ScrollView(.horizontal,showsIndicators:false) {
+                        HStack (spacing:20){
+                            ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
+                                SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                    }
+                        }
+                    }.padding(.leading,5)
                     
-                }
-    //            ScrollView(.horizontal) {
-    //                HStack (spacing:20){
-    //                        ForEach(movies, id: \.id) { movie in
-    //                            MovieCardView(model: movie).frame(width: 200, height: 400)
-    //                            }
-    //                }
-    //            }.padding(.leading,5)
+                    VStack {
+                        TableHeaderView(title: "Concession Zone",isViewAllVisible: true){
+                            SpiceKitchenView()
+                        }
+                        ScrollView(.horizontal,showsIndicators:false) {
+                            HStack (spacing:20){
+                                ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
+                                    ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                        }
+                            }
+                        }.padding(.leading,5)
+                        TableHeaderView(title: "Theatres",isViewAllVisible: true){
+                            SpiceKitchenView()
+                        }
+                        ScrollView(.horizontal,showsIndicators:false) {
+                            HStack (spacing:20){
+                                ForEach(dashboardServices.activeTheatres, id: \.id) { theatre in
+                                    TheatreCardView(model: theatre).frame(width: 220, height: 300).cornerRadius(10)
+                                        }
+                            }
+                        }.padding(.leading,5)
+                    }
+                }.background(Color("ColorAppGrey"))
+                SideMenu(width:UIScreen.main.bounds.size.width - 50,
+                                    isOpen: self.menuOpen,
+                                    menuClose: self.openMenu)
+            }.onAppear {
+                dashboardServices.getAllBannerImages()
+                dashboardServices.getAllFilms()
+                dashboardServices.getAllSpiceKitchenItems()
+                dashboardServices.getConcessionZoneItems()
+                dashboardServices.getAllActiveTheatres()
+               // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
+            }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("")
             
-    //            List(movies) { movie in
-    //                        MovieCardView(model: movie)
-    //            }
-               
-            }.onAppear(){
-                
-            }.background(Color("ColorAppGrey"))
-            SideMenu(width:UIScreen.main.bounds.size.width - 50,
-                                isOpen: self.menuOpen,
-                                menuClose: self.openMenu)
-        }.onAppear {
-            dashboardServices.getAllBannerImages()
-            dashboardServices.getAllFilms()
-            dashboardServices.getAllSpiceKitchenItems()
-            dashboardServices.getConcessionZoneItems()
-           // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-        }.navigationBarHidden(true)
+       
     }
     
     func openMenu() {

@@ -27,7 +27,7 @@ struct CartPageView: View {
         GeometryReader { geometry in
              
             ZStack{
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                 VStack{
                     VStack{
                     ZStack{
@@ -80,7 +80,7 @@ struct CartPageView: View {
                        // .frame( height: geometry.size.height)
                        // .background(Color.black)
                     VStack{
-                        ScrollView{
+                        ScrollView(showsIndicators: false){
                     Divider()
                         .frame(height: 2)
                         .background(Color.white.opacity(0.7))

@@ -21,7 +21,7 @@ struct SignupView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack{
                     Image("batne").resizable().scaledToFill()
                     Image("kfelogo").resizable().frame(width: 100, height: 60).offset(y: -100)

@@ -419,11 +419,10 @@ class Common {
     
     func getDateFormatFromDateString(dateString: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = Constants.DateFormat.UTCDateFormat
+        dateFormatter.dateFormat = Constants.DateFormat.LongDateTimeFormat
 
         let dt = dateFormatter.date(from: dateString)
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = Constants.DateFormat.DateFormat
+        dateFormatter.dateFormat = Constants.DateFormat.normalDateFormat
         dateFormatter.timeZone = TimeZone.current
         let convertedDate = dateFormatter.string(from: dt!)
         return convertedDate
@@ -439,6 +438,15 @@ class Common {
         dateFormatter.timeZone = TimeZone.current
         let convertedDate = dateFormatter.string(from: dt!)
         return convertedDate
+    }
+    
+    func getShowTime(time: String)->String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = Constants.DateFormat.TimeFormat2
+        let dt = dateFormatter.date(from: time)
+        dateFormatter.dateFormat = Constants.DateFormat.TimeFormat
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter.string(from: dt!)
     }
     
     // MARK: - Loading View Rotate Method
