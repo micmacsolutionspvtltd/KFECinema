@@ -12,9 +12,10 @@ class UserAuthModel: ObservableObject {
     
     @Published var getSignUpData : SignUpDataModel?
     @Published var givenName: String = ""
-    @Published var profilePicUrl: String = ""
+    @Published var email: String = ""
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String = ""
+    @Published var loginId :  String = ""
     let loginManager = LoginManager()
 
     
@@ -26,16 +27,15 @@ class UserAuthModel: ObservableObject {
         if(GIDSignIn.sharedInstance.currentUser != nil){
             let user = GIDSignIn.sharedInstance.currentUser
             guard let user = user else { return }
-            let clientId = user.userID
-            let givenName = user.profile?.givenName
-            let profilePicUrl = user.profile!.imageURL(withDimension: 100)!.absoluteString
-            self.givenName = givenName ?? ""
-            self.profilePicUrl = profilePicUrl
+ 
+            self.givenName = user.profile?.name ?? ""
+            self.email = user.profile?.email ?? ""
+            self.loginId = user.userID ?? ""
             self.isLoggedIn = true
         }else{
             self.isLoggedIn = false
             self.givenName = "Not Logged In"
-            self.profilePicUrl =  ""
+          //  self.profilePicUrl =  ""
         }
     }
     
@@ -49,8 +49,7 @@ class UserAuthModel: ObservableObject {
         }
     }
     
-    func signIn(){
-        
+    func signIn(completionHandler : @escaping (GIDGoogleUser) -> Void){
        guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
 
         let signInConfig = GIDConfiguration.init(clientID: "371242278405-pqqnrmm748gm6uggf0lc0ssbkbkelo2f.apps.googleusercontent.com")
@@ -61,7 +60,21 @@ class UserAuthModel: ObservableObject {
                 if let error = error {
                     self.errorMessage = "error: \(error.localizedDescription)"
                 }
-                self.checkStatus()
+                if(GIDSignIn.sharedInstance.currentUser != nil){
+                    let user = GIDSignIn.sharedInstance.currentUser
+                    guard let user = user else { return }
+         
+                    self.givenName = user.profile?.name ?? ""
+                    self.email = user.profile?.email ?? ""
+                    self.loginId = user.userID ?? ""
+                    self.isLoggedIn = true
+                    completionHandler(user)
+                }else{
+                    self.isLoggedIn = false
+                    self.givenName = "Not Logged In"
+                  //  self.profilePicUrl =  ""
+                }
+            
             }
         )
     }
@@ -80,12 +93,7 @@ class UserAuthModel: ObservableObject {
                    print("User cancelled login.")
                case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                    print("Logged in! \(grantedPermissions) \(declinedPermissions) \(accessToken)")
-//                   GraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name"]).start(completionHandler: { (connection, result, error) -> Void in
-//                       if (error == nil){
-//                           let fbDetails = result as! NSDictionary
-//                           print(fbDetails)
-//                       }
-//                   })
+
                }
            }
     }
@@ -140,7 +148,32 @@ class UserAuthModel: ObservableObject {
         }
         
     }
+     
+    
+    func googleLoginApi(email: String,userName :  String , typeOfLogin : String , completionHandler : @escaping((LoginDataModel) -> Void) ){
+  //      func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String){
+        let params : [String : String]?
+      params = [
+        "email": email,
+        "user_name" : userName,
+        "sign_in_type" : typeOfLogin
+      ]
        
+        let urlRequest = APIList().getUrlString(url : .LOGIN)
+        let setRequest = (try?  RequestGenerator.sharedInstance.generateURLRequest(urlValue: urlRequest, requestBody: params))!
+        NetWorkManger.sharedInstance.postData(request: setRequest, resultType: LoginDataModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async {
+                if restValue == true{
+                    completionHandler(result!)
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+        
+    }
 }
     class FBLogin: LoginManager {
 

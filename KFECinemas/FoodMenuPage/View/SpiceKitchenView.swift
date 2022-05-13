@@ -14,10 +14,10 @@ struct SpiceKitchenView: View {
     @State var pageName : String = "Spice Kitchen"
     @State var vegClicked : Bool = false
     @ObservedObject var viewModel = FoodListViewModel()
-    @ObservedObject var dbViewModel = DatabaseViewModel()
-    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
-    @StateObject var getDataModel = CartAddFunctionalityViewModel()
-    
+   @ObservedObject var dbViewModel = DatabaseViewModel()
+//    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
+ //   @StateObject var getDataModel = CartAddFunctionalityViewModel()
+    @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
     @State var getCartDatas : Bool? = false
     var body: some View {
         GeometryReader { geometry in
@@ -32,26 +32,119 @@ struct SpiceKitchenView: View {
                                         .font(.system(size: 22))
                                         .fontWeight(.bold)
                                         .foregroundColor(.white)
-                                        .multilineTextAlignment(.center)
-                                        .lineLimit(nil)
-                                        .accentColor(Color.white)
-                                    HStack{
-                                        HStack(alignment: .bottom ){
-                                            NavigationLink{
-                                                Dashboard()
+                                    
+                                }
+                                Spacer()
+                            }
+                        }
+                    }
+                    .padding(EdgeInsets(top: 30, leading: 10, bottom: 20, trailing: 20))
+                    .frame(minWidth: geometry.size.width,maxHeight: 60)
+                    .background(Color.red)
+                    //   HStack{
+                    ScrollViewReader { scrollView in
+                        ScrollView(.horizontal) {
+                            LazyHStack {
+                                ForEach(viewModel.getBannerImageData?.data ?? [], id: \.id) { banner in
+                               // ForEach(0..<5) { banner in
+                                    let url = Endpoint.foodBannerImages.url + (banner.foodImageURL ?? "")
+                                    BannerImageView(withURL: url)
+                                    //    .cornerRadius(10)
+                                      //  .frame(height: 100)
+                                }
+                            }
+                            .onAppear {
+                                viewModel.getAllBannerImages{ result in
+                                    bannerImageData = result
+                                }
+                                // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
+                            }
+                        }
+                    }
+                    HStack{
+                        Spacer()
+                        Button {
+                            if vegClicked{
+                               vegClicked = false
+                            }else{
+                               vegClicked = true
+                            }
+                        } label: {
+                            HStack{
+                                Text("Veg")
+                                    .foregroundColor(.white)
+                                
+                                Image(systemName: "circle.circle.fill")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                    .foregroundColor(.green)
+                                    .background(Color.white)
+                                if vegClicked{
+                                    Text("X")
+                                 .foregroundColor(.white)
+                                }else{
+                               //  Spacer()
+                                }
+                                
+                            }.frame(width: 120)
+                                .padding()
+                                .background(vegClicked ? Color.gray : Color.black)
+                                .cornerRadius(.infinity)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: .infinity)
+                                        .stroke(Color.red, lineWidth: 2)
+                                )
+                               
+                            
+                            
+                            
+                        }
+                        
+                    }
+                }
+                }
+                    ZStack{
+                        Color.black
+                    VStack{
+                    if #available(iOS 14.0, *) {
+                        if pageName == "Spice Kitchen"{
+                            List{
+                                ForEach(viewModel.getSpiceKitcehnGetData , id :\.self){ sectionData in
+                                    if let itemDatas = sectionData.itemsInfo{
+                                        if itemDatas.count != 0{
+                                            Section(header : Text(sectionData.subCatName ?? "")) {
+                                                List{
+                                                ForEach(sectionData.itemsInfo ?? [] , id : \.self){ rowData in
+                                                    if vegClicked{
+                                                        //print(rowData.categoryName ?? "")
+                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
+                                                   //         dbViewModel.getAllDataFromTable()
+
+                                                        }) )
+                                                            .frame(width: geometry.size.width*0.8,height: 100)
+                                                        //    .padding(10)
+                                                            .padding([.leading,.trailing],10)
+                                                            .background(Color.black)
+                                                            .cornerRadius(10)
+                                                    }else{
+                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
+                                                    //        dbViewModel.getAllDataFromTable()
+
+                                                        }) ) //.listRowBackground(.black)
+                                                            .frame(width: geometry.size.width*0.8,height: 100)
+                                                        //    .padding(10)
+                                                            .padding([.leading,.trailing],10)
+                                                           .background(Color.black)
+                                                            .cornerRadius(10)
+                                                           
+                                                    }
                                                 
-                                                //  presentationMode.wrappedValue.dismiss()
-                                            }label: {
-                                                
-                                                
-                                                Image(systemName: "arrow.left")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 25.0, height: 25.0)
-                                                    .foregroundColor(.white)
-                                                
+                                                }
                                             }
-                                            Spacer()
+                                                //.listRowBackground(Color.black)
+                                            }//.background(Color.black)
+                                            
+                                            .foregroundColor(.white)
                                         }
                                     }
                                 }
@@ -215,20 +308,24 @@ struct SpiceKitchenView: View {
                         
                         
                     }
+                }
+                }
                     
                 }
-                if getDataModel.items.count == 0{
                     
+            }
+                if $storeDataViewModel.items.count == 0{
+
                 }else{
                     NavigationLink{
-                        CartPageView()
+                        CartPageView(pageNames : pageName)
                     } label: {
                         HStack(spacing :20){
-                            Text("\(storeDataViewModel.items.count) Items")
+                            Text("\($storeDataViewModel.items.count) Items")
                             //.fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .frame(height: 100)
-                            Text("$ \(storeDataViewModel.calculateTotalPrice())")
+                            Text("₹ \(storeDataViewModel.calculateTotalPrice())")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
                             
@@ -262,8 +359,9 @@ struct SpiceKitchenView: View {
             // .background(Color.black)
             
             .onAppear(){
-                dbViewModel.getAllDataFromTable()
-                // viewModel.getApiData()
+
+              //  dbViewModel.getAllDataFromTable()
+               // viewModel.getApiData()
                 if pageName == "Spice Kitchen"{
                     viewModel.spiceKitchenValueGetApi()
                     

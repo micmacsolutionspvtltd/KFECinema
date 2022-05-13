@@ -82,7 +82,6 @@ struct Dashboard: View {
                                     }
                         }
                     }.padding(.leading,5)
-                    
                     VStack {
                         TableHeaderView(title: "Concession Zone",isViewAllVisible: true){
                             SpiceKitchenView()
@@ -117,8 +116,7 @@ struct Dashboard: View {
                 dashboardServices.getAllActiveTheatres()
                // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
             }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("")
-            
-       
+
     }
     
     func openMenu() {

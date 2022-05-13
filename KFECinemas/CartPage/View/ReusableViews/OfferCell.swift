@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct OfferCell: View {
-    var promoCodeValue : String? 
+    var promoCodeValue : PromoData?
+    var getAppplyPromoValue : () -> ()
     var body: some View {
         VStack(alignment : .leading,spacing: 8){
             HStack{
-                Text("Testing")
+                Text(promoCodeValue?.datumDescription ?? "")
                     .fontWeight(.semibold)
                     .font(.system(size: 24))
                     .frame(alignment: .leading)
@@ -20,7 +21,7 @@ struct OfferCell: View {
                 Spacer()
             }
             HStack{
-                Text("Get 20% off up to $20")
+                Text("Get \(promoCodeValue?.discount ?? "") off up to ₹ \(promoCodeValue?.maximumAmount ?? "")")
                     .fontWeight(.semibold)
                     .font(.system(size: 20))
                     .frame(alignment: .leading)
@@ -28,7 +29,7 @@ struct OfferCell: View {
                 Spacer()
             }
             HStack{
-                Text("Valid on orders worth $ 100 or more")
+                Text("Valid on orders worth ₹ \(promoCodeValue?.discount ?? "") or more")
                     .fontWeight(.semibold)
                     .font(.system(size: 17))
                     .frame(alignment: .leading)
@@ -36,7 +37,7 @@ struct OfferCell: View {
                 Spacer()
             }
             HStack{
-                Text("Promo 67")
+                Text((promoCodeValue?.promocode ?? ""))
                     .fontWeight(.semibold)
                     .font(.system(size: 16))
                     .frame(alignment: .leading)
@@ -51,7 +52,7 @@ struct OfferCell: View {
                   //  .overlay(rou, )
                 Spacer()
                 Button{
-                    
+                    getAppplyPromoValue()
                 } label: {
                     Text("Apply")
                         .fontWeight(.semibold)
@@ -59,6 +60,7 @@ struct OfferCell: View {
                         .frame(alignment: .leading)
                         .foregroundColor(.red)
                 }
+                .buttonStyle(PlainButtonStyle())
               
             }
         }
@@ -67,10 +69,10 @@ struct OfferCell: View {
     }
 }
 
-struct OfferCell_Previews: PreviewProvider {
-    static var previews: some View {
-        OfferCell()
-            .previewLayout(.fixed(width: 0, height: 150))
-            .background(Color.black)
-    }
-}
+//struct OfferCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OfferCell()
+//            .previewLayout(.fixed(width: 0, height: 150))
+//            .background(Color.black)
+//    }
+//}

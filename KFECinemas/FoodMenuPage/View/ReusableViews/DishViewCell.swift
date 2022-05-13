@@ -19,8 +19,8 @@ struct DishViewCell: View {
     @State var itemPrice : Float = 0.00
     @State var addButtonClick : Bool? = false
     @State var itemQuantity : Int = 0
-    var dbViewModel : DatabaseViewModel? = DatabaseViewModel()
-    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
+  //  var dbViewModel : DatabaseViewModel? = DatabaseViewModel()
+    @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
 
   //  @Binding var addButtonClick : Bool?
     var getDataValue : () -> ()
@@ -59,16 +59,10 @@ struct DishViewCell: View {
                 Button {
                     addButtonClick = true
                     itemQuantity = 1
-//                    itemPrice = (Float(allRowData.price ?? "0") ?? 0.0)
-//                    //self.addItemsToCart(cartData: CartModel(id: allRowData.id ?? "", quantity: String(itemQuantity), totalPrice: String(itemPrice)))
-//                    storageSettings.cartData = [CartDataModel(id: allRowData.id ?? "", price: allRowData.price ?? "", quantity: "1", itemName: allRowData.itemName ?? "", totalPrice:  allRowData.price ?? "")]
-//
-//                    dbViewModel?.createDatabase(tittle: allRowData.id ?? "", price: allRowData.price ?? "",quantity: "1",itemName: allRowData.itemName ?? "")
-//                    getDataValue()
-//                    print("getAllDatas",dbViewModel?.getCartDataValues)
-                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: allRowData.price ?? "",foodQuantity : "1")
+
+                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: allRowData.price ?? "",foodQuantity : "1" , categoryId: allRowData.categoryID ?? "")
                     storeDataViewModel.items.append(item)
-                    print("storeDatas",storeDataViewModel.items)
+                   
                 } label: {
                         Text("Add")
                         .font(.system(size: 13))
@@ -93,24 +87,14 @@ struct DishViewCell: View {
                                 if itemQuantity == 0{
                                     addButtonClick = false
                                 }else{
-                                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity))
+                                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: allRowData.categoryID ?? "")
                                     storeDataViewModel.items.insert(item, at: i)
                                 }
                             }
                         }
-                        
-//                        if itemQuantity == 0{
-//                            addButtonClick = false
-//
-//                            for i in 0..<storeDataViewModel.items.count{
-//                                if storeDataViewModel.items[i].foodId == allRowData.id ?? ""{
-//                                    storeDataViewModel.items.remove(at: i)
-//                                }
-//                            }
-//                        }else{
-//                            dbViewModel?.edirCartItemsValue(id: allRowData.id ?? "", price: String(itemPrice), quantity: String(itemQuantity), itemName: allRowData.itemName ?? "")
+
 //                        }
-                        print("storeDatas",storeDataViewModel.items)
+                       
                         getDataValue()
                     }label: {
                         Text("-")
@@ -120,23 +104,19 @@ struct DishViewCell: View {
                     Text(String(itemQuantity))
                     Button{
                         itemQuantity += 1
-//                        //calculatePrice(price: (Float(allRowData.price ?? "0") ?? 0.00))
-//
-//                        dbViewModel?.edirCartItemsValue(id: allRowData.id ?? "", price: String(itemPrice), quantity: String(itemQuantity), itemName: allRowData.itemName ?? "")
-//                        getDataValue()
-//                        print("getAllDatas",dbViewModel?.getCartDataValues)
+
                         for i in 0..<storeDataViewModel.items.count{
                             if storeDataViewModel.items[i].foodId == allRowData.id ?? ""{
                                 storeDataViewModel.items.remove(at: i)
 //                                if itemQuantity == 0{
 //                                    
 //                                }else{
-                                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity))
+                                    let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: allRowData.categoryID ?? "")
                                     storeDataViewModel.items.insert(item, at: i)
                               //  }
                             }
                         }
-                        print("storeDatas",storeDataViewModel.items)
+                        
                     }label: {
                         Text("+")
                     }

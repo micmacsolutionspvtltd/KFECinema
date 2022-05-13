@@ -15,6 +15,7 @@ struct ChangePasswordView: View {
     @State private var showExistingPassword = false
     @State private var showNewPassword = false
     @State private var confirmNewPasswordShow = false
+   @ObservedObject var viewModel = DashboardServices()
     var body: some View {
         VStack {
             Text("Change Password").foregroundColor(.white).font(.title2).fontWeight(.bold)
@@ -99,10 +100,16 @@ struct ChangePasswordView: View {
                                 .stroke(Constants.CustomColors.colorAppleDark, lineWidth: 4))
                 Spacer()
                 
-                Button(action: {
-                    
+                Button{
+                    viewModel.changePassWordApi(newPassword: newPassword, oldPassword: existingPassword, completionHandler: ({ result in
+//                        if result.status == "Fail"{
+//
+//                        }else{
+//
+//                        }
+                    }))
 
-                }) {
+                }label: {
                     Text("OK").fontWeight(.bold).foregroundColor(Color.white)
 
                 }.frame(width: 100).padding()

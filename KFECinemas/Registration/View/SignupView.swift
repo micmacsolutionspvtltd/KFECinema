@@ -15,6 +15,7 @@ struct SignupView: View {
     @State private var confirmPassword: String = ""
     @State private var showPassword = false
     @State private var confirmPasswordShow = false
+    @State var loginType : String = "1"
     @Environment(\.presentationMode) var presentationMode
     @State var moveNextPage : Bool = false
     @EnvironmentObject var viewModel: UserAuthModel
@@ -96,7 +97,11 @@ struct SignupView: View {
                     Text("OR").font(.system(size: 25)).fontWeight(.bold).foregroundColor(Color.white)
                 }
                 Button(action: {
-                    viewModel.signIn()
+                    viewModel.signIn(completionHandler:{ result in
+                        emailId = result.profile?.email ?? ""
+                        userName = result.profile?.name ?? ""
+                        loginType = "2"
+                    })
                   //  SocialLogin.attemptLoginGoogle()
                 }) {
                     HStack(alignment: .center, spacing: 5.0) {
