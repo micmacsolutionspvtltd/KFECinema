@@ -84,7 +84,7 @@ class DashboardServices:ObservableObject {
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: ActiveTheatreResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
-                    completionHandler(result!)
+                    
                     activeTheatres = result?.data ?? []
               //      concessionZoneItems = result?.data ?? []
                 }else{

@@ -1,10 +1,10 @@
+ 
 //
 //  CartView.swift
 //  KFECinemas
 //
 //  Created by Naveen Kumar on 01/04/22.
 //
-
 import SwiftUI
 
 struct CartPageView: View {
@@ -37,8 +37,7 @@ struct CartPageView: View {
         GeometryReader { geometry in
             
             ZStack{
-                ScrollView(showsIndicators: false) {
-                VStack{
+                ScrollView {
                     VStack{
                         VStack{
                             ZStack{
@@ -420,3 +419,4 @@ struct CartPageView_Previews: PreviewProvider {
             .background(Color.black)
     }
 }
+
