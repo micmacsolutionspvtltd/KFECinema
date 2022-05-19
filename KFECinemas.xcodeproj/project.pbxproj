@@ -37,6 +37,8 @@
 		0C2C8C8327F238CD00418F99 /* SpiceKitchenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8C8227F238CD00418F99 /* SpiceKitchenView.swift */; };
 		0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2C8C8427F249B600418F99 /* DishViewCell.swift */; };
 		0C2F2F712823E4E80046FA97 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F2F702823E4E80046FA97 /* ChangePasswordView.swift */; };
+		0C54CF3D28357203000F07BF /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C54CF3C28357203000F07BF /* CheckoutView.swift */; };
+		0C54CF3F2835F72B000F07BF /* CheckoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C54CF3E2835F72B000F07BF /* CheckoutModel.swift */; };
 		0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */; };
 		0C836F8627FD6E560094EC0D /* ApiFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8527FD6E560094EC0D /* ApiFactory.swift */; };
 		0C836F8B27FE1C570094EC0D /* FoodListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C836F8A27FE1C570094EC0D /* FoodListModel.swift */; };
@@ -54,6 +56,8 @@
 		0CA478F82801C41A000B5C57 /* SpiceKitchenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA478F72801C41A000B5C57 /* SpiceKitchenResponse.swift */; };
 		0CA478FA2801E4B2000B5C57 /* ConcessionZoneCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA478F92801E4B2000B5C57 /* ConcessionZoneCardView.swift */; };
 		0CA478FC2801E68B000B5C57 /* ConcessionZoneResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA478FB2801E68B000B5C57 /* ConcessionZoneResponse.swift */; };
+		0CABDABB28361604000D9660 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CABDABA28361604000D9660 /* RadioButton.swift */; };
+		0CABDABD2836197F000D9660 /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CABDABC2836197F000D9660 /* CustomDivider.swift */; };
 		0CE7B2BF27B7E7880021DF8D /* KFECinemasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7B2BE27B7E7880021DF8D /* KFECinemasApp.swift */; };
 		0CE7B2C127B7E7880021DF8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7B2C027B7E7880021DF8D /* ContentView.swift */; };
 		0CE7B2C327B7E78C0021DF8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE7B2C227B7E78C0021DF8D /* Assets.xcassets */; };
@@ -128,6 +132,8 @@
 		0C2C8C8227F238CD00418F99 /* SpiceKitchenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceKitchenView.swift; sourceTree = "<group>"; };
 		0C2C8C8427F249B600418F99 /* DishViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishViewCell.swift; sourceTree = "<group>"; };
 		0C2F2F702823E4E80046FA97 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		0C54CF3C28357203000F07BF /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		0C54CF3E2835F72B000F07BF /* CheckoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutModel.swift; sourceTree = "<group>"; };
 		0C836F8327FD6D250094EC0D /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
 		0C836F8527FD6E560094EC0D /* ApiFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiFactory.swift; sourceTree = "<group>"; };
 		0C836F8A27FE1C570094EC0D /* FoodListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListModel.swift; sourceTree = "<group>"; };
@@ -145,6 +151,8 @@
 		0CA478F72801C41A000B5C57 /* SpiceKitchenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiceKitchenResponse.swift; sourceTree = "<group>"; };
 		0CA478F92801E4B2000B5C57 /* ConcessionZoneCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcessionZoneCardView.swift; sourceTree = "<group>"; };
 		0CA478FB2801E68B000B5C57 /* ConcessionZoneResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcessionZoneResponse.swift; sourceTree = "<group>"; };
+		0CABDABA28361604000D9660 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		0CABDABC2836197F000D9660 /* CustomDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
 		0CE7B2BB27B7E7880021DF8D /* KFECinemas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KFECinemas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE7B2BE27B7E7880021DF8D /* KFECinemasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KFECinemasApp.swift; sourceTree = "<group>"; };
 		0CE7B2C027B7E7880021DF8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -276,6 +284,7 @@
 				0C13DB47282AE833006C4D13 /* BookSeatModel.swift */,
 				0C8D7BAA282D78D8009FE973 /* SetSeatRequestModel.swift */,
 				0C8D7BAC282E3584009FE973 /* BookedSeatResponse.swift */,
+				0C54CF3E2835F72B000F07BF /* CheckoutModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 				D35B1D6827F960FA007D312C /* MovieDetailView.swift */,
 				0C90718128291B3000835DD7 /* BookTicketView.swift */,
 				0C13DB43282A8751006C4D13 /* BookSeatView.swift */,
+				0C54CF3C28357203000F07BF /* CheckoutView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -357,11 +367,9 @@
 		0CE7B2BD27B7E7880021DF8D /* KFECinemas */ = {
 			isa = PBXGroup;
 			children = (
-				D38A8E8C27FCBBF800B26340 /* CustomViews */,
 				D38C5FE727E10B24006DD708 /* Info.plist */,
 				D345A44027E4E08100D1D5AD /* Constants.swift */,
-				0433B6AA281C05B3004558B6 /* OrderHistoryPage */,
-				0C836F8727FE1BE40094EC0D /* FoodMenuPage */,
+				D38A8E8C27FCBBF800B26340 /* CustomViews */,
 				D3CC71AB27E8F9C900C33787 /* CommonUtil */,
 				D3CC71A627E8F93F00C33787 /* Configuration */,
 				D345A44A27E50C6700D1D5AD /* Network */,
@@ -369,6 +377,8 @@
 				0CF1C93927F972CC00D87F5C /* CartPage */,
 				D3CC71BE27EA3CEF00C33787 /* Home */,
 				D35B1D6527F727C8007D312C /* Movie */,
+				0433B6AA281C05B3004558B6 /* OrderHistoryPage */,
+				0C836F8727FE1BE40094EC0D /* FoodMenuPage */,
 				0C2C8C8127F238A900418F99 /* SideMenu */,
 				0CE7B2BE27B7E7880021DF8D /* KFECinemasApp.swift */,
 				0C2C8C7F27EF059200418F99 /* Launch Screen.storyboard */,
@@ -462,6 +472,8 @@
 			isa = PBXGroup;
 			children = (
 				D38A8E8D27FCBCEA00B26340 /* CustomImageView.swift */,
+				0CABDABA28361604000D9660 /* RadioButton.swift */,
+				0CABDABC2836197F000D9660 /* CustomDivider.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -669,6 +681,8 @@
 				043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */,
 				0CF1C93227F6467B00D87F5C /* CartAddItemCell.swift in Sources */,
 				D345A43F27E4CBE200D1D5AD /* SignupView.swift in Sources */,
+				0C54CF3D28357203000F07BF /* CheckoutView.swift in Sources */,
+				0CABDABB28361604000D9660 /* RadioButton.swift in Sources */,
 				0C836F8B27FE1C570094EC0D /* FoodListModel.swift in Sources */,
 				D3CC71BA27E8F9C900C33787 /* Common.swift in Sources */,
 				0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */,
@@ -693,8 +707,10 @@
 				0433B6AD281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift in Sources */,
 				0C836F8427FD6D250094EC0D /* LoginRequestModel.swift in Sources */,
 				0C836F8D27FE1E0A0094EC0D /* FoodListViewModel.swift in Sources */,
+				0CABDABD2836197F000D9660 /* CustomDivider.swift in Sources */,
 				0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */,
 				0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */,
+				0C54CF3F2835F72B000F07BF /* CheckoutModel.swift in Sources */,
 				0C90718228291B3000835DD7 /* BookTicketView.swift in Sources */,
 				0CE7B2C127B7E7880021DF8D /* ContentView.swift in Sources */,
 				D3CC71A927E8F93F00C33787 /* ConfigurationManager.swift in Sources */,

@@ -63,6 +63,9 @@ struct Seat: Codable,Hashable {
     var strTransId:String?
     var intBookId:Int?
     var strSeatInfo:String?
+    var amount:Int?
+    var ticketType:String?
+    var rowId:String?
 
     enum CodingKeys: String, CodingKey {
         case key = "Key"

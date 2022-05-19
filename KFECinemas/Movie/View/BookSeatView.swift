@@ -15,6 +15,7 @@ struct BookSeatView: View {
 
    @State var daysOfWeek:[Date] = []
     var body: some View {
+        GeometryReader { geometry in
         ScrollView(showsIndicators:false){
             VStack {
                 VStack {
@@ -74,7 +75,53 @@ struct BookSeatView: View {
             movieServices.selectedScreen = model
             let requestModel = ["cinema_code":model.show.cinemaStrID ?? "","session_code":"\(model.show.sessionLngSessionID ?? 0 )"]
             movieServices.getSeatLayout(requestBody: requestModel)
+            
+            let date = Common.sharedInstance.getDateFormatFromDateString(dateString: model.show.sessionDtmFilmFirstShow ?? "" )
+            let time = Common.sharedInstance.getShowTime(time: model.show.showTime ?? "" )
+            let checkoutDetails = CheckoutModel(movieName: model.movieName, theatreName: model.theatreName, screenName: model.show.screenStrName ?? "", date: date, showTime: time, seatRow: "", seatNo: "", ticketPrice: "", totalPrice: "")
+            movieServices.checkoutDetails = checkoutDetails
         }).background(Color("ColorAppGrey"))
+            if movieServices.selectedSeats.count == 0{
+
+            }else{
+                NavigationLink{
+                   CheckoutView()
+                } label: {
+                    HStack(spacing :20){
+                        Text("\(movieServices.calculateSeats())")
+                        //.fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(height: 100)
+                        Text("₹ \(movieServices.calculateTotalPrice())")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+
+                            .frame(height: 100)
+                            Spacer()
+                        Text("BOOK")
+                            .foregroundColor(.red)
+                            .fontWeight(.bold)
+                            .frame(width: 60, height: 10)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(.infinity)
+//
+                        
+                   }
+                    .frame(maxWidth: .infinity)
+                    .frame(height : 25)
+                //    .frame(width: geometry.size.width*0.8, height: 35, alignment: .center)
+                 //   .padding(EdgeInsets(top: 10, left: -15, bottom: 10, right: -15))
+                    .padding(.vertical , 15)
+                    .padding(.horizontal,5)
+                    
+                    .background(Color.red)
+                    .cornerRadius(8)
+                }
+                .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
+        }
+            
+    }
     }
 }
 
@@ -83,6 +130,7 @@ struct SeatStatusView:View {
     var seatStatus:SeatStatusModel
     var body: some View {
         VStack(spacing:10) {
+            
             Image(seatStatus.imageName)
                 .resizable()
                 .frame(width: 35, height: 35)
@@ -145,20 +193,19 @@ struct SeatView:View {
             isSelected = !isSelected
             if isSelected{
                 
-                let requestBody = SetSeatRequestModel(strTypeCode: movieServices.selectedScreen?.show.strTicketType ?? "", cinemaCode: movieServices.selectedScreen?.show.cinemaStrID ?? "", strTransID: movieServices.seatLayouts?.strTransID ?? "", lngSessionID: "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )", strTicketType: movieServices.selectedScreen?.show.strTicketType ?? "", gridSeatRowID: seatRow.intGridRowID?.description ?? "", gridSeatNumber: seat.intGridSeatNum?.description ?? "")
-                movieServices.setSeats(seat: seat,requestBody: requestBody.getJson())
-                
+                let requestBody = SetSeatRequestModel(strTypeCode: movieServices.selectedScreen?.show.strTicketType ?? "", cinemaCode: movieServices.selectedScreen?.show.cinemaStrID ?? "", strTransID: movieServices.seatLayouts?.strTransID ?? "", lngSessionID: "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )", strTicketType: movieServices.selectedScreen?.show.strTicketType ?? "", gridSeatRowID: seatRow.intGridRowID?.description ?? "", gridSeatNumber: seat.intGridSeatNum?.description ?? "",rowId: seatRow.strRowPhyID ?? "")
+                movieServices.setSeats(seat: seat,layout: seatLayout,requestBody: requestBody.getJson())
             }else{
             
                 let filteredArray = movieServices.selectedSeats.filter { value in
                     if(value.key == seat.key){
                         movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
-                        return true
-                    }else{
                         return false
+                    }else{
+                        return true
                     }
                 }
-            
+
                 movieServices.selectedSeats = filteredArray
             }
             
