@@ -108,9 +108,10 @@ struct OrderHistoryView: View {
                             OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieAmount ?? "", date: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "", bookingId: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingID ?? "", bookingSeat: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "", snacksItems: viewModel.getTicketSnacksData[finalValues])
                         //        .listStyle(GroupedListStyle())
                           //      .background(Color.black)
-                                    .listRowBackground(Color.black)
+                                  
                                
                             }//.listRowBackground(.black)
+                            .listRowBackground(Color.black)
                             .overlay(VStack {
                                 if linkActive {
                                     NavigationLink(destination:  TicketReciptView(reciptDatas : viewModel.getTicketHistoryData?.data?[finalValues].movieDetails), isActive: $linkActive) {
@@ -159,6 +160,8 @@ struct OrderHistoryView: View {
                 viewModel.getConcessionZoneApi()
                 viewModel.getSpiceKitchenHistoryApi()
             }
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
     }

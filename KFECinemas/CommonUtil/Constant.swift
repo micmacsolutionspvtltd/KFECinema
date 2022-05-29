@@ -704,6 +704,7 @@ struct Constants {
         static let DateFormat = "dd MMMM, yyyy"
         static let normalDateFormat = "dd-MM-yyyy"
         static let TimeFormat = "hh:mm a"
+        static let dateFormatReverse = "yyyy-MM-dd"
         static let TimeFormat2 = "HH:mm:ss"
     }
     

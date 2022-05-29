@@ -23,13 +23,13 @@ class StorageSettings:ObservableObject{
     
     @Published var emailAddress:String {
         didSet {
-            UserDefaults.standard.set(userId, forKey: "emailAddress")
+            UserDefaults.standard.set(emailAddress, forKey: "emailAddress")
         }
     }
     
     @Published var mobileNumber:String {
         didSet {
-            UserDefaults.standard.set(userId, forKey: "mobileNumber")
+            UserDefaults.standard.set(mobileNumber, forKey: "mobileNumber")
         }
     }
     

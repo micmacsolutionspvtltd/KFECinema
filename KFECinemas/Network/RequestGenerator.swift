@@ -37,7 +37,7 @@ class RequestGenerator: NSObject {
     }
     
     func generateURLRequestTypeTwo(endpoint: Endpoint,requestParams:[String:String]? = [:],requestBody: [String:String]? = nil,queryItem:[URLQueryItem]? = []) throws -> URLRequest {
-        print("URL = ",endpoint)
+        print("URL = ",endpoint.url)
         var requestBodyValue:[URLQueryItem] = []
         print("Parameter = ",requestBody ?? ["":""])
         if let requestBodyVal = requestBody {

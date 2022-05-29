@@ -16,6 +16,9 @@
 		0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */; };
 		043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C5E282379D2009166DF /* PromoCodeModel.swift */; };
 		043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D6251281AADC80053F2BE /* DatePickerWithButton.swift */; };
+		045CEB332837329300A871E6 /* Razorpay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045CEB322837329300A871E6 /* Razorpay.xcframework */; };
+		045CEB342837329300A871E6 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 045CEB322837329300A871E6 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		045CEB372837363D00A871E6 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CEB362837363D00A871E6 /* PaymentView.swift */; };
 		0460A1B7282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */; };
 		0460A1B9282A4CA700EA4A88 /* ForgetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */; };
 		0460A1BB282A545A00EA4A88 /* ForgetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */; };
@@ -102,6 +105,20 @@
 		D3FF143E27F6433000EE2E4F /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FF143D27F6433000EE2E4F /* MovieView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		045CEB352837329300A871E6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				045CEB342837329300A871E6 /* Razorpay.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0422AFCF28262557004B9871 /* PromoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewModel.swift; sourceTree = "<group>"; };
 		0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryConcessionZoneModel.swift; sourceTree = "<group>"; };
@@ -112,6 +129,8 @@
 		0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
 		043B5C5E282379D2009166DF /* PromoCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeModel.swift; sourceTree = "<group>"; };
 		043D6251281AADC80053F2BE /* DatePickerWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithButton.swift; sourceTree = "<group>"; };
+		045CEB322837329300A871E6 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Razorpay.xcframework; path = ../../../Documents/UnUsed/RazorpayDemo/Razorpay.xcframework; sourceTree = "<group>"; };
+		045CEB362837363D00A871E6 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordPopupView.swift; sourceTree = "<group>"; };
 		0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewModel.swift; sourceTree = "<group>"; };
 		0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordModel.swift; sourceTree = "<group>"; };
@@ -204,6 +223,7 @@
 				0498F5DF2813EF76007B2B24 /* Algorithms in Frameworks */,
 				D345A43827E3BC2D00D1D5AD /* GoogleSignIn in Frameworks */,
 				D345A43B27E3BC7600D1D5AD /* FacebookCore in Frameworks */,
+				045CEB332837329300A871E6 /* Razorpay.xcframework in Frameworks */,
 				D345A43D27E3BC7600D1D5AD /* FacebookLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +278,14 @@
 			path = ReusableViews;
 			sourceTree = "<group>";
 		};
+		045CEB312837329300A871E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				045CEB322837329300A871E6 /* Razorpay.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		04FE7AE92815CFFC004B9EC4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +327,7 @@
 				0C90718128291B3000835DD7 /* BookTicketView.swift */,
 				0C13DB43282A8751006C4D13 /* BookSeatView.swift */,
 				0C54CF3C28357203000F07BF /* CheckoutView.swift */,
+				045CEB362837363D00A871E6 /* PaymentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -353,6 +382,7 @@
 			children = (
 				0CE7B2BD27B7E7880021DF8D /* KFECinemas */,
 				0CE7B2BC27B7E7880021DF8D /* Products */,
+				045CEB312837329300A871E6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -582,6 +612,7 @@
 				0CE7B2B727B7E7880021DF8D /* Sources */,
 				0CE7B2B827B7E7880021DF8D /* Frameworks */,
 				0CE7B2B927B7E7880021DF8D /* Resources */,
+				045CEB352837329300A871E6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -713,6 +744,7 @@
 				0C54CF3F2835F72B000F07BF /* CheckoutModel.swift in Sources */,
 				0C90718228291B3000835DD7 /* BookTicketView.swift in Sources */,
 				0CE7B2C127B7E7880021DF8D /* ContentView.swift in Sources */,
+				045CEB372837363D00A871E6 /* PaymentView.swift in Sources */,
 				D3CC71A927E8F93F00C33787 /* ConfigurationManager.swift in Sources */,
 				0433B6B7281C11D1004558B6 /* OrderHisroryViewCell.swift in Sources */,
 				D3CC71B627E8F9C900C33787 /* GTViewController.swift in Sources */,

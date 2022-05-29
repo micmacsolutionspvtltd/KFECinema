@@ -29,9 +29,19 @@ class Common {
        
         
     }
-    func changingDateFormat(date : Date) -> String{
+    func changeFormatMonthAndYear(item : String) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        if let dateObj = dateFormatter.date(from: item){
+            dateFormatter.dateFormat = Constants.DateFormat.dateFormatReverse
+         //  print("Date Values",(dateFormatter.string(from: dateObj)))
+            return (dateFormatter.string(from: dateObj))
+        }
+       return ""
+    }
+    func changingDateFormat(date : Date , dateFormat : String? = "dd-MM-yyyy") -> String{
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
+        formatter.dateFormat = dateFormat
        // formatter.date(from: date)
         let finalDate = formatter.string(from: date)
         return finalDate

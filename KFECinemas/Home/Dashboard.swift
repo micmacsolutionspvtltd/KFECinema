@@ -25,7 +25,8 @@ struct Dashboard: View {
     
     ]
     @EnvironmentObject var dashboardServices:DashboardServices
-   
+    @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
+
 //    @State var showMenu : Bool = false
 //    @State var offset : CGFloat = 0
 //    @State var lastOffset : CGFloat = 0
@@ -109,6 +110,7 @@ struct Dashboard: View {
                                     isOpen: self.menuOpen,
                                     menuClose: self.openMenu)
             }.onAppear {
+                storeDataViewModel.deleteAllDatas()
                 dashboardServices.getAllBannerImages()
                 dashboardServices.getAllFilms()
                 dashboardServices.getAllSpiceKitchenItems()
@@ -198,7 +200,7 @@ struct TableHeaderView<Content: View>: View {
             Text(title).font(.system(size: 16)).fontWeight(.bold).foregroundColor(.white)
             Spacer()
             if !isViewAllVisible {
-               EmptyView()
+                EmptyView()
             }else{
                 NavigationLink{
                     content
@@ -213,5 +215,8 @@ struct TableHeaderView<Content: View>: View {
             }
             
         }.padding(EdgeInsets(top: 15, leading: 8, bottom: 15, trailing: 5)).background(.black)
+            .onAppear(){
+                isViewAllVisible = false
+            }
     }
 }

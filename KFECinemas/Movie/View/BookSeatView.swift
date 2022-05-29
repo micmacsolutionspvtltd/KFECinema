@@ -70,7 +70,7 @@ struct BookSeatView: View {
                 
                
                 
-            }
+            }.foregroundColor(.white)
         }.edgesIgnoringSafeArea(.all).navigationBarHidden(true).onAppear(perform: {
             movieServices.selectedScreen = model
             let requestModel = ["cinema_code":model.show.cinemaStrID ?? "","session_code":"\(model.show.sessionLngSessionID ?? 0 )"]
@@ -85,7 +85,7 @@ struct BookSeatView: View {
 
             }else{
                 NavigationLink{
-                   CheckoutView()
+                    SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView")
                 } label: {
                     HStack(spacing :20){
                         Text("\(movieServices.calculateSeats())")

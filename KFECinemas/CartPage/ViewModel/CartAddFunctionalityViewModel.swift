@@ -41,7 +41,10 @@ class CartAddFunctionalityViewModel : ObservableObject{
         items = []
         
     }
-    
+    func deleteAllDatas(){
+        UserDefaults.standard.removeObject(forKey: "Items")
+        UserDefaults.standard.synchronize()
+    }
     func promocodeValuesGetApi(totalAmount : String , date : String , completionHandler : @escaping((PromoCheckModel) -> Void) ){
         let params : [String : String]?
       params = [
@@ -83,40 +86,66 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    func orderSnackItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((PromoAmtCalculateModel) -> Void) ){
+    func orderSnackItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
         let params : [String : String]?
+//        params = [
+//            "user_id" : StorageSettings().userId,
+//            "item_id" : itemId,
+//            "categoryId": categoryId,
+//            "sub_categoryId" : "",
+//            "quantity" : quantity,
+//            "price" : price,
+//            "gst" : gst,
+//            "payment_type" : "1",
+//            "ordered_during" : "0",
+//            "order_total_amount" : totalPrice,
+//            "theatre_id" : theaterId,
+//            "screen_id" : screenId,
+//            "seat_no" : seatNo,
+//            "show_time" : showTime,
+//            "zone" : seatRow,
+//            "deliver_to_seat_or_pickup_at_counter" : totalPrice,
+//            "order_date" : orderDate,
+//            "promocode_id" : promoCode,
+//            "total_amt_discounted" : discountPrice,
+//            "total_amt_after_discounted" : totalPrice,
+//            "is_vip_card_used" : "",
+//            "vip_card_id" : "",
+//
+//
+//        ]
         params = [
-            "user_id" : StorageSettings().userId,
-            "item_id" : itemId,
-            "categoryId": categoryId,
+            "user_id" : "42",
+            "item_id" : "16",
+            "categoryId": "4",
             "sub_categoryId" : "",
-            "quantity" : quantity,
-            "price" : price,
-            "gst" : gst,
+            "quantity" : "1",
+            "price" : "980",
+            "gst" : "16",
             "payment_type" : "1",
             "ordered_during" : "0",
-            "order_total_amount" : totalPrice,
-            "theatre_id" : theaterId,
-            "screen_id" : screenId,
-            "seat_no" : seatNo,
-            "show_time" : showTime,
-            "zone" : seatRow,
-            "deliver_to_seat_or_pickup_at_counter" : totalPrice,
-            "order_date" : orderDate,
-            "promocode_id" : promoCode,
-            "total_amt_discounted" : discountPrice,
-            "total_amt_after_discounted" : totalPrice,
+            "order_total_amount" : "980",
+            "theatre_id" : "M1 cinemas",
+            "screen_id" : "Screen 1",
+            "seat_no" : "",
+            "show_time" : "06.00AM",
+            "zone" : "",
+            "deliver_to_seat_or_pickup_at_counter" : "1",
+            "order_date" : "2022-05-28",
+            "promocode_id" : "",
+            "total_amt_discounted" : "",
+            "total_amt_after_discounted" : discountPrice,
             "is_vip_card_used" : "",
             "vip_card_id" : "",
           
             
         ]
-        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertSnacksOrderItem,requestBody: params))!
-        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoAmtCalculateModel.self) { (restValue, result, error) in
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertOrderItem,requestBody: params))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: FoodOrderResponseModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{
             //    self.getPromoCodeData = result
-                completionHandler(result!)
+             //   completionHandler(result!)
             }else{
              
             }
@@ -124,7 +153,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    func orderFoodItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((PromoAmtCalculateModel) -> Void) ){
+    func orderConcessionZoneSnacks(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
         let params : [String : String]?
         params = [
             "order_date" : orderDate ,
@@ -142,22 +171,44 @@ class CartAddFunctionalityViewModel : ObservableObject{
             "seat_no" : seatNo,
             "order_total_price" : totalPrice,
             "show_time" : showTime,
-            "zone" : seatRow,
-            "deliver_to_seat_or_pickup_at_counter" : totalPrice,
-            "order_date" : orderDate,
+            "zone" : seatRow,          
             "promocode_id" : promoCode,
-            "total_amt_discounted" : discountPrice,
-            "total_amt_after_discounted" : totalPrice,
+            "total_amt_discounted" : "",
+            "total_amt_after_discounted" : discountPrice,
             "is_vip_card_used" : "",
             "vip_card_id" : "",
             "snacks_delivery_at_beg_inter" : "1",
         ]
-        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertOrderItem,requestBody: params))!
-        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoAmtCalculateModel.self) { (restValue, result, error) in
+//        params = [
+//            "order_date" : "2022-05-26" ,
+//            "user_id" : "42",
+//            "item_id" : "17",
+//            "categoryId": "8",
+//            "quantity" : "1",
+//            "price" : "380",
+//            "gst" : "17",
+//            "payment_type" : "1",
+//            "ordered_during" : "0",
+//            "deliver_to_seat_or_pickup_at_counter" : "1",
+//            "theatre_id" : "M1 cinemas",
+//            "screen_id" : "Screen 1",
+//            "seat_no" : "",
+//            "order_total_price" : "380",
+//            "show_time" : "06.00AM",
+//            "zone" : "",
+//            "promocode_id" : "",
+//            "total_amt_discounted" : "",
+//            "total_amt_after_discounted" : "390",
+//            "is_vip_card_used" : "",
+//            "vip_card_id" : "",
+//            "snacks_delivery_at_beg_inter" : "1",
+//        ]
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertSnacksOrderItem,requestBody: params))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: FoodOrderResponseModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{
             //    self.getPromoCodeData = result
-                completionHandler(result!)
+               // completionHandler(result!)
             }else{
              
             }
@@ -175,4 +226,8 @@ class CartAddFunctionalityViewModel : ObservableObject{
         return String(format: "%.2f", price)
     }
     
+}
+struct FoodOrderResponseModel: Codable {
+    let status: Int?
+    let reason: String?
 }

@@ -49,7 +49,7 @@ struct BookTicketView: View {
                 
                 
                 
-            }
+            }.foregroundColor(.white)
         }.onAppear(perform: {
             let daysOfWeek = Date().daysOfWeek(using: .gregorian)
             self.daysOfWeek = daysOfWeek

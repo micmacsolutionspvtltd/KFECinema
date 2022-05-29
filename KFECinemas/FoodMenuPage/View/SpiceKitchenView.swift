@@ -13,9 +13,11 @@ struct SpiceKitchenView: View {
     @State var bannerImageData: FoodBannerImageModel?
     @State var getConcessionData : FoodListModel?
     @State var pageName : String = "Spice Kitchen"
+    @State var lastPage : String? = ""
     @State var vegClicked : Bool = false
+    var lastPagName : String? = ""
     @ObservedObject var viewModel = FoodListViewModel()
-   @ObservedObject var dbViewModel = DatabaseViewModel()
+  // @ObservedObject var dbViewModel = DatabaseViewModel()
 //    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
  //   @StateObject var getDataModel = CartAddFunctionalityViewModel()
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
@@ -147,12 +149,8 @@ struct SpiceKitchenView: View {
                                                         DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
                                                     //        dbViewModel.getAllDataFromTable()
                                                         }) ) //.listRowBackground(.black)
-                                                            .frame(width: geometry.size.width*0.8,height: 100)
-                                                        //    .padding(10)
-                                                            .padding([.leading,.trailing],10)
-                                                           .background(Color.black)
-                                                            .cornerRadius(10)
-                                                           
+                                                        .listStyle(.sidebar)
+                                                        .background(Color.black)
                                                     }
                                                 
                                                 }
@@ -224,11 +222,34 @@ struct SpiceKitchenView: View {
                 }
                     
             }
+                
                 if $storeDataViewModel.items.count == 0{
-
+                    NavigationLink{
+                        CheckoutView()
+                    }label : {
+                        HStack{
+                            Text("SKIP")
+                                .foregroundColor(.white)
+                                .fontWeight(.bold)
+                               
+                        } .frame(maxWidth: .infinity)
+                            .frame(height : 25)
+                      
+                            .padding(.vertical , 15)
+                            .padding(.horizontal, -15)
+                            
+                            .background(Color.red)
+                            .cornerRadius(8)
+                    }
+                    .position(x: geometry.size.width/2, y: geometry.size.height/1.02)
                 }else{
                     NavigationLink{
-                        CartPageView(pageNames : pageName)
+                        if lastPage == ""{
+                            CartPageView(pageNames : pageName)
+
+                        }else{
+                            CheckoutView()
+                        }
                     } label: {
                         HStack(spacing :20){
                             Text("\($storeDataViewModel.items.count) Items")
@@ -253,8 +274,7 @@ struct SpiceKitchenView: View {
                        }
                         .frame(maxWidth: .infinity)
                         .frame(height : 25)
-                    //    .frame(width: geometry.size.width*0.8, height: 35, alignment: .center)
-                     //   .padding(EdgeInsets(top: 10, left: -15, bottom: 10, right: -15))
+                  
                         .padding(.vertical , 15)
                         .padding(.horizontal, -15)
                         

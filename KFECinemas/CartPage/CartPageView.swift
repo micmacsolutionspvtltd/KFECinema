@@ -6,7 +6,7 @@
 //  Created by Naveen Kumar on 01/04/22.
 //
 import SwiftUI
-
+import Razorpay
 struct CartPageView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
@@ -18,7 +18,7 @@ struct CartPageView: View {
     @State var clickBookingDate : Bool = false
     @State var dateOfclick : String? = ""
     @State var selectionMovieDate : Date? = Date.now
-    
+    @State var razorPayShow : Bool? = false
     var theaterNames = ["M1 Cinemas", "Spice Cinemas"]
     var screenNames = ["Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"]
     var showTimes = ["11.30 AM", "03.00 PM", "06.30 PM", "09.45 PM"]
@@ -104,7 +104,7 @@ struct CartPageView: View {
                                         selectedTheaterName = theaterNames[0]
                                         selectedScreenName = screenNames[0]
                                         selectedSeatArea = seatArea[0]
-                                        
+                                        selectedShowTime = showTimes[0]
                                     }  label:{
                                         HStack{
                                             
@@ -125,6 +125,7 @@ struct CartPageView: View {
                                         selectedScreenName = ""
                                         selectedSeatArea = ""
                                         seatNo = ""
+                                        selectedShowTime = ""
                                     }  label:{
                                         HStack{
                                             Image(systemName: collectionClicked ? "circle.circle.fill" : "circle")
@@ -336,15 +337,8 @@ struct CartPageView: View {
                     
                 }
                 Button{
-                    if pageNames == "Spice Kitchen"{
-                        storeDataViewModel.orderFoodItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "", categoryId: "", quantity: "", price: "", gst: "", promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
-                            
-                        }
-                    }else{
-                        storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "", categoryId: "", quantity: "", price: "", gst: "", promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
-                            
-                        }
-                    }
+                   razorPayShow = true
+ 
                     
                 } label: {
                     HStack{
@@ -393,11 +387,36 @@ struct CartPageView: View {
                         .animation(.linear)
                         .transition(.opacity)
                 }
+                if razorPayShow ?? false{
+                    
+                    RazorPayMethod(amount : "\(String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))",getPaymetId: {
+                        let paymentData = getFinalPaymentProcessData()
+                     //   PaymentView()
+                         if pageNames == "Spice Kitchen"{
+     //                        storeDataViewModel.orderFoodItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "", categoryId: "", quantity: "", price: "", gst: "", promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
+     //
+     //                        }
+                             storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
+             //
+                                     }
+                         }else{
+     //                        storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "2", categoryId: "2", quantity: "1", price: storeDataViewModel.calculateTotalPrice(), gst: "1", promoId: promoDataViewModel.promoId ?? "25", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName?.removeWhitespace() ?? "", screenId: selectedScreenName?.removeWhitespace() ?? "", seatNo: "E5", totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "prom67", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
+     //
+     //                        }
+                             storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
+     
+                             }
+                         }
+                    })
+                }
             }
             .background(Color.black)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear(){
+                selectedTheaterName = theaterNames[0]
+                selectedScreenName = screenNames[0]
+                selectedSeatArea = seatArea[0]
                 if promoDataViewModel.promoId != ""{
                     storeDataViewModel.offerCalculationApi(promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice()) { result in
                         self.applyCouponData = result
@@ -409,7 +428,31 @@ struct CartPageView: View {
             }
         }
     }
-    
+    func getFinalPaymentProcessData() -> (String , String , String , String , String){
+        var foodId = ""
+        var categoryId = ""
+        var foodName = ""
+        var foodPrice = ""
+        var foodQty = ""
+     
+        
+        for i in storeDataViewModel.items{
+            if foodId == ""{
+                foodId = i.foodId ?? ""
+                categoryId = (i.categoryId ?? "")
+                foodName =  (i.foodName ?? "")
+                foodPrice = (i.foodPrice ?? "")
+                foodQty = (i.foodQuantity ?? "")
+            }else{
+                foodId = (foodId + "," + (i.foodId ?? ""))
+                categoryId = (categoryId + "," + (i.categoryId ?? ""))
+                foodName = (foodName + "," + (i.foodName ?? ""))
+                foodPrice = (foodPrice + "," + (i.foodPrice ?? ""))
+                foodQty = (foodQty + "," + (i.foodQuantity ?? ""))
+            }
+        }
+        return (foodId , categoryId , foodName , foodPrice , foodQty)
+    }
     
 }
 
@@ -420,3 +463,69 @@ struct CartPageView_Previews: PreviewProvider {
     }
 }
 
+struct RazorPayMethod: UIViewControllerRepresentable {
+    var amount = "0"
+    var getPaymetId : () -> ()
+  
+    func makeUIViewController(context: Context) -> CheckoutViewController {
+        .init()
+    }
+
+    func updateUIViewController(_ uiViewController: CheckoutViewController, context: Context) { }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self, getPaymetId , amount)
+    }
+
+    class Coordinator: NSObject, RazorpayPaymentCompletionProtocol {
+        let parent: RazorPayMethod
+        var getPaymetId : () -> ()
+        var amount = "0"
+        typealias Razorpay = RazorpayCheckout
+        var razorpay: RazorpayCheckout!
+        
+        init(_ parent: RazorPayMethod ,_ getPaymetId : @escaping () -> () ,_ amount : String) {
+            self.parent = parent
+            self.getPaymetId = getPaymetId
+            self.amount = amount
+            super.init()
+            razorpay =  RazorpayCheckout.initWithKey("rzp_test_F0OI03VaPbNCHU", andDelegate: self)
+            //rzp_test_F0OI03VaPbNCHU     rzp_live_vq8tmnnZmbWVkx
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                let options: [String:Any] = [
+                    "amount": String("\((Float(amount) ?? 0.00) * 100.00)"), //This is in currency subunits. 100 = 100 paise= INR 1.
+                            "currency": "INR",//We support more that 92 international currencies.
+                            "description": "KFE Cinemas",
+                            "image": "https://cdn3.ticketnew.com/partners/img/kfecinemas/logo.png?v8",
+                            "name": "KFE",
+                            "prefill": [
+                                "contact": StorageSettings().mobileNumber,
+                                "email": StorageSettings().emailAddress
+                            ],
+                            "theme": [
+                                "color": "#F37254"
+                            ]
+                        ]
+                self.razorpay.open(options)
+//                if let rzp = self.razorpay {
+//                    rzp.open(options)
+//                } else {
+//                    print("Unable to initialize")
+//                }// your code here
+            }
+            
+        }
+        
+        func onPaymentError(_ code: Int32, description str: String) {
+              print("error: ", code, str)
+           //   self.presentAlert(withTitle: "Alert", message: str)
+            // parent.alert with message
+          }
+
+          func onPaymentSuccess(_ payment_id: String) {
+              print("success:view ", payment_id)
+              getPaymetId()
+           //   self.presentAlert(withTitle: "Success", message: "Payment Succeeded")
+          }
+    }
+}
