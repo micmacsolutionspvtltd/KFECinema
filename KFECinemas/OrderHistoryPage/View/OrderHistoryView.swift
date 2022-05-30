@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OrderHistoryView: View {
+    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+
     var orderItemNames : String = ""
     @State var clickingButton : String = "Ticket"
    
@@ -21,6 +23,8 @@ struct OrderHistoryView: View {
     var body: some View {
         GeometryReader { geometry in
         ZStack{
+            Constants.CustomColors.colorAppGrey
+                .edgesIgnoringSafeArea(.all)
             VStack{
                 ZStack{
                     Text("Booking History")
@@ -32,10 +36,11 @@ struct OrderHistoryView: View {
                         .accentColor(Color.white)
                     HStack{
                         HStack(alignment: .bottom ){
-                            NavigationLink{
-                                Dashboard()
+                          //  NavigationLink{
+                                Button{
+                             //   Dashboard()
                                    
-                                //  presentationMode.wrappedValue.dismiss()
+                                  presentationMode.wrappedValue.dismiss()
                             }label: {
                                 
                                 
@@ -94,11 +99,16 @@ struct OrderHistoryView: View {
                     .background(clickingButton == "Spice Kitchen" ? Color.red : Color.black)
                     .cornerRadius(10)
                 }
-                .padding(EdgeInsets(top: 15, leading: 10, bottom: 15, trailing: 20))
-                .frame(minWidth: geometry.size.width,maxHeight: 60)
+                .padding(EdgeInsets(top: 15, leading: 3, bottom: 15, trailing: 3))
+                .frame(maxWidth: geometry.size.width-10,maxHeight: 60)
                 .background(Color.black)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.red, lineWidth: 2)
+                )
                 ZStack{
-                    Color.black
+                    Constants.CustomColors.colorAppGrey
                         .edgesIgnoringSafeArea(.all)
                 if clickingButton == "Ticket"{
                //     List(viewModel.getTicketHistoryData?.data ?? [] , id : \.self){ value in
@@ -106,7 +116,7 @@ struct OrderHistoryView: View {
 //                       )
                             Button(action: { linkActive = true }){
                             OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieAmount ?? "", date: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "", bookingId: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingID ?? "", bookingSeat: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "", snacksItems: viewModel.getTicketSnacksData[finalValues])
-                        //        .listStyle(GroupedListStyle())
+                                .listStyle(GroupedListStyle())
                           //      .background(Color.black)
                                   
                                
@@ -129,8 +139,8 @@ struct OrderHistoryView: View {
                        
                         List(0..<(viewModel.getSpiceKitcehnData?.data?.count ?? 0), id : \.self){ (finalValues) in
                             OrderHisroryViewCell(movieName : "Spice Kitchen" , theaterName: "Order ID \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].foodOrderID ?? "")", amount: viewModel.getSpiceKitcehnData?.data?[finalValues][0].totalPrice ?? "", date: "Ordered on : \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].orderDate ?? "")", snacksItems: viewModel.getKitchenSnacksData[finalValues])
-
-                                 //   .listStyle(GroupedListStyle())
+                               // .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: <#T##CoreGraphics.CGFloat#>))
+                                   .listStyle(GroupedListStyle())
                                    // .background(Color.black)
                                     .listRowBackground(Color.black)
 //                            }

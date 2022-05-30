@@ -13,7 +13,7 @@ struct OffersApplyView: View {
     @EnvironmentObject var promoDataViewModel : PromoViewModel
     @State var getPromoCodeData : PromoCheckModel?
     var totalAmount : String?
-    var orderDate : Date? = Date.now
+    var orderDate : String?
 
     var body: some View {
         GeometryReader { geometry in
@@ -67,7 +67,7 @@ struct OffersApplyView: View {
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear(){
-                viewModel.promocodeValuesGetApi(totalAmount: totalAmount ?? "", date: orderDate?.currentDateOnly ?? "", completionHandler: { result in
+                viewModel.promocodeValuesGetApi(totalAmount: totalAmount ?? "", date: orderDate ?? "", completionHandler: { result in
                     getPromoCodeData = result
                 })
             }

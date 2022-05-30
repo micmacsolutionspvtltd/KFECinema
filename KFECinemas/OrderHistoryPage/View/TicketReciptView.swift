@@ -9,12 +9,43 @@ import SwiftUI
 
 struct TicketReciptView: View {
    @State var reciptDatas: MovieDetails?
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         GeometryReader{ geometry in
             ZStack{
                 ScrollView(showsIndicators:false){
                 GeometryReader{ innerGeometry in
                 VStack(alignment : .leading,spacing: 50){
+                    ZStack{
+                        Text("Ticket Recipt")
+                            .font(.system(size: 22))
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(nil)
+                            .accentColor(Color.white)
+                        HStack{
+                            HStack(alignment: .bottom ){
+                               // NavigationLink{
+                                Button{
+                                  //  Dashboard()
+                                       
+                                      presentationMode.wrappedValue.dismiss()
+                                }label: {
+                                    
+                                    
+                                    Image(systemName: "arrow.left")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25.0, height: 25.0)
+                                        .foregroundColor(.white)
+                                    
+                                }
+                                Spacer()
+                            }
+                        }
+                    }
                     VStack{
                     HStack{
                         Image("pro")

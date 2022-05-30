@@ -9,10 +9,10 @@ import SwiftUI
 
 struct DishViewCell: View {
   //  var buttonClosure:()->Void
-    var textContent : String?
-    var amount : String?
-    var images : String?
-    var buttonTittle : String?
+    @State var textContent : String?
+    @State var amount : String?
+    @State var images : String?
+    @State var buttonTittle : String?
     
     var allRowData : ItemInfo
 

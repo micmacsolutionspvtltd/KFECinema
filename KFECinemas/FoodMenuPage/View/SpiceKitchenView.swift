@@ -21,6 +21,7 @@ struct SpiceKitchenView: View {
 //    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
  //   @StateObject var getDataModel = CartAddFunctionalityViewModel()
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
+
     @State var getCartDatas : Bool? = false
     var body: some View {
         GeometryReader { geometry in
@@ -31,7 +32,7 @@ struct SpiceKitchenView: View {
                     ScrollView{
                    
                     ZStack{
-                        Text("Spice Kitchen")
+                        Text(pageName)
                             .font(.system(size: 22))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
@@ -40,10 +41,11 @@ struct SpiceKitchenView: View {
                             .accentColor(Color.white)
                         HStack{
                             HStack(alignment: .bottom ){
-                                NavigationLink{
-                                    Dashboard()
+                               // NavigationLink{
+                                Button{
+                                  //  Dashboard()
                                        
-                                    //  presentationMode.wrappedValue.dismiss()
+                                      presentationMode.wrappedValue.dismiss()
                                 }label: {
                                     
                                     
@@ -125,12 +127,13 @@ struct SpiceKitchenView: View {
                 }
                     ZStack{
                         Color.black
+                            .edgesIgnoringSafeArea(.all)
                     VStack{
                     if #available(iOS 14.0, *) {
                         if pageName == "Spice Kitchen"{
                             List{
                                 ForEach(viewModel.getSpiceKitcehnGetData , id :\.self){ sectionData in
-                                    if let itemDatas = sectionData.itemsInfo{
+                                    if let itemDatas = sectionData.itemsInfo {
                                         if itemDatas.count != 0{
                                             Section(header : Text(sectionData.subCatName ?? "")) {
                                                 List{
@@ -146,6 +149,7 @@ struct SpiceKitchenView: View {
                                                             .background(Color.black)
                                                             .cornerRadius(10)
                                                     }else{
+                                                    
                                                         DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
                                                     //        dbViewModel.getAllDataFromTable()
                                                         }) ) //.listRowBackground(.black)
@@ -197,7 +201,7 @@ struct SpiceKitchenView: View {
                                                     
                                                     
                                                 }
-                                            }//.background(Color.black)
+                                            }.foregroundColor(.white)
                                         }
                                    }
                          
@@ -206,7 +210,7 @@ struct SpiceKitchenView: View {
                             //                   // }
                             .frame(maxWidth: .infinity).edgesIgnoringSafeArea(.all)
                             
-                            // .listStyle(GroupedListStyle())
+                            .accentColor(.white)
                             .listStyle(.sidebar)
                             .background(Color.black)
                             .frame(height: geometry.size.height-50)
@@ -224,6 +228,7 @@ struct SpiceKitchenView: View {
             }
                 
                 if $storeDataViewModel.items.count == 0{
+                    if lastPage != ""{
                     NavigationLink{
                         CheckoutView()
                     }label : {
@@ -241,7 +246,8 @@ struct SpiceKitchenView: View {
                             .background(Color.red)
                             .cornerRadius(8)
                     }
-                    .position(x: geometry.size.width/2, y: geometry.size.height/1.02)
+                    .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
+                    }
                 }else{
                     NavigationLink{
                         if lastPage == ""{

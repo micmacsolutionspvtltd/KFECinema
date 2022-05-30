@@ -32,6 +32,7 @@ struct CartPageView: View {
     @State var selectedSeatArea : String?
     @State var seatNo : String = ""
     @State var applyCouponData : PromoAmtCalculateModel?
+    @State var moveToDashBoard : Bool = false
     var body: some View {
         //
         GeometryReader { geometry in
@@ -160,7 +161,7 @@ struct CartPageView: View {
                                         }
                                     }else{
                                         NavigationLink{
-                                            OffersApplyView(totalAmount: storeDataViewModel.calculateTotalPrice(), orderDate: selectionMovieDate)
+                                            OffersApplyView(totalAmount: storeDataViewModel.calculateTotalPrice(), orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now, dateFormat: "yyyy-MM-dd"))
                                         }label: {
                                             HStack{
                                                 Text("Select Promo Code")
@@ -397,14 +398,14 @@ struct CartPageView: View {
      //
      //                        }
                              storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
-             //
+                                   moveToDashBoard = true
                                      }
                          }else{
      //                        storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "2", categoryId: "2", quantity: "1", price: storeDataViewModel.calculateTotalPrice(), gst: "1", promoId: promoDataViewModel.promoId ?? "25", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName?.removeWhitespace() ?? "", screenId: selectedScreenName?.removeWhitespace() ?? "", seatNo: "E5", totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "prom67", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
      //
      //                        }
                              storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
-     
+                                 moveToDashBoard = true
                              }
                          }
                     })
@@ -426,7 +427,21 @@ struct CartPageView: View {
                 }
                 
             }
+            .overlay(VStack {
+                if moveToDashBoard {
+                    NavigationLink(destination:  Dashboard(), isActive: $moveToDashBoard) {
+                        Dashboard()
+//
+                    }.opacity(0)
+                        .background(Color.red)
+                    
+                }
+            })
         }
+//        NavigationLink(destination:  Dashboard(), isActive: $moveToDashBoard) {
+//Dashboard()
+////
+//        }
     }
     func getFinalPaymentProcessData() -> (String , String , String , String , String){
         var foodId = ""

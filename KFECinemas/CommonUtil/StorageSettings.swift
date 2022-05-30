@@ -17,7 +17,7 @@ class StorageSettings:ObservableObject{
     
     @Published var userName:String {
         didSet {
-            UserDefaults.standard.set(userId, forKey: "userName")
+            UserDefaults.standard.set(userName, forKey: "userName")
         }
     }
     

@@ -32,11 +32,11 @@ struct SideMenu: View {
                         .frame(width: 65, height:65 )
                         .clipShape(Circle())
                         .padding(.leading, 35.0)
-                    Text("Naveen Kumar")
+                    Text(StorageSettings().userName)
                         .font(.title2.bold())
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                    Text("8248350384")
+                    Text(StorageSettings().mobileNumber)
                         .font(.title2.bold())
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
@@ -83,6 +83,7 @@ struct SideMenu: View {
             case .logout:
                  LoginView()
             }
+          
         }label: {
             HStack(spacing : 15){
                 Image(type.getImageName())

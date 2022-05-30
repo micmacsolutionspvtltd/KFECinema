@@ -208,7 +208,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
             DispatchQueue.main.async {
             if restValue == true{
             //    self.getPromoCodeData = result
-               // completionHandler(result!)
+                completionHandler(result!)
             }else{
              
             }
