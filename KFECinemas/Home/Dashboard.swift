@@ -74,23 +74,27 @@ struct Dashboard: View {
                         }
                     }.padding(.leading,5)
                     TableHeaderView(title: "Spice Kitchen",isViewAllVisible: true){
-                        SpiceKitchenView()
+                        SpiceKitchenView(pageName : "Spice Kitchen")
                     }
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:20){
                             ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
+                                NavigationLink(destination: SpiceKitchenView(pageName : "Spice Kitchen")) {
                                 SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                }
                                     }
                         }
                     }.padding(.leading,5)
                     VStack {
                         TableHeaderView(title: "Concession Zone",isViewAllVisible: true){
-                            SpiceKitchenView()
+                            SpiceKitchenView(pageName : "Concession Zone")
                         }
                         ScrollView(.horizontal,showsIndicators:false) {
                             HStack (spacing:20){
                                 ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
+                                    NavigationLink(destination: SpiceKitchenView(pageName : "Concession Zone")) {
                                     ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                    }
                                         }
                             }
                         }.padding(.leading,5)
@@ -216,7 +220,7 @@ struct TableHeaderView<Content: View>: View {
             
         }.padding(EdgeInsets(top: 15, leading: 8, bottom: 15, trailing: 5)).background(.black)
             .onAppear(){
-                isViewAllVisible = false
+               // isViewAllVisible = true
             }
     }
 }

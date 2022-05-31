@@ -149,10 +149,11 @@ struct SpiceKitchenView: View {
                                                             .background(Color.black)
                                                             .cornerRadius(10)
                                                     }else{
-                                                    
-                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-                                                    //        dbViewModel.getAllDataFromTable()
-                                                        }) ) //.listRowBackground(.black)
+                                                    Text("Item")
+                                                            .foregroundColor(Color.black)
+//                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
+//                                                    //        dbViewModel.getAllDataFromTable()
+//                                                        }) ) //.listRowBackground(.black)
                                                         .listStyle(.sidebar)
                                                         .background(Color.black)
                                                     }
@@ -185,6 +186,9 @@ struct SpiceKitchenView: View {
                                             Section(header : Text(sectionData.categoryName ?? "")) {
                                                 ForEach(sectionData.items ?? [] , id : \.self){ rowData in
                                                     if vegClicked{
+//                                                        if rowData.categoryName == "Veg"{
+//                                                            Text("Items")
+//                                                        }
 //                                                        if rowData.categoryName == ""{
 //
 //                                                        }

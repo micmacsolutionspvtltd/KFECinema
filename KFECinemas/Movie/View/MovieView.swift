@@ -62,8 +62,8 @@ struct MovieView: View {
                Spacer()
                    
            }.background(Color(uiColor: UIColor.red))
-           TableHeaderView(title: "Movies on Theatre"){
-               Text("")
+           TableHeaderView(title: "Movies on Theatre" ,isViewAllVisible: true){
+              MoviesListView()
            }
            HStack {
                Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
@@ -72,7 +72,9 @@ struct MovieView: View {
            ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
                        ForEach(dashboardServices.allFilms, id: \.id) { movie in
+                           NavigationLink(destination: MovieDetailView(movie:movie)) {
                            MovieCardView(model: movie).frame(width: 150, height: 250)
+                           }
                            }
                }
            }.padding(.leading,5)
