@@ -101,7 +101,7 @@ class MovieServices:ObservableObject {
         }
         
     }
-    func ticketBookingApi(movieId : String , movieName : String , bookingDate : String , showTime : String , theaterId : String , screenId : String , screenName : String , screenZone : String , snackstatus : String , numberOfTickets : String , seatNo : String , movieAmt : String ,snacksAmount : String , itemNames : String , totalAmt : String , snacksItemId : String , snacksCatId : String , snacksQuantityId : String , snacksPrice : String , promocode : String , discountPrice : String , snacksDeliveryAmt : String , snacksDeliveryStatus : String , isDeliverSts : String){
+    func ticketBookingApi(movieId : String , movieName : String , bookingDate : String , showTime : String , theaterId : String , screenId : String , screenName : String , screenZone : String , snackstatus : String , numberOfTickets : String , seatNo : String , movieAmt : String ,snacksAmount : String , itemNames : String , totalAmt : String , snacksItemId : String , snacksCatId : String , snacksQuantityId : String , snacksPrice : String , promocode : String , discountPrice : String , snacksDeliveryAmt : String , snacksDeliveryStatus : String , isDeliverSts : String , completionHandler : @escaping (BookedSeatResponse) -> Void){
         let requestBody : [String : String]?
             requestBody = [
                 "movieId" : movieId,
@@ -150,6 +150,7 @@ class MovieServices:ObservableObject {
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: BookedSeatResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
+                    completionHandler(result!)
                  print("Seat reset has been done")
                 }else{
                     
@@ -158,6 +159,35 @@ class MovieServices:ObservableObject {
            
             }
         }
+        
+    }
+  //  "strCinemaCode" : "0002" , "strTransId" :  "20022706076" ,"lngSessionId" : "34292"
+    func confirmSeatsApi(requestBody:[String:String] ,transactionId : String , sessionId : String , cinemaCOde : String){
+        var finalRequest = [
+            "strTransId" : transactionId ,
+            "lngSessionId" : sessionId ,
+            "strCinemaCode" : cinemaCOde
+        ]
+        finalRequest.merge(requestBody , uniquingKeysWith: +)
+//       requestBody+=["strTransId" : transactionId ,
+//        "lngSessionId" : sessionId ,
+//    "strCinemaCode" : cinemaCOde
+//    ]
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.confirmSeats,requestBody: finalRequest))!
+    
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: ConfirmSeatsModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true{
+               //     completionHandler(result!)
+                 print("Seat reset has been done")
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+       
         
     }
     func calculateSeats()->String {

@@ -398,6 +398,7 @@ struct CartPageView: View {
      //
      //                        }
                              storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
+                                 storeDataViewModel.deleteAllDatas()
                                    moveToDashBoard = true
                                      }
                          }else{
@@ -405,6 +406,7 @@ struct CartPageView: View {
      //
      //                        }
                              storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
+                                 storeDataViewModel.deleteAllDatas()
                                  moveToDashBoard = true
                              }
                          }
@@ -430,6 +432,7 @@ struct CartPageView: View {
             .overlay(VStack {
                 if moveToDashBoard {
                     NavigationLink(destination:  Dashboard(), isActive: $moveToDashBoard) {
+                        
                         Dashboard()
 //
                     }.opacity(0)

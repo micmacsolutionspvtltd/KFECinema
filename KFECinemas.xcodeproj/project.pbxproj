@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040BBA1D2848F32C004658AB /* ConfirmSeatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040BBA1C2848F32C004658AB /* ConfirmSeatsModel.swift */; };
 		0422AFD028262557004B9871 /* PromoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422AFCF28262557004B9871 /* PromoViewModel.swift */; };
 		0433B6AD281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */; };
 		0433B6AF281C087F004558B6 /* OrderHistoryTicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6AE281C087F004558B6 /* OrderHistoryTicketModel.swift */; };
@@ -120,6 +121,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		040BBA1C2848F32C004658AB /* ConfirmSeatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSeatsModel.swift; sourceTree = "<group>"; };
 		0422AFCF28262557004B9871 /* PromoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewModel.swift; sourceTree = "<group>"; };
 		0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryConcessionZoneModel.swift; sourceTree = "<group>"; };
 		0433B6AE281C087F004558B6 /* OrderHistoryTicketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryTicketModel.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				0C8D7BAA282D78D8009FE973 /* SetSeatRequestModel.swift */,
 				0C8D7BAC282E3584009FE973 /* BookedSeatResponse.swift */,
 				0C54CF3E2835F72B000F07BF /* CheckoutModel.swift */,
+				040BBA1C2848F32C004658AB /* ConfirmSeatsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				0433B6B4281C0A08004558B6 /* OrderHistoryViewModel.swift in Sources */,
 				D35B1D6727F727EB007D312C /* MoviesListView.swift in Sources */,
 				0CF1C93427F796E600D87F5C /* CartItemContentView.swift in Sources */,
+				040BBA1D2848F32C004658AB /* ConfirmSeatsModel.swift in Sources */,
 				0C13DB40282A2857006C4D13 /* ShowsResponse.swift in Sources */,
 				0CF1C93627F9674400D87F5C /* OffersApplyView.swift in Sources */,
 				D345A45027E50C6700D1D5AD /* GenericResponse.swift in Sources */,

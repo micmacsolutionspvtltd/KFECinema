@@ -17,9 +17,7 @@ struct SpiceKitchenView: View {
     @State var vegClicked : Bool = false
     var lastPagName : String? = ""
     @ObservedObject var viewModel = FoodListViewModel()
-  // @ObservedObject var dbViewModel = DatabaseViewModel()
-//    @ObservedObject var storeDataViewModel = CartAddFunctionalityViewModel()
- //   @StateObject var getDataModel = CartAddFunctionalityViewModel()
+
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
 
     @State var getCartDatas : Bool? = false
