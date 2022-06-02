@@ -71,6 +71,13 @@ class Common {
         return (fromDate,toDate)
     }
     
+    func currentTimeValue() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm:ss a"
+        let time = dateFormatter.string(from: Date.now)
+        return time
+    }
+    
     func animateTable(tableView:UITableView) {
         
         tableView.reloadData()

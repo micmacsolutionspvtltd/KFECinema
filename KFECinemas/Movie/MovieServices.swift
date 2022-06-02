@@ -15,6 +15,7 @@ class MovieServices:ObservableObject {
     @Published var selectedSeats:[Seat] = []
     @Published var selectedScreen:BookSeatModel?
     @Published var checkoutDetails:CheckoutModel?
+
     func getAllshows(requestBody:[String:String]){
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.allShowsByFilm,requestBody: requestBody))!
     
@@ -49,22 +50,28 @@ class MovieServices:ObservableObject {
         
     }
     
-    func setSeats(seat:Seat,layout:SeatLayout,requestBody:[String:String]){
+    func setSeats(seat:Seat,layout:SeatLayout,requestBody:[String:String],completionHandler : @escaping (BookedSeatResponse) -> Void){
         
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.setSeats,requestBody: requestBody))!
     
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: BookedSeatResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
-                    var seatValue = seat
-                    seatValue.strTransId = result?.data?.strTransID
-                    seatValue.intBookId = result?.data?.intBookID
-                    seatValue.strSeatInfo = result?.data?.strSeatInfo
-                    seatValue.amount = layout.amount
-                    seatValue.ticketType = layout.strAreaDesc
-                   seatValue.rowId = requestBody["rowId"]
-                    selectedSeats.append(seatValue)
-                    print(selectedSeats)
+                    if result?.responseCode == 0{
+                      
+                        print(result?.responseMessage ?? "")
+                    }else{
+                        var seatValue = seat
+                        seatValue.strTransId = result?.data?.strTransID
+                        seatValue.intBookId = result?.data?.intBookID
+                        seatValue.strSeatInfo = result?.data?.strSeatInfo
+                        seatValue.amount = layout.amount
+                        seatValue.ticketType = layout.strAreaDesc
+                       seatValue.rowId = requestBody["rowId"]
+                        selectedSeats.append(seatValue)
+                        print(selectedSeats)
+                    }
+                  completionHandler(result!)
 //                    seatLayouts = result?.data ?? []
                 }else{
                     
@@ -76,13 +83,14 @@ class MovieServices:ObservableObject {
         
     }
   
-    func resetSeats(requestBody:[String:String]){
+    func resetSeats(requestBody:[String:String] ){
         
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.resetSeats,requestBody: requestBody))!
     
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: BookedSeatResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
+               //     completionHandler(result!)
                  print("Seat reset has been done")
                 }else{
                     

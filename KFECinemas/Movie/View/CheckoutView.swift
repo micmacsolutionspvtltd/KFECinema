@@ -40,6 +40,12 @@ struct CheckoutView: View {
                 }.background(Color.red)
                 
                 VStack{
+                    HStack(spacing : 20){
+                        Text(movieServices.checkoutDetails?.movieName ?? "")
+                            .font(Font.system(size: 20)).fontWeight(.bold).lineLimit(nil)
+                        Image("spice_cinemas")
+                            .resizable().frame(width: UIScreen.main.bounds.width/2.2, height: 80)
+                    }
                     CustomDivider()
                     
                     HStack {
@@ -47,13 +53,14 @@ struct CheckoutView: View {
                         VStack(alignment:.leading){
                             CheckoutHeadingView(header: "Theatre Name", value: movieServices.checkoutDetails?.theatreName ?? "Spice cinemas").padding(.bottom,10)
                             CheckoutHeadingView(header: "Date", value:  Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? "")).padding(.bottom,10)
-                            CheckoutHeadingView(header: "Seat Row", value: ((movieServices.selectedSeats[0].ticketType ?? "") + (movieServices.checkoutDetails?.seatNo ?? "")))
+                            CheckoutHeadingView(header: "Seat Row", value: ((movieServices.selectedSeats[0].ticketType ?? "") + " - " + (movieServices.checkoutDetails?.seatNo ?? "")))
                         }
                         Spacer()
                         VStack(alignment:.leading){
                             CheckoutHeadingView(header: "Screen Name", value: movieServices.checkoutDetails?.screenName ?? "SCREEN-5").padding(.bottom,10)
                             CheckoutHeadingView(header: "Show Time", value: movieServices.checkoutDetails?.showTime ?? "12:25 PM").padding(.bottom,10)
-                            CheckoutHeadingView(header: "Seat No", value: movieServices.checkoutDetails?.theatreName ?? "ELITE - D 4,D 5")
+                            CheckoutHeadingView(header: "Snacks Order", value: "\(storeDataViewModel.items.count)")
+                           
                         }
                         Spacer()
                     }
@@ -75,7 +82,7 @@ struct CheckoutView: View {
                               //  .background(Color.black)
                             }
                         }.listStyle(GroupedListStyle())
-                            .frame(height: UIScreen.main.bounds.height/2)
+                            .frame(height: UIScreen.main.bounds.height/3)
                            
                     }
                     if storeDataViewModel.items.count != 0{
@@ -90,7 +97,7 @@ struct CheckoutView: View {
                     CustomDivider()
                     DeliveryTimeGroups { selected in
                         
-                                    print("Selected Gender is: \(selected)")
+                    print("Selected Gender is: \(selected)")
                     }.padding(.horizontal,15).padding(.vertical,10)
                     CustomDivider()
                     }
@@ -118,7 +125,7 @@ struct CheckoutView: View {
                     CheckoutPriceView(header: "Deliver Price", value: "₹ 10.0")
                     }
                     CustomDivider()
-                    CheckoutPriceView(header: "Total Price", value: String((Float(movieServices.checkoutDetails?.totalPrice ?? "0") ?? 0.00) + (Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00)))
+                    CheckoutPriceView(header: "Total Price", value: totalAmountFullCalculation())
                     CustomDivider()
                 }.padding(.bottom,80)
                 
@@ -139,7 +146,7 @@ struct CheckoutView: View {
                         .foregroundColor(.white)
                         .frame(height: 100)
                     Spacer()
-                    Text("₹ \(movieServices.calculateTotalPrice())")
+                    Text("₹ \(String((Float(movieServices.checkoutDetails?.totalPrice ?? "0") ?? 0.00) + (Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00)))")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
 
@@ -178,7 +185,7 @@ struct CheckoutView: View {
                         }
                     }
                     let paymentData = getFinalPaymentProcessData()
-                    movieServices.ticketBookingApi(movieId: "1", movieName: movieServices.checkoutDetails?.movieName ?? "", bookingDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "", theaterId: (movieServices.checkoutDetails?.theatreName ?? "") == "Spice  Cinemas" ? "7" : "8", screenId: "1", screenName: (movieServices.checkoutDetails?.screenName ?? "").removeWhitespace(), screenZone: movieServices.selectedSeats[0].ticketType ?? "", snackstatus: storeDataViewModel.items.count == 0 ? "0" : "1", numberOfTickets: String(movieServices.selectedSeats.count), seatNo: movieServices.calculateSeats().removeWhitespace(), movieAmt: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (storeDataViewModel.items.count)), snacksAmount: storeDataViewModel.calculateTotalPrice(), itemNames: paymentData.2, totalAmt: String(format: "%.2f", calculateTotalAmount) , snacksItemId: paymentData.0, snacksCatId: paymentData.1, snacksQuantityId: paymentData.4, snacksPrice: paymentData.3, promocode: "", discountPrice: "" , snacksDeliveryAmt: snacksOrderMode == "0" ? "" : "10", snacksDeliveryStatus: "0", isDeliverSts: snacksOrderMode ?? "")
+                    movieServices.ticketBookingApi(movieId: "1", movieName: movieServices.checkoutDetails?.movieName ?? "", bookingDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "", theaterId: (movieServices.checkoutDetails?.theatreName ?? "") == "Spice  Cinemas" ? "7" : "8", screenId: "1", screenName: (movieServices.checkoutDetails?.screenName ?? "").removeWhitespace(), screenZone: movieServices.selectedSeats[0].ticketType ?? "", snackstatus: storeDataViewModel.items.count == 0 ? "0" : "1", numberOfTickets: String(movieServices.selectedSeats.count), seatNo: movieServices.calculateSeats().removeWhitespace(), movieAmt: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksAmount: storeDataViewModel.calculateTotalPrice(), itemNames: paymentData.2, totalAmt: String(format: "%.2f", calculateTotalAmount) , snacksItemId: paymentData.0, snacksCatId: paymentData.1, snacksQuantityId: paymentData.4, snacksPrice: paymentData.3, promocode: "", discountPrice: "" , snacksDeliveryAmt: snacksOrderMode == "0" ? "" : "10", snacksDeliveryStatus: "0", isDeliverSts: snacksOrderMode ?? "")
                 })
             }
        

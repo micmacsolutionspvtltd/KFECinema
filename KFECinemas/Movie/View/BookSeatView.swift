@@ -14,6 +14,7 @@ struct BookSeatView: View {
     var seatList = [SeatStatusModel(imageName: "white_seat", status: "Available"),SeatStatusModel(imageName: "grey_seat", status: "Booked"),SeatStatusModel(imageName: "red_seat", status: "Selected")]
 
    @State var daysOfWeek:[Date] = []
+    @State var showingAlert = false
     var body: some View {
         GeometryReader { geometry in
         ScrollView(showsIndicators:false){
@@ -21,7 +22,11 @@ struct BookSeatView: View {
                 VStack {
                     HStack(alignment: .center) {
                         Button(action:{
-                            self.presentationMode.wrappedValue.dismiss()
+                            if movieServices.selectedSeats.count == 0{
+                                self.presentationMode.wrappedValue.dismiss()
+                            }else{
+                           showingAlert = true
+                            }
                         }){
                             
                             Image(systemName:  "arrow.left").foregroundColor(.white).padding()
@@ -71,6 +76,19 @@ struct BookSeatView: View {
                
                 
             }.foregroundColor(.white)
+        } .alert(isPresented: $showingAlert){
+            Alert(
+                title: Text("CONFIRMATION"),
+                message: Text("Do you want to end the session"),
+                primaryButton: .default(Text("Yes"), action: {
+                    resetSeatMultipleSeats()
+                    self.presentationMode.wrappedValue.dismiss()
+                }),
+                secondaryButton: .cancel(Text("Cancel"), action: { // 1
+                    showingAlert = false
+                    
+                })
+            )
         }.edgesIgnoringSafeArea(.all).navigationBarHidden(true).onAppear(perform: {
             movieServices.selectedScreen = model
             let requestModel = ["cinema_code":model.show.cinemaStrID ?? "","session_code":"\(model.show.sessionLngSessionID ?? 0 )"]
@@ -120,8 +138,21 @@ struct BookSeatView: View {
                 }
                 .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
         }
-            
+               
     }
+    }
+    func resetSeatMultipleSeats(){
+        
+            let filteredArray = movieServices.selectedSeats.filter { value in
+              //  if value.strTransId != nil{
+                    movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
+                    return false
+             //   }
+          
+            }
+            movieServices.selectedSeats = []
+      //  }
+       
     }
 }
 
@@ -160,7 +191,7 @@ struct SeatRowView:View {
     var seatLayout:SeatLayout
     var body: some View {
         ForEach(seatRow.seats ?? [],id: \.self){ seat in
-            SeatView(seat:seat,seatRow: seatRow,seatLayout: seatLayout)
+            SeatView(seat:seat,seatRow: seatRow,seatLayout: seatLayout, errorMsg: "")
         }
     }
 }
@@ -169,6 +200,9 @@ struct SeatView:View {
     var seat:Seat
     var seatRow:Row
     var seatLayout:SeatLayout
+    @State var errorPopShow : Bool?
+    @State var errorMsg : String
+   
    @State var isSelected = false
     @EnvironmentObject var movieServices:MovieServices
     var body: some View {
@@ -190,27 +224,42 @@ struct SeatView:View {
                     .frame(width: 25, height: 25)
             }
         }.onTapGesture {
-            isSelected = !isSelected
-            if isSelected{
-                
-                let requestBody = SetSeatRequestModel(strTypeCode: movieServices.selectedScreen?.show.strTicketType ?? "", cinemaCode: movieServices.selectedScreen?.show.cinemaStrID ?? "", strTransID: movieServices.seatLayouts?.strTransID ?? "", lngSessionID: "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )", strTicketType: movieServices.selectedScreen?.show.strTicketType ?? "", gridSeatRowID: seatRow.intGridRowID?.description ?? "", gridSeatNumber: seat.intGridSeatNum?.description ?? "",rowId: seatRow.strRowPhyID ?? "")
-                movieServices.setSeats(seat: seat,layout: seatLayout,requestBody: requestBody.getJson())
-            }else{
-            
-                let filteredArray = movieServices.selectedSeats.filter { value in
-                    if(value.key == seat.key){
-                        movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
-                        return false
-                    }else{
-                        return true
+            if seat.strSeatStatus == "0"{
+                isSelected = !isSelected
+                if isSelected{
+                    
+                    let requestBody = SetSeatRequestModel(strTypeCode: movieServices.selectedScreen?.show.strTicketType ?? "", cinemaCode: movieServices.selectedScreen?.show.cinemaStrID ?? "", strTransID: movieServices.seatLayouts?.strTransID ?? "", lngSessionID: "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )", strTicketType: movieServices.selectedScreen?.show.strTicketType ?? "", gridSeatRowID: seatRow.intGridRowID?.description ?? "", gridSeatNumber: seat.intGridSeatNum?.description ?? "",rowId: seatRow.strRowPhyID ?? "")
+                    movieServices.setSeats(seat: seat,layout: seatLayout,requestBody: requestBody.getJson()) { result in
+                        if result.responseCode == 0{
+//                            errorMsg = result.responseMessage ?? ""
+//                            errorPopShow = true
+                            isSelected = false
+                        }else{
+                           isSelected = true
+                        }
                     }
-                }
+                    
+                }else{
+                
+                    let filteredArray = movieServices.selectedSeats.filter { value in
+                        if(value.key == seat.key){
+                          
+                            movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
+                              return false
+                        }else{
+                            return true
+                        }
+                    }
 
-                movieServices.selectedSeats = filteredArray
+                    movieServices.selectedSeats = filteredArray
+                }
+                
+                print(movieServices.selectedSeats)
             }
             
-            print(movieServices.selectedSeats)
+       
         }
+      //  .toast(isShowing: $errorPopShow,textContent: errorMsg)
     }
     
 }

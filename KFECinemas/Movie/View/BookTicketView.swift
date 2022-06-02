@@ -11,6 +11,7 @@ struct BookTicketView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var movieServices:MovieServices
     var movie:AllFilms
+    @State var selectCurrentDate : Bool = true
 
    @State var daysOfWeek:[Date] = []
     var body: some View {
@@ -36,13 +37,20 @@ struct BookTicketView: View {
                         ForEach(daysOfWeek,id:\.self) { day in
                             DayItemView(date: day) {
                                 let requestModel = ["Date":"\(day.currentDateOnly)","filmcode":"\(movie.filmStrCode ?? "")"]
+                                if day.currentDateOnly == Common.sharedInstance.changingDateFormat(date: Date.now , dateFormat : Constants.DateFormat.dateFormatReverse){
+                                    selectCurrentDate = true
+                                }else{
+                                    selectCurrentDate = false
+                                }
                                 movieServices.getAllshows(requestBody: requestModel)
+                             
                             }.frame(maxWidth: .infinity)
                                 }
                     }
                 VStack(alignment:.center){
                     ForEach(movieServices.shows,id:\.id) { shows in
-                        showGridView(selectedTheatre:shows.cinemaStrName ?? "", shows: shows)
+                      
+                        showGridView(selectedTheatre:shows.cinemaStrName ?? "", selectedDateCurrent: selectCurrentDate, shows: shows)
                                         }
                 }
                 
@@ -58,6 +66,7 @@ struct BookTicketView: View {
             movieServices.selectedMovie = movie
         }).background(Color("ColorAppGrey")).ignoresSafeArea().navigationBarHidden(true)
     }
+
 }
 
 struct DayItemView:View {
@@ -84,6 +93,7 @@ struct DayItemView:View {
 struct showGridView:View {
     var threeColumnGrid = [GridItem(.flexible()), GridItem(.flexible()),GridItem(.flexible())]
     var selectedTheatre:String
+    var selectedDateCurrent : Bool
     var shows:Shows
     @EnvironmentObject var movieServices:MovieServices
     var body: some View {
@@ -92,12 +102,18 @@ struct showGridView:View {
                 Text(selectedTheatre).font(.system(size: 18)).fontWeight(.bold).padding()
                 LazyVGrid(columns: threeColumnGrid,spacing: 10) {
                     ForEach(shows,id:\.id) { show in
-                        NavigationLink(destination: BookSeatView(model: BookSeatModel(movieName: movieServices.selectedMovie?.filmStrTitle ?? "", theatreName: selectedTheatre, show: show))){
-                                showDetailView(show: show)
-                            
-                           
-                                           }
-                       
+                        if selectedDateCurrent{
+                        if timeValidate(movieTimes: show.showTime ?? ""){
+                            NavigationLink(destination: BookSeatView(model: BookSeatModel(movieName: movieServices.selectedMovie?.filmStrTitle ?? "", theatreName: selectedTheatre, show: show))){
+                                    showDetailView(show: show)
+                                }
+                        }
+                        }else{
+                            NavigationLink(destination: BookSeatView(model: BookSeatModel(movieName: movieServices.selectedMovie?.filmStrTitle ?? "", theatreName: selectedTheatre, show: show))){
+                                    showDetailView(show: show)
+                                }
+                        }
+                        
                     }.padding()
                     }
             }
@@ -106,6 +122,13 @@ struct showGridView:View {
             EmptyView()
         }
        
+    }
+    func timeValidate(movieTimes : String) -> Bool{
+        if Date().currentTime.compare(movieTimes) == .orderedAscending{
+            return true
+        }else{
+            return false
+        }
     }
 }
 
