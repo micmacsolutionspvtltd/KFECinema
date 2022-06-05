@@ -11,7 +11,7 @@ import Foundation
 class FoodListViewModel : ObservableObject{
    
     @Published var getFoodListValueGetData : FoodListModel?
-    @Published var getSpiceKitcehnGetData : [SpiceKitchenModelElement] = []
+    @Published var getSpiceKitcehnGetData : SpiceKitchenModel?
     @Published var getBannerImageData : FoodBannerImageModel?
 
     func fooddListValueShowApi(completionHandler : @escaping((FoodListModel) -> Void) ){
@@ -33,7 +33,7 @@ class FoodListViewModel : ObservableObject{
         }
         
     }
-    func spiceKitchenValueGetApi(){
+    func spiceKitchenValueGetApi(completionHandler : @escaping((SpiceKitchenModel) -> Void) ){
   //      func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String){
         var params : [String : String]?
    
@@ -45,7 +45,7 @@ class FoodListViewModel : ObservableObject{
             DispatchQueue.main.async {
             if restValue == true{
                 self.getSpiceKitcehnGetData = result!
-              //  completionHandler(result!)
+                completionHandler(result!)
                    // self.delegate?.diReciveWalletBalance(data: result!)
             }else{
               //  self.delegate?.didFailWithError(error: String(error?.localizedDescription ?? ""))

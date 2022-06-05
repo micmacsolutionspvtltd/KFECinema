@@ -12,6 +12,7 @@ struct SpiceKitchenView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @State var bannerImageData: FoodBannerImageModel?
     @State var getConcessionData : FoodListModel?
+    @State var getSpiceKitchenData: SpiceKitchenModel?
     @State var pageName : String = "Spice Kitchen"
     @State var lastPage : String? = ""
     @State var vegClicked : Bool = false
@@ -138,11 +139,10 @@ struct SpiceKitchenView: View {
                     if #available(iOS 14.0, *) {
                         if pageName == "Spice Kitchen"{
                             List{
-                                ForEach(viewModel.getSpiceKitcehnGetData , id :\.self){ sectionData in
+                                ForEach(getSpiceKitchenData ?? [] , id :\.self){ sectionData in
                                     if let itemDatas = sectionData.itemsInfo {
                                         if itemDatas.count != 0{
                                             Section(header : Text(sectionData.subCatName ?? "")) {
-                                                List{
                                                 ForEach(sectionData.itemsInfo ?? [] , id : \.self){ rowData in
                                                     if vegClicked{
                                                         //print(rowData.categoryName ?? "")
@@ -157,15 +157,15 @@ struct SpiceKitchenView: View {
                                                     }else{
                                                     Text("Item")
                                                             .foregroundColor(Color.black)
-//                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-//                                                    //        dbViewModel.getAllDataFromTable()
-//                                                        }) ) //.listRowBackground(.black)
+                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
+                                                    //        dbViewModel.getAllDataFromTable()
+                                                        }) ) //.listRowBackground(.black)
                                                         .listStyle(.sidebar)
                                                         .background(Color.black)
                                                     }
                                                 
                                                 }
-                                            }
+                                        
                                                 //.listRowBackground(Color.black)
                                             }//.background(Color.black)
                                             
@@ -308,7 +308,10 @@ struct SpiceKitchenView: View {
               //  dbViewModel.getAllDataFromTable()
                // viewModel.getApiData()
                 if pageName == "Spice Kitchen"{
-                    viewModel.spiceKitchenValueGetApi()
+                    
+                    viewModel.spiceKitchenValueGetApi{ result in
+                        getSpiceKitchenData = result
+                    }
                     
                 }else{
                     viewModel.fooddListValueShowApi { result in
