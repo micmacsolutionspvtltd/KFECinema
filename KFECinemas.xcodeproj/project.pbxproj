@@ -17,8 +17,6 @@
 		0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */; };
 		043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C5E282379D2009166DF /* PromoCodeModel.swift */; };
 		043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D6251281AADC80053F2BE /* DatePickerWithButton.swift */; };
-		045CEB332837329300A871E6 /* Razorpay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045CEB322837329300A871E6 /* Razorpay.xcframework */; };
-		045CEB342837329300A871E6 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 045CEB322837329300A871E6 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		045CEB372837363D00A871E6 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CEB362837363D00A871E6 /* PaymentView.swift */; };
 		0460A1B7282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */; };
 		0460A1B9282A4CA700EA4A88 /* ForgetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */; };
@@ -74,6 +72,8 @@
 		0CF1C94827F9EF5B00D87F5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C94727F9EF5B00D87F5C /* NetworkManager.swift */; };
 		0CF1C94A27F9EF7500D87F5C /* RequestGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C94927F9EF7500D87F5C /* RequestGenerator.swift */; };
 		0CF1C94D27F9F99300D87F5C /* ApiList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF1C94C27F9F99300D87F5C /* ApiList.swift */; };
+		0CF7D5032849348300B67010 /* Razorpay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF7D5022849348300B67010 /* Razorpay.xcframework */; };
+		0CF7D5042849348300B67010 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0CF7D5022849348300B67010 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D345A43827E3BC2D00D1D5AD /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43727E3BC2D00D1D5AD /* GoogleSignIn */; };
 		D345A43B27E3BC7600D1D5AD /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43A27E3BC7600D1D5AD /* FacebookCore */; };
 		D345A43D27E3BC7600D1D5AD /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D345A43C27E3BC7600D1D5AD /* FacebookLogin */; };
@@ -107,13 +107,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		045CEB352837329300A871E6 /* Embed Frameworks */ = {
+		0CF7D5052849348300B67010 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				045CEB342837329300A871E6 /* Razorpay.xcframework in Embed Frameworks */,
+				0CF7D5042849348300B67010 /* Razorpay.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -187,6 +187,7 @@
 		0CF1C94727F9EF5B00D87F5C /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0CF1C94927F9EF7500D87F5C /* RequestGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestGenerator.swift; sourceTree = "<group>"; };
 		0CF1C94C27F9F99300D87F5C /* ApiList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiList.swift; sourceTree = "<group>"; };
+		0CF7D5022849348300B67010 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Razorpay.xcframework; sourceTree = "<group>"; };
 		D345A43E27E4CBE200D1D5AD /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		D345A44027E4E08100D1D5AD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D345A44C27E50C6700D1D5AD /* GenericResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
@@ -225,7 +226,7 @@
 				0498F5DF2813EF76007B2B24 /* Algorithms in Frameworks */,
 				D345A43827E3BC2D00D1D5AD /* GoogleSignIn in Frameworks */,
 				D345A43B27E3BC7600D1D5AD /* FacebookCore in Frameworks */,
-				045CEB332837329300A871E6 /* Razorpay.xcframework in Frameworks */,
+				0CF7D5032849348300B67010 /* Razorpay.xcframework in Frameworks */,
 				D345A43D27E3BC7600D1D5AD /* FacebookLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +284,7 @@
 		045CEB312837329300A871E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0CF7D5022849348300B67010 /* Razorpay.xcframework */,
 				045CEB322837329300A871E6 /* Razorpay.xcframework */,
 			);
 			name = Frameworks;
@@ -615,7 +617,7 @@
 				0CE7B2B727B7E7880021DF8D /* Sources */,
 				0CE7B2B827B7E7880021DF8D /* Frameworks */,
 				0CE7B2B927B7E7880021DF8D /* Resources */,
-				045CEB352837329300A871E6 /* Embed Frameworks */,
+				0CF7D5052849348300B67010 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

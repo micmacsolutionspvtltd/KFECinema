@@ -19,7 +19,7 @@ struct CartFullDataModel : Codable , Identifiable , Hashable{
 
 class CartAddFunctionalityViewModel : ObservableObject{
    
-    @Published var items = [CartFullDataModel]() {
+    @Published var items:[CartFullDataModel] {
         didSet {
             if let encoded = try? JSONEncoder().encode(items) {
                 UserDefaults.standard.set(encoded, forKey: "Items")
@@ -28,7 +28,6 @@ class CartAddFunctionalityViewModel : ObservableObject{
     }
     
   
-   
     init() {
        // self.promoId = promoId
         if let savedItems = UserDefaults.standard.data(forKey: "Items") {

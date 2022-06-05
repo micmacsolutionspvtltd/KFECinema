@@ -229,7 +229,7 @@ struct SpiceKitchenView: View {
                     
             }
                 
-                if $storeDataViewModel.items.count == 0{
+                if storeDataViewModel.items.count == 0{
                     if lastPage != ""{
                     NavigationLink{
                         CheckoutView()
@@ -260,7 +260,7 @@ struct SpiceKitchenView: View {
                         }
                     } label: {
                         HStack(spacing :20){
-                            Text("\($storeDataViewModel.items.count) Items")
+                            Text("\(storeDataViewModel.items.count) Items")
                             //.fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .frame(height: 100)
