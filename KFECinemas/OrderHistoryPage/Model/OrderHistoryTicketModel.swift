@@ -83,7 +83,7 @@ struct MovieDetails: Codable , Hashable{
     let zoneInScreen: String?
     let seatNo, isSnacksOrdered, snacksPickup, isFoodOrdered: String?
     let foodPickup, totalAmount: String?
-    let snacksOrderID: String?
+    let snacksOrderID , orderConfirmId : String?
     let isSnacksDelivered, snacksDeliveryAmt: String?
 
     enum CodingKeys: String, CodingKey {
@@ -108,5 +108,7 @@ struct MovieDetails: Codable , Hashable{
         case isSnacksDelivered = "is_snacks_delivered"
         case snacksDeliveryAmt = "snacks_delivery_amt"
         case email = "email"
+        case orderConfirmId = "order_confirm_id"
+        
     }
 }

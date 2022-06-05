@@ -14,6 +14,8 @@ class DashboardServices:ObservableObject {
     @Published var spiceKitchenItems:[SpiceKitchen] = []
     @Published var concessionZoneItems:[ConcessionZoneItem] = []
     @Published var activeTheatres:[Theatre] = []
+    @Published var spiceCinemas : [AllFilms] = []
+    @Published var moneCinemas  : [AllFilms] = []
     func getAllBannerImages(){
         
  
@@ -39,6 +41,27 @@ class DashboardServices:ObservableObject {
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
                     allFilms = result?.data ?? []
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+    }
+    
+    func getParticularCinemaApi(cinemaCode : String){
+        
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.allFilmsByCinema ,  requestBody : ["cinemacode" : cinemaCode]))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: AllFilmsResponse.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true {
+                    if cinemaCode == "0002"{
+                        spiceCinemas = result?.data ?? []
+                    }else{
+                        moneCinemas = result?.data ?? []
+                    }
+                  
                 }else{
                     
                 }

@@ -23,7 +23,7 @@ struct CartAddItemCell: View {
             VStack(alignment: .leading){
                 Text(itemNames ?? "")
                     .foregroundColor(Color.white.opacity(0.7))
-                Text("$ " + String(Float(itemPrice) * Float(itemQuantity)))
+                Text("₹ " + String(Float(itemPrice) * Float(itemQuantity)))
                     .foregroundColor(Color.white.opacity(0.7))
             }
             Spacer()

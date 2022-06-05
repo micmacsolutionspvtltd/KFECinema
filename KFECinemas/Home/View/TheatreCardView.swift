@@ -11,7 +11,12 @@ struct TheatreCardView: View {
     var model:Theatre
     var body: some View {
         VStack(alignment: .leading){
-            Image("m1logo").renderingMode(.original).resizable().cornerRadius(5).frame(height:160).padding(EdgeInsets(top: 15, leading: 8, bottom: 8, trailing: 8))
+            if model.cinemaStrName == "Spice  Cinemas"{
+                Image("spcine").renderingMode(.original).resizable().cornerRadius(5).frame(height:160).padding(EdgeInsets(top: 15, leading: 8, bottom: 8, trailing: 8))
+            }else{
+                Image("m1logo").renderingMode(.original).resizable().cornerRadius(5).frame(height:160).padding(EdgeInsets(top: 15, leading: 8, bottom: 8, trailing: 8))
+            }
+           
             VStack(alignment:.center,spacing:6) {
                 Text(model.cinemaStrName ?? "").foregroundColor(.white).font(.system(size: 14,weight: .bold))
         

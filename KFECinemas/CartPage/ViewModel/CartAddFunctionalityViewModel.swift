@@ -41,8 +41,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
         
     }
     func deleteAllDatas(){
-        UserDefaults.standard.removeObject(forKey: "Items")
-        UserDefaults.standard.synchronize()
+       items = []
     }
     func promocodeValuesGetApi(totalAmount : String , date : String , completionHandler : @escaping((PromoCheckModel) -> Void) ){
         let params : [String : String]?

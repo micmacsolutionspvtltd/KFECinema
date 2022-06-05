@@ -37,3 +37,12 @@ struct DataClass: Codable {
         case strSeatInfo, curTicketsTotal, curBookingFee
     }
 }
+struct SaveMovieBookingModel: Codable {
+    let seatConfirmID, status: Int?
+    let reason: String?
+
+    enum CodingKeys: String, CodingKey {
+        case seatConfirmID = "seat_confirm_id"
+        case status, reason
+    }
+}

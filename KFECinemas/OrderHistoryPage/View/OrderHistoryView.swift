@@ -16,6 +16,7 @@ struct OrderHistoryView: View {
     @ObservedObject var viewModel = OrderHistoryViewModel()
    @State var name : String = ""
     @State private var linkActive = false
+   @State var selectedRowNumber  = 0
     init(){
         UITableView.appearance().backgroundColor = .clear
         UITableViewCell.appearance().backgroundColor = .clear
@@ -114,8 +115,11 @@ struct OrderHistoryView: View {
                //     List(viewModel.getTicketHistoryData?.data ?? [] , id : \.self){ value in
                         List(0..<(viewModel.getTicketHistoryData?.data?.count ?? 0), id : \.self){ (finalValues) in
 //                       )
-                            Button(action: { linkActive = true }){
-                            OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieAmount ?? "", date: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "", bookingId: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingID ?? "", bookingSeat: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "", snacksItems: viewModel.getTicketSnacksData[finalValues])
+                            Button(action: { self.selectedRowNumber = finalValues
+                                linkActive = true
+                                
+                            }){
+                                OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: ( "₹ " + (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.totalAmount ?? "") ), date: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "", bookingId: ("Booking ID : " + (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.orderConfirmId ?? "") ), bookingSeat: ("Seats : \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.zoneInScreen ?? "")- \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "")"), snacksItems: viewModel.getTicketSnacksData[finalValues] , screenName : (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.screenName ?? "") , showTimes : "")
                                 .listStyle(GroupedListStyle())
                           //      .background(Color.black)
                                   
@@ -124,7 +128,7 @@ struct OrderHistoryView: View {
                             .listRowBackground(Color.black)
                             .overlay(VStack {
                                 if linkActive {
-                                    NavigationLink(destination:  TicketReciptView(reciptDatas : viewModel.getTicketHistoryData?.data?[finalValues].movieDetails), isActive: $linkActive) {
+                                    NavigationLink(destination:  TicketReciptView(reciptDatas : viewModel.getTicketHistoryData?.data?[selectedRowNumber ].movieDetails , snacksName : viewModel.getTicketSnacksData[selectedRowNumber]), isActive: $linkActive) {
                                         
 //                                        (viewModel.getTicketHistoryData?.data?[finalValues] ?? [])
                                     }.opacity(0)

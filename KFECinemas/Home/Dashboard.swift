@@ -41,38 +41,62 @@ struct Dashboard: View {
                 ScrollView(showsIndicators: false){
                     AppBarView(openMenu: self.openMenu)
                     ScrollViewReader { scrollView in
-                                ScrollView(.horizontal,showsIndicators: false) {
-                                    LazyHStack {
-                                        ForEach(dashboardServices.bannerImages, id: \.id) { banner in
-                                            let bannerModel:BannerModel = banner
-                                            let url = Endpoint.bannerImages.url + bannerModel.imageURL
-                                            BannerImageView(withURL: url)
-
-                                        }
-                                    }
-                                    .onAppear {
-                                        dashboardServices.getAllBannerImages()
-                                       // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-                                    }
+                        ScrollView(.horizontal,showsIndicators: false) {
+                            LazyHStack {
+                                ForEach(dashboardServices.bannerImages, id: \.id) { banner in
+                                    let bannerModel:BannerModel = banner
+                                    let url = Endpoint.bannerImages.url + bannerModel.imageURL
+                                    BannerImageView(withURL: url)
+                                    
                                 }
                             }
+                            
+                            .onAppear {
+                                dashboardServices.getAllBannerImages()
+                                
+                                
+                            }
+                            
+                            
+                        }
+                        .onChange(of: dashboardServices.bannerImages.count, perform: { value in
+                            scrollView.scrollTo(dashboardServices.bannerImages.count-1)
+                        })
+                        
+                        
+                    }
                     TableHeaderView(title: "Movies in Cinemas",isViewAllVisible: true) {
                         MovieView()
                     }
                     HStack {
-                        Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
+                        Text("NEW RELEASES : Spice Cinemas").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                         Spacer()
                     }.padding(.leading,5)
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:30){
-                                ForEach(dashboardServices.allFilms, id: \.id) { movie in
-                                    NavigationLink(destination: MovieDetailView(movie:movie)) {
-                                        MovieCardView(model: movie).frame(width: 150, height: 250)
-                                            }
-                                   
-                                    }
+                            ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
+                                NavigationLink(destination: MovieDetailView(movie:movie)) {
+                                    MovieCardView(model: movie).frame(width: 150, height: 250)
+                                }
+                                
+                            }
                         }
                     }.padding(.leading,5)
+                    HStack {
+                        Text("NEW RELEASES : M1 Cinemas").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
+                        Spacer()
+                    }.padding(.leading,5)
+                    ScrollView(.horizontal,showsIndicators:false) {
+                        HStack (spacing:30){
+                            ForEach(dashboardServices.moneCinemas, id: \.id) { movie in
+                                NavigationLink(destination: MovieDetailView(movie:movie)) {
+                                    MovieCardView(model: movie).frame(width: 150, height: 250)
+                                }
+                                
+                            }
+                        }
+                    }.padding(.leading,5)
+                    
                     TableHeaderView(title: "Spice Kitchen",isViewAllVisible: true){
                         SpiceKitchenView(pageName : "Spice Kitchen")
                     }
@@ -80,9 +104,9 @@ struct Dashboard: View {
                         HStack (spacing:20){
                             ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
                                 NavigationLink(destination: SpiceKitchenView(pageName : "Spice Kitchen")) {
-                                SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                    SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
                                 }
-                                    }
+                            }
                         }
                     }.padding(.leading,5)
                     VStack {
@@ -93,19 +117,25 @@ struct Dashboard: View {
                             HStack (spacing:20){
                                 ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
                                     NavigationLink(destination: SpiceKitchenView(pageName : "Concession Zone")) {
-                                    ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                        ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
                                     }
-                                        }
+                                }
                             }
                         }.padding(.leading,5)
-                        TableHeaderView(title: "Theatres",isViewAllVisible: true){
+                        TableHeaderView(title: "Theatres",isViewAllVisible: false){
                             SpiceKitchenView()
                         }
                         ScrollView(.horizontal,showsIndicators:false) {
                             HStack (spacing:20){
                                 ForEach(dashboardServices.activeTheatres, id: \.id) { theatre in
-                                    TheatreCardView(model: theatre).frame(width: 220, height: 300).cornerRadius(10)
-                                        }
+                                  
+                                    NavigationLink(destination: MoviesListView()) {
+                                            if theatre.cinemaStrName != "Leela Mahal"{
+                                        TheatreCardView(model: theatre).frame(width: 220, height: 300).cornerRadius(10)
+                                    }
+                                    }
+                                   
+                                }
                             }
                         }.padding(.leading,5)
                     }
@@ -120,6 +150,8 @@ struct Dashboard: View {
                 dashboardServices.getAllSpiceKitchenItems()
                 dashboardServices.getConcessionZoneItems()
                 dashboardServices.getAllActiveTheatres()
+                dashboardServices.getParticularCinemaApi(cinemaCode: "0002")
+                dashboardServices.getParticularCinemaApi(cinemaCode: "0003")
                // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
             }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("")
 

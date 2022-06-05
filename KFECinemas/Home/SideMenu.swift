@@ -124,7 +124,7 @@ enum SideMenuType {
         case .movies:
             return "Movies"
         case .bookHistory:
-            return "Book History"
+            return "Booking History"
         case .spiceKitchen:
             return "Spice Kitchen"
         case .concessionZone:

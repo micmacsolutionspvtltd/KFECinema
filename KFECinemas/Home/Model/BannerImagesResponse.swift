@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct BannerResponseModel: Codable {
+struct BannerResponseModel: Codable ,Hashable{
     let status: Int
     let reason: String
     let banners: [BannerModel]
@@ -22,7 +22,7 @@ struct BannerResponseModel: Codable {
 }
 
 // MARK: - Datum
-struct BannerModel: Codable {
+struct BannerModel: Codable,Hashable {
     let id, imageName, imageURL, activeStatus: String
     let createdAt, updatedAt: String
 
