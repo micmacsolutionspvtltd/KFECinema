@@ -17,10 +17,13 @@ struct SpiceKitchenView: View {
     @State var vegClicked : Bool = false
     var lastPagName : String? = ""
     @ObservedObject var viewModel = FoodListViewModel()
-
+    @EnvironmentObject var movieServices:MovieServices
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
 
     @State var getCartDatas : Bool? = false
+    @State var showingAlert = false
+    @State var moveNextPage : Bool = false
+
     var body: some View {
         GeometryReader { geometry in
             ZStack{
@@ -42,8 +45,13 @@ struct SpiceKitchenView: View {
                                // NavigationLink{
                                 Button{
                                   //  Dashboard()
-                                       
-                                      presentationMode.wrappedValue.dismiss()
+                                    if lastPage == "bookSeatView"{
+                                        showingAlert = true
+                                    }else{
+                                        storeDataViewModel.deleteAllDatas()
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                    
                                 }label: {
                                     
                                     
@@ -309,7 +317,38 @@ struct SpiceKitchenView: View {
                 }
                 
             }.background(Color("ColorAppGrey"))
+        }.alert(isPresented: $showingAlert){
+        
+            Alert(
+                title: Text("CONFIRMATION"),
+                message: Text("Do you want to end the session"),
+                primaryButton: .default(Text("Yes"), action: {
+                    storeDataViewModel.deleteAllDatas()
+                    resetSeatMultipleSeats()
+                    moveNextPage = true
+                }),
+                secondaryButton: .cancel(Text("Cancel"), action: { // 1
+                    showingAlert = false
+                    
+                })
+            )
         }
+        NavigationLink(destination: Dashboard(), isActive: $moveNextPage){
+       
+        }
+    }
+    func resetSeatMultipleSeats(){
+        
+            let filteredArray = movieServices.selectedSeats.filter { value in
+              //  if value.strTransId != nil{
+                    movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
+                    return false
+             //   }
+          
+            }
+            movieServices.selectedSeats = []
+      //  }
+       
     }
 }
 

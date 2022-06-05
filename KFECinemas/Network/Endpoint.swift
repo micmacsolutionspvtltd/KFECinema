@@ -54,6 +54,7 @@ enum Endpoint {
     case allShowsByFilm
     case dev
     case confirmSeats
+    case finalBookingConfirm
     
     var url:String {
         return tempUrl + "/" + self.path
@@ -61,7 +62,7 @@ enum Endpoint {
     
     var tempUrl:String {
         switch self {
-        case .login,.snacksOrderHistory,.foodOrderedHistory,.foodBannerImages,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem,.bannerImages,.productImages: return urlType1
+        case .login,.snacksOrderHistory,.foodOrderedHistory,.foodBannerImages,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem,.bannerImages,.productImages ,.finalBookingConfirm: return urlType1
         case .resetSeats,.activeTheatres,.allFilms,.allFilmsByCinema,.theaterWiseMovie,.setSeats,.allShowsByFilm,.dev , .confirmSeats: return urlType2
         }
     }
@@ -132,11 +133,13 @@ enum Endpoint {
             return "api/kfecinema/dev"
         case .confirmSeats:
             return "api/kfecinema/confirmseats"
+        case .finalBookingConfirm:
+            return "KFE_Android/confirm.php"
         }
     }
     var httpMethod: HTTPMethod {
         switch self {
-        case .saveMovieBookingsData,.selectedPromo,.resetSeats,.insertOrderItem,.insertSnacksOrderItem,.activeTheatres,.updatePassword,.allFilms,.getAllFoodBannerImage,.getSnacksItemTheatreWise,.forgotPasswordGenerateOtp,.allFilmsByCinema,.theaterWiseMovie,.checkPromoCode,.saveUserDetails,.setSeats,.allShowsByFilm,.dev , .confirmSeats : return .post
+        case .saveMovieBookingsData,.selectedPromo,.resetSeats,.insertOrderItem,.insertSnacksOrderItem,.activeTheatres,.updatePassword,.allFilms,.getAllFoodBannerImage,.getSnacksItemTheatreWise,.forgotPasswordGenerateOtp,.allFilmsByCinema,.theaterWiseMovie,.checkPromoCode,.saveUserDetails,.setSeats,.allShowsByFilm,.dev , .confirmSeats , .finalBookingConfirm : return .post
         case .login,.snacksOrderHistory,.movieBookedHistory,.foodOrderedHistory,.movieBookedOrderHistory,.foodBannerImages,.bannerImages,.getAllItems,.productImages,.getAllSnacksItems,.getBannerImages,.getFoodItemsCategoryWise,.updatePasswordAuthenticatedUsers : return .get
         
         }

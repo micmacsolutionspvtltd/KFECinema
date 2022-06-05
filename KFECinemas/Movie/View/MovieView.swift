@@ -62,22 +62,36 @@ struct MovieView: View {
                Spacer()
                    
            }.background(Color(uiColor: UIColor.red))
-           TableHeaderView(title: "Movies on Theatre" ,isViewAllVisible: true){
-              MoviesListView()
+           TableHeaderView(title: "Movies on Theatre" ,isViewAllVisible: false){
+               MoviesListView()
            }
            HStack {
-               Text("NEW RELEASES").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
+               Text("NEW RELEASES : Spice Cinemas").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                Spacer()
            }.padding(.leading,5)
            ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
-                       ForEach(dashboardServices.allFilms, id: \.id) { movie in
+                       ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
                            NavigationLink(destination: MovieDetailView(movie:movie)) {
                            MovieCardView(model: movie).frame(width: 150, height: 250)
                            }
                            }
                }
            }.padding(.leading,5)
+           HStack {
+               Text("NEW RELEASES : M1 cinemas").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
+               Spacer()
+           }.padding(.leading,5)
+           ScrollView(.horizontal,showsIndicators:false) {
+               HStack (spacing:30){
+                       ForEach(dashboardServices.moneCinemas, id: \.id) { movie in
+                           NavigationLink(destination: MovieDetailView(movie:movie)) {
+                           MovieCardView(model: movie).frame(width: 150, height: 250)
+                           }
+                           }
+               }
+           }.padding(.leading,5)
+
            TableHeaderView(title: "Theatres",isViewAllVisible: false){
                Text("")
            }

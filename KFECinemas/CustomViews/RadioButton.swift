@@ -67,9 +67,10 @@ enum SnacksDeliveryTimeType: String {
 }
 
 struct DeliveryButtonGroups: View {
+    @State var selectedId: String = ""
     let callback: (String) -> ()
     
-    @State var selectedId: String = ""
+   
     
     var body: some View {
         HStack {
@@ -104,9 +105,10 @@ struct DeliveryButtonGroups: View {
 
 
 struct DeliveryTimeGroups: View {
+    @State var selectedId: String = ""
     let callback: (String) -> ()
     
-    @State var selectedId: String = ""
+    
     
     var body: some View {
         HStack {

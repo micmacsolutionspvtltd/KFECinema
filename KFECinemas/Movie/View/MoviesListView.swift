@@ -10,7 +10,7 @@ import SwiftUI
 struct MoviesListView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @EnvironmentObject var dashboardServices:DashboardServices
-
+    @State var viewTheatre : String = "M1 Cinemas"
     private var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
     private var symbols = ["food1", "food2", "food3","food4","food5","food6","food1", "food2", "food3","food4","food5","food6"]
     var body: some View {
@@ -29,14 +29,24 @@ struct MoviesListView: View {
             }
             .padding()
             .background(Color(uiColor: UIColor.red))
-            
-            LazyVGrid(columns: twoColumnGrid,spacing: 10) {
-                ForEach(dashboardServices.allFilms, id: \.id) { movie in
-                    NavigationLink(destination: MovieDetailView(movie:movie)) {
-                    MovieCardView(model: movie).frame(width: 150, height: 250)
+            if viewTheatre == "M1 Cinemas"{
+                LazyVGrid(columns: twoColumnGrid,spacing: 10) {
+                    ForEach(dashboardServices.moneCinemas, id: \.id) { movie in
+                        NavigationLink(destination: MovieDetailView(movie:movie)) {
+                        MovieCardView(model: movie).frame(width: 150, height: 250)
+                        }
+                        }.padding()
                     }
-                    }.padding()
-                }
+            }else{
+                LazyVGrid(columns: twoColumnGrid,spacing: 10) {
+                    ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
+                        NavigationLink(destination: MovieDetailView(movie:movie)) {
+                        MovieCardView(model: movie).frame(width: 150, height: 250)
+                        }
+                        }.padding()
+                    }
+            }
+         
            
         }.background(Color("ColorAppGrey")).navigationBarHidden(true)
     }

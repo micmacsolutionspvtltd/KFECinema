@@ -9,19 +9,36 @@ import SwiftUI
 
 struct TicketReciptView: View {
    @State var reciptDatas: MovieDetails?
+    @State var lastPage : String?
     @Environment(\.presentationMode) var presentationMode
-
+    @State var movieName :String?
+    @State var showDate : String?
+    @State var showTime : String?
+    @State var ticketFormat : String?
+    @State var theatreName : String?
+    @State var screenName : String?
+    @State var seatNumber : String?
+    @State var bookingId : String?
+    @State var snacksName : String?
+    @State var ticketPrice : String?
+    @State var snacksprice : String?
+    @State var deliverPrice : String?
+    @State var totalPrice : String?
+    @State var moveToDashBoard : Bool = false
+    
+    
     var body: some View {
         GeometryReader{ geometry in
+            ScrollView(showsIndicators:false){
             ZStack{
-                ScrollView(showsIndicators:false){
-                GeometryReader{ innerGeometry in
+               
+           //     GeometryReader{ innerGeometry in
                 VStack(alignment : .leading,spacing: 50){
                     ZStack{
                         Text("Ticket Recipt")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
                             .accentColor(Color.white)
@@ -30,8 +47,12 @@ struct TicketReciptView: View {
                                // NavigationLink{
                                 Button{
                                   //  Dashboard()
-                                       
-                                      presentationMode.wrappedValue.dismiss()
+                                    if lastPage == "checkout"{
+                                       moveToDashBoard = true
+                                    }else{
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                     
                                 }label: {
                                     
                                     
@@ -39,7 +60,7 @@ struct TicketReciptView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 25.0, height: 25.0)
-                                        .foregroundColor(.white)
+                                        
                                     
                                 }
                                 Spacer()
@@ -54,8 +75,8 @@ struct TicketReciptView: View {
                             .aspectRatio(contentMode: .fit)
                         Spacer()
                     }
-                    Text(reciptDatas?.movieName ?? "")
-                        .foregroundColor(.white).fontWeight(.bold).multilineTextAlignment(.leading)
+                        Text(movieName ?? "")
+                        .fontWeight(.bold).multilineTextAlignment(.leading)
                         .padding(EdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0))
                     Divider()
                         .frame( height:1)
@@ -78,20 +99,20 @@ struct TicketReciptView: View {
                                      .frame(maxWidth: .infinity)
                                      .multilineTextAlignment(.leading)
                                      .fixedSize(horizontal: false, vertical: true)
-                            }.frame(minWidth: innerGeometry.size.width)
+                            }.frame(minWidth: geometry.size.width/1.2)
                             HStack{
-                                Text(reciptDatas?.bookingDate ?? "")
-                                    .foregroundColor(.white).multilineTextAlignment(.leading)
+                                Text(showDate ?? "")
+                                    .multilineTextAlignment(.leading)
                                      
                                      .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true)
-                                Text(reciptDatas?.showTime ?? "")
-                                     .foregroundColor(.white)
+                                Text(showTime ?? "")
+                                     
                                      
                                      .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.leading)
                                 Text("Format")
-                                     .foregroundColor(.white)
+                                     
                                      .frame(maxWidth: .infinity)
                                      .multilineTextAlignment(.leading)
                                      .fixedSize(horizontal: false, vertical: true)
@@ -104,7 +125,7 @@ struct TicketReciptView: View {
                                      
                                      .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true)
-                                Text("Row")
+                                Text("Screen")
                                     .foregroundColor(.gray)
                                      .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true)
@@ -116,18 +137,18 @@ struct TicketReciptView: View {
                                      .fixedSize(horizontal: false, vertical: true)
                             }.frame(minWidth: geometry.size.width*0,idealWidth: 7)
                             HStack{
-                                Text(reciptDatas?.theatreName ?? "")
-                                    .foregroundColor(.white).multilineTextAlignment(.leading)
+                                Text(theatreName ?? "")
+                                    .multilineTextAlignment(.leading)
                                      
                                      .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true)
-                                Text(reciptDatas?.screenName ?? "")
-                                     .foregroundColor(.white)
+                                Text(screenName ?? "")
+                                     
                                      
                                      .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.leading)
-                                Text("\(reciptDatas?.zoneInScreen ?? "") - \(reciptDatas?.seatNo ?? "")")
-                                     .foregroundColor(.white)
+                                Text(seatNumber ?? "")
+                                     
                                      .frame(maxWidth: .infinity)
                                      .multilineTextAlignment(.leading)
                                      .fixedSize(horizontal: false, vertical: true)
@@ -137,12 +158,12 @@ struct TicketReciptView: View {
                             VStack(spacing : 5){
                                 Text("Order Id")
                                     .foregroundColor(.gray).multilineTextAlignment(.leading)
-                                Text(reciptDatas?.bookingID ?? "")
-                                    .foregroundColor(.white).multilineTextAlignment(.leading)
+                                Text(bookingId ?? "")
+                                    .multilineTextAlignment(.leading)
                             }
                             Spacer()
                             Text("Booking Confirmed")
-                                .foregroundColor(.white).font(.system(size: 13)).padding(EdgeInsets(top: 8, leading: 5, bottom: 8, trailing: 5)).background(Color.red).cornerRadius(5)
+                                .font(.system(size: 13)).padding(EdgeInsets(top: 8, leading: 5, bottom: 8, trailing: 5)).background(Color.red).cornerRadius(5).foregroundColor(.white)
                         }
                     }
                     Divider()
@@ -153,8 +174,8 @@ struct TicketReciptView: View {
                             VStack(spacing : 5){
                                 Text("Snacks")
                                     .foregroundColor(.gray).multilineTextAlignment(.leading)
-                                Text("Date")
-                                    .foregroundColor(.white).multilineTextAlignment(.leading)
+                                Text(snacksName ?? "")
+                                    .multilineTextAlignment(.leading)
                             }
                             Spacer()
                         }
@@ -167,24 +188,26 @@ struct TicketReciptView: View {
                     VStack(spacing : 7){
                         HStack{
                             Text("Ticket Price")
-                                .foregroundColor(.white).font(.system(size: 15)).multilineTextAlignment(.leading)
+                                .font(.system(size: 15)).multilineTextAlignment(.leading)
                             Spacer()
-                            Text(reciptDatas?.movieAmount ?? "")
-                                .foregroundColor(.white).multilineTextAlignment(.trailing)
+                            Text(ticketPrice ?? "")
+                                .multilineTextAlignment(.trailing)
                         }
-                        HStack{
-                            Text("Snacks and Beverage Price")
-                                .foregroundColor(.white).font(.system(size: 15)).multilineTextAlignment(.leading)
-                            Spacer()
-                            Text(reciptDatas?.snacksOrderedAmt ?? "")
-                                .foregroundColor(.white).multilineTextAlignment(.trailing)
-                        }
-                        HStack{
-                            Text("Deliver Price")
-                                .foregroundColor(.white).font(.system(size: 15)).multilineTextAlignment(.leading)
-                            Spacer()
-                            Text(reciptDatas?.snacksDeliveryAmt ?? "")
-                                .foregroundColor(.white).multilineTextAlignment(.trailing)
+                        if snacksName != ""{
+                            HStack{
+                                Text("Snacks and Beverage Price")
+                                    .font(.system(size: 15)).multilineTextAlignment(.leading)
+                                Spacer()
+                                Text("\(snacksprice ?? "")")
+                                    .multilineTextAlignment(.trailing)
+                            }
+                            HStack{
+                                Text("Deliver Price")
+                                    .font(.system(size: 15)).multilineTextAlignment(.leading)
+                                Spacer()
+                                Text("\(deliverPrice ?? "")")
+                                    .multilineTextAlignment(.trailing)
+                            }
                         }
                         Divider()
                             
@@ -193,28 +216,52 @@ struct TicketReciptView: View {
                             .background(Color.white)
                         HStack{
                             Text("Total")
-                                .foregroundColor(.white).font(.system(size: 18)).multilineTextAlignment(.leading)
+                                .font(.system(size: 18)).multilineTextAlignment(.leading)
                             Spacer()
-                            Text(reciptDatas?.totalAmount ?? "")
-                                .foregroundColor(.white).multilineTextAlignment(.trailing)
+                            Text("\(totalPrice ?? "")")
+                                .multilineTextAlignment(.trailing)
                         }
                     }
                 }
                     VStack{
                         HStack{
                             Spacer()
-                            Text("Check your email \(reciptDatas?.email ?? "")")
-                                .foregroundColor(.white).font(.system(size: 15))
+                            Text("Check your email \(StorageSettings().emailAddress)")
+                                .font(.system(size: 15))
                             Spacer()
                         }
                        
-                    }
+                    }.padding(.bottom , 15)
                 }
                    
+              //  }
+            }.foregroundColor(.black)
+            }.padding().background(Color.white)  .cornerRadius(10).padding()
+              
+                .navigationBarHidden(true)
+                .onAppear(){
+                    if lastPage != "checkout"{
+                   
+                        movieName = reciptDatas?.movieName
+                        movieName = reciptDatas?.movieName
+                        showDate = reciptDatas?.bookingDate
+                        showTime = reciptDatas?.showTime
+                        
+                        theatreName = reciptDatas?.theatreName
+                        screenName = reciptDatas?.screenName
+                        seatNumber = ("\(reciptDatas?.zoneInScreen ?? "") - \(reciptDatas?.seatNo ?? "")")
+                        bookingId = reciptDatas?.bookingID ?? ""
+                       
+                        ticketPrice = reciptDatas?.movieAmount ?? ""
+                        snacksprice = reciptDatas?.snacksDeliveryAmt ?? ""
+                        deliverPrice = reciptDatas?.snacksDeliveryAmt ?? ""
+                        totalPrice = reciptDatas?.totalAmount ?? ""
+                    }
+                   
                 }
-            }.padding().background(Color.black).padding()
+            NavigationLink(destination: Dashboard(), isActive: $moveToDashBoard){
+           
             }
-            .navigationBarHidden(true)
         }.background(LinearGradient(gradient: SwiftUI.Gradient(colors: [Constants.CustomColors.sideMenuColor1,Constants.CustomColors.sideMenuColor2]), startPoint: .top, endPoint: .bottom))
   
         

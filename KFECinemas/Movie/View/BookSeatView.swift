@@ -11,7 +11,7 @@ struct BookSeatView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var movieServices:MovieServices
     var model:BookSeatModel
-    var seatList = [SeatStatusModel(imageName: "white_seat", status: "Available"),SeatStatusModel(imageName: "grey_seat", status: "Booked"),SeatStatusModel(imageName: "red_seat", status: "Selected")]
+    var seatList = [SeatStatusModel(imageName: "white_seat", status: "Available"),SeatStatusModel(imageName: "red_seat", status: "Booked"),SeatStatusModel(imageName: "green_seat", status: "Selected")]
 
    @State var daysOfWeek:[Date] = []
     @State var showingAlert = false
@@ -65,7 +65,7 @@ struct BookSeatView: View {
                     VStack{
                         ForEach(movieServices.seatLayouts?.data ?? [] , id : \.id){ layout in
                             VStack{
-                                Text(layout.strAreaDesc ?? "")
+                                Text("\(layout.strAreaDesc ?? "") - ₹ \(layout.amount ?? 0)")
                                 SeatClassView(seatLayout: layout)
                             }
                           
@@ -73,7 +73,10 @@ struct BookSeatView: View {
                     }
                 }
                 
-               
+                Spacer().frame(height : 50)
+                Text("Screen This way")
+                Image("screen_image")
+                    .resizable().frame(width: geometry.size.width, height: 50)
                 
             }.foregroundColor(.white)
         } .alert(isPresented: $showingAlert){
@@ -106,7 +109,7 @@ struct BookSeatView: View {
                     SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView")
                 } label: {
                     HStack(spacing :20){
-                        Text("\(movieServices.calculateSeats())")
+                        Text("\(movieServices.selectedSeats[0].ticketType ?? "")- \(movieServices.calculateSeats())").fontWeight(.bold)
                         //.fontWeight(.bold)
                             .foregroundColor(.white)
                             .frame(height: 100)
@@ -211,7 +214,7 @@ struct SeatView:View {
                 Text("").frame(width: 25, height: 25)
             }else if seat.strSeatStatus ==  "0"{
                 if isSelected == true{
-                    Image("red_seat") .resizable()
+                    Image("green_seat") .resizable()
                         .frame(width: 25, height: 25)
                 }else{
                     Image("white_seat") .resizable()
@@ -220,7 +223,7 @@ struct SeatView:View {
                 
                 
             }else {
-                Image("grey_seat") .resizable()
+                Image("red_seat") .resizable()
                     .frame(width: 25, height: 25)
             }
         }.onTapGesture {

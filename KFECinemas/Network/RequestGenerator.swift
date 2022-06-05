@@ -76,8 +76,9 @@ class RequestGenerator: NSObject {
     
     
     func generateURLRequestTypeThree(endpoint: Endpoint, requestBody: [String:Any]? = nil, queryParams: [URLQueryItem]? = nil, additionalHeader: [String: String]? = nil ,authTokenValue:String? = nil,resourcePath : String? = nil) throws -> URLRequest {
-        
+        print("URL = ",endpoint.url)
         print("==========Request parameters==========\n")
+        
         print(requestBody)
         
         let urlString = endpoint.url

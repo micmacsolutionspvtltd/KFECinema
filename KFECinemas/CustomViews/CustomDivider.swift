@@ -18,3 +18,27 @@ struct CustomDivider_Previews: PreviewProvider {
         CustomDivider()
     }
 }
+//struct customAlertView : View{
+//    @State var showedAlert : Bool = false
+//    var tittle = "CONFIRMATION"
+//    var message = "Do you want to end the session"
+//    var rightSideText : String? = "Yes"
+//    var leftSideText : String? = "Cancel"
+//    var okAction : () -> ()
+//    var cancelAction : () -> ()
+//    var body : some View {
+//        .alert(isPresented: $showedAlert){
+//            Alert(
+//                title: Text(tittle),
+//                message: Text(message),
+//                primaryButton: .default(Text(rightSideText), action: {
+//                   okAction()
+//                }),
+//                secondaryButton: .cancel(Text(leftSideText), action: { // 1
+//                    cancelAction()
+//                })
+//            )
+//        }
+//    
+//    }
+//}
