@@ -170,6 +170,7 @@ struct Dashboard_Previews: PreviewProvider {
 
 struct AppBarView: View {
     @State private var searchText: String = ""
+    @EnvironmentObject var dashboardServices:DashboardServices
     var openMenu: () -> Void
     var body: some View {
         HStack(alignment: .center, spacing: 20.0){
@@ -189,7 +190,10 @@ struct AppBarView: View {
             
             
             HStack {
-                TextField("Enter your password", text: $searchText)
+                TextField("Enter your password", text: $searchText).onChange(of: searchText, perform: { newValue in
+                    print(newValue)
+                    dashboardServices.searhFilter(text: newValue)
+                })
                     .foregroundColor(.white)
                     .accentColor(Color.white)
                 

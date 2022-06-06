@@ -9,6 +9,13 @@ import Foundation
 
 class DashboardServices:ObservableObject {
     
+     var initialAllFilms:[AllFilms] = []
+     var initialSpiceKitchenItems:[SpiceKitchen] = []
+     var initialConcessionZoneItems:[ConcessionZoneItem] = []
+     var initialActiveTheatres:[Theatre] = []
+     var initialSpiceCinemas : [AllFilms] = []
+     var initialMoneCinemas  : [AllFilms] = []
+    
     @Published var bannerImages:[BannerModel] = []
     @Published var allFilms:[AllFilms] = []
     @Published var spiceKitchenItems:[SpiceKitchen] = []
@@ -40,6 +47,7 @@ class DashboardServices:ObservableObject {
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: AllFilmsResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
+                    initialAllFilms = result?.data ?? []
                     allFilms = result?.data ?? []
                 }else{
                     
@@ -57,6 +65,7 @@ class DashboardServices:ObservableObject {
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
                     if cinemaCode == "0002"{
+                        initialSpiceCinemas = result?.data ?? []
                         spiceCinemas = result?.data ?? []
                     }else{
                         moneCinemas = result?.data ?? []
@@ -76,6 +85,7 @@ class DashboardServices:ObservableObject {
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: SpiceKitchenResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
+                    initialSpiceKitchenItems = result?.data ?? []
                     spiceKitchenItems = result?.data ?? []
                 }else{
                     
@@ -91,6 +101,7 @@ class DashboardServices:ObservableObject {
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: ConcessionZoneResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
+                    initialConcessionZoneItems = result?.data ?? []
                     concessionZoneItems = result?.data ?? []
                 }else{
                     
@@ -108,6 +119,7 @@ class DashboardServices:ObservableObject {
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
                     
+                    initialActiveTheatres = result?.data ?? []
                     activeTheatres = result?.data ?? []
               //      concessionZoneItems = result?.data ?? []
                 }else{
@@ -117,6 +129,43 @@ class DashboardServices:ObservableObject {
            
             }
         }
+    }
+    
+    func searhFilter(text:String){
+        
+        if text.count > 0 {
+            
+            allFilms = initialAllFilms.filter { value in
+                value.filmStrTitle!.lowercased().contains(text.lowercased())
+            }
+            
+            spiceKitchenItems = initialSpiceKitchenItems.filter { value in
+                value.itemInfo!.itemName!.lowercased().contains(text.lowercased())
+            }
+            concessionZoneItems = initialConcessionZoneItems.filter { value in
+                value.itemInfo!.itemName!.lowercased().contains(text.lowercased())
+            }
+            activeTheatres = initialActiveTheatres.filter { value in
+                value.cinemaStrName!.lowercased().contains(text.lowercased())
+            }
+            spiceCinemas = initialSpiceCinemas.filter { value in
+                value.filmStrTitle!.lowercased().contains(text.lowercased())
+            }
+            moneCinemas = initialMoneCinemas.filter { value in
+                value.filmStrTitle!.lowercased().contains(text.lowercased())
+            }
+            
+        } else{
+            allFilms = initialAllFilms
+            spiceKitchenItems = initialSpiceKitchenItems
+            concessionZoneItems = initialConcessionZoneItems
+            activeTheatres = initialActiveTheatres
+            spiceCinemas = initialSpiceCinemas
+            moneCinemas = initialMoneCinemas
+        }
+    
+     
+        
     }
                     
     func changePassWordApi(newPassword : String ,oldPassword : String , completionHandler : @escaping (SignUpDataModel) -> Void){
