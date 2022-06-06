@@ -59,6 +59,7 @@ struct BookTicketView: View {
                 
             }.foregroundColor(.white)
         }.onAppear(perform: {
+            movieServices.selectedSeats = []
             let daysOfWeek = Date().daysOfWeek(using: .gregorian)
             self.daysOfWeek = daysOfWeek
             let requestModel = ["Date":"\(Date().currentDateOnly)","filmcode":"\(movie.filmStrCode ?? "")"]

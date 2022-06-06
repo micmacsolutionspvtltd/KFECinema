@@ -21,7 +21,7 @@ struct CheckoutView: View {
     @State var moveTicketReciptView : Bool = false
     @State var calculateTotalPrice : String? = ""
     @State var bookingConfirmId = ""
-    
+    @State var seatConfirmId  = ""
     var body: some View {
 //        GeometryReader { geometry in
         ZStack(alignment:.bottom){
@@ -195,7 +195,7 @@ struct CheckoutView: View {
             if razorPayShow ?? false{
                 RazorPayMethod(amount : totalAmountFullCalculation(),getPaymetId: {
                     var calculateTotalAmount : Float = 0.00
-                    var seatConfirmId  = ""
+                   
                     
                     if storeDataViewModel.items.count == 0{
                         snacksOrderMode = "0"
@@ -226,18 +226,17 @@ struct CheckoutView: View {
 //                            transactionId += ((value.strTransId ?? "") + ",")
 //                        }
 //                        transactionId.removeLast()
-                        movieServices.confirmSeatsApi( transactionId : movieServices.selectedSeats[0].strTransId ?? "" , sessionId :  "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )" , cinemaCOde : movieServices.selectedScreen?.show.cinemaStrID ?? "") { finalResult in
-                            bookingConfirmId = String(finalResult.data?.intBookID ?? 0)
-
-                            movieServices.finalOrderBookingApi(seatConfirmId: seatConfirmId , bookConfirmId: String(finalResult.data?.intBookID ?? 0) , completionHandler: { finalResult in
-                                moveTicketReciptView = true
-                              //  movieServices.selectedSeats = []
-                              //  storeDataViewModel.deleteAllDatas()
-
-                            })
-
+                        var addedCount = 0
+                        for i in movieServices.selectedSeats{
+                            movieServices.confirmSeatsApi( transactionId : i.strTransId ?? "" , sessionId :  "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )" , cinemaCOde : movieServices.selectedScreen?.show.cinemaStrID ?? "") { finalResult in
+                                bookingConfirmId += "\(String(finalResult.data?.intBookID ?? 0)),"
+                                 addedCount+=1
+                                if addedCount == movieServices.selectedSeats.count{
+                                    bookingidChangeApi(id : bookingConfirmId)
+                                }
+                            }
                         }
-                        
+
                         
                     }))
                 })
@@ -263,7 +262,14 @@ struct CheckoutView: View {
                 )
             }
     }
-  
+    func bookingidChangeApi(id : String){
+        movieServices.finalOrderBookingApi(seatConfirmId: seatConfirmId , bookConfirmId: id , completionHandler: { finalResult in
+            moveTicketReciptView = true
+          //  movieServices.selectedSeats = []
+          //  storeDataViewModel.deleteAllDatas()
+
+        })
+    }
     func resetSeatMultipleSeats(){
         
             let filteredArray = movieServices.selectedSeats.filter { value in

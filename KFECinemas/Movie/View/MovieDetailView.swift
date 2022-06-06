@@ -21,7 +21,7 @@ struct MovieDetailView: View {
                         Image(systemName:  "arrow.left").foregroundColor(.white).padding()
                     }
                     Spacer()
-                    Image("food1").renderingMode(.original).resizable().frame(width: 180, height: 260).aspectRatio(contentMode: .fill)
+                    Image("movieImgLatest").renderingMode(.original).resizable().frame(width: 180, height: 260).aspectRatio(contentMode: .fill)
                     Spacer()
                     
                 }
