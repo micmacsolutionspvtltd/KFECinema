@@ -32,5 +32,9 @@ enum urlString: String
     case SIGNUP = "save_user_details.php?"
     case LOGIN = "login_valid.php?"
     case FOODLISTAPI = "get_snacks_items_data_theatre_wise.php?"
-    case FOODPAGEBANNERDATA = "KFE_Android/get_all_food_banner_image.php"
+    case FOODPAGEBANNERDATA = "get_all_food_banner_image.php"
+    case TERMSANDCONDITION = "terms.php"
+    case PRIVACYPOLICY = "userprivacy.php"
+    case CONTACTUS = "contact.php"
+    case CANCELTICKET = "cancel.php"
 }

@@ -88,15 +88,15 @@ struct SideMenu: View {
             case .changePassword:
                  Dashboard()
             case .termsAndCondition:
-                TermsAndConditionWebView()
+                TermsAndConditionWebView(urlName: APIList().getUrlString(url : .TERMSANDCONDITION) , pageName : "Terms and Condition")
             case .privacyAndPolicy:
-                TermsAndConditionWebView()
+                TermsAndConditionWebView(urlName: APIList().getUrlString(url : .PRIVACYPOLICY) , pageName: "Privacy and Policy")
             case .logout:
                  LoginView()
             case .ticketCancellation:
-                TermsAndConditionWebView()
+                TermsAndConditionWebView(urlName: APIList().getUrlString(url : .CANCELTICKET), pageName: "Cancellation Policy")
             case .contactUs:
-                TermsAndConditionWebView()
+                TermsAndConditionWebView(urlName: APIList().getUrlString(url : .CONTACTUS), pageName: "Contact Us")
             }
           
         }label: {
