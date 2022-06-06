@@ -17,7 +17,7 @@ class FoodListViewModel : ObservableObject{
     func fooddListValueShowApi(completionHandler : @escaping((FoodListModel) -> Void) ){
         let params : [String : String]?
       params = [
-        "theatre_id": "2"
+        "theatre_id": "8"
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.getSnacksItemTheatreWise,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: FoodListModel.self) { (restValue, result, error) in

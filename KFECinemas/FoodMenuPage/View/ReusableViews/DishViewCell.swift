@@ -36,7 +36,7 @@ struct DishViewCell: View {
                     .font(.system(size: 13,weight: .bold))
                    // .fontWeight(.bold)
                     .multilineTextAlignment(.leading)
-                Text("$ \(amount ?? "")")
+                Text("₹ \(amount ?? "")")
                     .font(.system(size: 13,weight: .light))
                     .multilineTextAlignment(.leading)
             }.frame(width: 100)

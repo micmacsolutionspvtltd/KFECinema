@@ -12,8 +12,9 @@ struct OrderHisroryViewCell: View {
     var theaterName = "Sathaym"
     var amount = "$ 100"
     var date = "25/12/2022"
+   @State var image = "popcorn"
    @State var bookingId = "768783"
-   @State var bookingSeat = "Seats : Elite - J5,J6"
+   @State var bookingSeat = "Seats: "
     @State var snacksItems : String? = "Cake"
  
     @State var getConcesionZoneData :ConcessionHistoryData?
@@ -24,7 +25,7 @@ struct OrderHisroryViewCell: View {
     var body: some View {
         VStack{
             HStack{
-                Image("food3")
+                Image(image)
                     .resizable()
                     .frame(width: 80, height: 80)
                 // .padding()
@@ -42,27 +43,31 @@ struct OrderHisroryViewCell: View {
                     }
                     HStack{
                         Text(theaterName)
-                            .font(.system(size: 16)).multilineTextAlignment(.trailing).frame(maxWidth : .infinity)
+                            .font(.system(size: 16)).multilineTextAlignment(.trailing)//.frame(maxWidth : .infinity)
                         Text(screenName ?? "")
-                            .font(.system(size: 16)).multilineTextAlignment(.trailing).frame(maxWidth : .infinity)
+                            .font(.system(size: 16)).multilineTextAlignment(.trailing)//.frame(maxWidth : .infinity)
                     }  .foregroundColor(Color.white)
                     //.frame(maxWidth : .infinity)
                     //   HStack(spacing : 10){
                     HStack{
                         Text(date)
-                            .font(.system(size: 16)).multilineTextAlignment(.trailing)
+                            .font(.system(size: 16)).multilineTextAlignment(.leading)
                             .foregroundColor(Color.white).frame(maxWidth : .infinity)
-                        Text(showTimes)
-                            .font(.system(size: 16)).multilineTextAlignment(.trailing)
-                            .foregroundColor(Color.white).frame(maxWidth : .infinity)
+                    
+                       
+                    }
+                    if bookingId != "768783"{
+                        Text(bookingId)
+                            .font(.system(size: 16))
+                            .foregroundColor(Color.white)
+                    }
+                  
+                    if bookingSeat != "Seats: "{
+                        Text(bookingSeat)
+                            .font(.system(size: 16))
+                            .foregroundColor(Color.white)
                     }
                     
-                    Text(bookingId)
-                        .font(.system(size: 16))
-                        .foregroundColor(Color.white)
-                    Text(bookingSeat)
-                        .font(.system(size: 16))
-                        .foregroundColor(Color.white)
                     if snacksItems != ""{
                         Text("Snacks & Beverage")
                             .font(.system(size: 16))

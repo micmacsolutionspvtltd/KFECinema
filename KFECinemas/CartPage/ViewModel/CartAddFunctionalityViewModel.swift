@@ -86,64 +86,67 @@ class CartAddFunctionalityViewModel : ObservableObject{
     }
     func orderSnackItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
         let params : [String : String]?
+        params = [
+            "user_id" : StorageSettings().userId,
+            "item_id" : itemId,
+            "categoryId": categoryId,
+            "sub_categoryId" : "",
+            "quantity" : quantity,
+            "price" : price,
+            "gst" : gst,
+            "payment_type" : "1",
+            "ordered_during" : "0",
+            "order_total_amount" : totalPrice,
+            "theatre_id" : theaterId,
+            "screen_id" : screenId,
+            "seat_no" : seatNo,
+            "show_time" : showTime,
+            "zone" : seatRow,
+            "deliver_to_seat_or_pickup_at_counter" : pickUpCounter,
+            "order_date" : orderDate,
+            "promocode_id" : promoCode,
+            "total_amt_discounted" : "",
+            "total_amt_after_discounted" : discountPrice,
+            "is_vip_card_used" : "",
+            "vip_card_id" : "",
+        ]
+    
+                  
+           
+             
+            
 //        params = [
-//            "user_id" : StorageSettings().userId,
-//            "item_id" : itemId,
-//            "categoryId": categoryId,
+//            "user_id" : "42",
+//            "item_id" : "16",
+//            "categoryId": "4",
 //            "sub_categoryId" : "",
-//            "quantity" : quantity,
-//            "price" : price,
-//            "gst" : gst,
+//            "quantity" : "1",
+//            "price" : "980",
+//            "gst" : "16",
 //            "payment_type" : "1",
 //            "ordered_during" : "0",
-//            "order_total_amount" : totalPrice,
-//            "theatre_id" : theaterId,
-//            "screen_id" : screenId,
-//            "seat_no" : seatNo,
-//            "show_time" : showTime,
-//            "zone" : seatRow,
-//            "deliver_to_seat_or_pickup_at_counter" : totalPrice,
-//            "order_date" : orderDate,
-//            "promocode_id" : promoCode,
-//            "total_amt_discounted" : discountPrice,
-//            "total_amt_after_discounted" : totalPrice,
+//            "order_total_amount" : "980",
+//            "theatre_id" : "M1 cinemas",
+//            "screen_id" : "Screen 1",
+//            "seat_no" : "",
+//            "show_time" : "06.00AM",
+//            "zone" : "",
+//            "deliver_to_seat_or_pickup_at_counter" : "1",
+//            "order_date" : "2022-05-28",
+//            "promocode_id" : "",
+//            "total_amt_discounted" : "",
+//            "total_amt_after_discounted" : discountPrice,
 //            "is_vip_card_used" : "",
 //            "vip_card_id" : "",
 //
 //
 //        ]
-        params = [
-            "user_id" : "42",
-            "item_id" : "16",
-            "categoryId": "4",
-            "sub_categoryId" : "",
-            "quantity" : "1",
-            "price" : "980",
-            "gst" : "16",
-            "payment_type" : "1",
-            "ordered_during" : "0",
-            "order_total_amount" : "980",
-            "theatre_id" : "M1 cinemas",
-            "screen_id" : "Screen 1",
-            "seat_no" : "",
-            "show_time" : "06.00AM",
-            "zone" : "",
-            "deliver_to_seat_or_pickup_at_counter" : "1",
-            "order_date" : "2022-05-28",
-            "promocode_id" : "",
-            "total_amt_discounted" : "",
-            "total_amt_after_discounted" : discountPrice,
-            "is_vip_card_used" : "",
-            "vip_card_id" : "",
-          
-            
-        ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertOrderItem,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: FoodOrderResponseModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {
             if restValue == true{
             //    self.getPromoCodeData = result
-             //   completionHandler(result!)
+                completionHandler(result!)
             }else{
              
             }

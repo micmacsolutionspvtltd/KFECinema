@@ -167,9 +167,7 @@ struct SpiceKitchenView: View {
                                                 }
                                         
                                                 //.listRowBackground(Color.black)
-                                            }//.background(Color.black)
-                                            
-                                            .foregroundColor(.white)
+                                            }.foregroundColor(.white)
                                         }
                                     }
                                 
@@ -178,8 +176,7 @@ struct SpiceKitchenView: View {
                                 }
                             }//.listStyle(.sidebar)
                             .frame(maxWidth: .infinity).edgesIgnoringSafeArea(.all)
-                            
-                            // .listStyle(GroupedListStyle())
+                            .accentColor(.white)
                             .listStyle(.sidebar)
                             .background(Color.black)
                             .frame(height: geometry.size.height-50)
@@ -205,8 +202,8 @@ struct SpiceKitchenView: View {
                                                             
                                                         }) )
                                                         
-                                                        .listStyle(.sidebar)
-                                                        .background(Color.black)
+                                                        .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
+                                                        .background(Color.black).cornerRadius(7)
                                                     }
                                                     
                                                     

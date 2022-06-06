@@ -389,15 +389,15 @@ struct CartPageView: View {
                         .transition(.opacity)
                 }
                 if razorPayShow ?? false{
-                    
-                    RazorPayMethod(amount : "\(String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))",getPaymetId: {
+                 
+                    RazorPayMethod(amount : calculateAmount(),getPaymetId: {
                         let paymentData = getFinalPaymentProcessData()
                      //   PaymentView()
                          if pageNames == "Spice Kitchen"{
      //                        storeDataViewModel.orderFoodItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "", categoryId: "", quantity: "", price: "", gst: "", promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
      //
      //                        }
-                             storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
+                             storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount()) { result in
                                  storeDataViewModel.deleteAllDatas()
                                    moveToDashBoard = true
                                      }
@@ -405,7 +405,7 @@ struct CartPageView: View {
      //                        storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "2", categoryId: "2", quantity: "1", price: storeDataViewModel.calculateTotalPrice(), gst: "1", promoId: promoDataViewModel.promoId ?? "25", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName?.removeWhitespace() ?? "", screenId: selectedScreenName?.removeWhitespace() ?? "", seatNo: "E5", totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "prom67", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
      //
      //                        }
-                             storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))) { result in
+                             storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount()) { result in
                                  storeDataViewModel.deleteAllDatas()
                                  moveToDashBoard = true
                              }
@@ -420,6 +420,7 @@ struct CartPageView: View {
                 selectedTheaterName = theaterNames[0]
                 selectedScreenName = screenNames[0]
                 selectedSeatArea = seatArea[0]
+                selectedShowTime = showTimes[0]
                 if promoDataViewModel.promoId != ""{
                     storeDataViewModel.offerCalculationApi(promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice()) { result in
                         self.applyCouponData = result
@@ -445,6 +446,15 @@ struct CartPageView: View {
 //Dashboard()
 ////
 //        }
+    }
+    func calculateAmount() -> String{
+        var calculateFullAmount = ""
+        if deliveryCLicked{
+           calculateFullAmount = (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))
+        }else{
+            calculateFullAmount = (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) ))
+        }
+        return calculateFullAmount
     }
     func getFinalPaymentProcessData() -> (String , String , String , String , String){
         var foodId = ""

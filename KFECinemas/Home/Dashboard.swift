@@ -65,7 +65,7 @@ struct Dashboard: View {
                         
                         
                     }
-                    TableHeaderView(title: "Movies in Cinemas",isViewAllVisible: true) {
+                    TableHeaderView(title: "Movies in Cinemas", imageName: "clapperboardWhite",isViewAllVisible: true) {
                         MovieView()
                     }
                     HStack {
@@ -97,7 +97,7 @@ struct Dashboard: View {
                         }
                     }.padding(.leading,5)
                     
-                    TableHeaderView(title: "Spice Kitchen",isViewAllVisible: true){
+                    TableHeaderView(title: "Spice Kitchen", imageName: "tray",isViewAllVisible: true){
                         SpiceKitchenView(pageName : "Spice Kitchen")
                     }
                     ScrollView(.horizontal,showsIndicators:false) {
@@ -110,7 +110,7 @@ struct Dashboard: View {
                         }
                     }.padding(.leading,5)
                     VStack {
-                        TableHeaderView(title: "Concession Zone",isViewAllVisible: true){
+                        TableHeaderView(title: "Concession Zone", imageName: "fastfood1",isViewAllVisible: true){
                             SpiceKitchenView(pageName : "Concession Zone")
                         }
                         ScrollView(.horizontal,showsIndicators:false) {
@@ -122,14 +122,14 @@ struct Dashboard: View {
                                 }
                             }
                         }.padding(.leading,5)
-                        TableHeaderView(title: "Theatres",isViewAllVisible: false){
+                        TableHeaderView(title: "Theatres", imageName: "clapperboardWhite",isViewAllVisible: false){
                             SpiceKitchenView()
                         }
                         ScrollView(.horizontal,showsIndicators:false) {
                             HStack (spacing:20){
                                 ForEach(dashboardServices.activeTheatres, id: \.id) { theatre in
                                   
-                                    NavigationLink(destination: MoviesListView()) {
+                                    NavigationLink(destination: MoviesListView(viewTheatre : theatre.cinemaStrName ?? "")) {
                                             if theatre.cinemaStrName != "Leela Mahal"{
                                         TheatreCardView(model: theatre).frame(width: 220, height: 300).cornerRadius(10)
                                     }
@@ -228,11 +228,12 @@ struct AppBarView: View {
 
 struct TableHeaderView<Content: View>: View {
     let title:String
+    let imageName : String
    @State var isViewAllVisible:Bool = false
     @ViewBuilder var content: Content
     var body: some View {
         HStack{
-            Image("clapperboard").resizable().frame(width: 18, height: 18)
+            Image(imageName).resizable().frame(width: 18, height: 18)
             Text(title).font(.system(size: 16)).fontWeight(.bold).foregroundColor(.white)
             Spacer()
             if !isViewAllVisible {

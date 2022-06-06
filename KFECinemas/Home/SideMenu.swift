@@ -50,7 +50,14 @@ struct SideMenu: View {
                         TabButton(type: SideMenuType.spiceKitchen)
                         TabButton(type: SideMenuType.concessionZone)
                         TabButton(type: SideMenuType.changePassword)
-                        TabButton(type: SideMenuType.logout)
+                        TabButton(type: SideMenuType.termsAndCondition)
+                        TabButton(type: SideMenuType.privacyAndPolicy)
+                        VStack(alignment: .leading, spacing: 30){
+                            TabButton(type: SideMenuType.ticketCancellation)
+                            TabButton(type: SideMenuType.contactUs)
+                            TabButton(type: SideMenuType.logout)
+                        }
+                      
                     }.padding()
                 }
                     
@@ -80,15 +87,23 @@ struct SideMenu: View {
                 SpiceKitchenView(pageName : "Concession Zone")
             case .changePassword:
                  Dashboard()
+            case .termsAndCondition:
+                TermsAndConditionWebView()
+            case .privacyAndPolicy:
+                TermsAndConditionWebView()
             case .logout:
                  LoginView()
+            case .ticketCancellation:
+                TermsAndConditionWebView()
+            case .contactUs:
+                TermsAndConditionWebView()
             }
           
         }label: {
             HStack(spacing : 15){
                 Image(type.getImageName())
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: .fill).colorMultiply(.black)
                     .frame(width: 20, height: 20)
                 Text(type.getTitle())
             }
@@ -114,7 +129,12 @@ enum SideMenuType {
     case spiceKitchen
     case concessionZone
     case changePassword
+    case termsAndCondition
+    case privacyAndPolicy
+    case ticketCancellation
+    case contactUs
     case logout
+   
     
     
     func getTitle()->String {
@@ -131,27 +151,43 @@ enum SideMenuType {
             return "Concession Zone"
         case .changePassword:
             return "Change Password"
+        case .termsAndCondition:
+            return "Terms and Conition"
+        case .privacyAndPolicy:
+            return "Privacy and Policy"
         case .logout:
             return "Log out"
+        case .ticketCancellation:
+            return "Ticket Cancellation"
+        case .contactUs:
+            return "Contact Us"
         }
     }
     
     func getImageName()->String {
         switch self {
         case .home:
-            return "clapperboard"
+            return "houseIcon"
         case .movies:
             return "clapperboard"
         case .bookHistory:
-            return "clapperboard"
+            return "historyBooking"
         case .spiceKitchen:
             return "tray"
         case .concessionZone:
             return "fastfood1"
         case .changePassword:
-            return "clapperboard"
+            return "changePassword"
+        case .termsAndCondition:
+            return "termsAndCondition"
+        case .privacyAndPolicy:
+            return "privacyPolicy"
         case .logout:
-            return "clapperboard"
+            return "logout"
+        case .ticketCancellation:
+            return "cancellation"
+        case .contactUs:
+            return "contactUs"
         }
     }
 }

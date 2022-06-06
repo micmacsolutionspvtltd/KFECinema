@@ -62,7 +62,7 @@ struct MovieView: View {
                Spacer()
                    
            }.background(Color(uiColor: UIColor.red))
-           TableHeaderView(title: "Movies on Theatre" ,isViewAllVisible: false){
+           TableHeaderView(title: "Movies on Theatre", imageName: "clapperboardWhite" ,isViewAllVisible: false){
                MoviesListView()
            }
            HStack {
@@ -92,7 +92,7 @@ struct MovieView: View {
                }
            }.padding(.leading,5)
 
-           TableHeaderView(title: "Theatres",isViewAllVisible: false){
+           TableHeaderView(title: "Theatres", imageName: "clapperboardWhite",isViewAllVisible: false){
                Text("")
            }
            HStack {

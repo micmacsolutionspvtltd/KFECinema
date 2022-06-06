@@ -17,6 +17,8 @@
 		0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */; };
 		043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C5E282379D2009166DF /* PromoCodeModel.swift */; };
 		043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D6251281AADC80053F2BE /* DatePickerWithButton.swift */; };
+		04571144284DDA1000249E48 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04571143284DDA1000249E48 /* WebView.swift */; };
+		04571146284DDDDB00249E48 /* TermsAndConditionWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04571145284DDDDB00249E48 /* TermsAndConditionWebView.swift */; };
 		045CEB372837363D00A871E6 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CEB362837363D00A871E6 /* PaymentView.swift */; };
 		0460A1B7282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */; };
 		0460A1B9282A4CA700EA4A88 /* ForgetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */; };
@@ -131,6 +133,8 @@
 		0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
 		043B5C5E282379D2009166DF /* PromoCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeModel.swift; sourceTree = "<group>"; };
 		043D6251281AADC80053F2BE /* DatePickerWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithButton.swift; sourceTree = "<group>"; };
+		04571143284DDA1000249E48 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		04571145284DDDDB00249E48 /* TermsAndConditionWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionWebView.swift; sourceTree = "<group>"; };
 		045CEB322837329300A871E6 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Razorpay.xcframework; path = ../../../Documents/UnUsed/RazorpayDemo/Razorpay.xcframework; sourceTree = "<group>"; };
 		045CEB362837363D00A871E6 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordPopupView.swift; sourceTree = "<group>"; };
@@ -509,6 +513,7 @@
 				D38A8E8D27FCBCEA00B26340 /* CustomImageView.swift */,
 				0CABDABA28361604000D9660 /* RadioButton.swift */,
 				0CABDABC2836197F000D9660 /* CustomDivider.swift */,
+				04571143284DDA1000249E48 /* WebView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -572,6 +577,7 @@
 				D38A8E9127FE14B700B26340 /* Model */,
 				D3B1046B27F2414000A55E89 /* View */,
 				D3DC9C6F27EE4B6900BEE17F /* SideMenu.swift */,
+				04571145284DDDDB00249E48 /* TermsAndConditionWebView.swift */,
 				D3DC9C9527F2340600BEE17F /* Dashboard.swift */,
 				D38A8E8F27FE0F3D00B26340 /* DashboardServices.swift */,
 			);
@@ -698,6 +704,7 @@
 				0C836F8F27FE2B4B0094EC0D /* SpiceKitchenModel.swift in Sources */,
 				D35B1D6927F960FA007D312C /* MovieDetailView.swift in Sources */,
 				0433B6B4281C0A08004558B6 /* OrderHistoryViewModel.swift in Sources */,
+				04571146284DDDDB00249E48 /* TermsAndConditionWebView.swift in Sources */,
 				D35B1D6727F727EB007D312C /* MoviesListView.swift in Sources */,
 				0CF1C93427F796E600D87F5C /* CartItemContentView.swift in Sources */,
 				040BBA1D2848F32C004658AB /* ConfirmSeatsModel.swift in Sources */,
@@ -726,6 +733,7 @@
 				0CA478F82801C41A000B5C57 /* SpiceKitchenResponse.swift in Sources */,
 				0433B6B1281C096E004558B6 /* OrderSpiceKitchenModel.swift in Sources */,
 				0C9CBE5B27BED43200DC7386 /* LoginModel.swift in Sources */,
+				04571144284DDA1000249E48 /* WebView.swift in Sources */,
 				D3CC71B927E8F9C900C33787 /* ApiKeys.swift in Sources */,
 				04DDB6ED282814D200E3DD28 /* CustomToastView.swift in Sources */,
 				04FE7AEE2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift in Sources */,

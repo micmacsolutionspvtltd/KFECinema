@@ -12,7 +12,7 @@ struct MovieCardView: View {
     var body: some View {
         VStack(alignment: .leading){
             if model.imageURL == ""{
-                Image("food1").renderingMode(.original)
+                Image("movieImgLatest").renderingMode(.original)
                     .resizable().cornerRadius(5)
                     .frame(width:150,height: 200)
             }else{

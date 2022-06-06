@@ -11,8 +11,8 @@ struct MoviesListView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @EnvironmentObject var dashboardServices:DashboardServices
     @State var viewTheatre : String = "M1 Cinemas"
-    private var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
-    private var symbols = ["food1", "food2", "food3","food4","food5","food6","food1", "food2", "food3","food4","food5","food6"]
+     let twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
+   
     var body: some View {
         ScrollView(showsIndicators:false){
             HStack {
