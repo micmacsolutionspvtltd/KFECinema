@@ -9,6 +9,8 @@ import SwiftUI
 import Razorpay
 struct CartPageView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+    @State var isActive : Bool = false
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
     @EnvironmentObject var promoDataViewModel : PromoViewModel
     @State var deliveryCLicked : Bool = true
@@ -19,20 +21,23 @@ struct CartPageView: View {
     @State var dateOfclick : String? = ""
     @State var selectionMovieDate : Date? = Date.now
     @State var razorPayShow : Bool? = false
-    var theaterNames = ["M1 Cinemas", "Spice Cinemas"]
+   @State var theaterNames = ["M1 Cinemas", "Spice Cinemas"]
     var screenNames = ["Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"]
     var showTimes = ["11.30 AM", "03.00 PM", "06.30 PM", "09.45 PM"]
     var seatArea = ["Premium", "Elite", "Gold"]
     var takeAwatTime = ["15 Mins", "30 Mins", "45 Mins", "1 Hour"]
     @State var pageNames : String?
-    @State var selectedTheaterName : String?
-    @State var selectedScreenName : String?
-    @State var selectTakeeAwatTime : String?
-    @State var selectedShowTime : String?
-    @State var selectedSeatArea : String?
+    @State var selectedTheaterName : String? = ""
+    @State var selectedScreenName : String? = ""
+    @State var selectTakeeAwatTime : String? = ""
+    @State var selectedShowTime : String? = ""
+    @State var selectedSeatArea : String? = ""
     @State var seatNo : String = ""
     @State var applyCouponData : PromoAmtCalculateModel?
     @State var moveToDashBoard : Bool = false
+    @State var errorPopup : Bool? = false
+    @State var toastMsg : String = "Not valid"
+
     var body: some View {
         //
         GeometryReader { geometry in
@@ -53,6 +58,8 @@ struct CartPageView: View {
                                     HStack(alignment: .bottom ){
                                         Button(action:{
                                             promoDataViewModel.promoId = ""
+                                         isActive = false
+                                          //  rootPresentationMode.wrappedValue.dismiss()
                                             presentationMode.wrappedValue.dismiss()
                                         }){
                                             Image(systemName: "arrow.left")
@@ -87,7 +94,7 @@ struct CartPageView: View {
                                       //  .background(Color.black)
                                     }
                                 }.listStyle(GroupedListStyle())
-                                    .frame(height: geometry.size.height/2)
+                                    .frame(height: geometry.size.height/4)
                                    
                             }
                         }
@@ -102,10 +109,10 @@ struct CartPageView: View {
                                     Button{
                                         deliveryCLicked = true
                                         collectionClicked = false
-                                        selectedTheaterName = theaterNames[0]
-                                        selectedScreenName = screenNames[0]
-                                        selectedSeatArea = seatArea[0]
-                                        selectedShowTime = showTimes[0]
+                                        selectedTheaterName = ""
+                                        selectedScreenName = ""
+                                        selectedSeatArea = ""
+                                        selectedShowTime = ""
                                     }  label:{
                                         HStack{
                                             
@@ -127,6 +134,7 @@ struct CartPageView: View {
                                         selectedSeatArea = ""
                                         seatNo = ""
                                         selectedShowTime = ""
+                                        selectTakeeAwatTime = ""
                                     }  label:{
                                         HStack{
                                             Image(systemName: collectionClicked ? "circle.circle.fill" : "circle")
@@ -153,6 +161,7 @@ struct CartPageView: View {
                                             Spacer()
                                             Button{
                                                 promoDataViewModel.promoId = ""
+                                                promoDataViewModel.promoCode = ""
                                             }label: {
                                                 Text("Remove")
                                                     .foregroundColor(.red)
@@ -183,42 +192,42 @@ struct CartPageView: View {
                                 .background(Color.black)
                                 if deliveryCLicked{
                                     VStack{
-                                        CartItemContentView(selectedItemName: $dateOfclick, tittleText: "Date Of Order", buttonName: Date().currentDateOnly, imageName: "calendar" ,getDataValue: {
-                                            clickBookingDate = true
+                                        CartItemContentView(selectedItemName: $dateOfclick, tittleText: "Date Of Order", buttonName: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now, dateFormat: "dd-MM-yyyy"), imageName: "calendar" ,getDataValue: {
+                                         //   clickBookingDate = true
                                             
                                         })
                                         .frame(width: geometry.size.width, height: 70)
-                                        CartItemContentView(selectedItemName: $selectedTheaterName, tittleText: "Theatre Name", buttonName: theaterNames[0], imageName: "chevron.down", dropDownDatas : theaterNames,getDataValue: {
+                                        CartItemContentView(selectedItemName: $selectedTheaterName, tittleText: "Theatre Name", buttonName: "Select Theatre", imageName: "chevron.down", dropDownDatas : theaterNames,getDataValue: {
                                             
                                         })
                                         .frame(width: geometry.size.width, height: 70)
-                                        CartItemContentView(selectedItemName: $selectedScreenName, tittleText: "Select Screen Name", buttonName: screenNames[0], imageName: "chevron.down", dropDownDatas : screenNames,getDataValue: {
+                                        CartItemContentView(selectedItemName: $selectedScreenName, tittleText: "Screen Name", buttonName: "Select Screen", imageName: "chevron.down", dropDownDatas : screenNames,getDataValue: {
                                             
                                         })
                                         .frame(width: geometry.size.width, height: 70)
-                                        CartItemContentView(selectedItemName: $selectedShowTime, tittleText: "Select Show", buttonName: showTimes[0], imageName: "chevron.down", dropDownDatas : showTimes,getDataValue: {
+                                        CartItemContentView(selectedItemName: $selectedShowTime, tittleText: "Show time", buttonName: "Select Show", imageName: "chevron.down", dropDownDatas : showTimes,getDataValue: {
                                             
                                         })
                                         .frame(width: geometry.size.width, height: 70)
-                                        CartItemContentView(selectedItemName: $selectedSeatArea, tittleText: "Select Seat Area", buttonName: seatArea[0], imageName: "chevron.down" , dropDownDatas : seatArea ,getDataValue: {
+                                        CartItemContentView(selectedItemName: $selectedSeatArea, tittleText: "Seat Area", buttonName: "Select SeatArea", imageName: "chevron.down" , dropDownDatas : seatArea ,getDataValue: {
                                             
                                         })
                                         .frame(width: geometry.size.width, height: 70)
                                         
                                         VStack(alignment : .leading){
                                             HStack{
-                                                Text("Select Seat No")
+                                                Text("Enter Seat No")
                                                     .frame(alignment: .leading)
                                                 Spacer()
                                                 HStack{
                                                     ZStack{
                                                         
-                                                        HStack{
-                                                            Spacer()
-                                                            Image(systemName: "chevron.down")
-                                                                .foregroundColor(.white)
-                                                                .frame(width: 20, height: 20)
-                                                        }
+//                                                        HStack{
+//                                                            Spacer()
+//                                                            Image(systemName: "chevron.down")
+//                                                                .foregroundColor(.white)
+//                                                                .frame(width: 20, height: 20)
+//                                                        }
                                                         TextField("", text: $seatNo)
                                                             .placeholder(when: seatNo.isEmpty) {
                                                                 Text("Ex : S1,S2,S3").foregroundColor(.white).opacity(0.4)
@@ -226,7 +235,7 @@ struct CartPageView: View {
                                                             .background(Color("ColorAppGrey"))
                                                     }.frame(width: 150, height: 25)
                                                         .padding()
-                                                        .background(Color("ColorAppGrey"))
+                                                        .background(Color("ColorAppGrey")).cornerRadius(.infinity)
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: .infinity)
                                                                 .stroke(Color.red, lineWidth: 2)
@@ -268,7 +277,7 @@ struct CartPageView: View {
                                                 }
                                                 
                                                 Spacer()
-                                                Text("- ₹ \(applyCouponData?.data?.discountMaxAmt ?? "")")
+                                                Text("- ₹ \(applyCouponData?.data?.calculatedDiscountAmount ?? "0")")
                                                     .fontWeight(.semibold)
                                                     .foregroundColor(.white)
                                             }
@@ -277,7 +286,7 @@ struct CartPageView: View {
                                                     .fontWeight(.semibold)
                                                     .foregroundColor(.white)
                                                 Spacer()
-                                                Text("₹ \((String(Float(applyCouponData?.data?.discountedAmountFromTotal ?? 0) + 10.00)))")
+                                                Text("₹ \((String((Float(applyCouponData?.data?.discountedAmountFromTotal ?? "0.00") ?? 0.00) + 10.00)))")
                                                     .fontWeight(.semibold)
                                                     .foregroundColor(.white)
                                             }
@@ -302,7 +311,7 @@ struct CartPageView: View {
                                             clickBookingDate = true
                                         })
                                         .frame(width: geometry.size.width, height: 70)
-                                        CartItemContentView(selectedItemName: $selectTakeeAwatTime, tittleText: "Select Takeaway Time", buttonName: takeAwatTime[0], imageName: "chevron.down" , dropDownDatas : takeAwatTime,getDataValue: {
+                                        CartItemContentView(selectedItemName: $selectTakeeAwatTime, tittleText: "Takeaway Time", buttonName: "Select time", imageName: "chevron.down" , dropDownDatas : takeAwatTime,getDataValue: {
                                             
                                         })
                                         .frame(width: geometry.size.width, height: 70)
@@ -317,16 +326,43 @@ struct CartPageView: View {
                                                 .fontWeight(.semibold)
                                                 .foregroundColor(.white)
                                         }
-                                        
-                                        HStack{
-                                            Text("Grand Total")
-                                                .fontWeight(.semibold)
-                                                .foregroundColor(.white)
-                                            Spacer()
-                                            Text("₹ \(storeDataViewModel.calculateTotalPrice())")
-                                                .fontWeight(.semibold)
-                                                .foregroundColor(.white)
+                                        if promoDataViewModel.promoId != ""{
+                                            HStack{
+                                                HStack{
+                                                    Text("Discount Price")
+                                                        .fontWeight(.semibold)
+                                                        .foregroundColor(.white)
+                                                    Text(promoDataViewModel.promoCode ?? "")
+                                                        .fontWeight(.semibold)
+                                                        .foregroundColor(.gray)
+                                                }
+                                                
+                                                Spacer()
+                                                Text("- ₹ \(applyCouponData?.data?.calculatedDiscountAmount ?? "0")")
+                                                    .fontWeight(.semibold)
+                                                    .foregroundColor(.white)
+                                            }
+                                            HStack{
+                                                Text("Grand Total")
+                                                    .fontWeight(.semibold)
+                                                    .foregroundColor(.white)
+                                                Spacer()
+                                                Text("₹ \(String(applyCouponData?.data?.discountedAmountFromTotal ?? "0"))")
+                                                    .fontWeight(.semibold)
+                                                    .foregroundColor(.white)
+                                            }
+                                        }else{
+                                            HStack{
+                                                Text("Grand Total")
+                                                    .fontWeight(.semibold)
+                                                    .foregroundColor(.white)
+                                                Spacer()
+                                                Text("₹ \(storeDataViewModel.calculateTotalPrice())")
+                                                    .fontWeight(.semibold)
+                                                    .foregroundColor(.white)
+                                            }
                                         }
+                                
                                     }.frame(width: geometry.size.width)
                                         .padding([.bottom],100)
                                 }
@@ -338,6 +374,36 @@ struct CartPageView: View {
                     
                 }
                 Button{
+                    if deliveryCLicked{
+                        if selectedTheaterName == ""{
+                            toastMsg = Constants.CheckoutKeys.selectTheaterName
+                            errorPopup = true
+                            return
+                        }else if selectedScreenName == ""{
+                            toastMsg = Constants.CheckoutKeys.selectScreenName
+                            errorPopup = true
+                            return
+                        }else if selectedSeatArea == ""{
+                            toastMsg = Constants.CheckoutKeys.selectSeatArea
+                            errorPopup = true
+                            return
+                        }else if selectedShowTime == ""{
+                            toastMsg = Constants.CheckoutKeys.selectShowTime
+                            errorPopup = true
+                            return
+                        }else if seatNo == ""{
+                            toastMsg = Constants.CheckoutKeys.seatNo
+                            errorPopup = true
+                            return
+                        }
+                    }else{
+                        if selectTakeeAwatTime == ""{
+                            toastMsg = Constants.CheckoutKeys.selectTakeAwayTime
+                            errorPopup = true
+                            return
+                        }
+                    }
+                  
                    razorPayShow = true
  
                     
@@ -352,12 +418,12 @@ struct CartPageView: View {
                         // Spacer()
                         if promoDataViewModel.promoId != ""{
                             if deliveryCLicked{
-                                Text("₹ \(String((applyCouponData?.data?.discountedAmountFromTotal ?? 0) + 10))")
+                                Text("₹ \(String(Int(applyCouponData?.data?.discountedAmountFromTotal ?? "0") ?? 0 + 10))")
                                     .foregroundColor(.white)
                                     .fontWeight(.semibold)
                                     .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
                             }else{
-                                Text("₹ \(String((applyCouponData?.data?.discountedAmountFromTotal ?? 0)))")
+                                Text("₹ \(String((applyCouponData?.data?.discountedAmountFromTotal ?? "0")))")
                                     .foregroundColor(.white)
                                     .fontWeight(.semibold)
                                     .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
@@ -397,30 +463,37 @@ struct CartPageView: View {
      //                        storeDataViewModel.orderFoodItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "", categoryId: "", quantity: "", price: "", gst: "", promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
      //
      //                        }
-                             storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount()) { result in
+                             storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")) ) { result in
                                  storeDataViewModel.deleteAllDatas()
+                                 promoDataViewModel.promoId = ""
+                                 promoDataViewModel.promoCode = ""
                                    moveToDashBoard = true
                                      }
                          }else{
      //                        storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "2", categoryId: "2", quantity: "1", price: storeDataViewModel.calculateTotalPrice(), gst: "1", promoId: promoDataViewModel.promoId ?? "25", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName?.removeWhitespace() ?? "", screenId: selectedScreenName?.removeWhitespace() ?? "", seatNo: "E5", totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "prom67", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
      //
      //                        }
-                             storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount()) { result in
+                             storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")) ) { result in
                                  storeDataViewModel.deleteAllDatas()
+                                 promoDataViewModel.promoId = ""
+                                 promoDataViewModel.promoCode = ""
                                  moveToDashBoard = true
                              }
                          }
                     })
                 }
-            }
+            }.toast(isShowing: $errorPopup,textContent: toastMsg)
             .background(Color.black)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear(){
-                selectedTheaterName = theaterNames[0]
-                selectedScreenName = screenNames[0]
-                selectedSeatArea = seatArea[0]
-                selectedShowTime = showTimes[0]
+                if pageNames == "Spice Kitchen"{
+                    self.theaterNames.removeFirst()
+                }
+//                selectedTheaterName = theaterNames[0]
+//                selectedScreenName = screenNames[0]
+//                selectedSeatArea = seatArea[0]
+//                selectedShowTime = showTimes[0]
                 if promoDataViewModel.promoId != ""{
                     storeDataViewModel.offerCalculationApi(promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice()) { result in
                         self.applyCouponData = result
@@ -442,17 +515,27 @@ struct CartPageView: View {
                 }
             })
         }
-//        NavigationLink(destination:  Dashboard(), isActive: $moveToDashBoard) {
-//Dashboard()
-////
-//        }
+
+        
     }
-    func calculateAmount() -> String{
+    func calculateAmount() -> (String){
         var calculateFullAmount = ""
-        if deliveryCLicked{
-           calculateFullAmount = (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))
+        if promoDataViewModel.promoId != ""{
+            if deliveryCLicked{
+                calculateFullAmount = String((Int(applyCouponData?.data?.discountedAmountFromTotal ?? "0") ?? 0) + 10)
+               // calculateFullAmount = ((String((Int((applyCouponData?.data?.discountedAmountFromTotal ?? "0") ?? 0 ) ?? Int(0.00)) + 10)))
         }else{
-            calculateFullAmount = (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) ))
+          
+            calculateFullAmount =  (String((applyCouponData?.data?.discountedAmountFromTotal ?? "0")))
+        }
+            
+       
+        }else{
+            if deliveryCLicked{
+               calculateFullAmount = (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) + Float(10.00)))
+            }else{
+                calculateFullAmount = (String((Float(storeDataViewModel.calculateTotalPrice()) ?? 0.00) ))
+            }
         }
         return calculateFullAmount
     }

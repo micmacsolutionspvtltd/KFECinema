@@ -9,7 +9,10 @@
 import SwiftUI
 
 struct SpiceKitchenView: View {
-    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+    @State var isActive : Bool = false
+
     @State var bannerImageData: FoodBannerImageModel?
     @State var getConcessionData : FoodListModel?
     @State var getSpiceKitchenData: SpiceKitchenModel?
@@ -74,7 +77,7 @@ struct SpiceKitchenView: View {
                     ScrollViewReader { scrollView in
                         ScrollView(.horizontal) {
                             LazyHStack {
-                                ForEach(viewModel.getBannerImageData?.data ?? [], id: \.id) { banner in
+                                ForEach(bannerImageData?.data ?? [], id: \.id) { banner in
                                // ForEach(0..<5) { banner in
                                     let url = Endpoint.foodBannerImages.url + (banner.foodImageURL ?? "")
                                     BannerImageView(withURL: url)
@@ -82,54 +85,52 @@ struct SpiceKitchenView: View {
                                       //  .frame(height: 100)
                                 }
                             }
-                            .onAppear {
-                                viewModel.getAllBannerImages{ result in
-                                    bannerImageData = result
-                                }
-                                // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-                            }
-                        }
-                    }
-                    HStack{
-                        Spacer()
-                        Button {
-                            if vegClicked{
-                               vegClicked = false
-                            }else{
-                               vegClicked = true
-                            }
-                        } label: {
-                            HStack{
-                                Text("Veg")
-                                    .foregroundColor(.white)
-                                
-                                Image(systemName: "circle.circle.fill")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                    .foregroundColor(.green)
-                                    .background(Color.white)
-                                if vegClicked{
-                                    Text("X")
-                                 .foregroundColor(.white)
-                                }else{
-                               //  Spacer()
-                                }
-                                
-                            }.frame(width: 120)
-                                .padding()
-                                .background(vegClicked ? Color.gray : Color.black)
-                                .cornerRadius(.infinity)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: .infinity)
-                                        .stroke(Color.red, lineWidth: 2)
-                                )
+                        //    .onAppear {
                                
-                            
-                            
-                            
+                                // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
+                           // }
                         }
-                        
                     }
+//                    HStack{
+//                        Spacer()
+//                        Button {
+//                            if vegClicked{
+//                               vegClicked = false
+//                            }else{
+//                               vegClicked = true
+//                            }
+//                        } label: {
+//                            HStack{
+//                                Text("Veg")
+//                                    .foregroundColor(.white)
+//
+//                                Image(systemName: "circle.circle.fill")
+//                                    .resizable()
+//                                    .frame(width: 15, height: 15)
+//                                    .foregroundColor(.green)
+//                                    .background(Color.white)
+//                                if vegClicked{
+//                                    Text("X")
+//                                 .foregroundColor(.white)
+//                                }else{
+//                               //  Spacer()
+//                                }
+//
+//                            }.frame(width: 120)
+//                                .padding()
+//                                .background(vegClicked ? Color.gray : Color.black)
+//                                .cornerRadius(.infinity)
+//                                .overlay(
+//                                    RoundedRectangle(cornerRadius: .infinity)
+//                                        .stroke(Color.red, lineWidth: 2)
+//                                )
+//
+//
+//
+//
+//                        }
+//
+//                    }
                 }
                 }
                     ZStack{
@@ -144,25 +145,25 @@ struct SpiceKitchenView: View {
                                         if itemDatas.count != 0{
                                             Section(header : Text(sectionData.subCatName ?? "")) {
                                                 ForEach(sectionData.itemsInfo ?? [] , id : \.self){ rowData in
-                                                    if vegClicked{
-                                                        //print(rowData.categoryName ?? "")
-                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-                                                   //         dbViewModel.getAllDataFromTable()
-                                                        }) )
-                                                            .frame(width: geometry.size.width*0.8,height: 100)
-                                                        //    .padding(10)
-                                                            .padding([.leading,.trailing],10)
-                                                            .background(Color.black)
-                                                            .cornerRadius(10)
-                                                    }else{
-                                                    Text("Item")
-                                                            .foregroundColor(Color.black)
+//                                                    if vegClicked{
+//                                                        //print(rowData.categoryName ?? "")
+//                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
+//                                                   //         dbViewModel.getAllDataFromTable()
+//                                                        }) )
+//                                                            .frame(width: geometry.size.width*0.8,height: 100)
+//                                                        //    .padding(10)
+//                                                            .padding([.leading,.trailing],10)
+//                                                            .background(Color.white)
+//                                                            .cornerRadius(10)
+                                                  //  }else{
+                                             //       Text("Item")
+                                              //              .foregroundColor(Color.black)
                                                         DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
                                                     //        dbViewModel.getAllDataFromTable()
                                                         }) ) //.listRowBackground(.black)
-                                                        .listStyle(.sidebar)
-                                                        .background(Color.black)
-                                                    }
+                                                        .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
+                                                        .background(Color.white).cornerRadius(7)
+                                                //    }
                                                 
                                                 }
                                         
@@ -203,7 +204,7 @@ struct SpiceKitchenView: View {
                                                         }) )
                                                         
                                                         .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
-                                                        .background(Color.black).cornerRadius(7)
+                                                        .background(Color.white).cornerRadius(7)
                                                     }
                                                     
                                                     
@@ -252,11 +253,11 @@ struct SpiceKitchenView: View {
                             
                             .background(Color.red)
                             .cornerRadius(8)
-                    }
+                    }.isDetailLink(false)
                     .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
                     }
                 }else{
-                    NavigationLink{
+                    NavigationLink( isActive : self.$isActive){
                         if lastPage == ""{
                             CartPageView(pageNames : pageName)
 
@@ -265,7 +266,7 @@ struct SpiceKitchenView: View {
                         }
                     } label: {
                         HStack(spacing :20){
-                            Text("\(storeDataViewModel.items.count) Items")
+                            Text("\(storeDataViewModel.calculateTotalQuantity()) Items")
                             //.fontWeight(.bold)
                                 .foregroundColor(.white)
                                 .frame(height: 100)
@@ -293,7 +294,7 @@ struct SpiceKitchenView: View {
                         
                         .background(Color.red)
                         .cornerRadius(8)
-                    }
+                    }.isDetailLink(false)
                     .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
             }
         }
@@ -304,6 +305,9 @@ struct SpiceKitchenView: View {
             .onAppear(){
               //  dbViewModel.getAllDataFromTable()
                // viewModel.getApiData()
+                viewModel.getAllBannerImages{ result in
+                    bannerImageData = result
+                }
                 if pageName == "Spice Kitchen"{
                     
                     viewModel.spiceKitchenValueGetApi{ result in

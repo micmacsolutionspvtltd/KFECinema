@@ -40,7 +40,10 @@ struct MovieView: View {
                Spacer()
                HStack {
                   
-                   TextField("Movies", text: $searchText)
+                   TextField("Movies", text: $searchText).onChange(of: searchText, perform: { newValue in
+                       print(newValue)
+                       dashboardServices.searhFilter(text: newValue)
+                   })
                        .foregroundColor(.white)
                        .accentColor(Color.white)
                    
@@ -101,9 +104,8 @@ struct MovieView: View {
            }.padding(.leading,5).background(.black)
            ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
-                       ForEach(dashboardServices.allFilms, id: \.id) { movie in
+                       ForEach(dashboardServices.upcomingMovies, id: \.id) { movie in
                            
-                       
                            MovieCardView(model: movie).frame(width: 150, height: 250)
                            }
                }

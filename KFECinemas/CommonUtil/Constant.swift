@@ -203,7 +203,17 @@ struct Constants {
         static let amcDropDown = ["Monthly".localized,"Quarterly".localized,"Half yearly".localized,"Yearly".localized]
         static let paymentDropDown = ["A/C Transfer".localized,"Enach".localized]
     }
-    
+    struct CheckoutKeys {
+        static let selectDate = "Please select the Date"
+        static let selectScreenName = "Please select screen Name"
+        static let selectShowTime = "Please select show Time"
+        static let selectSeatArea = "Please select seat area"
+        static let seatNo = "Please Enter seat no"
+        static let selectTheaterName = "Please Select Theater name"
+        static let selectTakeAwayTime = "Please Select Takeaway time"
+
+
+    }
     struct ErrorNotificationPopupScreenKeys {
         static let header = "Error Notification".localized
         static let description = "You can't select  two products from the same category".localized

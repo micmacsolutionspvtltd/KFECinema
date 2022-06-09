@@ -16,6 +16,7 @@ class OrderHistoryViewModel : ObservableObject{
     @Published var getKitchenSnacksData = [String]()
     @Published var getConcessionSnacksData = [String]()
     @Published var getTicketSnacksData = [String]()
+    @Published var getTicketSnacksPrice = [String]()
     func getTicketHistoryApi(){
         let params : [String : String]?
       params = [
@@ -26,17 +27,22 @@ class OrderHistoryViewModel : ObservableObject{
             DispatchQueue.main.async {
             if restValue == true{
                 var snackItemName = ""
+                var snacksPrice = ""
                 self.getTicketSnacksData.removeAll()
+                self.getTicketSnacksPrice.removeAll()
                 for values in result?.data ?? []{
                     snackItemName = ""
+                    snacksPrice = ""
                     for finalValue in values.snacksDetails ?? []{
                         if snackItemName == ""{
                             snackItemName = "\(finalValue.quantity ?? "") X \(finalValue.itemName ?? "")"
+                            snacksPrice = finalValue.orderTotalPrice ?? ""
                         }else{
                            snackItemName = "\(snackItemName) , \(finalValue.quantity ?? "") X  \(finalValue.itemName ?? "")"
                         }
                     }
                     self.getTicketSnacksData.append(snackItemName)
+                    self.getTicketSnacksPrice.append(snacksPrice)
                 }
                 self.getTicketHistoryData = result
             }else{

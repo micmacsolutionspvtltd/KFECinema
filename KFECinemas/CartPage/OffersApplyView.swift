@@ -52,6 +52,7 @@ struct OffersApplyView: View {
                         //  ForEach(0..<5){_ in
                         OfferCell(promoCodeValue : promoValues,getAppplyPromoValue: {
                             promoDataViewModel.promoId = promoValues.id ?? ""
+                            promoDataViewModel.promoCode = promoValues.promocode ?? ""
                             presentationMode.wrappedValue.dismiss()
                         })
                             .background(Color.black)

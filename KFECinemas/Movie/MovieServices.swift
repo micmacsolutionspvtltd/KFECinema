@@ -127,7 +127,7 @@ class MovieServices:ObservableObject {
                 "snacks_categoryId": snacksCatId,
                 "snacks_quantity": snacksQuantityId,
                 "snacks_price": snacksPrice,
-                "snacks_gst":"1",
+                "snacks_gst": snacksPrice,
                 "total_amount":totalAmt,
                 "promocode_id": promocode,
                 "vip_card_id":"",

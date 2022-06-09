@@ -40,7 +40,7 @@ struct DishViewCell: View {
                     .font(.system(size: 13,weight: .light))
                     .multilineTextAlignment(.leading)
             }.frame(width: 100)
-            .foregroundColor(.white)
+            .foregroundColor(.black)
             Spacer()
             if buttonTittle == "Veg"{
                 Image(systemName: "circle.circle.fill")
@@ -86,6 +86,7 @@ struct DishViewCell: View {
                                 storeDataViewModel.items.remove(at: i)
                                 if itemQuantity == 0{
                                     addButtonClick = false
+                                    break
                                 }else{
                                     let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: allRowData.categoryID ?? "")
                                     storeDataViewModel.items.insert(item, at: i)
@@ -127,7 +128,7 @@ struct DishViewCell: View {
                 .background(Color.red)
                 .cornerRadius(.infinity)
             }
-             
+              //  .foregroundColor(.black)
                
           //  }
         }.frame( height: 100)

@@ -15,6 +15,7 @@ class DashboardServices:ObservableObject {
      var initialActiveTheatres:[Theatre] = []
      var initialSpiceCinemas : [AllFilms] = []
      var initialMoneCinemas  : [AllFilms] = []
+    var initialUpcomingMovies : [AllFilms] = []
     
     @Published var bannerImages:[BannerModel] = []
     @Published var allFilms:[AllFilms] = []
@@ -23,6 +24,7 @@ class DashboardServices:ObservableObject {
     @Published var activeTheatres:[Theatre] = []
     @Published var spiceCinemas : [AllFilms] = []
     @Published var moneCinemas  : [AllFilms] = []
+    @Published var upcomingMovies  : [AllFilms] = []
     func getAllBannerImages(){
         
  
@@ -57,7 +59,22 @@ class DashboardServices:ObservableObject {
             }
         }
     }
-    
+    func getUpcomingMovies(){
+        
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.upComingMovies))!
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: AllFilmsResponse.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true {
+                    initialUpcomingMovies = result?.data ?? []
+                    upcomingMovies = result?.data ?? []
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+    }
     func getParticularCinemaApi(cinemaCode : String){
         
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.allFilmsByCinema ,  requestBody : ["cinemacode" : cinemaCode]))!
@@ -154,7 +171,9 @@ class DashboardServices:ObservableObject {
             moneCinemas = initialMoneCinemas.filter { value in
                 value.filmStrTitle!.lowercased().contains(text.lowercased())
             }
-            
+            upcomingMovies = initialUpcomingMovies.filter { value in
+                value.filmStrTitle!.lowercased().contains(text.lowercased())
+            }
         } else{
             allFilms = initialAllFilms
             spiceKitchenItems = initialSpiceKitchenItems
@@ -162,6 +181,7 @@ class DashboardServices:ObservableObject {
             activeTheatres = initialActiveTheatres
             spiceCinemas = initialSpiceCinemas
             moneCinemas = initialMoneCinemas
+            upcomingMovies = initialUpcomingMovies
         }
     
      

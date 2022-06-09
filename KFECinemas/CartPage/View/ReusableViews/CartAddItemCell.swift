@@ -35,9 +35,11 @@ struct CartAddItemCell: View {
                             storeDataViewModel.items.remove(at: i)
                             if itemQuantity == 0{
                           //      addButtonClick = false
+                                break
                             }else{
                                 let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: catId)
                                 storeDataViewModel.items.insert(item, at: i)
+                               // break
                             }
                         }
                     }

@@ -26,6 +26,7 @@
 		047E94E828205B6D0051C289 /* CartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E94E728205B6D0051C289 /* CartDataModel.swift */; };
 		047E950528221C710051C289 /* TicketReciptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E950428221C710051C289 /* TicketReciptView.swift */; };
 		0498F5DF2813EF76007B2B24 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 0498F5DE2813EF76007B2B24 /* Algorithms */; };
+		04C2B43E28509477008C6CF0 /* RootPresentationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2B43D28509477008C6CF0 /* RootPresentationMode.swift */; };
 		04DDB6ED282814D200E3DD28 /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DDB6EC282814D200E3DD28 /* CustomToastView.swift */; };
 		04FE7AE82814F4D5004B9EC4 /* FoodBannerImageMOdel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */; };
 		04FE7AEB2815D029004B9EC4 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FE7AEA2815D029004B9EC4 /* CartModel.swift */; };
@@ -142,6 +143,7 @@
 		0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordModel.swift; sourceTree = "<group>"; };
 		047E94E728205B6D0051C289 /* CartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDataModel.swift; sourceTree = "<group>"; };
 		047E950428221C710051C289 /* TicketReciptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketReciptView.swift; sourceTree = "<group>"; };
+		04C2B43D28509477008C6CF0 /* RootPresentationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresentationMode.swift; sourceTree = "<group>"; };
 		04DDB6EC282814D200E3DD28 /* CustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBannerImageMOdel.swift; sourceTree = "<group>"; };
 		04FE7AEA2815D029004B9EC4 /* CartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 				0CABDABA28361604000D9660 /* RadioButton.swift */,
 				0CABDABC2836197F000D9660 /* CustomDivider.swift */,
 				04571143284DDA1000249E48 /* WebView.swift */,
+				04C2B43D28509477008C6CF0 /* RootPresentationMode.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				0C13DB3E282A224E006C4D13 /* MovieServices.swift in Sources */,
 				0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */,
 				D38A8E9027FE0F3D00B26340 /* DashboardServices.swift in Sources */,
+				04C2B43E28509477008C6CF0 /* RootPresentationMode.swift in Sources */,
 				0CA478FA2801E4B2000B5C57 /* ConcessionZoneCardView.swift in Sources */,
 				0C90718628292CFC00835DD7 /* TheatreCardView.swift in Sources */,
 				043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */,

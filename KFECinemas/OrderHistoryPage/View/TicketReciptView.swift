@@ -111,7 +111,7 @@ struct TicketReciptView: View {
                                      
                                      .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.leading)
-                                Text("Format")
+                                Text("")
                                      
                                      .frame(maxWidth: .infinity)
                                      .multilineTextAlignment(.leading)
@@ -253,7 +253,7 @@ struct TicketReciptView: View {
                         bookingId = reciptDatas?.bookingID ?? ""
                        
                         ticketPrice = reciptDatas?.movieAmount ?? ""
-                        snacksprice = reciptDatas?.snacksDeliveryAmt ?? ""
+                       // snacksprice = reciptDatas?.snacksDeliveryAmt ?? ""
                         deliverPrice = reciptDatas?.snacksDeliveryAmt ?? ""
                         totalPrice = reciptDatas?.totalAmount ?? ""
                     }

@@ -158,7 +158,7 @@ enum SideMenuType {
         case .logout:
             return "Log out"
         case .ticketCancellation:
-            return "Ticket Cancellation"
+            return "Cancellation Policy"
         case .contactUs:
             return "Contact Us"
         }

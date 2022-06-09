@@ -23,10 +23,12 @@ struct BookedSeat: Codable {
     let strSeatInfo: String?
     let intBookID: Int?
     let strTransID: String?
+    let strBookId : String?
 
     enum CodingKeys: String, CodingKey {
         case strSeatInfo
         case intBookID = "intBookId"
         case strTransID = "StrTransID"
+        case strBookId = "strBookId"
     }
 }

@@ -84,13 +84,13 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    func orderSnackItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
+    func orderSnackItem(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String , amountDiscounted : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
         let params : [String : String]?
         params = [
             "user_id" : StorageSettings().userId,
             "item_id" : itemId,
             "categoryId": categoryId,
-            "sub_categoryId" : "",
+            "sub_categoryId" : categoryId,
             "quantity" : quantity,
             "price" : price,
             "gst" : gst,
@@ -105,7 +105,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
             "deliver_to_seat_or_pickup_at_counter" : pickUpCounter,
             "order_date" : orderDate,
             "promocode_id" : promoCode,
-            "total_amt_discounted" : "",
+            "total_amt_discounted" : amountDiscounted,
             "total_amt_after_discounted" : discountPrice,
             "is_vip_card_used" : "",
             "vip_card_id" : "",
@@ -154,7 +154,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    func orderConcessionZoneSnacks(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
+    func orderConcessionZoneSnacks(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String , amountDiscounted : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
         let params : [String : String]?
         params = [
             "order_date" : orderDate ,
@@ -174,7 +174,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
             "show_time" : showTime,
             "zone" : seatRow,          
             "promocode_id" : promoCode,
-            "total_amt_discounted" : "",
+            "total_amt_discounted" : amountDiscounted,
             "total_amt_after_discounted" : discountPrice,
             "is_vip_card_used" : "",
             "vip_card_id" : "",
@@ -225,6 +225,15 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
       //  totalAmounts = String(format: "%.2f", price)
         return String(format: "%.2f", price)
+    }
+    
+    func calculateTotalQuantity() -> String{
+        var foodQuantity : Int = 0
+        items.forEach { item in
+            foodQuantity += (Int(item.foodQuantity ?? "") ?? 0)
+            
+        }
+        return String(foodQuantity)
     }
     
 }

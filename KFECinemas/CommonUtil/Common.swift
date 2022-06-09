@@ -46,6 +46,7 @@ class Common {
         let finalDate = formatter.string(from: date)
         return finalDate
     }
+  
     //MARK: - Common Details
     
     func getDefaultHistoryDate()->(String,String) {

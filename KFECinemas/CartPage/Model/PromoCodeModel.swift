@@ -63,7 +63,7 @@ struct PromoAmtCalculateModel: Codable {
 struct PromoAmtCalculateData: Codable {
     let appliedPromo, orderTotalAmount, discoutPer, discountMaxAmt: String?
     let calculatedDiscountAmount: String?
-    let discountedAmountFromTotal: Int?
+    let discountedAmountFromTotal: String?
 
     enum CodingKeys: String, CodingKey {
         case appliedPromo = "applied_promo"

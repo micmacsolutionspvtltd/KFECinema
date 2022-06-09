@@ -25,12 +25,12 @@ struct ConfirmSeatsModel: Codable {
 struct DataClass: Codable {
     let responseCode, curTotal, intException, intBookID: Int?
     let curFoodTotal: Int?
-    let strTransID, strSeatInfo: String?
+    let strTransID, strSeatInfo , strBookId: String?
     let curTicketsTotal, curBookingFee: Int?
 
     enum CodingKeys: String, CodingKey {
         case responseCode = "ResponseCode"
-        case curTotal, intException
+        case curTotal, intException , strBookId
         case intBookID = "intBookId"
         case curFoodTotal
         case strTransID = "strTransId"

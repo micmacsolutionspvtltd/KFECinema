@@ -54,7 +54,7 @@ struct CartItemContentView: View {
                 }
                 }.frame(width: 150, height: 25)
                     .padding()
-                    .background(Color("ColorAppGrey"))
+                    .background(Color("ColorAppGrey")).cornerRadius(.infinity)
 
                     .overlay(
                         RoundedRectangle(cornerRadius: .infinity)

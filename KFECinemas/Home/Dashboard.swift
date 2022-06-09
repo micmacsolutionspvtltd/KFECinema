@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct Dashboard: View {
-    
+    @State private var isActive : Bool = false
+
     @State private var searchText: String = ""
     @State var menuOpen: Bool = false
     let movies = [
@@ -75,7 +76,7 @@ struct Dashboard: View {
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:30){
                             ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
-                                NavigationLink(destination: MovieDetailView(movie:movie)) {
+                                NavigationLink(destination: MovieDetailView(movie:movie )) {
                                     MovieCardView(model: movie).frame(width: 150, height: 250)
                                 }
                                 
@@ -103,9 +104,9 @@ struct Dashboard: View {
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:20){
                             ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
-                                NavigationLink(destination: SpiceKitchenView(pageName : "Spice Kitchen")) {
+                                NavigationLink(destination: SpiceKitchenView(isActive : self.isActive, pageName : "Spice Kitchen")) {
                                     SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
-                                }
+                                }.isDetailLink(false)
                             }
                         }
                     }.padding(.leading,5)
@@ -152,9 +153,10 @@ struct Dashboard: View {
                 dashboardServices.getAllActiveTheatres()
                 dashboardServices.getParticularCinemaApi(cinemaCode: "0002")
                 dashboardServices.getParticularCinemaApi(cinemaCode: "0003")
+                dashboardServices.getUpcomingMovies()
                // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
             }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("")
-
+            .environment(\.rootPresentationMode, self.$isActive)
     }
     
     func openMenu() {
@@ -190,7 +192,7 @@ struct AppBarView: View {
             
             
             HStack {
-                TextField("Enter your password", text: $searchText).onChange(of: searchText, perform: { newValue in
+                TextField("Search movie", text: $searchText).onChange(of: searchText, perform: { newValue in
                     print(newValue)
                     dashboardServices.searhFilter(text: newValue)
                 })
@@ -251,7 +253,7 @@ struct TableHeaderView<Content: View>: View {
                         Image(systemName: "arrow.right").foregroundColor(.white)
                     }
                     .padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
-                }
+                }.isDetailLink(false)
                 
             }
             
