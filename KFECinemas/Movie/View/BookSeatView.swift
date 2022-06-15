@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct BookSeatView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+  
     @EnvironmentObject var movieServices:MovieServices
     var model:BookSeatModel
     var seatList = [SeatStatusModel(imageName: "white_seat", status: "Available"),SeatStatusModel(imageName: "red_seat", status: "Booked"),SeatStatusModel(imageName: "green_seat", status: "Selected")]
+    @State private var isActive : Bool = false
 
    @State var daysOfWeek:[Date] = []
     @State var showingAlert = false
+    @State var showLoader : Bool = false
+    @State var showToast : Bool? = false
     var body: some View {
         GeometryReader { geometry in
         ScrollView(showsIndicators:false){
@@ -23,7 +27,8 @@ struct BookSeatView: View {
                     HStack(alignment: .center) {
                         Button(action:{
                             if movieServices.selectedSeats.count == 0{
-                                self.presentationMode.wrappedValue.dismiss()
+                              self.presentationMode.wrappedValue.dismiss()
+                              
                             }else{
                            showingAlert = true
                             }
@@ -66,7 +71,7 @@ struct BookSeatView: View {
                         ForEach(movieServices.seatLayouts?.data ?? [] , id : \.id){ layout in
                             VStack{
                                 Text("\(layout.strAreaDesc ?? "") - ₹ \(layout.amount ?? 0)")
-                                SeatClassView(seatLayout: layout)
+                                SeatClassView(seatLayout: layout , showLoader: $showLoader, showToast : $showToast)
                             }
                           
                         }
@@ -79,7 +84,9 @@ struct BookSeatView: View {
                     .resizable().frame(width: geometry.size.width, height: 50)
                 
             }.foregroundColor(.white)
-        } .alert(isPresented: $showingAlert){
+        }.loaderView(isShowing: $showLoader)
+        .toast(isShowing: $showToast,textContent: "This seat already selected please choose another seat")
+        .alert(isPresented: $showingAlert){
             Alert(
                 title: Text("CONFIRMATION"),
                 message: Text("Do you want to end the session"),
@@ -105,7 +112,7 @@ struct BookSeatView: View {
             if movieServices.selectedSeats.count == 0{
 
             }else{
-                NavigationLink{
+                NavigationLink( isActive : self.$isActive){
                     SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView")
                 } label: {
                     HStack(spacing :20){
@@ -138,7 +145,7 @@ struct BookSeatView: View {
                     
                     .background(Color.red)
                     .cornerRadius(8)
-                }
+                }.isDetailLink(false)
                 .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
         }
                
@@ -177,12 +184,14 @@ struct SeatStatusView:View {
 
 struct SeatClassView:View {
     var seatLayout:SeatLayout
+    @Binding var showLoader : Bool
+    @Binding var showToast : Bool?
     var body: some View {
         VStack {
             ForEach(seatLayout.rows ?? [],id: \.self){ row in
                 HStack{
                     Text(row.strRowPhyID ?? "")
-                    SeatRowView(seatRow:row,seatLayout: seatLayout)
+                    SeatRowView(seatRow:row,seatLayout: seatLayout , showLoader: $showLoader, showToast : $showToast)
                 }
             }
         }
@@ -192,9 +201,11 @@ struct SeatClassView:View {
 struct SeatRowView:View {
     var seatRow:Row
     var seatLayout:SeatLayout
+    @Binding var showLoader : Bool
+    @Binding var showToast : Bool?
     var body: some View {
         ForEach(seatRow.seats ?? [],id: \.self){ seat in
-            SeatView(seat:seat,seatRow: seatRow,seatLayout: seatLayout, errorMsg: "")
+            SeatView(seat:seat,seatRow: seatRow,seatLayout: seatLayout, showLoader: $showLoader, showToast : $showToast)
         }
     }
 }
@@ -203,10 +214,11 @@ struct SeatView:View {
     var seat:Seat
     var seatRow:Row
     var seatLayout:SeatLayout
-    @State var errorPopShow : Bool?
-    @State var errorMsg : String
+  
    
    @State var isSelected = false
+    @Binding var showLoader : Bool
+    @Binding var showToast : Bool?
     @EnvironmentObject var movieServices:MovieServices
     var body: some View {
         HStack{
@@ -229,13 +241,16 @@ struct SeatView:View {
         }.onTapGesture {
             if seat.strSeatStatus == "0"{
                 isSelected = !isSelected
+                showLoader = true
                 if isSelected{
                     
                     let requestBody = SetSeatRequestModel(strTypeCode: movieServices.selectedScreen?.show.strTicketType ?? "", cinemaCode: movieServices.selectedScreen?.show.cinemaStrID ?? "", strTransID: movieServices.seatLayouts?.strTransID ?? "", lngSessionID: "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )", strTicketType: movieServices.selectedScreen?.show.strTicketType ?? "", gridSeatRowID: seatRow.intGridRowID?.description ?? "", gridSeatNumber: seat.intGridSeatNum?.description ?? "",rowId: seatRow.strRowPhyID ?? "")
                     movieServices.setSeats(seat: seat,layout: seatLayout,requestBody: requestBody.getJson()) { result in
+                        showLoader = false
                         if result.responseCode == 0{
 //                            errorMsg = result.responseMessage ?? ""
 //                            errorPopShow = true
+                            showToast = true
                             isSelected = false
                         }else{
                            isSelected = true
@@ -248,8 +263,10 @@ struct SeatView:View {
                         if(value.key == seat.key){
                           
                             movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
+                            showLoader = false
                               return false
                         }else{
+                            showLoader = false
                             return true
                         }
                     }

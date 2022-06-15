@@ -13,6 +13,8 @@ struct SideMenu: View {
     let width: CGFloat
         var isOpen: Bool
         let menuClose: () -> Void
+    @Binding var popupShow : Bool?
+    @Binding var changePassword : Bool?
     var body: some View {
         ZStack {
             GeometryReader { _ in
@@ -48,8 +50,36 @@ struct SideMenu: View {
                         TabButton(type: SideMenuType.movies)
                         TabButton(type: SideMenuType.bookHistory)
                         TabButton(type: SideMenuType.spiceKitchen)
-                        TabButton(type: SideMenuType.concessionZone)
-                        TabButton(type: SideMenuType.changePassword)
+                        Button{
+                            popupShow = true
+                            self.menuClose()
+                        }label: {
+                            HStack(spacing : 15){
+                                Image("fastfood1")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill).colorMultiply(.black)
+                                    .frame(width: 20, height: 20)
+                                Text("Concession Zone")
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        Button{
+                            changePassword = true
+                            self.menuClose()
+                        }label: {
+                            HStack(spacing : 15){
+                                Image("changePassword")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill).colorMultiply(.black)
+                                    .frame(width: 20, height: 20)
+                                Text("Change Password")
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                      //  TabButton(type: SideMenuType.concessionZone)
+                      //  TabButton(type: SideMenuType.changePassword)
                         TabButton(type: SideMenuType.termsAndCondition)
                         TabButton(type: SideMenuType.privacyAndPolicy)
                         VStack(alignment: .leading, spacing: 30){
@@ -117,7 +147,7 @@ struct SideMenu_Previews: PreviewProvider {
     static var previews: some View {
         SideMenu(width: 300, isOpen: true, menuClose: {
             
-        })
+        }, popupShow: .constant(false), changePassword: .constant(false))
     }
 }
 

@@ -101,7 +101,7 @@ class MovieServices:ObservableObject {
         }
         
     }
-    func ticketBookingApi(movieId : String , movieName : String , bookingDate : String , showTime : String , theaterId : String , screenId : String , screenName : String , screenZone : String , snackstatus : String , numberOfTickets : String , seatNo : String , movieAmt : String ,snacksAmount : String , itemNames : String , totalAmt : String , snacksItemId : String , snacksCatId : String , snacksQuantityId : String , snacksPrice : String , promocode : String , discountPrice : String , snacksDeliveryAmt : String , snacksDeliveryStatus : String , isDeliverSts : String , completionHandler : @escaping (SaveMovieBookingModel) -> Void){
+    func ticketBookingApi(movieId : String , movieName : String , bookingDate : String , showTime : String , theaterId : String , screenId : String , screenName : String , screenZone : String , snackstatus : String , numberOfTickets : String , seatNo : String , movieAmt : String ,snacksAmount : String , itemNames : String , totalAmt : String , snacksItemId : String , snacksCatId : String , snacksQuantityId : String , snacksPrice : String , promocode : String , discountPrice : String , snacksDeliveryAmt : String , snacksDeliveryStatus : String , isDeliverSts : String , totalAmtAfterDiscount :  String , completionHandler : @escaping (SaveMovieBookingModel) -> Void){
         let requestBody : [String : String]?
             requestBody = [
                 "movieId" : movieId,
@@ -135,7 +135,7 @@ class MovieServices:ObservableObject {
                 "no_of_tickets_discounted": "",
                 "per_movie_amt": "",
                 "total_amt_discounted": discountPrice,
-                "total_amt_after_discounted":totalAmt ,
+                "total_amt_after_discounted":totalAmtAfterDiscount ,
                 "snacks_delivery_at_beg_inter": isDeliverSts ,
                 "is_snacks_delivered":snacksDeliveryStatus ,
                 "snacks_delivery_amt":snacksDeliveryAmt,

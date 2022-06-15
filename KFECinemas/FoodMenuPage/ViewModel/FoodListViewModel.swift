@@ -14,10 +14,10 @@ class FoodListViewModel : ObservableObject{
     @Published var getSpiceKitcehnGetData : SpiceKitchenModel?
     @Published var getBannerImageData : FoodBannerImageModel?
 
-    func fooddListValueShowApi(completionHandler : @escaping((FoodListModel) -> Void) ){
+    func fooddListValueShowApi(theaterId : String , completionHandler : @escaping((FoodListModel) -> Void) ){
         let params : [String : String]?
       params = [
-        "theatre_id": "8"
+        "theatre_id": theaterId
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.getSnacksItemTheatreWise,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: FoodListModel.self) { (restValue, result, error) in

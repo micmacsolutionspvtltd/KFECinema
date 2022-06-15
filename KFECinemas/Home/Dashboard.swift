@@ -25,6 +25,11 @@ struct Dashboard: View {
         MoviesModel(imageName: "food4")
     
     ]
+    @State var showLoader : Bool = true
+    @State var showTheaterSelectPopup : Bool? = false
+    @State var passwordPopup : Bool? = false
+        // @State var moActive : Bool = false
+    @State var nonActive : Bool = false
     @EnvironmentObject var dashboardServices:DashboardServices
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
 
@@ -38,6 +43,7 @@ struct Dashboard: View {
 //        }
 //    }
     var body: some View {
+        NavigationView{
             ZStack {
                 ScrollView(showsIndicators: false){
                     AppBarView(openMenu: self.openMenu)
@@ -66,7 +72,7 @@ struct Dashboard: View {
                         
                         
                     }
-                    TableHeaderView(title: "Movies in Cinemas", imageName: "clapperboardWhite",isViewAllVisible: true) {
+                    TableHeaderView(title: "Movies in Cinemas", imageName: "clapperboardWhite", isActive: $isActive,isViewAllVisible: true, popShowed: $showTheaterSelectPopup) {
                         MovieView()
                     }
                     HStack {
@@ -76,9 +82,9 @@ struct Dashboard: View {
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:30){
                             ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
-                                NavigationLink(destination: MovieDetailView(movie:movie )) {
+                                NavigationLink(destination: MovieDetailView(movie:movie ) ) {
                                     MovieCardView(model: movie).frame(width: 150, height: 250)
-                                }
+                                }.isDetailLink(false)
                                 
                             }
                         }
@@ -98,32 +104,36 @@ struct Dashboard: View {
                         }
                     }.padding(.leading,5)
                     
-                    TableHeaderView(title: "Spice Kitchen", imageName: "tray",isViewAllVisible: true){
-                        SpiceKitchenView(pageName : "Spice Kitchen")
+                    TableHeaderView(title: "Spice Kitchen", imageName: "tray", isActive: $nonActive,isViewAllVisible: true, popShowed: $showTheaterSelectPopup){
+                        SpiceKitchenView(pageName : "Spice Kitchen" )
                     }
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:20){
                             ForEach(dashboardServices.spiceKitchenItems, id: \.id) { movie in
-                                NavigationLink(destination: SpiceKitchenView(isActive : self.isActive, pageName : "Spice Kitchen")) {
+                                NavigationLink(destination: SpiceKitchenView(pageName : "Spice Kitchen")) {
                                     SpiceKitchenCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
-                                }.isDetailLink(false)
+                                }//.isDetailLink(false)
                             }
                         }
                     }.padding(.leading,5)
                     VStack {
-                        TableHeaderView(title: "Concession Zone", imageName: "fastfood1",isViewAllVisible: true){
-                            SpiceKitchenView(pageName : "Concession Zone")
+                        TableHeaderView(title: "Concession Zone", imageName: "fastfood1", isActive: $nonActive,isViewAllVisible: true, popShowed: $showTheaterSelectPopup){
+                            FoodSelectTheatrePopup()
+                           // SpiceKitchenView(pageName : "Concession Zone")
                         }
                         ScrollView(.horizontal,showsIndicators:false) {
                             HStack (spacing:20){
                                 ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
-                                    NavigationLink(destination: SpiceKitchenView(pageName : "Concession Zone")) {
+                                  //  NavigationLink(destination: SpiceKitchenView(pageName : "Concession Zone")) {
+                                    Button{
+                                        showTheaterSelectPopup = true
+                                    }label: {
                                         ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
                                     }
                                 }
                             }
                         }.padding(.leading,5)
-                        TableHeaderView(title: "Theatres", imageName: "clapperboardWhite",isViewAllVisible: false){
+                        TableHeaderView(title: "Theatres", imageName: "clapperboardWhite", isActive: $nonActive ,isViewAllVisible: false, popShowed: $showTheaterSelectPopup){
                             SpiceKitchenView()
                         }
                         ScrollView(.horizontal,showsIndicators:false) {
@@ -143,20 +153,61 @@ struct Dashboard: View {
                 }.background(Color("ColorAppGrey"))
                 SideMenu(width:UIScreen.main.bounds.size.width - 50,
                                     isOpen: self.menuOpen,
-                                    menuClose: self.openMenu)
-            }.onAppear {
-                storeDataViewModel.deleteAllDatas()
-                dashboardServices.getAllBannerImages()
-                dashboardServices.getAllFilms()
-                dashboardServices.getAllSpiceKitchenItems()
-                dashboardServices.getConcessionZoneItems()
-                dashboardServices.getAllActiveTheatres()
-                dashboardServices.getParticularCinemaApi(cinemaCode: "0002")
-                dashboardServices.getParticularCinemaApi(cinemaCode: "0003")
-                dashboardServices.getUpcomingMovies()
-               // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-            }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("")
+                         menuClose: self.openMenu, popupShow: $showTheaterSelectPopup, changePassword: $passwordPopup)
+                if showTheaterSelectPopup ?? false{
+                    GeometryReader{_ in
+                    FoodTheaterSelectPopupView()
+                        .frame(width: 340, height: 220)
+                        .background(Color.white)
+                        .background(Color.white)
+                        .cornerRadius(8)
+                    
+                        .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                    }
+                    .background(Color.black.opacity(0.6)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            withAnimation {
+                               showTheaterSelectPopup = false
+                            }
+                        })
+                }
+                if passwordPopup ?? false{
+                    GeometryReader{_ in
+                        ChangePasswordView(hidePopUp: $passwordPopup)
+                        .frame(width: 340, height: 340)
+                        .background(Color.white)
+                        .background(Color.white)
+                        .cornerRadius(8)
+                    
+                        .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                    }
+                    .background(Color.black.opacity(0.6)
+                        .edgesIgnoringSafeArea(.all)
+                        .onTapGesture {
+                            withAnimation {
+                               showTheaterSelectPopup = false
+                            }
+                        })
+                }
+            }
+        }.onAppear {
+            showTheaterSelectPopup = false
+            storeDataViewModel.deleteAllDatas()
+            dashboardServices.getAllBannerImages()
+            dashboardServices.getAllFilms()
+            dashboardServices.getAllSpiceKitchenItems()
+            dashboardServices.getConcessionZoneItems()
+            dashboardServices.getAllActiveTheatres()
+            dashboardServices.getParticularCinemaApi(cinemaCode: "0002")
+            dashboardServices.getParticularCinemaApi(cinemaCode: "0003")
+            dashboardServices.getUpcomingMovies()
+            showLoader = false
+            // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
+        }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("").navigationViewStyle(.stack)
             .environment(\.rootPresentationMode, self.$isActive)
+           // .createLoader(isShowing: $showLoader)]
+            .loaderView(isShowing: $showLoader)
     }
     
     func openMenu() {
@@ -235,7 +286,9 @@ struct AppBarView: View {
 struct TableHeaderView<Content: View>: View {
     let title:String
     let imageName : String
+    @Binding var isActive : Bool
    @State var isViewAllVisible:Bool = false
+    @Binding var popShowed : Bool?
     @ViewBuilder var content: Content
     var body: some View {
         HStack{
@@ -245,7 +298,18 @@ struct TableHeaderView<Content: View>: View {
             if !isViewAllVisible {
                 EmptyView()
             }else{
-                NavigationLink{
+                if title == "Concession Zone"{
+                    Button{
+                        popShowed = true
+                    }label: {
+                        HStack(spacing : 15){
+                            Text("View All").font(.system(size: 13)).fontWeight(.bold).foregroundColor(.white)
+                            Image(systemName: "arrow.right").foregroundColor(.white)
+                        }
+                        .padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
+                    }
+                }else{
+                NavigationLink(isActive : $isActive){
                     content
                 }label: {
                     HStack(spacing : 15){
@@ -254,6 +318,7 @@ struct TableHeaderView<Content: View>: View {
                     }
                     .padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
                 }.isDetailLink(false)
+                }
                 
             }
             

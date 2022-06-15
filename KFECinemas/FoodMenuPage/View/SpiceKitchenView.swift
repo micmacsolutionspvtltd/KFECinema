@@ -11,7 +11,7 @@ import SwiftUI
 struct SpiceKitchenView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
-    @State var isActive : Bool = false
+    @State private var isActive : Bool = false
 
     @State var bannerImageData: FoodBannerImageModel?
     @State var getConcessionData : FoodListModel?
@@ -27,6 +27,8 @@ struct SpiceKitchenView: View {
     @State var getCartDatas : Bool? = false
     @State var showingAlert = false
     @State var moveNextPage : Bool = false
+    @State var showLoader : Bool = true
+    var theaterID : String = "8"
 
     var body: some View {
         GeometryReader { geometry in
@@ -257,7 +259,7 @@ struct SpiceKitchenView: View {
                     .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
                     }
                 }else{
-                    NavigationLink( isActive : self.$isActive){
+                    NavigationLink{
                         if lastPage == ""{
                             CartPageView(pageNames : pageName)
 
@@ -299,9 +301,9 @@ struct SpiceKitchenView: View {
             }
         }
             .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(true).navigationViewStyle(.stack)
             // .background(Color.black)
-        
+            .loaderView(isShowing: $showLoader)
             .onAppear(){
               //  dbViewModel.getAllDataFromTable()
                // viewModel.getApiData()
@@ -311,11 +313,13 @@ struct SpiceKitchenView: View {
                 if pageName == "Spice Kitchen"{
                     
                     viewModel.spiceKitchenValueGetApi{ result in
+                        showLoader = false
                         getSpiceKitchenData = result
                     }
                     
                 }else{
-                    viewModel.fooddListValueShowApi { result in
+                    viewModel.fooddListValueShowApi(theaterId: theaterID) { result in
+                        showLoader = false
                         getConcessionData = result
                     }
                 }
@@ -329,7 +333,8 @@ struct SpiceKitchenView: View {
                 primaryButton: .default(Text("Yes"), action: {
                     storeDataViewModel.deleteAllDatas()
                     resetSeatMultipleSeats()
-                    moveNextPage = true
+                    rootPresentationMode.wrappedValue.dismiss()
+                  //  moveNextPage = true
                 }),
                 secondaryButton: .cancel(Text("Cancel"), action: { // 1
                     showingAlert = false

@@ -20,13 +20,16 @@ struct KFECinemasApp: App {
  
         WindowGroup {
             
-            NavigationView{
+         //   NavigationView{
                 if storageSettings.userId != "" {
                     Dashboard()
+                        .environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel()).environmentObject(MovieServices())
                 }else{
                         LoginView()
+                        .environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel()).environmentObject(MovieServices())
                 }
-            }.navigationViewStyle(.stack).navigationViewStyle(StackNavigationViewStyle()).environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel()).environmentObject(MovieServices())
+          //  }.navigationViewStyle(.stack).navigationViewStyle(StackNavigationViewStyle())
+   
             
 //            if StorageManager.sharedInstance.getLoginCompleted() == true{
 //               // NavigationView{

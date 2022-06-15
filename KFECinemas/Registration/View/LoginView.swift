@@ -19,6 +19,7 @@ struct LoginView: View {
     @State var toastMsg : String = "Not valid"
     @State var forgetPasswordPopupShow : Bool? = false
     var body: some View {
+        NavigationView{
         GeometryReader { geometry in
             ZStack{
             ScrollView(showsIndicators: false) {
@@ -189,8 +190,12 @@ struct LoginView: View {
         }.background(Color.black)
                     .navigationBarHidden(true)
                     .toast(isShowing: $errorPopup,textContent: toastMsg)
+                    .onAppear(){
+                        storageSettings.userId = ""
+                    }
       //  }
         }
+    }
     }
     func socialMedoaLogin(email : String , name : String ,typeOfLogin : String){
         viewModel.googleLoginApi(email: email, userName: name, typeOfLogin: typeOfLogin) { result in

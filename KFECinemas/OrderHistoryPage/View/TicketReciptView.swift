@@ -10,7 +10,7 @@ import SwiftUI
 struct TicketReciptView: View {
    @State var reciptDatas: MovieDetails?
     @State var lastPage : String?
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @State var movieName :String?
     @State var showDate : String?
     @State var showTime : String?
@@ -25,7 +25,7 @@ struct TicketReciptView: View {
     @State var deliverPrice : String?
     @State var totalPrice : String?
     @State var moveToDashBoard : Bool = false
-    
+    @Environment(\.rootPresentationMode)  var rootPresentationMode: Binding<RootPresentationMode>
     
     var body: some View {
         GeometryReader{ geometry in
@@ -48,7 +48,7 @@ struct TicketReciptView: View {
                                 Button{
                                   //  Dashboard()
                                     if lastPage == "checkout"{
-                                       moveToDashBoard = true
+                                        self.rootPresentationMode.wrappedValue.dismiss()
                                     }else{
                                         presentationMode.wrappedValue.dismiss()
                                     }
@@ -169,6 +169,7 @@ struct TicketReciptView: View {
                     Divider()
                         .frame( height:1)
                         .background(Color.white)
+                        if snacksName != "" && snacksName != " x "{
                     VStack(alignment : .leading,spacing : 5){
                         HStack{
                             VStack(spacing : 5){
@@ -185,6 +186,7 @@ struct TicketReciptView: View {
                             
                             .background(Color.white)
                     }
+                        }
                     VStack(spacing : 7){
                         HStack{
                             Text("Ticket Price")
@@ -193,7 +195,7 @@ struct TicketReciptView: View {
                             Text(ticketPrice ?? "")
                                 .multilineTextAlignment(.trailing)
                         }
-                        if snacksName != ""{
+                        if snacksName != "" && snacksName != " x "{
                             HStack{
                                 Text("Snacks and Beverage Price")
                                     .font(.system(size: 15)).multilineTextAlignment(.leading)
@@ -201,6 +203,8 @@ struct TicketReciptView: View {
                                 Text("\(snacksprice ?? "")")
                                     .multilineTextAlignment(.trailing)
                             }
+                        }
+                        if deliverPrice != ""{
                             HStack{
                                 Text("Deliver Price")
                                     .font(.system(size: 15)).multilineTextAlignment(.leading)
@@ -212,8 +216,9 @@ struct TicketReciptView: View {
                         Divider()
                             
                             .frame( height:1)
-                            
+                        
                             .background(Color.white)
+                    
                         HStack{
                             Text("Total")
                                 .font(.system(size: 18)).multilineTextAlignment(.leading)
@@ -259,9 +264,9 @@ struct TicketReciptView: View {
                     }
                    
                 }
-            NavigationLink(destination: Dashboard(), isActive: $moveToDashBoard){
-           
-            }
+//            NavigationLink(destination: Dashboard(), isActive: $moveToDashBoard){
+//
+//            }
         }.background(LinearGradient(gradient: SwiftUI.Gradient(colors: [Constants.CustomColors.sideMenuColor1,Constants.CustomColors.sideMenuColor2]), startPoint: .top, endPoint: .bottom))
   
         

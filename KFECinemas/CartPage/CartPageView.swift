@@ -10,7 +10,7 @@ import Razorpay
 struct CartPageView: View {
     @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
-    @State var isActive : Bool = false
+    @State private var isActive : Bool = false
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
     @EnvironmentObject var promoDataViewModel : PromoViewModel
     @State var deliveryCLicked : Bool = true
@@ -37,6 +37,7 @@ struct CartPageView: View {
     @State var moveToDashBoard : Bool = false
     @State var errorPopup : Bool? = false
     @State var toastMsg : String = "Not valid"
+    @State var showLoader : Bool = false
 
     var body: some View {
         //
@@ -57,10 +58,11 @@ struct CartPageView: View {
                                 HStack{
                                     HStack(alignment: .bottom ){
                                         Button(action:{
+                                            storeDataViewModel.deleteAllDatas()
                                             promoDataViewModel.promoId = ""
-                                         isActive = false
-                                          //  rootPresentationMode.wrappedValue.dismiss()
-                                            presentationMode.wrappedValue.dismiss()
+                                            promoDataViewModel.promoCode = ""
+                                            rootPresentationMode.wrappedValue.dismiss()
+                                          //  presentationMode.wrappedValue.dismiss()
                                         }){
                                             Image(systemName: "arrow.left")
                                                 .resizable()
@@ -307,8 +309,8 @@ struct CartPageView: View {
                                 }else{
                                     VStack{
                                         
-                                        CartItemContentView(selectedItemName: $dateOfclick, tittleText: "Date Of Order", buttonName: Date().currentDateOnly, imageName: "calendar" ,getDataValue: {
-                                            clickBookingDate = true
+                                        CartItemContentView(selectedItemName: $dateOfclick, tittleText: "Date Of Order", buttonName: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now, dateFormat: "dd-MM-yyyy") , imageName: "calendar" ,getDataValue: {
+                                           // clickBookingDate = true
                                         })
                                         .frame(width: geometry.size.width, height: 70)
                                         CartItemContentView(selectedItemName: $selectTakeeAwatTime, tittleText: "Takeaway Time", buttonName: "Select time", imageName: "chevron.down" , dropDownDatas : takeAwatTime,getDataValue: {
@@ -418,7 +420,7 @@ struct CartPageView: View {
                         // Spacer()
                         if promoDataViewModel.promoId != ""{
                             if deliveryCLicked{
-                                Text("₹ \(String(Int(applyCouponData?.data?.discountedAmountFromTotal ?? "0") ?? 0 + 10))")
+                                Text("₹ \(String((Int(applyCouponData?.data?.discountedAmountFromTotal ?? "0") ?? 0) + 10))")
                                     .foregroundColor(.white)
                                     .fontWeight(.semibold)
                                     .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
@@ -457,6 +459,7 @@ struct CartPageView: View {
                 if razorPayShow ?? false{
                  
                     RazorPayMethod(amount : calculateAmount(),getPaymetId: {
+                        showLoader = true
                         let paymentData = getFinalPaymentProcessData()
                      //   PaymentView()
                          if pageNames == "Spice Kitchen"{
@@ -464,25 +467,35 @@ struct CartPageView: View {
      //
      //                        }
                              storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")) ) { result in
+                                 toastMsg = "Ordered sucessfully completed"
+                                 errorPopup = true
                                  storeDataViewModel.deleteAllDatas()
                                  promoDataViewModel.promoId = ""
                                  promoDataViewModel.promoCode = ""
-                                   moveToDashBoard = true
+                                 showLoader = false
+                                 rootPresentationMode.wrappedValue.dismiss()
+                                //   moveToDashBoard = true
                                      }
                          }else{
      //                        storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "2", categoryId: "2", quantity: "1", price: storeDataViewModel.calculateTotalPrice(), gst: "1", promoId: promoDataViewModel.promoId ?? "25", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName?.removeWhitespace() ?? "", screenId: selectedScreenName?.removeWhitespace() ?? "", seatNo: "E5", totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "prom67", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
      //
      //                        }
                              storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")) ) { result in
+                                 toastMsg = "Ordered sucessfully completed"
+                                 errorPopup = true
                                  storeDataViewModel.deleteAllDatas()
                                  promoDataViewModel.promoId = ""
                                  promoDataViewModel.promoCode = ""
-                                 moveToDashBoard = true
+                                 showLoader = false
+                               
+                                 rootPresentationMode.wrappedValue.dismiss()
+                               //  moveToDashBoard = true
                              }
                          }
                     })
                 }
-            }.toast(isShowing: $errorPopup,textContent: toastMsg)
+            }.toast(isShowing: $errorPopup,textContent: toastMsg , backGroundColor : Color.white)
+                .loaderView(isShowing: $showLoader)
             .background(Color.black)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
@@ -503,17 +516,17 @@ struct CartPageView: View {
                 }
                 
             }
-            .overlay(VStack {
-                if moveToDashBoard {
-                    NavigationLink(destination:  Dashboard(), isActive: $moveToDashBoard) {
-                        
-                        Dashboard()
+//            .overlay(VStack {
+//                if moveToDashBoard {
+//                    NavigationLink(destination:  Dashboard(), isActive: $moveToDashBoard) {
 //
-                    }.opacity(0)
-                        .background(Color.red)
-                    
-                }
-            })
+//                        Dashboard()
+////
+//                    }.opacity(0)
+//                        .background(Color.red)
+//
+//                }
+//            })
         }
 
         

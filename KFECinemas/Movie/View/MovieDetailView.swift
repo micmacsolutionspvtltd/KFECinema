@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct MovieDetailView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+
+    @State private var isActive : Bool = false
     var movie:AllFilms
     var body: some View {
         ScrollView(showsIndicators:false){
@@ -16,6 +19,7 @@ struct MovieDetailView: View {
                 HStack(alignment: .top) {
                     Button(action:{
                         self.presentationMode.wrappedValue.dismiss()
+                       // rootPresentationMode.wrappedValue.dismiss()
                     }){
                         
                         Image(systemName:  "arrow.left").foregroundColor(.white).padding()
@@ -60,7 +64,7 @@ struct MovieDetailView: View {
                     .foregroundColor(Color.white).font(.system(size: 14))
             }.padding(.leading,20).padding(.bottom,20)
             Spacer()
-            NavigationLink{
+            NavigationLink(isActive : self.$isActive){
                 BookTicketView(movie: movie)
             }label: {
                 Text("BOOK TICKET").padding().frame(maxWidth: .infinity).background(.red)

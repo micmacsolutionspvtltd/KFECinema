@@ -23,8 +23,11 @@
 		0460A1B7282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */; };
 		0460A1B9282A4CA700EA4A88 /* ForgetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */; };
 		0460A1BB282A545A00EA4A88 /* ForgetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */; };
+		0475B2632853321F00867D45 /* FoodSelectTheatrePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0475B2622853321F00867D45 /* FoodSelectTheatrePopup.swift */; };
+		0475B265285364CE00867D45 /* CustomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0475B264285364CE00867D45 /* CustomLoaderView.swift */; };
 		047E94E828205B6D0051C289 /* CartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E94E728205B6D0051C289 /* CartDataModel.swift */; };
 		047E950528221C710051C289 /* TicketReciptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E950428221C710051C289 /* TicketReciptView.swift */; };
+		0481D0BD2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481D0BC2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift */; };
 		0498F5DF2813EF76007B2B24 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 0498F5DE2813EF76007B2B24 /* Algorithms */; };
 		04C2B43E28509477008C6CF0 /* RootPresentationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2B43D28509477008C6CF0 /* RootPresentationMode.swift */; };
 		04DDB6ED282814D200E3DD28 /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DDB6EC282814D200E3DD28 /* CustomToastView.swift */; };
@@ -141,8 +144,11 @@
 		0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordPopupView.swift; sourceTree = "<group>"; };
 		0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewModel.swift; sourceTree = "<group>"; };
 		0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordModel.swift; sourceTree = "<group>"; };
+		0475B2622853321F00867D45 /* FoodSelectTheatrePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSelectTheatrePopup.swift; sourceTree = "<group>"; };
+		0475B264285364CE00867D45 /* CustomLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoaderView.swift; sourceTree = "<group>"; };
 		047E94E728205B6D0051C289 /* CartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDataModel.swift; sourceTree = "<group>"; };
 		047E950428221C710051C289 /* TicketReciptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketReciptView.swift; sourceTree = "<group>"; };
+		0481D0BC2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTheaterSelectPopupView.swift; sourceTree = "<group>"; };
 		04C2B43D28509477008C6CF0 /* RootPresentationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresentationMode.swift; sourceTree = "<group>"; };
 		04DDB6EC282814D200E3DD28 /* CustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBannerImageMOdel.swift; sourceTree = "<group>"; };
@@ -296,6 +302,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0481D0BB2859C342008DAEE6 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				0481D0BC2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
 		04FE7AE92815CFFC004B9EC4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +345,7 @@
 		0C13DB42282A2938006C4D13 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0481D0BB2859C342008DAEE6 /* ReusableViews */,
 				D3FF143D27F6433000EE2E4F /* MovieView.swift */,
 				D3B1046C27F2444A00A55E89 /* MovieCardView.swift */,
 				D35B1D6627F727EB007D312C /* MoviesListView.swift */,
@@ -540,6 +555,7 @@
 				0CA478F92801E4B2000B5C57 /* ConcessionZoneCardView.swift */,
 				0C2F2F702823E4E80046FA97 /* ChangePasswordView.swift */,
 				0C90718528292CFC00835DD7 /* TheatreCardView.swift */,
+				0475B2622853321F00867D45 /* FoodSelectTheatrePopup.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -570,6 +586,7 @@
 				04FE7AF22816009D004B9EC4 /* CoreDataViewModel.swift */,
 				043D6251281AADC80053F2BE /* DatePickerWithButton.swift */,
 				04DDB6EC282814D200E3DD28 /* CustomToastView.swift */,
+				0475B264285364CE00867D45 /* CustomLoaderView.swift */,
 			);
 			path = CommonUtil;
 			sourceTree = "<group>";
@@ -704,6 +721,7 @@
 				0C2F2F712823E4E80046FA97 /* ChangePasswordView.swift in Sources */,
 				0C907184282929FA00835DD7 /* ActiveTheatreResponse.swift in Sources */,
 				D3CC71BD27E8F9C900C33787 /* GradientView.swift in Sources */,
+				0475B265285364CE00867D45 /* CustomLoaderView.swift in Sources */,
 				0C836F8F27FE2B4B0094EC0D /* SpiceKitchenModel.swift in Sources */,
 				D35B1D6927F960FA007D312C /* MovieDetailView.swift in Sources */,
 				0433B6B4281C0A08004558B6 /* OrderHistoryViewModel.swift in Sources */,
@@ -728,6 +746,7 @@
 				0C90718628292CFC00835DD7 /* TheatreCardView.swift in Sources */,
 				043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */,
 				0CF1C93227F6467B00D87F5C /* CartAddItemCell.swift in Sources */,
+				0475B2632853321F00867D45 /* FoodSelectTheatrePopup.swift in Sources */,
 				D345A43F27E4CBE200D1D5AD /* SignupView.swift in Sources */,
 				0C54CF3D28357203000F07BF /* CheckoutView.swift in Sources */,
 				0CABDABB28361604000D9660 /* RadioButton.swift in Sources */,
@@ -758,6 +777,7 @@
 				0C836F8D27FE1E0A0094EC0D /* FoodListViewModel.swift in Sources */,
 				0CABDABD2836197F000D9660 /* CustomDivider.swift in Sources */,
 				0C9CBE5927BED42900DC7386 /* LoginViewModel.swift in Sources */,
+				0481D0BD2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift in Sources */,
 				0C9CBE5727BED41B00DC7386 /* LoginView.swift in Sources */,
 				0C54CF3F2835F72B000F07BF /* CheckoutModel.swift in Sources */,
 				0C90718228291B3000835DD7 /* BookTicketView.swift in Sources */,

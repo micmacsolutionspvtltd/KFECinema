@@ -15,10 +15,11 @@ struct ChangePasswordView: View {
     @State private var showExistingPassword = false
     @State private var showNewPassword = false
     @State private var confirmNewPasswordShow = false
+    @Binding var hidePopUp : Bool?
    @ObservedObject var viewModel = DashboardServices()
     var body: some View {
         VStack {
-            Text("Change Password").foregroundColor(.white).font(.title2).fontWeight(.bold)
+            Text("Change Password").foregroundColor(.black).font(.title2).fontWeight(.bold)
             HStack {
                 if showExistingPassword{
                     TextField("Enter your existing password", text: $existingPassword)
@@ -34,12 +35,8 @@ struct ChangePasswordView: View {
                         showExistingPassword = false
                     }
                 }){
-                    
                     Image(systemName: showExistingPassword ? "eye" : "eye.slash").background(Color.gray)
-                    
-                    
                 }
-                
             }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
             HStack {
                 if showNewPassword{
@@ -56,10 +53,7 @@ struct ChangePasswordView: View {
                         showNewPassword = false
                     }
                 }){
-                    
                     Image(systemName: showNewPassword ? "eye" : "eye.slash").background(Color.gray)
-                    
-                    
                 }
                 
             }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
@@ -89,14 +83,14 @@ struct ChangePasswordView: View {
             HStack{
                 Spacer()
                 Button(action: {
-                    
+                    hidePopUp = false
 
                 }) {
                     Text("Cancel").fontWeight(.bold).foregroundColor(.white)
 
                 }.frame(width: 100).padding()
-                    .background(Constants.CustomColors.colorAppGrey)
-                    .overlay(RoundedRectangle(cornerRadius: 50)
+                    .background(Constants.CustomColors.colorAppGrey).cornerRadius(.infinity)
+                    .overlay(RoundedRectangle(cornerRadius: .infinity)
                                 .stroke(Constants.CustomColors.colorAppleDark, lineWidth: 4))
                 Spacer()
                 
@@ -118,12 +112,13 @@ struct ChangePasswordView: View {
 
                 Spacer()
             }.padding()
-        }.padding().background(Constants.CustomColors.colorAppGrey)
+        }.padding()//.background(Constants.CustomColors.colorAppGrey)
+            .padding(.top, 20)
     }
 }
 
 struct ChangePasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangePasswordView()
+        ChangePasswordView(hidePopUp: .constant(false))
     }
 }

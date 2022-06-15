@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct BookTicketView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var movieServices:MovieServices
     var movie:AllFilms
     @State var selectCurrentDate : Bool = true
-
+  //  @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+    @State var isActive : Bool = false
    @State var daysOfWeek:[Date] = []
     var body: some View {
         ScrollView(showsIndicators:false){
@@ -20,6 +21,7 @@ struct BookTicketView: View {
                 HStack(alignment: .center) {
                     Button(action:{
                         self.presentationMode.wrappedValue.dismiss()
+                      //  rootPresentationMode.wrappedValue.dismiss()
                     }){
                         
                         Image(systemName:  "arrow.left").foregroundColor(.white).padding()
@@ -50,7 +52,7 @@ struct BookTicketView: View {
                 VStack(alignment:.center){
                     ForEach(movieServices.shows,id:\.id) { shows in
                       
-                        showGridView(selectedTheatre:shows.cinemaStrName ?? "", selectedDateCurrent: selectCurrentDate, shows: shows)
+                        showGridView(selectedTheatre:shows.cinemaStrName ?? "", selectedDateCurrent: selectCurrentDate, shows: shows,isActive: self.$isActive )
                                         }
                 }
                 
@@ -96,6 +98,7 @@ struct showGridView:View {
     var selectedTheatre:String
     var selectedDateCurrent : Bool
     var shows:Shows
+    @Binding var isActive : Bool
     @EnvironmentObject var movieServices:MovieServices
     var body: some View {
         if let shows = shows.shows {

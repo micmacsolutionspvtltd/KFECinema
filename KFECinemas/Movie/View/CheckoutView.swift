@@ -9,7 +9,7 @@ import SwiftUI
 import Razorpay
 
 struct CheckoutView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @EnvironmentObject var movieServices:MovieServices
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
     @EnvironmentObject var promoDataViewModel : PromoViewModel
@@ -22,6 +22,10 @@ struct CheckoutView: View {
     @State var calculateTotalPrice : String? = ""
     @State var bookingConfirmId = ""
     @State var seatConfirmId  = ""
+    @State var errorPopup : Bool? = false
+    @State var toastMsg : String = "Not valid"
+    @State var showLoader : Bool = false
+    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     var body: some View {
 //        GeometryReader { geometry in
         ZStack(alignment:.bottom){
@@ -30,7 +34,8 @@ struct CheckoutView: View {
                 VStack {
                     HStack(alignment: .center) {
                         Button(action:{
-                            self.presentationMode.wrappedValue.dismiss()
+                            showingAlert = true
+                          //  self.presentationMode.wrappedValue.dismiss()
                         }){
                             
                             Image(systemName:  "arrow.left").foregroundColor(.white).padding()
@@ -65,7 +70,12 @@ struct CheckoutView: View {
                         VStack(alignment:.leading){
                             CheckoutHeadingView(header: "Screen Name", value: movieServices.checkoutDetails?.screenName ?? "SCREEN-5").padding(.bottom,10)
                             CheckoutHeadingView(header: "Show Time", value: movieServices.checkoutDetails?.showTime ?? "12:25 PM").padding(.bottom,10)
-                            CheckoutHeadingView(header: "Snacks Order", value: "\(storeDataViewModel.items.count)")
+                            if storeDataViewModel.items.count != 0{
+                                CheckoutHeadingView(header: "Snacks Order", value: "\(storeDataViewModel.items.count)")
+                            }else{
+                                CheckoutHeadingView(header: "Snacks Order", value: "Nil")
+                            }
+                           
                            
                         }
                         Spacer()
@@ -208,8 +218,11 @@ struct CheckoutView: View {
                         }
                 }
                 }
+                .toast(isShowing: $errorPopup,textContent: toastMsg)
+                    .loaderView(isShowing: $showLoader)
             if razorPayShow ?? false{
                 RazorPayMethod(amount : totalAmountFullCalculation(),getPaymetId: {
+                    showLoader = true
                     var calculateTotalAmount : Float = 0.00
                    
                     
@@ -229,7 +242,7 @@ struct CheckoutView: View {
 
                     self.calculateTotalPrice = String(calculateTotalAmount)
                     let paymentData = getFinalPaymentProcessData()
-                    movieServices.ticketBookingApi(movieId: "1", movieName: movieServices.checkoutDetails?.movieName ?? "", bookingDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "", theaterId: (movieServices.checkoutDetails?.theatreName ?? "") == "Spice  Cinemas" ? "7" : "8", screenId: "1", screenName: (movieServices.checkoutDetails?.screenName ?? "").removeWhitespace(), screenZone: movieServices.selectedSeats[0].ticketType ?? "", snackstatus: storeDataViewModel.items.count == 0 ? "0" : "1", numberOfTickets: String(movieServices.selectedSeats.count), seatNo: movieServices.calculateSeats().removeWhitespace(), movieAmt: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksAmount: storeDataViewModel.calculateTotalPrice(), itemNames: paymentData.2, totalAmt: String(format: "%.2f", calculateTotalAmount) , snacksItemId: paymentData.0, snacksCatId: paymentData.1, snacksQuantityId: paymentData.4, snacksPrice: paymentData.3, promocode: promoDataViewModel.promoCode ?? "", discountPrice: ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "") ) , snacksDeliveryAmt: snacksOrderMode == "0" ? "0" : "10", snacksDeliveryStatus: "0", isDeliverSts: snacksDeliveryTime ?? "" , completionHandler : ({ result in
+                    movieServices.ticketBookingApi(movieId: "1", movieName: movieServices.checkoutDetails?.movieName ?? "", bookingDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "", theaterId: (movieServices.checkoutDetails?.theatreName ?? "") == "Spice  Cinemas" ? "7" : "8", screenId: "1", screenName: (movieServices.checkoutDetails?.screenName ?? "").removeWhitespace(), screenZone: movieServices.selectedSeats[0].ticketType ?? "", snackstatus: storeDataViewModel.items.count == 0 ? "0" : "1", numberOfTickets: String(movieServices.selectedSeats.count), seatNo: movieServices.calculateSeats().removeWhitespace(), movieAmt: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksAmount: storeDataViewModel.calculateTotalPrice(), itemNames: paymentData.2, totalAmt: String(format: "%.2f", calculateTotalAmount) , snacksItemId: paymentData.0, snacksCatId: paymentData.1, snacksQuantityId: paymentData.4, snacksPrice: paymentData.3, promocode: promoDataViewModel.promoCode ?? "", discountPrice: ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "") ) , snacksDeliveryAmt: snacksOrderMode == "0" ? "0" : "10", snacksDeliveryStatus: "0", isDeliverSts: snacksDeliveryTime ?? "" , totalAmtAfterDiscount: totalAmountFullCalculation(), completionHandler : ({ result in
                         seatConfirmId = String(result.seatConfirmID ?? 0)
                     //    let requestModel = [
 //                            "movie": movieServices.checkoutDetails?.movieName ?? "" ,"showTime":movieServices.checkoutDetails?.showTime ?? "" , "theatre" : (movieServices.checkoutDetails?.theatreName ?? "") == "Spice  Cinemas" ? "7" : "8" , "seat" : (movieServices.selectedSeats[0].ticketType ?? "" + " - " + movieServices.calculateSeats().removeWhitespace()) , "screen" : (movieServices.checkoutDetails?.screenName ?? "").removeWhitespace() ,"showDate" : Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? "") , "seatAmt" :  String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)) , "totalAmt" : String(format: "%.2f", calculateTotalAmount) , "snackData" : (paymentData.4 + " x " + paymentData.2) , "deliverAmt" : snacksOrderMode == "0" ? "" : "10.00","orderId" : "" , "usermail" : StorageSettings().emailAddress , "snacks_delivery_amt" : snacksOrderMode == "0" ? "₹ 0" : "₹ 10" , "calculated_discount_amount" : "" ,
@@ -260,8 +273,8 @@ struct CheckoutView: View {
             }
             NavigationLink(destination: TicketReciptView(lastPage: "checkout" , movieName: movieServices.checkoutDetails?.movieName ?? "", showDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "" , theatreName: (movieServices.checkoutDetails?.theatreName ?? "") , screenName: (movieServices.checkoutDetails?.screenName ?? "") , seatNumber: ((movieServices.selectedSeats[0].ticketType ?? "") + "- " +  movieServices.calculateSeats().removeWhitespace()), bookingId: bookingConfirmId , snacksName: ((getFinalPaymentProcessData().1) + " x " + (getFinalPaymentProcessData().2)), ticketPrice: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksprice: storeDataViewModel.calculateTotalPrice(), deliverPrice: snacksOrderMode == "0" ? "" : "10", totalPrice: calculateTotalPrice), isActive: $moveTicketReciptView){
            
-            }
-            
+            }.isDetailLink(false)
+         
       }.foregroundColor(.white)
             .alert(isPresented: $showingAlert){
                 Alert(
@@ -270,7 +283,7 @@ struct CheckoutView: View {
                     primaryButton: .default(Text("Yes"), action: {
                         storeDataViewModel.deleteAllDatas()
                         resetSeatMultipleSeats()
-                       // moveNextPage = true
+                        rootPresentationMode.wrappedValue.dismiss()
                     }),
                     secondaryButton: .cancel(Text("Cancel"), action: { // 1
                         showingAlert = false
@@ -281,6 +294,10 @@ struct CheckoutView: View {
     }
     func bookingidChangeApi(id : String){
         movieServices.finalOrderBookingApi(seatConfirmId: seatConfirmId , bookConfirmId: id , completionHandler: { finalResult in
+            showLoader = false
+           
+            toastMsg = "Ticket booked sucessfully"
+            errorPopup = true
             promoDataViewModel.promoCode = ""
             promoDataViewModel.promoId = ""
             storeDataViewModel.deleteAllDatas()
@@ -299,7 +316,7 @@ struct CheckoutView: View {
              //   }
           
             }
-            movieServices.selectedSeats = []
+         //   movieServices.selectedSeats = []
       //  }
        
     }

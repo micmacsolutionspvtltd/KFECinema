@@ -25,6 +25,8 @@ struct MovieView: View {
         MoviesModel(imageName: "food4")
     
     ]
+    @State var showTheaterSelectPopup : Bool? = false
+    @State var isActive : Bool = false
     @EnvironmentObject var dashboardServices:DashboardServices
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
@@ -65,7 +67,7 @@ struct MovieView: View {
                Spacer()
                    
            }.background(Color(uiColor: UIColor.red))
-           TableHeaderView(title: "Movies on Theatre", imageName: "clapperboardWhite" ,isViewAllVisible: false){
+           TableHeaderView(title: "Movies on Theatre", imageName: "clapperboardWhite", isActive: $isActive ,isViewAllVisible: false, popShowed: $showTheaterSelectPopup){
                MoviesListView()
            }
            HStack {
@@ -77,7 +79,7 @@ struct MovieView: View {
                        ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
                            NavigationLink(destination: MovieDetailView(movie:movie)) {
                            MovieCardView(model: movie).frame(width: 150, height: 250)
-                           }
+                           }.isDetailLink(false)
                            }
                }
            }.padding(.leading,5)
@@ -90,12 +92,12 @@ struct MovieView: View {
                        ForEach(dashboardServices.moneCinemas, id: \.id) { movie in
                            NavigationLink(destination: MovieDetailView(movie:movie)) {
                            MovieCardView(model: movie).frame(width: 150, height: 250)
-                           }
+                           }.isDetailLink(false)
                            }
                }
            }.padding(.leading,5)
 
-           TableHeaderView(title: "Theatres", imageName: "clapperboardWhite",isViewAllVisible: false){
+           TableHeaderView(title: "Theatres", imageName: "clapperboardWhite", isActive: $isActive,isViewAllVisible: false, popShowed: $showTheaterSelectPopup){
                Text("")
            }
            HStack {
@@ -124,7 +126,7 @@ struct MovieView: View {
 //                        MovieCardView(model: movie)
 //            }
           
-       }.background(Color("ColorAppGrey")).navigationBarHidden(true)
+       }.background(Color("ColorAppGrey")).navigationBarHidden(true).navigationViewStyle(.stack)
 }
     
 }
