@@ -182,7 +182,7 @@ enum SideMenuType {
         case .changePassword:
             return "Change Password"
         case .termsAndCondition:
-            return "Terms and Conition"
+            return "Terms and Condition"
         case .privacyAndPolicy:
             return "Privacy and Policy"
         case .logout:

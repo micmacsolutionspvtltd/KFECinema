@@ -21,8 +21,24 @@
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>1312073875795599</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb1312073875795599</string>
+      </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>1312073875795599</string>
+    <key>KFE cinemas</key>
+    <string>KFE cinemas</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+    </array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIImageName</key>

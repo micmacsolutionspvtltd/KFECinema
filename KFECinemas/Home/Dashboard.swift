@@ -26,49 +26,54 @@ struct Dashboard: View {
     
     ]
     @State var showLoader : Bool = true
+    @State var showToast : Bool? = false
     @State var showTheaterSelectPopup : Bool? = false
     @State var passwordPopup : Bool? = false
         // @State var moActive : Bool = false
+    @State var toastMsgs : String = "Incorrect password"
     @State var nonActive : Bool = false
     @EnvironmentObject var dashboardServices:DashboardServices
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
-
-//    @State var showMenu : Bool = false
-//    @State var offset : CGFloat = 0
-//    @State var lastOffset : CGFloat = 0
-    
-//    var body: some View {
-//        VStack {
-//            Text("Naveen")
-//        }
-//    }
+  //  let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    @State var nextPage = 0
+  //  var proxy: ScrollViewProxy? = nil
     var body: some View {
         NavigationView{
             ZStack {
                 ScrollView(showsIndicators: false){
                     AppBarView(openMenu: self.openMenu)
-                    ScrollViewReader { scrollView in
+                    ScrollViewReader { (proxy: ScrollViewProxy) in
                         ScrollView(.horizontal,showsIndicators: false) {
-                            LazyHStack {
+                            HStack {
                                 ForEach(dashboardServices.bannerImages, id: \.id) { banner in
                                     let bannerModel:BannerModel = banner
                                     let url = Endpoint.bannerImages.url + bannerModel.imageURL
                                     BannerImageView(withURL: url)
-                                    
                                 }
                             }
-                            
+//                            .onReceive(timer, perform: { _ in
+//                                if dashboardServices.bannerImages.count != 0{
+//                                nextPage += 1
+//                                if dashboardServices.bannerImages.count == nextPage{
+//                                    nextPage = 0
+//                                }
+//
+//                            }
+//                            })
                             .onAppear {
-                                dashboardServices.getAllBannerImages()
-                                
-                                
+//                                dashboardServices.getAllBannerImages(completionHandler: ({ result in
+//
+//                                }))
+                              //  scrollView.scrollTo(notes[notes.endIndex - 1])
                             }
-                            
+//                            .onChange(of: nextPage, perform: { value in
+//                                withAnimation {
+//                                    proxy.scrollTo((value), anchor: .center)
+//                                }
+//                            })
                             
                         }
-                        .onChange(of: dashboardServices.bannerImages.count, perform: { value in
-                            scrollView.scrollTo(dashboardServices.bannerImages.count-1)
-                        })
+                      
                         
                         
                     }
@@ -174,7 +179,7 @@ struct Dashboard: View {
                 }
                 if passwordPopup ?? false{
                     GeometryReader{_ in
-                        ChangePasswordView(hidePopUp: $passwordPopup)
+                        ChangePasswordView(showToast: $showToast, hidePopUp: $passwordPopup, toastMsg: $toastMsgs)
                         .frame(width: 340, height: 340)
                         .background(Color.white)
                         .background(Color.white)
@@ -194,7 +199,10 @@ struct Dashboard: View {
         }.onAppear {
             showTheaterSelectPopup = false
             storeDataViewModel.deleteAllDatas()
-            dashboardServices.getAllBannerImages()
+          //  dashboardServices.getAllBannerImages()
+            dashboardServices.getAllBannerImages(completionHandler: ({ result in
+                
+            }))
             dashboardServices.getAllFilms()
             dashboardServices.getAllSpiceKitchenItems()
             dashboardServices.getConcessionZoneItems()
@@ -208,6 +216,7 @@ struct Dashboard: View {
             .environment(\.rootPresentationMode, self.$isActive)
            // .createLoader(isShowing: $showLoader)]
             .loaderView(isShowing: $showLoader)
+            .toast(isShowing: $showToast, textContent : toastMsgs)
     }
     
     func openMenu() {
@@ -217,7 +226,7 @@ struct Dashboard: View {
 
 struct Dashboard_Previews: PreviewProvider {
     static var previews: some View {
-        Dashboard()
+        Dashboard( toastMsgs: "")
     }
 }
 

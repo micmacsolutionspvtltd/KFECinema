@@ -25,7 +25,7 @@ class DashboardServices:ObservableObject {
     @Published var spiceCinemas : [AllFilms] = []
     @Published var moneCinemas  : [AllFilms] = []
     @Published var upcomingMovies  : [AllFilms] = []
-    func getAllBannerImages(){
+    func getAllBannerImages(completionHandler : @escaping ([BannerModel]) -> Void){
         
  
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.getBannerImages))!
@@ -33,6 +33,7 @@ class DashboardServices:ObservableObject {
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
                     bannerImages = result?.banners ?? []
+                    completionHandler(result?.banners ?? [])
                 }else{
                     
                 }
@@ -188,7 +189,7 @@ class DashboardServices:ObservableObject {
         
     }
                     
-    func changePassWordApi(newPassword : String ,oldPassword : String , completionHandler : @escaping (SignUpDataModel) -> Void){
+    func changePassWordApi(newPassword : String ,oldPassword : String , completionHandler : @escaping (PromoCheckModel) -> Void){
      //   let params : [String : String]
         let params : [String : String] = [
             "new_password":newPassword,
@@ -196,7 +197,7 @@ class DashboardServices:ObservableObject {
             "user_id" : StorageSettings().userId
         ]
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.updatePassword , requestBody : params))!
-        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: SignUpDataModel.self) { (restValue, result, error) in
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: PromoCheckModel.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true {
                     completionHandler(result!)

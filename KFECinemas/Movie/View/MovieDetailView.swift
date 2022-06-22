@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieDetailView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode> 
 
 
     @State private var isActive : Bool = false
@@ -68,9 +68,9 @@ struct MovieDetailView: View {
                 BookTicketView(movie: movie)
             }label: {
                 Text("BOOK TICKET").padding().frame(maxWidth: .infinity).background(.red)
-            }
+            }.isDetailLink(false)
            
-           
+            .navigationViewStyle(.stack)
         }.background(Color("ColorAppGrey")).ignoresSafeArea().navigationBarHidden(true)
     }
 }

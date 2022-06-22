@@ -15,6 +15,7 @@ class MovieServices:ObservableObject {
     @Published var selectedSeats:[Seat] = []
     @Published var selectedScreen:BookSeatModel?
     @Published var checkoutDetails:CheckoutModel?
+    @Published var cinemaStrid : String? = ""
 
     func getAllshows(requestBody:[String:String]){
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.allShowsByFilm,requestBody: requestBody))!
@@ -22,7 +23,14 @@ class MovieServices:ObservableObject {
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: ShowsResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
+                    for show in result?.data ?? []{
+                        if show.shows?.count != 0{
+                            cinemaStrid = show.shows?[0].strTicketType
+                        }
+                      
+                    }
                     shows = result?.data ?? []
+                    
                 }else{
                     
                 }

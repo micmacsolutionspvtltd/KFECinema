@@ -32,18 +32,20 @@ struct CartAddItemCell: View {
                     itemQuantity -= 1
                     for i in 0..<storeDataViewModel.items.count{
                         if storeDataViewModel.items[i].foodId == itemId{
-                            storeDataViewModel.items.remove(at: i)
+                          //  storeDataViewModel.items.remove(at: i)
                             if itemQuantity == 0{
                           //      addButtonClick = false
+                                getDataValue()
                                 break
                             }else{
                                 let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: catId)
                                 storeDataViewModel.items.insert(item, at: i)
+                                getDataValue()
                                // break
                             }
                         }
                     }
-                    getDataValue()
+                   
                 } label: {
                     Text("-")
                  .foregroundColor(Color.white)

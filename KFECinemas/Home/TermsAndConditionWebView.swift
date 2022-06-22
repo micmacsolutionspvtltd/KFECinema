@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TermsAndConditionWebView: View {
-    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode> 
 
     @State var urlName :  String?
     var pageName : String

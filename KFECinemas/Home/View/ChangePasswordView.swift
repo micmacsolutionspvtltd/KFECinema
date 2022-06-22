@@ -15,7 +15,9 @@ struct ChangePasswordView: View {
     @State private var showExistingPassword = false
     @State private var showNewPassword = false
     @State private var confirmNewPasswordShow = false
+    @Binding var showToast : Bool?
     @Binding var hidePopUp : Bool?
+    @Binding var toastMsg : String
    @ObservedObject var viewModel = DashboardServices()
     var body: some View {
         VStack {
@@ -58,7 +60,7 @@ struct ChangePasswordView: View {
                 
             }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
             HStack {
-                if showNewPassword{
+                if confirmNewPasswordShow{
                     TextField("Confirm your new Password", text: $confirmNewPassword)
                     
                 }else{
@@ -73,7 +75,7 @@ struct ChangePasswordView: View {
                     }
                 }){
                     
-                    Image(systemName: showNewPassword ? "eye" : "eye.slash").background(Color.gray)
+                    Image(systemName: confirmNewPasswordShow ? "eye" : "eye.slash").background(Color.gray)
                     
                     
                 }
@@ -91,23 +93,43 @@ struct ChangePasswordView: View {
                 }.frame(width: 100).padding()
                     .background(Constants.CustomColors.colorAppGrey).cornerRadius(.infinity)
                     .overlay(RoundedRectangle(cornerRadius: .infinity)
-                                .stroke(Constants.CustomColors.colorAppleDark, lineWidth: 4))
+                        .stroke(Color.red, lineWidth: 4))
                 Spacer()
                 
                 Button{
+                   if existingPassword.count == 0 {
+                        toastMsg = "Please enter old password "
+                        showToast = true
+                        return
+                    }else if newPassword.count == 0 {
+                        toastMsg = "Please enter New password "
+                        showToast = true
+                        return
+                    }else if confirmNewPassword.count == 0  {
+                        toastMsg = "Please enter New password "
+                        showToast = true
+                        return
+                    }else if newPassword != confirmNewPassword{
+                        toastMsg = "Password new password and confirm password not same"
+                        showToast = true
+                        return
+                    }
                     viewModel.changePassWordApi(newPassword: newPassword, oldPassword: existingPassword, completionHandler: ({ result in
-//                        if result.status == "Fail"{
-//
-//                        }else{
-//
-//                        }
+                        if result.status == "Fail"{
+                            toastMsg = "Entered password incorrect please try again"
+                            showToast = true
+                        }else{
+                            toastMsg = "Password changed suceessfully"
+                            showToast = true
+                            hidePopUp = false
+                        }
                     }))
 
                 }label: {
                     Text("OK").fontWeight(.bold).foregroundColor(Color.white)
 
                 }.frame(width: 100).padding()
-                    .background(Constants.CustomColors.colorAppleDark)
+                    .background(Color.red)
                     .clipShape(Capsule())
 
                 Spacer()
@@ -119,6 +141,6 @@ struct ChangePasswordView: View {
 
 struct ChangePasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangePasswordView(hidePopUp: .constant(false))
+        ChangePasswordView(showToast: .constant(false), hidePopUp: .constant(false), toastMsg: .constant(""))
     }
 }

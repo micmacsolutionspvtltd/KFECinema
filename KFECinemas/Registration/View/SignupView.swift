@@ -16,8 +16,7 @@ struct SignupView: View {
     @State private var showPassword = false
     @State private var confirmPasswordShow = false
     @State var loginType : String = "1"
-    @Environment(\.presentationMode) var presentationMode
-    @State var moveNextPage : Bool = false
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode> 
     @EnvironmentObject var viewModel: UserAuthModel
 
     var body: some View {
@@ -82,7 +81,7 @@ struct SignupView: View {
                         viewModel.signUpApi(mobno: mobileNumber, emailId: emailId, password: password, name: userName, loginMethod: "1") { result in
                             if result.status == 1{
                                 self.presentationMode.wrappedValue.dismiss()
-                              //  moveNextPage = true
+                                //  moveNextPage = true
                             }
                         }
                     }) {
@@ -102,7 +101,7 @@ struct SignupView: View {
                         userName = result.profile?.name ?? ""
                         loginType = "2"
                     })
-                  //  SocialLogin.attemptLoginGoogle()
+                    //  SocialLogin.attemptLoginGoogle()
                 }) {
                     HStack(alignment: .center, spacing: 5.0) {
                         Spacer()
@@ -150,27 +149,22 @@ struct SignupView: View {
                 .background(Color.gray)
                 .cornerRadius(.infinity)
                 .padding(EdgeInsets(top: 10, leading: 15, bottom: 15, trailing: 15))
-           // }
                 VStack(alignment: .center, spacing: 15.0){
                     HStack{
                         Text("Already Have an account? ").foregroundColor(Color.gray)
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
-
+                            
                         }) {
                             Text("Sign In").fontWeight(.bold).foregroundColor(Color.red)
-
+                            
                         }
                     }.padding(.horizontal)
                 }.padding(.bottom, 40.0)
             }.background(Color.black)
-               
+            
         }.navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
-        NavigationLink(destination: LoginView(), isActive: $moveNextPage){
-       
-                       }
-        
+            .navigationBarBackButtonHidden(true)
     }
 }
 

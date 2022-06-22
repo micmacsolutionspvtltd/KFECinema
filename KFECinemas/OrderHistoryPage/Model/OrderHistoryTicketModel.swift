@@ -84,7 +84,7 @@ struct MovieDetails: Codable , Hashable{
     let seatNo, isSnacksOrdered, snacksPickup, isFoodOrdered: String?
     let foodPickup, totalAmount: String?
     let snacksOrderID , orderConfirmId : String?
-    let isSnacksDelivered, snacksDeliveryAmt: String?
+    let isSnacksDelivered, snacksDeliveryAmt , discountAmt: String?
 
     enum CodingKeys: String, CodingKey {
         case bookingID = "booking_id"
@@ -109,6 +109,7 @@ struct MovieDetails: Codable , Hashable{
         case snacksDeliveryAmt = "snacks_delivery_amt"
         case email = "email"
         case orderConfirmId = "order_confirm_id"
+        case discountAmt = "total_amt_discounted"
         
     }
 }

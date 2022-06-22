@@ -23,10 +23,10 @@ struct KFECinemasApp: App {
          //   NavigationView{
                 if storageSettings.userId != "" {
                     Dashboard()
-                        .environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel()).environmentObject(MovieServices())
+                        .environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel()).environmentObject(MovieServices()).environment(\.colorScheme, .light)
                 }else{
                         LoginView()
-                        .environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel()).environmentObject(MovieServices())
+                        .environmentObject(storageSettings).environmentObject(UserAuthModel()).environmentObject(DashboardServices()).environmentObject(CartAddFunctionalityViewModel()).environmentObject(PromoViewModel()).environmentObject(MovieServices()).environment(\.colorScheme, .light)
                 }
           //  }.navigationViewStyle(.stack).navigationViewStyle(StackNavigationViewStyle())
    
@@ -47,6 +47,7 @@ struct KFECinemasApp: App {
 }
 class AppDelegate : NSObject , UIApplicationDelegate{
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+ 
         Settings.shared.appID = "fb636968437734329"
         return true
     }

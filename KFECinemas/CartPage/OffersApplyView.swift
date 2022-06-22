@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OffersApplyView: View {
-    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode : Binding<PresentationMode>
     @ObservedObject var viewModel = CartAddFunctionalityViewModel()
     @EnvironmentObject var promoDataViewModel : PromoViewModel
     @State var getPromoCodeData : PromoCheckModel?

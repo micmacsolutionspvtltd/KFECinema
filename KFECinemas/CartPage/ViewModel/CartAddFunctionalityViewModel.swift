@@ -138,9 +138,10 @@ class CartAddFunctionalityViewModel : ObservableObject{
 //            "total_amt_after_discounted" : discountPrice,
 //            "is_vip_card_used" : "",
 //            "vip_card_id" : "",
-//
-//
 //        ]
+        
+        
+        
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.insertOrderItem,requestBody: params))!
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: FoodOrderResponseModel.self) { (restValue, result, error) in
             DispatchQueue.main.async {

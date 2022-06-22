@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OrderHistoryView: View {
-    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode> 
 
     var orderItemNames : String = ""
     @State var clickingButton : String = "Ticket"

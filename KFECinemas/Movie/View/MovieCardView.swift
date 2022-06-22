@@ -11,7 +11,7 @@ struct MovieCardView: View {
     var model:AllFilms
     var body: some View {
         VStack(alignment: .leading){
-            if model.imageURL == ""{
+            if model.imageURL == "" || model.imageURL == nil{
                 Image("movieImgLatest").renderingMode(.original)
                     .resizable().cornerRadius(5)
                     .frame(width:150,height: 200)

@@ -9,7 +9,6 @@ import SwiftUI
 import Razorpay
 
 struct CheckoutView: View {
-    @Environment(\.presentationMode) var presentationMode : Binding<PresentationMode>
     @EnvironmentObject var movieServices:MovieServices
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
     @EnvironmentObject var promoDataViewModel : PromoViewModel
@@ -25,7 +24,7 @@ struct CheckoutView: View {
     @State var errorPopup : Bool? = false
     @State var toastMsg : String = "Not valid"
     @State var showLoader : Bool = false
-    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+    @Environment(\.rootPresentationMode)  var rootPresentationMode: Binding<RootPresentationMode>
     var body: some View {
 //        GeometryReader { geometry in
         ZStack(alignment:.bottom){
@@ -73,7 +72,7 @@ struct CheckoutView: View {
                             if storeDataViewModel.items.count != 0{
                                 CheckoutHeadingView(header: "Snacks Order", value: "\(storeDataViewModel.items.count)")
                             }else{
-                                CheckoutHeadingView(header: "Snacks Order", value: "Nil")
+                                CheckoutHeadingView(header: "", value: "")
                             }
                            
                            
@@ -88,18 +87,28 @@ struct CheckoutView: View {
                             ForEach((storeDataViewModel.items), id : \.self){ item in
                                 
                                 CartAddItemCell(itemNames: item.foodName, itemPrice: (Float(item.foodPrice ?? "0.00") ?? 0.00), itemQuantity: (Int(item.foodQuantity ?? "0") ?? 0),itemId: item.foodId , catId: item.categoryId, getDataValue:({
-                                    //  dbViewModel.getAllDataFromTable()
-                                    //   getTotalAmount = calculatingTotalPrice()
+                                    if storeDataViewModel.items.count != 0{
+                                    if promoDataViewModel.promoId != ""{
+                                        storeDataViewModel.offerCalculationApi(promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice()) { result in
+                                            self.applyCouponData = result
+                                        }
+                                    }
+                                    }else{
+                                       // if promoDataViewModel.promoId != ""{
+                                            promoDataViewModel.promoId = ""
+                                            promoDataViewModel.promoCode = ""
+                                      //  }
+                                    }
                                 }))
                                 .background(Color("ColorAppGrey"))
                                 .frame(height: 70)
                                 .cornerRadius(5)
                                 .listRowBackground(Color.black)
-                              //  .background(Color.black)
+                                //  .background(Color.black)
                             }
                         }.listStyle(GroupedListStyle())
                             .frame(height: UIScreen.main.bounds.height/4)
-                           
+                        
                     }
                     if storeDataViewModel.items.count != 0{
                       
@@ -271,7 +280,7 @@ struct CheckoutView: View {
                     }))
                 })
             }
-            NavigationLink(destination: TicketReciptView(lastPage: "checkout" , movieName: movieServices.checkoutDetails?.movieName ?? "", showDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "" , theatreName: (movieServices.checkoutDetails?.theatreName ?? "") , screenName: (movieServices.checkoutDetails?.screenName ?? "") , seatNumber: ((movieServices.selectedSeats[0].ticketType ?? "") + "- " +  movieServices.calculateSeats().removeWhitespace()), bookingId: bookingConfirmId , snacksName: ((getFinalPaymentProcessData().1) + " x " + (getFinalPaymentProcessData().2)), ticketPrice: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksprice: storeDataViewModel.calculateTotalPrice(), deliverPrice: snacksOrderMode == "0" ? "" : "10", totalPrice: calculateTotalPrice), isActive: $moveTicketReciptView){
+            NavigationLink(destination: TicketReciptView(lastPage: "checkout" , movieName: movieServices.checkoutDetails?.movieName ?? "", showDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "" , theatreName: (movieServices.checkoutDetails?.theatreName ?? "") , screenName: (movieServices.checkoutDetails?.screenName ?? "") , seatNumber: ((movieServices.selectedSeats[0].ticketType ?? "") + "- " +  movieServices.calculateSeats().removeWhitespace()), bookingId: bookingConfirmId , snacksName: ((getFinalPaymentProcessData().1) + " x " + (getFinalPaymentProcessData().2)), ticketPrice: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksprice: storeDataViewModel.calculateTotalPrice(), deliverPrice: snacksOrderMode == "0" ? "" : "10", totalPrice: ((promoDataViewModel.promoId == "") ? calculateTotalPrice : calculateTotalPrice) , discountAmount: ((promoDataViewModel.promoId == "") ? "" : (applyCouponData?.data?.calculatedDiscountAmount ?? "0"))), isActive: $moveTicketReciptView){
            
             }.isDetailLink(false)
          
@@ -294,14 +303,18 @@ struct CheckoutView: View {
     }
     func bookingidChangeApi(id : String){
         movieServices.finalOrderBookingApi(seatConfirmId: seatConfirmId , bookConfirmId: id , completionHandler: { finalResult in
-            showLoader = false
+            
            
             toastMsg = "Ticket booked sucessfully"
             errorPopup = true
-            promoDataViewModel.promoCode = ""
-            promoDataViewModel.promoId = ""
-            storeDataViewModel.deleteAllDatas()
-            moveTicketReciptView = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                showLoader = false
+                promoDataViewModel.promoCode = ""
+                promoDataViewModel.promoId = ""
+              //  storeDataViewModel.deleteAllDatas()
+                moveTicketReciptView = true
+            }
+          
           //  movieServices.selectedSeats = []
           //  storeDataViewModel.deleteAllDatas()
 

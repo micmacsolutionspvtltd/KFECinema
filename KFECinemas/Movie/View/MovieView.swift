@@ -28,7 +28,7 @@ struct MovieView: View {
     @State var showTheaterSelectPopup : Bool? = false
     @State var isActive : Bool = false
     @EnvironmentObject var dashboardServices:DashboardServices
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode> 
     var body: some View {
         
        return  ScrollView(showsIndicators:false){

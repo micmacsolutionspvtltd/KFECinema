@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookSeatView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode> 
   
     @EnvironmentObject var movieServices:MovieServices
     var model:BookSeatModel
@@ -113,7 +113,11 @@ struct BookSeatView: View {
 
             }else{
                 NavigationLink( isActive : self.$isActive){
-                    SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView")
+                    if model.theatreName == "Spice  Cinemas"{
+                        SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView",theaterID : "8",theaterName : model.theatreName)
+                    }else{
+                        SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView",theaterID : "2", theaterName : model.theatreName)
+                    }
                 } label: {
                     HStack(spacing :20){
                         Text("\(movieServices.selectedSeats[0].ticketType ?? "")- \(movieServices.calculateSeats())").fontWeight(.bold)

@@ -10,9 +10,9 @@ import SwiftUI
 
 struct SpiceKitchenView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+    @Environment(\.rootPresentationMode) var rootPresentationMode: Binding<RootPresentationMode>
     @State private var isActive : Bool = false
-
+    
     @State var bannerImageData: FoodBannerImageModel?
     @State var getConcessionData : FoodListModel?
     @State var getSpiceKitchenData: SpiceKitchenModel?
@@ -23,246 +23,207 @@ struct SpiceKitchenView: View {
     @ObservedObject var viewModel = FoodListViewModel()
     @EnvironmentObject var movieServices:MovieServices
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
-
-    @State var getCartDatas : Bool? = false
     @State var showingAlert = false
     @State var moveNextPage : Bool = false
     @State var showLoader : Bool = true
     var theaterID : String = "8"
-
+    var theaterName : String = "Spice Cinemas"
     var body: some View {
         GeometryReader { geometry in
             ZStack{
-              ScrollView {
-                VStack{
+                ScrollView {
                     VStack{
-                    ScrollView{
-                   
-                    ZStack{
-                        Text(pageName)
-                            .font(.system(size: 22))
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .accentColor(Color.white)
-                        HStack{
-                            HStack(alignment: .bottom ){
-                               // NavigationLink{
-                                Button{
-                                  //  Dashboard()
-                                    if lastPage == "bookSeatView"{
-                                        showingAlert = true
-                                    }else{
-                                        storeDataViewModel.deleteAllDatas()
-                                        presentationMode.wrappedValue.dismiss()
-                                    }
-                                    
-                                }label: {
-                                    
-                                    
-                                    Image(systemName: "arrow.left")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25.0, height: 25.0)
-                                        .foregroundColor(.white)
-                                    
-                                }
-                                Spacer()
-                            }
-                        }
-                    }
-                    .padding(EdgeInsets(top: 30, leading: 10, bottom: 20, trailing: 20))
-                    .frame(minWidth: geometry.size.width,maxHeight: 60)
-                    .background(Color.red)
-                    //   HStack{
-                    ScrollViewReader { scrollView in
-                        ScrollView(.horizontal) {
-                            LazyHStack {
-                                ForEach(bannerImageData?.data ?? [], id: \.id) { banner in
-                               // ForEach(0..<5) { banner in
-                                    let url = Endpoint.foodBannerImages.url + (banner.foodImageURL ?? "")
-                                    BannerImageView(withURL: url)
-                                    //    .cornerRadius(10)
-                                      //  .frame(height: 100)
-                                }
-                            }
-                        //    .onAppear {
-                               
-                                // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
-                           // }
-                        }
-                    }
-//                    HStack{
-//                        Spacer()
-//                        Button {
-//                            if vegClicked{
-//                               vegClicked = false
-//                            }else{
-//                               vegClicked = true
-//                            }
-//                        } label: {
-//                            HStack{
-//                                Text("Veg")
-//                                    .foregroundColor(.white)
-//
-//                                Image(systemName: "circle.circle.fill")
-//                                    .resizable()
-//                                    .frame(width: 15, height: 15)
-//                                    .foregroundColor(.green)
-//                                    .background(Color.white)
-//                                if vegClicked{
-//                                    Text("X")
-//                                 .foregroundColor(.white)
-//                                }else{
-//                               //  Spacer()
-//                                }
-//
-//                            }.frame(width: 120)
-//                                .padding()
-//                                .background(vegClicked ? Color.gray : Color.black)
-//                                .cornerRadius(.infinity)
-//                                .overlay(
-//                                    RoundedRectangle(cornerRadius: .infinity)
-//                                        .stroke(Color.red, lineWidth: 2)
-//                                )
-//
-//
-//
-//
-//                        }
-//
-//                    }
-                }
-                }
-                    ZStack{
-                        Color.black
-                            .edgesIgnoringSafeArea(.all)
-                    VStack{
-                    if #available(iOS 14.0, *) {
-                        if pageName == "Spice Kitchen"{
-                            List{
-                                ForEach(getSpiceKitchenData ?? [] , id :\.self){ sectionData in
-                                    if let itemDatas = sectionData.itemsInfo {
-                                        if itemDatas.count != 0{
-                                            Section(header : Text(sectionData.subCatName ?? "")) {
-                                                ForEach(sectionData.itemsInfo ?? [] , id : \.self){ rowData in
-//                                                    if vegClicked{
-//                                                        //print(rowData.categoryName ?? "")
-//                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-//                                                   //         dbViewModel.getAllDataFromTable()
-//                                                        }) )
-//                                                            .frame(width: geometry.size.width*0.8,height: 100)
-//                                                        //    .padding(10)
-//                                                            .padding([.leading,.trailing],10)
-//                                                            .background(Color.white)
-//                                                            .cornerRadius(10)
-                                                  //  }else{
-                                             //       Text("Item")
-                                              //              .foregroundColor(Color.black)
-                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-                                                    //        dbViewModel.getAllDataFromTable()
-                                                        }) ) //.listRowBackground(.black)
-                                                        .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
-                                                        .background(Color.white).cornerRadius(7)
-                                                //    }
-                                                
-                                                }
-                                        
-                                                //.listRowBackground(Color.black)
-                                            }.foregroundColor(.white)
-                                        }
-                                    }
+                        VStack{
+                            ScrollView{
                                 
-                                  //  }
-                               
-                                }
-                            }//.listStyle(.sidebar)
-                            .frame(maxWidth: .infinity).edgesIgnoringSafeArea(.all)
-                            .accentColor(.white)
-                            .listStyle(.sidebar)
-                            .background(Color.black)
-                            .frame(height: geometry.size.height-50)
-                        }else{
-                            List{
-                                ForEach(getConcessionData?.data ?? [] , id :\.self){ sectionData in
-                                   // if sectionData.items.count !=0
-                                    if let itemDatas = sectionData.items{
-                                      if itemDatas.count != 0{
-                                            Section(header : Text(sectionData.categoryName ?? "")) {
-                                                ForEach(sectionData.items ?? [] , id : \.self){ rowData in
-                                                    if vegClicked{
-//                                                        if rowData.categoryName == "Veg"{
-//                                                            Text("Items")
-//                                                        }
-//                                                        if rowData.categoryName == ""{
-//
-//                                                        }
-                                                     //   print(rowData.categoryName!)
-                                                    }else{
-                                                        DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
-                                           //                 dbViewModel.getAllDataFromTable()
-                                                            
-                                                        }) )
-                                                        
-                                                        .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
-                                                        .background(Color.white).cornerRadius(7)
-                                                    }
-                                                    
-                                                    
+                                ZStack{
+                                    Text(pageName)
+                                        .font(.system(size: 22))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .multilineTextAlignment(.center)
+                                        .lineLimit(nil)
+                                        .accentColor(Color.white)
+                                    HStack{
+                                        HStack(alignment: .bottom ){
+                                            Button{
+                                                if lastPage == "bookSeatView"{
+                                                    showingAlert = true
+                                                }else{
+                                                    storeDataViewModel.deleteAllDatas()
+                                                    presentationMode.wrappedValue.dismiss()
                                                 }
-                                            }.foregroundColor(.white)
+                                                
+                                            }label: {
+                                                
+                                                
+                                                Image(systemName: "arrow.left")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 25.0, height: 25.0)
+                                                    .foregroundColor(.white)
+                                                
+                                            }
+                                            Spacer()
                                         }
-                                   }
-                         
+                                    }
                                 }
-                            }//.listStyle(.sidebar)
-                            //                   // }
-                            .frame(maxWidth: .infinity).edgesIgnoringSafeArea(.all)
-                            
-                            .accentColor(.white)
-                            .listStyle(.sidebar)
-                            .background(Color.black)
-                            .frame(height: geometry.size.height-50)
+                                .padding(EdgeInsets(top: 30, leading: 10, bottom: 20, trailing: 20))
+                                .frame(minWidth: geometry.size.width,maxHeight: 60)
+                                .background(Color.red)
+                                //   HStack{
+                                ScrollViewReader { scrollView in
+                                    ScrollView(.horizontal) {
+                                        LazyHStack {
+                                            ForEach(bannerImageData?.data ?? [], id: \.id) { banner in
+                                                let url = Endpoint.foodBannerImages.url + (banner.foodImageURL ?? "")
+                                                BannerImageView(withURL: url)
+                                                
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                                HStack{
+                                    Spacer()
+                                    Button {
+                                        if vegClicked{
+                                            vegClicked = false
+                                        }else{
+                                            vegClicked = true
+                                        }
+                                    } label: {
+                                        HStack{
+                                            Text("Veg")
+                                                .foregroundColor(.white)
+                                            
+                                            Image(systemName: "circle.circle.fill")
+                                                .resizable()
+                                                .frame(width: 15, height: 15)
+                                                .foregroundColor(.green)
+                                                .background(Color.white)
+                                            if vegClicked{
+                                                Text("X")
+                                                    .foregroundColor(.white)
+                                            }else{
+                                            }
+                                            
+                                        }.frame(width: 120)
+                                            .padding()
+                                            .background(vegClicked ? Color.gray : Color.black)
+                                            .cornerRadius(.infinity)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: .infinity)
+                                                    .stroke(Color.red, lineWidth: 2)
+                                            )
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        ZStack{
+                            Color.black
+                                .edgesIgnoringSafeArea(.all)
+                            VStack{
+                                if #available(iOS 14.0, *) {
+                                    if pageName == "Spice Kitchen"{
+                                        List{
+                                            ForEach(getSpiceKitchenData ?? [] , id :\.self){ sectionData in
+                                                if let itemDatas = sectionData.itemsInfo {
+                                                    if itemDatas.count != 0{
+                                                        Section(header : Text(sectionData.subCatName ?? "")) {
+                                                            ForEach(sectionData.itemsInfo ?? [] , id : \.self){ rowData in
+                                                                if vegClicked{
+                                                                    VegItemsOnlyShow(foodDatas: rowData)
+                                                                }else{
+                                                                    DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
+                                                                    }) )
+                                                                    .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
+                                                                    .background(Color.white).cornerRadius(7)
+                                                                }
+                                                            }
+                                                        }.foregroundColor(.white)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .frame(maxWidth: .infinity).edgesIgnoringSafeArea(.all)
+                                        .accentColor(.white)
+                                        .listStyle(.sidebar)
+                                        .background(Color.black)
+                                        .frame(height: geometry.size.height-50)
+                                    }else{
+                                        List{
+                                            ForEach(getConcessionData?.data ?? [] , id :\.self){ sectionData in
+                                                if let itemDatas = sectionData.items{
+                                                    if itemDatas.count != 0{
+                                                        Section(header : Text(sectionData.categoryName ?? "")) {
+                                                            ForEach(sectionData.items ?? [] , id : \.self){ rowData in
+                                                                if vegClicked{
+                                                                    VegItemsOnlyShow(foodDatas: rowData)
+                                                                }else{
+                                                                    DishViewCell(textContent: rowData.itemName ?? "", amount: rowData.price ?? "", images: rowData.image ?? "",buttonTittle : rowData.categoryName ?? "",allRowData : rowData,getDataValue :({
+                                                                        
+                                                                    }) )
+                                                                    
+                                                                    .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
+                                                                    .background(Color.white).cornerRadius(7)
+                                                                }
+                                                                
+                                                                
+                                                            }
+                                                        }.foregroundColor(.white)
+                                                    }
+                                                }
+                                                
+                                            }
+                                        }
+                                        .frame(maxWidth: .infinity).edgesIgnoringSafeArea(.all)
+                                        
+                                        .accentColor(.white)
+                                        .listStyle(.sidebar)
+                                        .background(Color.black)
+                                        .frame(height: geometry.size.height-50)
+                                    }
+                                    
+                                } else {
+                                    // Fallback on earlier versions
+                                }
+                            }
                         }
                         
-                        // .listStyle(GroupedListStyle())
-                    } else {
-                        // Fallback on earlier versions
                     }
-                }
-                }
                     
                 }
-                    
-            }
                 
                 if storeDataViewModel.items.count == 0{
                     if lastPage != ""{
-                    NavigationLink{
-                        CheckoutView()
-                    }label : {
-                        HStack{
-                            Text("SKIP")
-                                .foregroundColor(.white)
-                                .fontWeight(.bold)
-                               
-                        } .frame(maxWidth: .infinity)
-                            .frame(height : 25)
-                      
-                            .padding(.vertical , 15)
-                            .padding(.horizontal, -15)
-                            
-                            .background(Color.red)
-                            .cornerRadius(8)
-                    }.isDetailLink(false)
-                    .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
+                        NavigationLink{
+                            CheckoutView()
+                        }label : {
+                            HStack{
+                                Text("SKIP")
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
+                            } .frame(maxWidth: .infinity)
+                                .frame(height : 25)
+                                .padding(.vertical , 15)
+                                .padding(.horizontal, -15)
+                                .background(Color.red)
+                                .cornerRadius(8)
+                        }.isDetailLink(false)
+                            .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
                     }
                 }else{
-                    NavigationLink{
+                    NavigationLink(isActive : $isActive)
+                    {
                         if lastPage == ""{
-                            CartPageView(pageNames : pageName)
-
+                            CartPageView(pageNames : pageName , selectedTheaterName : theaterName)
+                            
                         }else{
                             CheckoutView()
                         }
@@ -275,9 +236,8 @@ struct SpiceKitchenView: View {
                             Text("₹ \(storeDataViewModel.calculateTotalPrice())")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-
+                            
                                 .frame(height: 100)
-//                            Spacer()
                             Text("ADD")
                                 .foregroundColor(.red)
                                 .fontWeight(.bold)
@@ -285,28 +245,27 @@ struct SpiceKitchenView: View {
                                 .padding()
                                 .background(Color.black)
                                 .cornerRadius(.infinity)
-//
+                            //
                             
-                       }
+                        }
                         .frame(maxWidth: .infinity)
                         .frame(height : 25)
-                  
+                        
                         .padding(.vertical , 15)
                         .padding(.horizontal, -15)
                         
                         .background(Color.red)
                         .cornerRadius(8)
                     }.isDetailLink(false)
-                    .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
+                        .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
+                }
             }
-        }
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true).navigationViewStyle(.stack)
-            // .background(Color.black)
             .loaderView(isShowing: $showLoader)
             .onAppear(){
-              //  dbViewModel.getAllDataFromTable()
-               // viewModel.getApiData()
+                
+                storeDataViewModel.deleteAllDatas()
                 viewModel.getAllBannerImages{ result in
                     bannerImageData = result
                 }
@@ -326,7 +285,7 @@ struct SpiceKitchenView: View {
                 
             }.background(Color("ColorAppGrey"))
         }.alert(isPresented: $showingAlert){
-        
+            
             Alert(
                 title: Text("CONFIRMATION"),
                 message: Text("Do you want to end the session"),
@@ -334,7 +293,6 @@ struct SpiceKitchenView: View {
                     storeDataViewModel.deleteAllDatas()
                     resetSeatMultipleSeats()
                     rootPresentationMode.wrappedValue.dismiss()
-                  //  moveNextPage = true
                 }),
                 secondaryButton: .cancel(Text("Cancel"), action: { // 1
                     showingAlert = false
@@ -342,22 +300,15 @@ struct SpiceKitchenView: View {
                 })
             )
         }
-        NavigationLink(destination: Dashboard(), isActive: $moveNextPage){
-       
-        }
+        
     }
     func resetSeatMultipleSeats(){
         
-            let filteredArray = movieServices.selectedSeats.filter { value in
-              //  if value.strTransId != nil{
-                    movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
-                    return false
-             //   }
-          
-            }
-            movieServices.selectedSeats = []
-      //  }
-       
+        let filteredArray = movieServices.selectedSeats.filter { value in
+            movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
+            return false
+        }
+        movieServices.selectedSeats = []
     }
 }
 
@@ -367,3 +318,22 @@ struct SpiceKitchenView_Previews: PreviewProvider {
     }
 }
 
+
+
+struct VegItemsOnlyShow:View {
+    var foodDatas:ItemInfo
+   // @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
+    
+    var body: some View {
+        if foodDatas.categoryName == "Veg"{
+
+                DishViewCell(textContent: foodDatas.itemName ?? "", amount: foodDatas.price ?? "", images: foodDatas.image ?? "",buttonTittle : foodDatas.categoryName ?? "",allRowData : foodDatas,getDataValue :({
+                }) )
+                .listStyle(.sidebar).padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
+                .background(Color.white).cornerRadius(7)
+ 
+            
+        }
+    }
+
+}
