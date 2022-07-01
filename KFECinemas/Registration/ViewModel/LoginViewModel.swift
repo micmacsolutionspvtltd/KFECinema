@@ -174,6 +174,39 @@ class UserAuthModel: ObservableObject {
         }
         
     }
+    func viewProfileApi(completionHandler : @escaping((ViewProfileModel) -> Void)){
+        let urlRequest = APIList().getUrlString(url : .VIEWPROFILE)
+        let setRequest = (try?  RequestGenerator.sharedInstance.generateURLRequest(urlValue: urlRequest, requestBody: ["user_id" : StorageSettings().userId]))!
+   //     let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeTwo(endpoint:Endpoint.viewProfile ,  requestBody : ["user_id" : StorageSettings().userId]))!
+        NetWorkManger.sharedInstance.postData(request: setRequest, resultType: ViewProfileModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true {
+                  completionHandler(result!)
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+    }
+    func updateProfileApi(name : String , mobileNumber : String , email :String  , completionHandler : @escaping((ForgetPasswordModel) -> Void)){
+        let urlRequest = APIList().getUrlString(url : .EDITPROFILE)
+        let setRequest = (try?  RequestGenerator.sharedInstance.generateURLRequest(urlValue: urlRequest, requestBody: ["user_id" : StorageSettings().userId , "name" : name , "mobile" : mobileNumber , "mail" : email]))!
+     //   let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.editProfile ,  requestBody : ["user_id" : StorageSettings().userId , "name" : name , "mobile" : mobileNumber , "mail" : email]))!
+        NetWorkManger.sharedInstance.postData(request: setRequest, resultType: ForgetPasswordModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true {
+                
+                  completionHandler(result!)
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+    }
 }
     class FBLogin: LoginManager {
 

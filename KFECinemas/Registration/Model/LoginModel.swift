@@ -14,10 +14,15 @@ struct SignUpDataModel : Codable {
     let reason: String
 }
 
-
-
+// ViewProfileModel
+struct ViewProfileModel: Codable {
+    let status: Int?
+    let reason: String?
+    let data: LoginDatas?
+}
 
 // LoginModel
+
 
 struct LoginDataModel: Codable {
     let status: Int?

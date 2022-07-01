@@ -37,4 +37,6 @@ enum urlString: String
     case PRIVACYPOLICY = "userprivacy.php"
     case CONTACTUS = "contact.php"
     case CANCELTICKET = "cancel.php"
+    case VIEWPROFILE = "profile.php?"
+    case EDITPROFILE = "edit_profile.php"
 }

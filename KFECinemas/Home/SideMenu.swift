@@ -64,6 +64,7 @@ struct SideMenu: View {
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        TabButton(type: SideMenuType.myProfile)
                         Button{
                             changePassword = true
                             self.menuClose()
@@ -107,6 +108,8 @@ struct SideMenu: View {
             switch type {
             case .home:
                  Dashboard()
+            case .myProfile:
+                MyProfilePageView()
             case .movies:
                 MovieView()
             case .bookHistory:
@@ -154,6 +157,7 @@ struct SideMenu_Previews: PreviewProvider {
 
 enum SideMenuType {
     case home
+    case myProfile
     case movies
     case bookHistory
     case spiceKitchen
@@ -171,6 +175,8 @@ enum SideMenuType {
         switch self {
         case .home:
             return "Home"
+        case .myProfile:
+            return "My Profile"
         case .movies:
             return "Movies"
         case .bookHistory:
@@ -198,6 +204,8 @@ enum SideMenuType {
         switch self {
         case .home:
             return "houseIcon"
+        case .myProfile:
+            return "account"
         case .movies:
             return "clapperboard"
         case .bookHistory:

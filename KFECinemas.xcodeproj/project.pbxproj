@@ -30,6 +30,7 @@
 		047E94E828205B6D0051C289 /* CartDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E94E728205B6D0051C289 /* CartDataModel.swift */; };
 		047E950528221C710051C289 /* TicketReciptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E950428221C710051C289 /* TicketReciptView.swift */; };
 		0481D0BD2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0481D0BC2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift */; };
+		048F1718286F1855004A3645 /* MyProfilePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F1717286F1855004A3645 /* MyProfilePageView.swift */; };
 		0498F5DF2813EF76007B2B24 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 0498F5DE2813EF76007B2B24 /* Algorithms */; };
 		04C2B43E28509477008C6CF0 /* RootPresentationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2B43D28509477008C6CF0 /* RootPresentationMode.swift */; };
 		04DDB6ED282814D200E3DD28 /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DDB6EC282814D200E3DD28 /* CustomToastView.swift */; };
@@ -153,6 +154,7 @@
 		047E94E728205B6D0051C289 /* CartDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDataModel.swift; sourceTree = "<group>"; };
 		047E950428221C710051C289 /* TicketReciptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketReciptView.swift; sourceTree = "<group>"; };
 		0481D0BC2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTheaterSelectPopupView.swift; sourceTree = "<group>"; };
+		048F1717286F1855004A3645 /* MyProfilePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfilePageView.swift; sourceTree = "<group>"; };
 		04C2B43D28509477008C6CF0 /* RootPresentationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresentationMode.swift; sourceTree = "<group>"; };
 		04DDB6EC282814D200E3DD28 /* CustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
 		04FE7AE72814F4D5004B9EC4 /* FoodBannerImageMOdel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodBannerImageMOdel.swift; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 			isa = PBXGroup;
 			children = (
 				0C9CBE5627BED41B00DC7386 /* LoginView.swift */,
+				048F1717286F1855004A3645 /* MyProfilePageView.swift */,
 				0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */,
 				D345A43E27E4CBE200D1D5AD /* SignupView.swift */,
 			);
@@ -749,6 +752,7 @@
 				0C13DB3E282A224E006C4D13 /* MovieServices.swift in Sources */,
 				0C2C8C8527F249B600418F99 /* DishViewCell.swift in Sources */,
 				D38A8E9027FE0F3D00B26340 /* DashboardServices.swift in Sources */,
+				048F1718286F1855004A3645 /* MyProfilePageView.swift in Sources */,
 				04C2B43E28509477008C6CF0 /* RootPresentationMode.swift in Sources */,
 				0CA478FA2801E4B2000B5C57 /* ConcessionZoneCardView.swift in Sources */,
 				0C90718628292CFC00835DD7 /* TheatreCardView.swift in Sources */,
