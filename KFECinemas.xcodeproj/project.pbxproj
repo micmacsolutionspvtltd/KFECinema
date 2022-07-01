@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		040BBA1D2848F32C004658AB /* ConfirmSeatsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040BBA1C2848F32C004658AB /* ConfirmSeatsModel.swift */; };
 		0422AFD028262557004B9871 /* PromoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422AFCF28262557004B9871 /* PromoViewModel.swift */; };
+		042984742863493A007AB049 /* CheckoutSnacksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042984732863493A007AB049 /* CheckoutSnacksCell.swift */; };
 		0433B6AD281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */; };
 		0433B6AF281C087F004558B6 /* OrderHistoryTicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6AE281C087F004558B6 /* OrderHistoryTicketModel.swift */; };
 		0433B6B1281C096E004558B6 /* OrderSpiceKitchenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B0281C096E004558B6 /* OrderSpiceKitchenModel.swift */; };
@@ -20,6 +21,7 @@
 		04571144284DDA1000249E48 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04571143284DDA1000249E48 /* WebView.swift */; };
 		04571146284DDDDB00249E48 /* TermsAndConditionWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04571145284DDDDB00249E48 /* TermsAndConditionWebView.swift */; };
 		045CEB372837363D00A871E6 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045CEB362837363D00A871E6 /* PaymentView.swift */; };
+		045D8E4528649CBA00811807 /* SeatAreaChangePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045D8E4428649CBA00811807 /* SeatAreaChangePopupView.swift */; };
 		0460A1B7282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */; };
 		0460A1B9282A4CA700EA4A88 /* ForgetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */; };
 		0460A1BB282A545A00EA4A88 /* ForgetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */; };
@@ -129,6 +131,7 @@
 /* Begin PBXFileReference section */
 		040BBA1C2848F32C004658AB /* ConfirmSeatsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmSeatsModel.swift; sourceTree = "<group>"; };
 		0422AFCF28262557004B9871 /* PromoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoViewModel.swift; sourceTree = "<group>"; };
+		042984732863493A007AB049 /* CheckoutSnacksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutSnacksCell.swift; sourceTree = "<group>"; };
 		0433B6AC281C06E4004558B6 /* OrderHistoryConcessionZoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryConcessionZoneModel.swift; sourceTree = "<group>"; };
 		0433B6AE281C087F004558B6 /* OrderHistoryTicketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryTicketModel.swift; sourceTree = "<group>"; };
 		0433B6B0281C096E004558B6 /* OrderSpiceKitchenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSpiceKitchenModel.swift; sourceTree = "<group>"; };
@@ -141,6 +144,7 @@
 		04571145284DDDDB00249E48 /* TermsAndConditionWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionWebView.swift; sourceTree = "<group>"; };
 		045CEB322837329300A871E6 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Razorpay.xcframework; path = ../../../Documents/UnUsed/RazorpayDemo/Razorpay.xcframework; sourceTree = "<group>"; };
 		045CEB362837363D00A871E6 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
+		045D8E4428649CBA00811807 /* SeatAreaChangePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatAreaChangePopupView.swift; sourceTree = "<group>"; };
 		0460A1B6282A3F7F00EA4A88 /* ForgetPasswordPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordPopupView.swift; sourceTree = "<group>"; };
 		0460A1B8282A4CA700EA4A88 /* ForgetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewModel.swift; sourceTree = "<group>"; };
 		0460A1BA282A545A00EA4A88 /* ForgetPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordModel.swift; sourceTree = "<group>"; };
@@ -306,6 +310,8 @@
 			isa = PBXGroup;
 			children = (
 				0481D0BC2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift */,
+				042984732863493A007AB049 /* CheckoutSnacksCell.swift */,
+				045D8E4428649CBA00811807 /* SeatAreaChangePopupView.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -735,6 +741,8 @@
 				D3CC71B527E8F9C900C33787 /* Constant.swift in Sources */,
 				04FE7AF32816009D004B9EC4 /* CoreDataViewModel.swift in Sources */,
 				D3CC71B827E8F9C900C33787 /* commonExtensions.swift in Sources */,
+				042984742863493A007AB049 /* CheckoutSnacksCell.swift in Sources */,
+				045D8E4528649CBA00811807 /* SeatAreaChangePopupView.swift in Sources */,
 				043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */,
 				0C2C8C8327F238CD00418F99 /* SpiceKitchenView.swift in Sources */,
 				D3CC71AA27E8F93F00C33787 /* Configuration.swift in Sources */,

@@ -10,7 +10,7 @@ import Razorpay
 struct CartPageView: View {
     @Environment(\.presentationMode) private var presentationMode : Binding<PresentationMode>
     @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
-    @State private var isActive : Bool = false
+ //   @State private var isActive : Bool = false
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
     @EnvironmentObject var promoDataViewModel : PromoViewModel
     @State var deliveryCLicked : Bool = true
@@ -22,12 +22,12 @@ struct CartPageView: View {
     @State var selectionMovieDate : Date? = Date.now
     @State var razorPayShow : Bool? = false
    @State var theaterNames = ["M1 Cinemas", "Spice Cinemas"]
-    var screenNames = ["Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"]
-    var showTimes = ["11.30 AM", "03.00 PM", "06.30 PM", "09.45 PM"]
-    var seatArea = ["Premium", "Elite", "Gold"]
-    var takeAwatTime = ["15 Mins", "30 Mins", "45 Mins", "1 Hour"]
+    @State var screenNames  = ["Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"]
+    var showTimes = ["Noon Show", "Matinee Show", "Evening Show", "Night Show", "Special Show"]
+    @State var seatArea = ["Premium", "Elite", "Gold"]
+    var takeAwatTime = ["15 Mins", "30 Mins", "45 Mins", "60 Mins"]
     @State var pageNames : String?
-    @State var selectedTheaterName : String? = ""
+    @State var selectedTheaterName : String? = "Spice Kitchen"
     @State var selectedScreenName : String? = ""
     @State var selectTakeeAwatTime : String? = ""
     @State var selectedShowTime : String? = ""
@@ -114,7 +114,7 @@ struct CartPageView: View {
                                     Button{
                                         deliveryCLicked = true
                                         collectionClicked = false
-                                        selectedTheaterName = ""
+                                        selectedTheaterName = selectedTheaterName ?? "Spice Kitchen"
                                         selectedScreenName = ""
                                         selectedSeatArea = ""
                                         selectedShowTime = ""
@@ -125,7 +125,7 @@ struct CartPageView: View {
                                                 .resizable()
                                                 .frame(width: 15, height: 15)
                                                 .foregroundColor(.white)
-                                            Text("Deliver")
+                                            Text("Deliver at Seat")
                                                 .foregroundColor(.white)
                                             
                                         }.frame(width: 150,alignment: .leading)
@@ -134,7 +134,7 @@ struct CartPageView: View {
                                     Button{
                                         deliveryCLicked = false
                                         collectionClicked = true
-                                        selectedTheaterName = ""
+                                        selectedTheaterName = selectedTheaterName ?? "Spice Kitchen"
                                         selectedScreenName = ""
                                         selectedSeatArea = ""
                                         seatNo = ""
@@ -472,7 +472,10 @@ struct CartPageView: View {
                                     promoDataViewModel.promoId = ""
                                     promoDataViewModel.promoCode = ""
                                     showLoader = false
-                                    rootPresentationMode.wrappedValue.dismiss()
+                                    NavigationUtil.popToRootView()
+//                                    rootPresentationMode.wrappedValue.dismiss()
+//                                    presentationMode.wrappedValue.dismiss()
+                                 //   moveToDashBoard = true
                                 }
                                
                                 //   moveToDashBoard = true
@@ -489,7 +492,10 @@ struct CartPageView: View {
                                 promoDataViewModel.promoId = ""
                                 promoDataViewModel.promoCode = ""
                                 showLoader = false
-                                rootPresentationMode.wrappedValue.dismiss()
+                                     NavigationUtil.popToRootView()
+//                                rootPresentationMode.wrappedValue.dismiss()
+//                                     presentationMode.wrappedValue.dismiss()
+                                    // moveToDashBoard = true
                                  }
                                 //  moveToDashBoard = true
                             }
@@ -502,6 +508,13 @@ struct CartPageView: View {
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
                 .onAppear(){
+                    if selectedTheaterName == "Spice Cinemas"{
+                        seatArea = ["Elite"]
+                        screenNames = ["Screen 1", "Screen 2", "Screen 3"]
+                    }else{
+                        seatArea = ["Premium", "Elite", "Gold"]
+                        screenNames = ["Screen 1", "Screen 2", "Screen 3", "Screen 4", "Screen 5"]
+                    }
                     if promoDataViewModel.promoId != ""{
                         storeDataViewModel.offerCalculationApi(promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice()) { result in
                             self.applyCouponData = result
@@ -511,6 +524,9 @@ struct CartPageView: View {
                     }
                     
                 }
+//            NavigationLink(destination: Dashboard(), isActive: $moveToDashBoard) {
+//                
+//            }
             
         }
         
@@ -598,6 +614,8 @@ struct RazorPayMethod: UIViewControllerRepresentable {
             self.amount = amount
             super.init()
             razorpay =  RazorpayCheckout.initWithKey("rzp_test_F0OI03VaPbNCHU", andDelegate: self)
+        //    razorpay =  RazorpayCheckout.initWithKey("rzp_live_y6W3EW6yAFrjkQ", andDelegate: self)
+
             //rzp_test_F0OI03VaPbNCHU     rzp_live_vq8tmnnZmbWVkx
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 let options: [String:Any] = [

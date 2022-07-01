@@ -97,7 +97,7 @@ struct DishViewCell: View {
                         
                         for i in 0..<storeDataViewModel.items.count{
                             if storeDataViewModel.items[i].foodId == allRowData.id ?? ""{
-                                itemQuantity
+                             //   itemQuantity
                                 storeDataViewModel.items.remove(at: i)
                                 
                                 let item = CartFullDataModel(foodId: allRowData.id ?? "", foodName: allRowData.itemName ?? "", foodPrice: allRowData.price ?? "", totalPrice: calculatePrice(price: Float(allRowData.price ?? "") ?? 0.00, quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: allRowData.categoryID ?? "")

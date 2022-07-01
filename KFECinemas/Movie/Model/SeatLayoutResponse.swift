@@ -28,13 +28,13 @@ struct SeatLayoutResponse: Codable {
 struct SeatLayout: Codable {
     let id = UUID()
     let rowsCount: Int?
-    let strAreaNum, strAreaCode, strAltAreaDesc, strAreaDesc: String?
+    let strAreaNum, strAreaCode, strAltAreaDesc, strAreaDesc , strTicketType: String?
     let amount: Int?
     let rows: [Row]?
 
     enum CodingKeys: String, CodingKey {
         case rowsCount = "RowsCount"
-        case strAreaNum, strAreaCode, strAltAreaDesc, strAreaDesc
+        case strAreaNum, strAreaCode, strAltAreaDesc, strAreaDesc , strTicketType
         case amount = "Amount"
         case rows = "Rows"
     }
@@ -55,7 +55,7 @@ struct Row: Codable,Hashable {
 
 // MARK: - Seat
 struct Seat: Codable,Hashable {
-    let key: String?
+    var key: String?
     let strGroupSeatType: String?
     let intGridSeatNum, dblSeatYPos, dblSeatXPos: Int?
     let strSeatStatus, strSeatNumber: String?

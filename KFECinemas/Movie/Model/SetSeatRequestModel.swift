@@ -13,6 +13,7 @@ struct SetSeatRequestModel {
     let strTicketType: String
     let gridSeatRowID, gridSeatNumber: String
     let rowId:String
+    let areaCode ,areaNum : String
     
     func getJson()->[String:String]{
         return [
@@ -20,11 +21,11 @@ struct SetSeatRequestModel {
             "CinemaCode": self.cinemaCode,
             "strTransId": self.strTransID,
             "lngSessionId": self.lngSessionID,
-            "AreaCode": "0000000014",
+            "AreaCode": self.areaCode,
             "strTicketType": self.strTicketType,
             "SelectedSeats": "1",
-            "AreaCategoryCode":"0000000014",
-            "AreaNumber":"1",
+            "AreaCategoryCode":self.areaCode,
+            "AreaNumber":self.areaNum,
             "GridSeatRowID": self.gridSeatRowID,
             "GridSeatNumber": self.gridSeatNumber,
             "rowId": self.rowId,

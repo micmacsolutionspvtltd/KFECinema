@@ -114,7 +114,7 @@ struct SideMenu: View {
             case .spiceKitchen:
                 SpiceKitchenView(pageName : "Spice Kitchen")
             case .concessionZone:
-                SpiceKitchenView(pageName : "Concession Zone")
+                SpiceKitchenView(pageName : "Concession Zone",theaterName: "Spice Cinemas")
             case .changePassword:
                  Dashboard()
             case .termsAndCondition:

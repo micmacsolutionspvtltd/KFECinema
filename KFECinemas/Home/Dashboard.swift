@@ -36,6 +36,10 @@ struct Dashboard: View {
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
   //  let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State var nextPage = 0
+    @State var spiceKitchenActive : Bool = false
+    @State var movieActive : Bool = false
+    @State private var selectedItem: UUID? = nil
+
   //  var proxy: ScrollViewProxy? = nil
     var body: some View {
         NavigationView{
@@ -89,6 +93,14 @@ struct Dashboard: View {
                             ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
                                 NavigationLink(destination: MovieDetailView(movie:movie ) ) {
                                     MovieCardView(model: movie).frame(width: 150, height: 250)
+//                                        .onTapGesture {
+//                                            self.selectedItem = movie.id
+//                                        }.background(
+//                                            NavigationLink(destination: MovieDetailView(movie : movie), tag: movie.id, selection: $selectedItem, label: {
+//
+//                                            }).isDetailLink(false)
+//                                        )
+                                    
                                 }.isDetailLink(false)
                                 
                             }
@@ -109,7 +121,7 @@ struct Dashboard: View {
                         }
                     }.padding(.leading,5)
                     
-                    TableHeaderView(title: "Spice Kitchen", imageName: "tray", isActive: $nonActive,isViewAllVisible: true, popShowed: $showTheaterSelectPopup){
+                    TableHeaderView(title: "Spice Kitchen", imageName: "tray", isActive: $spiceKitchenActive,isViewAllVisible: true, popShowed: $showTheaterSelectPopup){
                         SpiceKitchenView(pageName : "Spice Kitchen" )
                     }
                     ScrollView(.horizontal,showsIndicators:false) {
@@ -277,11 +289,11 @@ struct AppBarView: View {
             Button(action:{
                 
             }){
-                
-                Image("filter").renderingMode(.template)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 20, height: 20)
+                Text("")
+//                Image("filter").renderingMode(.template)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 20, height: 20)
                 
             }
             

@@ -17,7 +17,7 @@ struct SpiceKitchenView: View {
     @State var getConcessionData : FoodListModel?
     @State var getSpiceKitchenData: SpiceKitchenModel?
     @State var pageName : String = "Spice Kitchen"
-    @State var lastPage : String? = ""
+    var lastPage : String? = ""
     @State var vegClicked : Bool = false
     var lastPagName : String? = ""
     @ObservedObject var viewModel = FoodListViewModel()
@@ -27,7 +27,7 @@ struct SpiceKitchenView: View {
     @State var moveNextPage : Bool = false
     @State var showLoader : Bool = true
     var theaterID : String = "8"
-    var theaterName : String = "Spice Cinemas"
+    var theaterName : String = "M1 Cinemas"
     var body: some View {
         GeometryReader { geometry in
             ZStack{
@@ -219,7 +219,7 @@ struct SpiceKitchenView: View {
                             .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
                     }
                 }else{
-                    NavigationLink(isActive : $isActive)
+                    NavigationLink()
                     {
                         if lastPage == ""{
                             CartPageView(pageNames : pageName , selectedTheaterName : theaterName)
@@ -256,7 +256,7 @@ struct SpiceKitchenView: View {
                         
                         .background(Color.red)
                         .cornerRadius(8)
-                    }.isDetailLink(false)
+                    }//.isDetailLink(false)
                         .position(x: geometry.size.width/2, y: geometry.size.height/1.1)
                 }
             }

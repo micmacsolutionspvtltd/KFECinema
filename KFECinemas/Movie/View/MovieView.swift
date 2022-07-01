@@ -97,9 +97,9 @@ struct MovieView: View {
                }
            }.padding(.leading,5)
 
-           TableHeaderView(title: "Theatres", imageName: "clapperboardWhite", isActive: $isActive,isViewAllVisible: false, popShowed: $showTheaterSelectPopup){
-               Text("")
-           }
+//           TableHeaderView(title: "Theatres", imageName: "clapperboardWhite", isActive: $isActive,isViewAllVisible: false, popShowed: $showTheaterSelectPopup){
+//               Text("")
+//           }
            HStack {
                Text("Upcoming Movies").foregroundColor(.white).opacity(0.7).font(.system(size: 16, weight:.bold))
                Spacer()
@@ -126,7 +126,7 @@ struct MovieView: View {
 //                        MovieCardView(model: movie)
 //            }
           
-       }.background(Color("ColorAppGrey")).navigationBarHidden(true).navigationViewStyle(.stack)
+       }.background(Color("ColorAppGrey")).navigationBarHidden(true)//.navigationViewStyle(.stack)
 }
     
 }

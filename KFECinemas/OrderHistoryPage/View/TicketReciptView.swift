@@ -50,7 +50,8 @@ struct TicketReciptView: View {
                                 Button{
                                   //  Dashboard()
                                     if lastPage == "checkout"{
-                                        self.rootPresentationMode.wrappedValue.dismiss()
+                                        NavigationUtil.popToRootView()
+                                      //  self.rootPresentationMode.wrappedValue.dismiss()
                                     }else{
                                         presentationMode.wrappedValue.dismiss()
                                     }
@@ -206,7 +207,7 @@ struct TicketReciptView: View {
                                     .multilineTextAlignment(.trailing)
                             }
                         }
-                        if deliverPrice != "" && deliverPrice != nil{
+                        if deliverPrice != "" && deliverPrice != nil && deliverPrice != "0"{
                             HStack{
                                 Text("Deliver Price")
                                     .font(.system(size: 15)).multilineTextAlignment(.leading)

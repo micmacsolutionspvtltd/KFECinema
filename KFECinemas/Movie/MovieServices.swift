@@ -40,7 +40,7 @@ class MovieServices:ObservableObject {
         
     }
     
-    func getSeatLayout(requestBody:[String:String]){
+    func getSeatLayout(requestBody:[String:String],completionHandler : @escaping (SeatLayoutResponse) -> Void){
         
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.dev,requestBody: requestBody))!
     
@@ -48,6 +48,7 @@ class MovieServices:ObservableObject {
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
                     seatLayouts = result
+                    completionHandler(result!)
                 }else{
                     
                 }
@@ -70,6 +71,7 @@ class MovieServices:ObservableObject {
                         print(result?.responseMessage ?? "")
                     }else{
                         var seatValue = seat
+                        seatValue.key = seat.key
                         seatValue.strTransId = result?.data?.strTransID
                         seatValue.intBookId = result?.data?.intBookID
                         seatValue.strSeatInfo = result?.data?.strSeatInfo

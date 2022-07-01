@@ -13,8 +13,7 @@ struct CartAddItemCell: View {
     @State var itemQuantity : Int = 0
     @State var itemId : String?
     @State var catId : String?
-    @State var getCartValues : CartDataStorage?
-   // var dbViewModel : DatabaseViewModel? = DatabaseViewModel()
+ 
     var getDataValue : () -> ()
     @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
 
@@ -32,7 +31,7 @@ struct CartAddItemCell: View {
                     itemQuantity -= 1
                     for i in 0..<storeDataViewModel.items.count{
                         if storeDataViewModel.items[i].foodId == itemId{
-                          //  storeDataViewModel.items.remove(at: i)
+                            storeDataViewModel.items.remove(at: i)
                             if itemQuantity == 0{
                           //      addButtonClick = false
                                 getDataValue()

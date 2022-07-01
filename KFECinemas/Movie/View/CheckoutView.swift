@@ -53,8 +53,13 @@ struct CheckoutView: View {
                     HStack(spacing : 20){
                         Text(movieServices.checkoutDetails?.movieName ?? "")
                             .font(Font.system(size: 20)).fontWeight(.bold).lineLimit(nil)
-                        Image("spice_cinemas")
-                            .resizable().frame(width: UIScreen.main.bounds.width/2.2, height: 80)
+                        if movieServices.checkoutDetails?.theatreName == "M1 Cinemas"{
+                            Image("m1_cinemas")
+                                .resizable().frame(width: UIScreen.main.bounds.width/2.2, height: 80)
+                        }else{
+                            Image("spice_cinemas")
+                                .resizable().frame(width: UIScreen.main.bounds.width/2.2, height: 80)
+                        }
                     }
                     CustomDivider()
                     
@@ -280,7 +285,7 @@ struct CheckoutView: View {
                     }))
                 })
             }
-            NavigationLink(destination: TicketReciptView(lastPage: "checkout" , movieName: movieServices.checkoutDetails?.movieName ?? "", showDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "" , theatreName: (movieServices.checkoutDetails?.theatreName ?? "") , screenName: (movieServices.checkoutDetails?.screenName ?? "") , seatNumber: ((movieServices.selectedSeats[0].ticketType ?? "") + "- " +  movieServices.calculateSeats().removeWhitespace()), bookingId: bookingConfirmId , snacksName: ((getFinalPaymentProcessData().1) + " x " + (getFinalPaymentProcessData().2)), ticketPrice: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksprice: storeDataViewModel.calculateTotalPrice(), deliverPrice: snacksOrderMode == "0" ? "" : "10", totalPrice: ((promoDataViewModel.promoId == "") ? calculateTotalPrice : calculateTotalPrice) , discountAmount: ((promoDataViewModel.promoId == "") ? "" : (applyCouponData?.data?.calculatedDiscountAmount ?? "0"))), isActive: $moveTicketReciptView){
+            NavigationLink(destination: TicketReciptView(lastPage: "checkout" , movieName: movieServices.checkoutDetails?.movieName ?? "", showDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "" , theatreName: (movieServices.checkoutDetails?.theatreName ?? "") , screenName: (movieServices.checkoutDetails?.screenName ?? "") , seatNumber: ((movieServices.selectedSeats[0].ticketType ?? "") + "- " +  movieServices.calculateSeats().removeWhitespace()), bookingId: bookingConfirmId , snacksName: ((getFinalPaymentProcessData().1) + " x " + (getFinalPaymentProcessData().2)), ticketPrice: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksprice: storeDataViewModel.calculateTotalPrice(), deliverPrice: snacksOrderMode == "0" ? "" : "10", totalPrice: totalAmountFullCalculation() , discountAmount:  (applyCouponData?.data?.calculatedDiscountAmount ?? "0")), isActive: $moveTicketReciptView){
            
             }.isDetailLink(false)
          
@@ -444,6 +449,8 @@ struct BookTicketRazorPay: UIViewControllerRepresentable {
             self.amount = amount
             super.init()
             razorpay =  RazorpayCheckout.initWithKey("rzp_test_F0OI03VaPbNCHU", andDelegate: self)
+          //  razorpay =  RazorpayCheckout.initWithKey("rzp_live_y6W3EW6yAFrjkQ", andDelegate: self)
+            //rzp_live_y6W3EW6yAFrjkQ
             //rzp_test_F0OI03VaPbNCHU     rzp_live_vq8tmnnZmbWVkx
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 let options: [String:Any] = [
