@@ -172,7 +172,7 @@ class MovieServices:ObservableObject {
         
     }
   //  "strCinemaCode" : "0002" , "strTransId" :  "20022706076" ,"lngSessionId" : "34292"
-    func confirmSeatsApi(transactionId : String , sessionId : String , cinemaCOde : String , completionHandler : @escaping (ConfirmSeatsModel) -> Void){
+    func confirmSeatsApi(transactionId : String , sessionId : String , cinemaCOde : String , itemID : String? = nil, completionHandler : @escaping (ConfirmSeatsModel) -> Void){
         let finalRequest = [
             "blnPaid": "true",
               "strCardNo": "sample string 5",
@@ -180,10 +180,11 @@ class MovieServices:ObservableObject {
               "strCardExpiryMonth": "5",
               "strCardExpiryYear": "40",
               "strCardCVV": "sample string 9",
-              "strCustomerName": "sample string 10",
-              "strCustomerPhone": "sample string 11",
+              "strCustomerName": StorageSettings().userName,
+              "strCustomerPhone":  StorageSettings().mobileNumber,
               "strComments": "sample string 12",
               "strPickupName": "sample string 13",
+            "strItemsOrder" : itemID  ,
             "strTransId" : transactionId ,
             "lngSessionId" : sessionId ,
             "strCinemaCode" : cinemaCOde
@@ -204,11 +205,97 @@ class MovieServices:ObservableObject {
             }
         }
     }
+    func confirmSnacksItem(transactionId : String , cinemaCOde : String , itemID : String? = nil, completionHandler : @escaping (ConfirmSeatsModel) -> Void){
+        let finalRequest = [
+            "strItemsOrder" : itemID  ,
+            "strTransId" : transactionId ,
+            "strCinemaCode" : cinemaCOde,
+            "lngSessionId" : "4" ,
+            "blnPaid": "true",
+              "strCardNo": "sample string 5",
+              "strCardType": "Depit",
+              "strCardExpiryMonth": "5",
+              "strCardExpiryYear": "40",
+              "strCardCVV": "sample string 9",
+            "strCustomerName": StorageSettings().userName,
+            "strCustomerPhone": StorageSettings().mobileNumber,
+              "strComments": "nil",
+              "strPickupName": "sample string 13",
+        ]
+      //  finalRequest.merge(requestBody , uniquingKeysWith: +)
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.confirmSnacks,requestBody: finalRequest))!
     
-    func finalOrderBookingApi(seatConfirmId : String , bookConfirmId : String , completionHandler : @escaping (ConfirmSeatsModel) -> Void){
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: ConfirmSeatsModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true{
+                   completionHandler(result!)
+                 print("Seat reset has been done")
+                }else{
+                    
+                }
+               
+           
+            }
+        }
+    }
+    func getPostString(params:[String:Any]) -> String
+      {
+          var data = [String]()
+          for(key, value) in params
+          {
+              data.append(key + "=\(value)")
+          }
+          return data.map { String($0) }.joined(separator: "&")
+      }
+    func itemOrderConfirm(bookingId : String , deliveryOrTakeaway : String , beforeOrInterval : String , strBookingDetaiks : String , cinemaCode : String, completionHandler : @escaping (String) -> Void){
+        let finalRequest = [
+
+            "strCinemaCode" : cinemaCode ,
+            "lngBookingId" : bookingId ,
+            "strIsDelivery" : deliveryOrTakeaway ,
+            "strDeliveryTime" : beforeOrInterval,
+            "strBookingDetails" : strBookingDetaiks
+            
+        ]
+
+        let Url = String(format: APIList().getUrlTypeTwo(url: .AFTERBOOKINGITEM))
+        guard let serviceUrl = URL(string: Url) else { return }
+        let parameterDictionary = finalRequest
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json; charset=utf-8", forHTTPHeaderField: "content-Type")
+        let postString = self.getPostString(params: finalRequest)
+             request.httpBody = postString.data(using: .utf8)
+
+        
+        let session = URLSession.shared
+        print("URL",Url)
+        print("Params",finalRequest)
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            DispatchQueue.main.async {
+            if let data = data {
+                do {
+                    let gitData = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    completionHandler("")
+                    print("Response",gitData)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        }.resume()
+    }
+    
+    
+    
+    func finalOrderBookingApi(seatConfirmId : String , bookConfirmId : String , itemBookingId : String = "", completionHandler : @escaping (ConfirmSeatsModel) -> Void){
         let finalRequest = [
             "seat_confirm_id" : seatConfirmId ,
-            "confirm_id" : bookConfirmId
+            "confirm_id" : bookConfirmId,
+            "item_Booking_id" : itemBookingId
         ]
      
       //  let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.finalBookingConfirm,requestBody: finalRequest))!

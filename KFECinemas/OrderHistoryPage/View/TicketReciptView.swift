@@ -27,6 +27,7 @@ struct TicketReciptView: View {
     @State var discountAmount : String?
     @State var moveToDashBoard : Bool = false
     @State var imageName = "historyName"
+    @State var foodOrderId = ""
     @Environment(\.rootPresentationMode)  var rootPresentationMode: Binding<RootPresentationMode>
     
     var body: some View {
@@ -157,17 +158,23 @@ struct TicketReciptView: View {
                                      .fixedSize(horizontal: false, vertical: true)
                             }.frame(minWidth: geometry.size.width*0,idealWidth: 7)
                         }
-                        HStack{
-                            VStack(spacing : 5){
-                                Text("Order Id")
-                                    .foregroundColor(.gray).multilineTextAlignment(.leading)
-                                Text(bookingId ?? "")
-                                    .multilineTextAlignment(.leading)
-                            }
+                        HStack(spacing : 5){
+                            Text("Order Id : ")
+                                .foregroundColor(.gray).multilineTextAlignment(.leading)
+                            Text(bookingId ?? "")
+                                .multilineTextAlignment(.leading)
                             Spacer()
-                            Text("Booking Confirmed")
-                                .font(.system(size: 13)).padding(EdgeInsets(top: 8, leading: 5, bottom: 8, trailing: 5)).background(Color.red).cornerRadius(5).foregroundColor(.white)
                         }
+                        HStack{
+                            Spacer()
+                             Text("Booking Confirmed")
+                                 .font(.system(size: 13)).padding(EdgeInsets(top: 8, leading: 5, bottom: 8, trailing: 5)).background(Color.red).cornerRadius(5).foregroundColor(.white)
+                        }
+//                        VStack{
+//
+//
+//
+//                        }
                     }
                     Divider()
                         .frame( height:1)
@@ -176,10 +183,25 @@ struct TicketReciptView: View {
                     VStack(alignment : .leading,spacing : 5){
                         HStack{
                             VStack(spacing : 5){
-                                Text("Snacks")
-                                    .foregroundColor(.gray).multilineTextAlignment(.leading)
+                                HStack{
+                                    Text("Snacks")
+                                        .foregroundColor(.gray).multilineTextAlignment(.leading)
+                                    Spacer()
+                                }
+                               
                                 Text(snacksName ?? "")
                                     .multilineTextAlignment(.leading)
+                                Spacer().frame( height: 6)
+                               
+                                    HStack{
+                                        Text("Snacks Order Id : ")
+                                            .foregroundColor(.gray).multilineTextAlignment(.leading)
+                                        Text(foodOrderId )
+                                            .multilineTextAlignment(.leading)
+                                        Spacer()
+                                    }
+                             
+                                
                             }
                             Spacer()
                         }
@@ -269,7 +291,7 @@ struct TicketReciptView: View {
                         movieName = reciptDatas?.movieName
                         showDate = reciptDatas?.bookingDate
                         showTime = reciptDatas?.showTime
-                        
+                        foodOrderId = reciptDatas?.itemBookingid ?? ""
                         theatreName = reciptDatas?.theatreName
                         screenName = reciptDatas?.screenName
                         seatNumber = ("\(reciptDatas?.zoneInScreen ?? "") - \(reciptDatas?.seatNo ?? "")")
@@ -278,7 +300,7 @@ struct TicketReciptView: View {
                         ticketPrice = reciptDatas?.movieAmount ?? ""
                        // snacksprice = reciptDatas?.snacksDeliveryAmt ?? ""
                         deliverPrice = reciptDatas?.snacksDeliveryAmt ?? ""
-                        totalPrice = reciptDatas?.totalAmount ?? ""
+                        totalPrice = reciptDatas?.totalAmtAfterDiscounted ?? ""
                         discountAmount = reciptDatas?.discountAmt ?? ""
                     }
                    

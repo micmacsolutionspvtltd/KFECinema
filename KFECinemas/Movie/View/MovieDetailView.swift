@@ -13,6 +13,7 @@ struct MovieDetailView: View {
 
     @State private var isActive : Bool = false
     var movie:AllFilms
+    @State var imageData : GetFinalDataImage
     var body: some View {
         ScrollView(showsIndicators:false){
             VStack {
@@ -25,7 +26,7 @@ struct MovieDetailView: View {
                         Image(systemName:  "arrow.left").foregroundColor(.white).padding()
                     }
                     Spacer()
-                    Image("movieImgLatest").renderingMode(.original).resizable().frame(width: 180, height: 260).aspectRatio(contentMode: .fill)
+                    MoviesDetailImageView(withURL: Endpoint.showMovieImage.url + (imageData.image ?? "")).frame(width: 180, height: 260)
                     Spacer()
                     
                 }

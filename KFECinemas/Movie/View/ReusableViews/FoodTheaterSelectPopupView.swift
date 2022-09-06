@@ -14,7 +14,7 @@ struct FoodTheaterSelectPopupView: View {
                 .fontWeight(.semibold)
             Divider()
             NavigationLink {
-                SpiceKitchenView(pageName : "Concession Zone" , theaterID : "8", theaterName : "Spice Cinemas")
+                SpiceKitchenView(pageName : "Concession Zone" , theaterID : "0002", theaterName : "Spice Cinemas")
             } label: {
                 Text("Spice Cinemas")
                     .foregroundColor(.white)
@@ -26,7 +26,7 @@ struct FoodTheaterSelectPopupView: View {
             .background(Color.red)
                 .cornerRadius(8)
             NavigationLink {
-                SpiceKitchenView(pageName : "Concession Zone", theaterID : "2" ,  theaterName : "M1 Cinemas")
+                SpiceKitchenView(pageName : "Concession Zone", theaterID : "0003" ,  theaterName : "M1 Cinemas")
             } label: {
                 Text("M1 Cinemas")
                     .foregroundColor(.white)

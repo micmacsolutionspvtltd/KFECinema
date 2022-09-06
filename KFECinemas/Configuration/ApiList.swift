@@ -16,12 +16,16 @@ struct APIList
    
 //private final static String BASE_URL = "https://www.dev.fusionkitchen.co.uk";//Live
    let BASE_URL = "http://202.83.31.153:8075/KFE_Android/"
-
+    var BASE_URL2 = "http://202.83.31.153:8077"
     
         func getUrlString(url: urlString) -> String
         {
             return BASE_URL + url.rawValue
         }
+    func getUrlTypeTwo(url: urlString) -> String
+    {
+        return BASE_URL2 + url.rawValue
+    }
   
 }
     
@@ -39,4 +43,6 @@ enum urlString: String
     case CANCELTICKET = "cancel.php"
     case VIEWPROFILE = "profile.php?"
     case EDITPROFILE = "edit_profile.php"
+    case NEWSPICEKITCHENAPI = "/api/kfecinema/snacks-list"
+    case AFTERBOOKINGITEM = "/api/kfecinema/pickupordeleivery"
 }

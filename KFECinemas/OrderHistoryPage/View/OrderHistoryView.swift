@@ -119,7 +119,7 @@ struct OrderHistoryView: View {
                                 linkActive = true
                                 
                             }){
-                                OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: ( "₹ " + (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.totalAmount ?? "") ), date:  ( "\(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat)) - \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.showTime ?? "")"), image : "ticket", bookingId: ("Booking ID : " + (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.orderConfirmId ?? "") ), bookingSeat: ("Seats: \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.zoneInScreen ?? "")- \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "")"), snacksItems: viewModel.getTicketSnacksData[finalValues] , screenName : (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.screenName ?? ""))
+                                OrderHisroryViewCell(movieName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.movieName ?? "", theaterName: viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.theatreName ?? "", amount: ( "₹ " + (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.totalAmtAfterDiscounted ?? "") ), date:  ( "\(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.bookingDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat)) - \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.showTime ?? "")"), image : "ticket", bookingId: ("Booking ID : " + (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.orderConfirmId ?? "") ), bookingSeat: ("Seats: \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.zoneInScreen ?? "")- \(viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.seatNo ?? "")"), snacksItems: viewModel.getTicketSnacksData[finalValues] , screenName : (viewModel.getTicketHistoryData?.data?[finalValues].movieDetails?.screenName ?? ""))
                                     .frame(maxWidth: .infinity)
                                     .padding(10)
                                     .background(RoundedRectangle(cornerRadius: 8)
@@ -133,7 +133,7 @@ struct OrderHistoryView: View {
                                     NavigationLink(destination:  TicketReciptView(reciptDatas : viewModel.getTicketHistoryData?.data?[selectedRowNumber ].movieDetails , snacksName : viewModel.getTicketSnacksData[selectedRowNumber] , snacksprice: viewModel.getTicketSnacksPrice[selectedRowNumber]), isActive: $linkActive) {
                                         
 //                                        (viewModel.getTicketHistoryData?.data?[finalValues] ?? [])
-                                    }.opacity(0)
+                                    }.isDetailLink(false).opacity(0)
                                         .background(Color.red)
                                     
                                 }
@@ -146,14 +146,14 @@ struct OrderHistoryView: View {
                         
                        
                         List(0..<(viewModel.getSpiceKitcehnData?.data?.count ?? 0), id : \.self){ (finalValues) in
-                            OrderHisroryViewCell(movieName : "Spice Kitchen" , theaterName: "Order ID \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].foodOrderID ?? "")", amount: viewModel.getSpiceKitcehnData?.data?[finalValues][0].totalPrice ?? "", date: "Ordered on : \(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getSpiceKitcehnData?.data?[finalValues][0].orderDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat))", snacksItems: viewModel.getKitchenSnacksData[finalValues])
+                            OrderHisroryViewCell(movieName : "Spice Kitchen" , theaterName: "Order ID \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].foodOrderID ?? "")", amount: viewModel.getSpiceKitcehnData?.data?[finalValues][0].diccountedAmount ?? "", date: "Ordered on : \(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getSpiceKitcehnData?.data?[finalValues][0].orderDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat))", snacksItems: viewModel.getKitchenSnacksData[finalValues])
                                 .frame(maxWidth: .infinity)
                                 .padding(10)
                                 .background(RoundedRectangle(cornerRadius: 8)
                                     .fill(Color.black)
                                     .shadow(color: Color.black.opacity(0.3), radius: 3, x: 1, y: 1))
 //                            }
-                        }   .listStyle(PlainListStyle())
+                        } .listStyle(PlainListStyle())
 
                     }
                   
@@ -161,7 +161,7 @@ struct OrderHistoryView: View {
                     if viewModel.getConcessionZoneData?.data?.count != 0{
                        
                             List(0..<(viewModel.getConcessionZoneData?.data?.count ?? 0), id : \.self){ (finalValues) in
-                                OrderHisroryViewCell(movieName : "Concession Zone" , theaterName: "Order ID \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderID ?? "")", amount: viewModel.getConcessionZoneData?.data?[finalValues][0].totalPrice ?? "", date: "Ordered on : \(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getConcessionZoneData?.data?[finalValues][0].orderDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat))", bookingSeat : "Seats: \(viewModel.getConcessionZoneData?.data?[finalValues][0].seatNo ?? "")", snacksItems: viewModel.getConcessionSnacksData[finalValues])
+                                OrderHisroryViewCell(movieName : "Concession Zone" , theaterName: "Order ID \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderID ?? "")", amount: viewModel.getConcessionZoneData?.data?[finalValues][0].diccountedAmount ?? "", date: "Ordered on : \(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getConcessionZoneData?.data?[finalValues][0].orderDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat))", bookingSeat : "Seats: \(viewModel.getConcessionZoneData?.data?[finalValues][0].seatNo ?? "")", snacksItems: viewModel.getConcessionSnacksData[finalValues])
                             
                                     .frame(maxWidth: .infinity)
                                     .padding(10)

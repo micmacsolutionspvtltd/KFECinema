@@ -38,7 +38,7 @@ struct CartPageView: View {
     @State var errorPopup : Bool? = false
     @State var toastMsg : String = "Not valid"
     @State var showLoader : Bool = false
-
+    @State var theaterId : String = ""
     var body: some View {
         //
         GeometryReader { geometry in
@@ -61,7 +61,8 @@ struct CartPageView: View {
                                             storeDataViewModel.deleteAllDatas()
                                             promoDataViewModel.promoId = ""
                                             promoDataViewModel.promoCode = ""
-                                            rootPresentationMode.wrappedValue.dismiss()
+                                            NavigationUtil.popToRootView()
+                                           // rootPresentationMode.wrappedValue.dismiss()
                                             //  presentationMode.wrappedValue.dismiss()
                                         }){
                                             Image(systemName: "arrow.left")
@@ -447,7 +448,7 @@ struct CartPageView: View {
                     .padding()
                     .background(Color.red)
                     .cornerRadius(.infinity)
-                }.position(x: geometry.size.width/2, y: geometry.size.height/1.07)
+                }.position(x: geometry.size.width/2, y: geometry.size.height/1.05)
                 if clickBookingDate{
                     DatePickerWithButtons(showDatePicker: $clickBookingDate, savedDate: $selectionMovieDate, selectedDate: selectionMovieDate ?? Date())
                         .animation(.linear)
@@ -455,7 +456,14 @@ struct CartPageView: View {
                 }
                 if razorPayShow ?? false{
                     
-                    RazorPayMethod(amount : calculateAmount(),getPaymetId: {
+                    RazorPayMethod(amount : calculateAmount(),getPaymetId: { result in
+                        if result == "Failure"{
+                            toastMsg = "Payment failed please try again"
+                            errorPopup = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                NavigationUtil.popToRootView()
+                            }
+                        }else{
                         showLoader = true
                         let paymentData = getFinalPaymentProcessData()
                         //   PaymentView()
@@ -484,22 +492,26 @@ struct CartPageView: View {
                             //                        storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), itemId: "2", categoryId: "2", quantity: "1", price: storeDataViewModel.calculateTotalPrice(), gst: "1", promoId: promoDataViewModel.promoId ?? "25", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName?.removeWhitespace() ?? "", screenId: selectedScreenName?.removeWhitespace() ?? "", seatNo: "E5", totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now), seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "prom67", discountPrice: storeDataViewModel.calculateTotalPrice()) { result in
                             //
                             //                        }
-                            storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")) ) { result in
-                                toastMsg = "Ordered sucessfully completed"
-                                errorPopup = true
-                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                storeDataViewModel.deleteAllDatas()
-                                promoDataViewModel.promoId = ""
-                                promoDataViewModel.promoCode = ""
-                                showLoader = false
-                                     NavigationUtil.popToRootView()
-//                                rootPresentationMode.wrappedValue.dismiss()
-//                                     presentationMode.wrappedValue.dismiss()
-                                    // moveToDashBoard = true
-                                 }
-                                //  moveToDashBoard = true
+                            storeDataViewModel.confirmSnacksItem(cinemaCOde : theaterId, itemID: getFinalFoodID().0) { result in
+                                storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: "4" , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")), orderConfirmId: result.data?.curItemsID ?? "") { result in
+                                    toastMsg = "Ordered sucessfully completed"
+                                    errorPopup = true
+                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    storeDataViewModel.deleteAllDatas()
+                                    promoDataViewModel.promoId = ""
+                                    promoDataViewModel.promoCode = ""
+                                    showLoader = false
+                                         NavigationUtil.popToRootView()
+    //                                rootPresentationMode.wrappedValue.dismiss()
+    //                                     presentationMode.wrappedValue.dismiss()
+                                        // moveToDashBoard = true
+                                     }
+                                    //  moveToDashBoard = true
+                                }
                             }
+
                         }
+                    }
                     })
                 }
             }.toast(isShowing: $errorPopup,textContent: toastMsg , backGroundColor : Color.white)
@@ -552,6 +564,28 @@ struct CartPageView: View {
         }
         return calculateFullAmount
     }
+    func getFinalFoodID() -> (String , String){
+        var finalId = ""
+        var nameAndQuantity = ""
+        var foodId = ""
+        var foodQty = ""
+     
+        
+        for i in storeDataViewModel.items{
+            nameAndQuantity += "\(i.foodQuantity ?? "") x \(i.foodName ?? ""),"
+            if foodId == ""{
+                foodId = ("|" + String(storeDataViewModel.items.count) + "|" + (i.foodId ?? "") + "|")
+                foodQty = ((i.foodQuantity ?? "") + "|-1|")
+               
+            }else{
+                foodId = ((i.foodId ?? "") + "|")
+                foodQty = ((i.foodQuantity ?? "") + "|-1|")
+            }
+            finalId += foodId + foodQty
+            nameAndQuantity = String(nameAndQuantity.dropLast())
+        }
+        return (finalId , nameAndQuantity)
+    }
     func getFinalPaymentProcessData() -> (String , String , String , String , String){
         var foodId = ""
         var categoryId = ""
@@ -589,7 +623,7 @@ struct CartPageView_Previews: PreviewProvider {
 
 struct RazorPayMethod: UIViewControllerRepresentable {
     var amount = "0"
-    var getPaymetId : () -> ()
+    var getPaymetId : (String) -> ()
   
     func makeUIViewController(context: Context) -> CheckoutViewController {
         .init()
@@ -603,12 +637,12 @@ struct RazorPayMethod: UIViewControllerRepresentable {
 
     class Coordinator: NSObject, RazorpayPaymentCompletionProtocol {
         let parent: RazorPayMethod
-        var getPaymetId : () -> ()
+        var getPaymetId : (String) -> ()
         var amount = "0"
         typealias Razorpay = RazorpayCheckout
         var razorpay: RazorpayCheckout!
         
-        init(_ parent: RazorPayMethod ,_ getPaymetId : @escaping () -> () ,_ amount : String) {
+        init(_ parent: RazorPayMethod ,_ getPaymetId : @escaping (String) -> () ,_ amount : String) {
             self.parent = parent
             self.getPaymetId = getPaymetId
             self.amount = amount
@@ -644,13 +678,14 @@ struct RazorPayMethod: UIViewControllerRepresentable {
         
         func onPaymentError(_ code: Int32, description str: String) {
               print("error: ", code, str)
+            getPaymetId("Failure")
            //   self.presentAlert(withTitle: "Alert", message: str)
             // parent.alert with message
           }
 
           func onPaymentSuccess(_ payment_id: String) {
               print("success:view ", payment_id)
-              getPaymetId()
+              getPaymetId("Sucess")
            //   self.presentAlert(withTitle: "Success", message: "Payment Succeeded")
           }
     }

@@ -576,7 +576,8 @@ struct Constants {
         static let sideMenuColor2 = Color("SideMenuColor2")
         static let colorText1 = Color("ColorText1")
         static let baseColor = Color("baseColor")
-        
+        static let colorAppRed = Color("ColorAppRed")
+        static let colorAppPink = Color("ColorAppPink")
         
         static let gradient1AColor = UIColor(named: "Gradient1AColor")!
         static let gradient1BColor = UIColor(named: "Gradient1BColor")!

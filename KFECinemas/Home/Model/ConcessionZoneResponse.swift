@@ -51,3 +51,31 @@ struct ConcessionZoneItemInfo: Codable {
         case updatedAt = "updated_at"
     }
 }
+
+
+struct NewConceesionModel: Codable , Hashable{
+    let responseCode: Int?
+    let responseMessage: String?
+    let data: [NewConceesionData]?
+
+    enum CodingKeys: String, CodingKey {
+        case responseCode = "ResponseCode"
+        case responseMessage = "ResponseMessage"
+        case data
+    }
+}
+
+// MARK: - Datum
+struct NewConceesionData: Codable , Hashable{
+    let cinemaStrID, itemStrID, itemStrDescription  : String?
+    var itemIntPrice: Int?
+    var image : String?
+
+    enum CodingKeys: String, CodingKey {
+        case cinemaStrID = "Cinema_strID"
+        case itemStrID = "Item_strID"
+        case itemStrDescription = "Item_strDescription"
+        case itemIntPrice = "Item_intPrice"
+        case image = "image"
+    }
+}

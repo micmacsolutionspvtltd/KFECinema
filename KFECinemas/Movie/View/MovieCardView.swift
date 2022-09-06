@@ -9,14 +9,15 @@ import SwiftUI
 
 struct MovieCardView: View {
     var model:AllFilms
+    @State var imageData : GetFinalDataImage
     var body: some View {
         VStack(alignment: .leading){
-            if model.imageURL == "" || model.imageURL == nil{
+            if imageData.image == "" || imageData.image == nil{
                 Image("movieImgLatest").renderingMode(.original)
                     .resizable().cornerRadius(5)
                     .frame(width:150,height: 200)
             }else{
-                MoviesImageView(withURL: model.imageURL ?? "")
+                MoviesImageView(withURL: Endpoint.showMovieImage.url + (imageData.image ?? ""))
             }
             VStack(alignment:.center,spacing:6) {
                 Text(model.filmStrTitle?.capitalizingFirstLetter() ?? "").clipped().foregroundColor(.white).frame(maxHeight:20).font(.system(size: 16,weight: .bold))

@@ -20,7 +20,7 @@ struct BannerImageView: View {
         
             Image(uiImage: image)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
                 .frame(width:UIScreen.main.bounds.size.width,height: 200)
               //  .cornerRadius(cornerRadiuss ?? 0)
                 .onReceive(imageLoader.didChange) { data in
@@ -42,8 +42,27 @@ struct MoviesImageView: View {
         
             Image(uiImage: image)
                 .resizable().cornerRadius(5)
-                .aspectRatio(contentMode: .fit)
                 .frame(width:150,height: 200)
+                .aspectRatio(contentMode: .fill)
+                .onReceive(imageLoader.didChange) { data in
+                    self.image = UIImage(data: data) ?? UIImage(named: "food1")!
+                    
+        }
+    }
+}
+
+struct MoviesDetailImageView: View {
+    @ObservedObject var imageLoader:ImageLoader
+    @State var image:UIImage = UIImage()
+
+    init(withURL url:String) {
+        imageLoader = ImageLoader(urlString:url)
+    }
+
+    var body: some View {
+        
+            Image(uiImage: image)
+            .renderingMode(.original).resizable().frame(width: 180, height: 260).aspectRatio(contentMode: .fill)
                 .onReceive(imageLoader.didChange) { data in
                     self.image = UIImage(data: data) ?? UIImage(named: "food1")!
                     

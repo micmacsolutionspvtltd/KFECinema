@@ -97,3 +97,15 @@ struct AllFilms: Codable {
     }
 }
 
+
+
+struct GetFinalImageModel: Codable {
+    let data: [GetFinalDataImage]?
+    let status: Int?
+    let reason: String?
+}
+
+// MARK: - Datum
+struct GetFinalDataImage: Codable {
+    let id, image, name: String?
+}

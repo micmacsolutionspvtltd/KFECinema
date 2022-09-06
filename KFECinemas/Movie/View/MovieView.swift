@@ -34,6 +34,9 @@ struct MovieView: View {
        return  ScrollView(showsIndicators:false){
            HStack {
                Button(action:{
+                   if searchText.count != 0{
+                       dashboardServices.searhFilter(text: "")
+                   }
                    presentationMode.wrappedValue.dismiss()
                }){
                    
@@ -45,7 +48,7 @@ struct MovieView: View {
                    TextField("Movies", text: $searchText).onChange(of: searchText, perform: { newValue in
                        print(newValue)
                        dashboardServices.searhFilter(text: newValue)
-                   })
+                   }).disableAutocorrection(true)
                        .foregroundColor(.white)
                        .accentColor(Color.white)
                    
@@ -76,9 +79,9 @@ struct MovieView: View {
            }.padding(.leading,5)
            ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
-                       ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
-                           NavigationLink(destination: MovieDetailView(movie:movie)) {
-                           MovieCardView(model: movie).frame(width: 150, height: 250)
+                   ForEach(0..<dashboardServices.finalSpiceImageData.count, id: \.self) { movie in
+                       NavigationLink(destination: MovieDetailView(movie:dashboardServices.spiceCinemas[movie], imageData: dashboardServices.finalSpiceImageData[movie] ) ) {
+                           MovieCardView(model: dashboardServices.spiceCinemas[movie] , imageData : dashboardServices.finalSpiceImageData[movie]).frame(width: 150, height: 250)
                            }.isDetailLink(false)
                            }
                }
@@ -89,9 +92,9 @@ struct MovieView: View {
            }.padding(.leading,5)
            ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
-                       ForEach(dashboardServices.moneCinemas, id: \.id) { movie in
-                           NavigationLink(destination: MovieDetailView(movie:movie)) {
-                           MovieCardView(model: movie).frame(width: 150, height: 250)
+                   ForEach(0..<(dashboardServices.finalMoneImageData.count), id: \.self) { movie in
+                       NavigationLink(destination: MovieDetailView(movie:dashboardServices.moneCinemas[movie], imageData: dashboardServices.finalMoneImageData[movie])) {
+                           MovieCardView(model: dashboardServices.moneCinemas[movie], imageData: dashboardServices.finalMoneImageData[movie]).frame(width: 150, height: 250)
                            }.isDetailLink(false)
                            }
                }
@@ -106,9 +109,9 @@ struct MovieView: View {
            }.padding(.leading,5).background(.black)
            ScrollView(.horizontal,showsIndicators:false) {
                HStack (spacing:30){
-                       ForEach(dashboardServices.upcomingMovies, id: \.id) { movie in
-                           
-                           MovieCardView(model: movie).frame(width: 150, height: 250)
+                   ForEach(0..<(dashboardServices.finalUpcomingImageData.count), id: \.self) { movie in
+             //          NavigationLink(destination: MovieDetailView(movie:dashboardServices.moneCinemas[movie])) {
+                           MovieCardView(model: dashboardServices.upcomingMovies[movie], imageData: dashboardServices.finalUpcomingImageData[movie]).frame(width: 150, height: 250)
                            }
                }
            }.padding(.leading,5)

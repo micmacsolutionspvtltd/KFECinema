@@ -46,7 +46,21 @@ struct SideMenu: View {
                     .padding(.leading)
                 ScrollView(.vertical,showsIndicators: false){
                     VStack(alignment: .leading, spacing: 30){
-                        TabButton(type: SideMenuType.home)
+                      //  TabButton(type: SideMenuType.home)
+                        Button{
+                           // popupShow = true
+                            self.menuClose()
+                        }label: {
+                            HStack(spacing : 15){
+                                Image("houseIcon")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill).colorMultiply(.black)
+                                    .frame(width: 20, height: 20)
+                                Text("Home")
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                         TabButton(type: SideMenuType.movies)
                         TabButton(type: SideMenuType.bookHistory)
                         TabButton(type: SideMenuType.spiceKitchen)
@@ -82,8 +96,9 @@ struct SideMenu: View {
                       //  TabButton(type: SideMenuType.concessionZone)
                       //  TabButton(type: SideMenuType.changePassword)
                         TabButton(type: SideMenuType.termsAndCondition)
-                        TabButton(type: SideMenuType.privacyAndPolicy)
+                 
                         VStack(alignment: .leading, spacing: 30){
+                            TabButton(type: SideMenuType.privacyAndPolicy)
                             TabButton(type: SideMenuType.ticketCancellation)
                             TabButton(type: SideMenuType.contactUs)
                             TabButton(type: SideMenuType.logout)

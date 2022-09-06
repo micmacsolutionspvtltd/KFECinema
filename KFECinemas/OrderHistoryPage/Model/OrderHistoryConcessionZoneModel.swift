@@ -27,7 +27,8 @@ struct ConcessionHistoryData: Codable  , Hashable {
     let mbleNum: String?
     let email: String?
     let orderDuring: String?
-    let theatreName, screenName, seatNo: String?
+    let theatreName, screenName, seatNo , orderConfirmId : String?
+    let diccountedAmount : String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -48,5 +49,7 @@ struct ConcessionHistoryData: Codable  , Hashable {
         case theatreName = "theatre_name"
         case screenName = "screen_name"
         case seatNo = "seat_no"
+        case orderConfirmId = "order_confirm_id"
+        case diccountedAmount = "discounted_amount"
     }
 }

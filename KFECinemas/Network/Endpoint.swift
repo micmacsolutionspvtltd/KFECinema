@@ -58,6 +58,14 @@ enum Endpoint {
     case upComingMovies
     case viewProfile
     case editProfile
+    case getFinalMovieImage
+    case postMovieDetail
+    case showMovieImage
+    case concessionSnacksList
+    case postImageDetail
+    case finalFoodImg
+    case confirmSnacks
+    case itemOrderAfterConfirm
     
     var url:String {
         return tempUrl + "/" + self.path
@@ -65,8 +73,8 @@ enum Endpoint {
     
     var tempUrl:String {
         switch self {
-        case .login,.snacksOrderHistory,.foodOrderedHistory,.foodBannerImages,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem,.bannerImages,.productImages ,.finalBookingConfirm , .viewProfile: return urlType1
-        case .resetSeats,.activeTheatres,.allFilms,.allFilmsByCinema,.theaterWiseMovie,.setSeats,.allShowsByFilm,.dev , .confirmSeats , .upComingMovies , .editProfile: return urlType2
+        case .login,.snacksOrderHistory,.foodOrderedHistory,.foodBannerImages,.movieBookedHistory,.saveMovieBookingsData,.selectedPromo,.insertOrderItem,.updatePassword,.getAllItems,.getAllSnacksItems,.getBannerImages,.getSnacksItemTheatreWise,.getFoodItemsCategoryWise,.getAllFoodBannerImage,.forgotPasswordGenerateOtp,.updatePasswordAuthenticatedUsers,.checkPromoCode,.saveUserDetails,.movieBookedOrderHistory,.insertSnacksOrderItem,.bannerImages,.productImages ,.finalBookingConfirm , .viewProfile , .getFinalMovieImage , .postMovieDetail , .showMovieImage , .postImageDetail , .finalFoodImg: return urlType1
+        case .resetSeats,.activeTheatres,.allFilms,.allFilmsByCinema,.theaterWiseMovie,.setSeats,.allShowsByFilm,.dev , .confirmSeats , .upComingMovies , .editProfile , .concessionSnacksList , .confirmSnacks , .itemOrderAfterConfirm: return urlType2
         }
     }
     
@@ -144,12 +152,28 @@ enum Endpoint {
             return "profile.php?"
         case .editProfile:
             return "edit_profile.php"
+        case .getFinalMovieImage:
+            return "KFE_Android/get_movie_image.php?"
+        case .postMovieDetail:
+            return "KFE_Android/movie_det.php?"
+        case .showMovieImage:
+            return "KFE_4/public/kfe_movie_image/"
+        case .concessionSnacksList:
+            return "api/kfecinema/snacks-list"
+        case .postImageDetail:
+            return "KFE_Android/image_det.php"
+        case .finalFoodImg:
+            return "KFE_4/public/kfe_food_image"
+        case .confirmSnacks:
+            return "api/kfecinema/confirmsnacks"
+        case .itemOrderAfterConfirm:
+            return "api/kfecinema/pickupordeleivery"
         }
     }
     var httpMethod: HTTPMethod {
         switch self {
-        case .saveMovieBookingsData,.selectedPromo,.resetSeats,.insertOrderItem,.insertSnacksOrderItem,.activeTheatres,.updatePassword,.allFilms,.getAllFoodBannerImage,.getSnacksItemTheatreWise,.forgotPasswordGenerateOtp,.allFilmsByCinema,.theaterWiseMovie,.checkPromoCode,.saveUserDetails,.setSeats,.allShowsByFilm,.dev , .confirmSeats , .finalBookingConfirm , .upComingMovies , .viewProfile , .editProfile: return .post
-        case .login,.snacksOrderHistory,.movieBookedHistory,.foodOrderedHistory,.movieBookedOrderHistory,.foodBannerImages,.bannerImages,.getAllItems,.productImages,.getAllSnacksItems,.getBannerImages,.getFoodItemsCategoryWise,.updatePasswordAuthenticatedUsers : return .get
+        case .saveMovieBookingsData,.selectedPromo,.resetSeats,.insertOrderItem,.insertSnacksOrderItem,.activeTheatres,.updatePassword,.allFilms,.getAllFoodBannerImage,.getSnacksItemTheatreWise,.forgotPasswordGenerateOtp,.allFilmsByCinema,.theaterWiseMovie,.checkPromoCode,.saveUserDetails,.setSeats,.allShowsByFilm,.dev , .confirmSeats , .finalBookingConfirm , .upComingMovies , .viewProfile , .editProfile , .concessionSnacksList , .confirmSnacks , .itemOrderAfterConfirm: return .post
+        case .login,.snacksOrderHistory,.movieBookedHistory,.foodOrderedHistory,.movieBookedOrderHistory,.foodBannerImages,.bannerImages,.getAllItems,.productImages,.getAllSnacksItems,.getBannerImages,.getFoodItemsCategoryWise,.updatePasswordAuthenticatedUsers , .getFinalMovieImage ,.postMovieDetail , .showMovieImage , .postImageDetail , .finalFoodImg: return .get
         
         }
     }

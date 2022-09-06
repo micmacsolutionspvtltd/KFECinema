@@ -31,17 +31,18 @@ struct MoviesListView: View {
             .background(Color(uiColor: UIColor.red))
             if viewTheatre == "M1 Cinemas"{
                 LazyVGrid(columns: twoColumnGrid,spacing: 10) {
-                    ForEach(dashboardServices.moneCinemas, id: \.id) { movie in
-                        NavigationLink(destination: MovieDetailView(movie:movie)) {
-                        MovieCardView(model: movie).frame(width: 150, height: 250)
+                    ForEach(0..<(dashboardServices.finalMoneImageData.count), id: \.self) { movie in
+                        NavigationLink(destination: MovieDetailView(movie:dashboardServices.moneCinemas[movie], imageData: dashboardServices.finalMoneImageData[movie])) {
+                            MovieCardView(model: dashboardServices.moneCinemas[movie], imageData: dashboardServices.finalMoneImageData[movie]).frame(width: 150, height: 250)
+                           
                         }
                         }.padding()
                     }
             }else{
                 LazyVGrid(columns: twoColumnGrid,spacing: 10) {
-                    ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
-                        NavigationLink(destination: MovieDetailView(movie:movie)) {
-                        MovieCardView(model: movie).frame(width: 150, height: 250)
+                    ForEach(0..<dashboardServices.finalSpiceImageData.count, id: \.self) { movie in
+                        NavigationLink(destination: MovieDetailView(movie:dashboardServices.spiceCinemas[movie], imageData: dashboardServices.finalSpiceImageData[movie] ) ) {
+                            MovieCardView(model: dashboardServices.spiceCinemas[movie] , imageData : dashboardServices.finalSpiceImageData[movie]).frame(width: 150, height: 250)
                         }
                         }.padding()
                     }

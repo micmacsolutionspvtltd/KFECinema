@@ -28,6 +28,7 @@ struct LoginView: View {
                     Image("kfelogo").resizable().frame(width: 100, height: 60).offset(y: -100)
                     VStack {
                         TextField("", text: $mobileNumber)
+                            .keyboardType(.numberPad)
                             .placeholder(when: mobileNumber.isEmpty) {
                                 Text("Enter your Mobile Number").foregroundColor(.white).opacity(0.4)
                         }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))

@@ -26,6 +26,7 @@ struct HistorySpiceKitchen: Codable , Hashable {
     let email: String?
     let orderDuring: String?
     let theatreName, screenName: String?
+    let diccountedAmount : String?
 //    let snacksName:String?
     
 
@@ -47,6 +48,7 @@ struct HistorySpiceKitchen: Codable , Hashable {
         case orderDuring = "order_during"
         case theatreName = "theatre_name"
         case screenName = "screen_name"
+        case diccountedAmount = "discounted_amount"
      //   case snacksName = "snacksName"
     }
 }

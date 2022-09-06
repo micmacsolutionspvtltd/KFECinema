@@ -25,7 +25,7 @@ struct ConfirmSeatsModel: Codable {
 struct DataClass: Codable {
     let responseCode, curTotal, intException, intBookID: Int?
     let curFoodTotal: Int?
-    let strTransID, strSeatInfo , strBookId: String?
+    let strTransID, strSeatInfo , strBookId , curItemsID: String?
     let curTicketsTotal, curBookingFee: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -34,7 +34,7 @@ struct DataClass: Codable {
         case intBookID = "intBookId"
         case curFoodTotal
         case strTransID = "strTransId"
-        case strSeatInfo, curTicketsTotal, curBookingFee
+        case strSeatInfo, curTicketsTotal, curBookingFee , curItemsID
     }
 }
 struct SaveMovieBookingModel: Codable {

@@ -24,6 +24,7 @@ struct CheckoutView: View {
     @State var errorPopup : Bool? = false
     @State var toastMsg : String = "Not valid"
     @State var showLoader : Bool = false
+    @State var itemBookingId : String?
     @Environment(\.rootPresentationMode)  var rootPresentationMode: Binding<RootPresentationMode>
     var body: some View {
 //        GeometryReader { geometry in
@@ -235,7 +236,20 @@ struct CheckoutView: View {
                 .toast(isShowing: $errorPopup,textContent: toastMsg)
                     .loaderView(isShowing: $showLoader)
             if razorPayShow ?? false{
-                RazorPayMethod(amount : totalAmountFullCalculation(),getPaymetId: {
+              
+                RazorPayMethod(amount : totalAmountFullCalculation(),getPaymetId: { result in
+                    if result == "Failure"{
+                        showLoader = true
+                        toastMsg = "Payment failed please try again"
+                        errorPopup = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            
+                            storeDataViewModel.deleteAllDatas()
+                            resetSeatMultipleSeats()
+                            showLoader = false
+                            NavigationUtil.popToRootView()
+                        }
+                    }else{
                     showLoader = true
                     var calculateTotalAmount : Float = 0.00
                    
@@ -269,23 +283,39 @@ struct CheckoutView: View {
 //                            transactionId += ((value.strTransId ?? "") + ",")
 //                        }
 //                        transactionId.removeLast()
+                        
                         var addedCount = 0
                         for i in movieServices.selectedSeats{
-                            movieServices.confirmSeatsApi( transactionId : i.strTransId ?? "" , sessionId :  "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )" , cinemaCOde : movieServices.selectedScreen?.show.cinemaStrID ?? "") { finalResult in
+                            movieServices.confirmSeatsApi( transactionId : i.strTransId ?? "" , sessionId :  "\(movieServices.selectedScreen?.show.sessionLngSessionID ?? 0 )" , cinemaCOde : movieServices.selectedScreen?.show.cinemaStrID ?? "" , itemID: (storeDataViewModel.items.count == 0) ? nil : getFinalFoodID().0) { finalResult in
                                 bookingConfirmId += "\(String(finalResult.data?.strBookId ?? "")),"
                                  addedCount+=1
                                 if addedCount == movieServices.selectedSeats.count{
                                     bookingConfirmId = String(bookingConfirmId.dropLast())
-                                    bookingidChangeApi(id : bookingConfirmId)
+                                    if storeDataViewModel.items.count != 0{
+                                        movieServices.confirmSnacksItem(transactionId: i.strTransId ?? "", cinemaCOde: movieServices.selectedScreen?.show.cinemaStrID ?? "", itemID: getFinalFoodID().0) { result in
+                                            movieServices.itemOrderConfirm(bookingId: (String(finalResult.data?.intBookID ?? 0)), deliveryOrTakeaway: snacksOrderMode == "0" ? "N" : "Y", beforeOrInterval: (snacksOrderMode == "1") ? (snacksDeliveryTime == "1" ? "B" : "I") : "", strBookingDetaiks: "|BOOKINGID=\(String(finalResult.data?.intBookID ?? 0))|SESSIONID=|ROWID=|SEATID=|" , cinemaCode:  movieServices.selectedScreen?.show.cinemaStrID ?? "") { _ in
+                                                itemBookingId = result.data?.curItemsID ?? ""
+                                                bookingidChangeApi(id : bookingConfirmId , itemBookingId: result.data?.curItemsID ?? "")
+                                                
+                                            }
+                                        }
+ 
+                                    }else{
+                                        bookingidChangeApi(id : bookingConfirmId)
+                                    }
+
+                                   
                                 }
                             }
                         }
 
                         
                     }))
+                    }
                 })
+            
             }
-            NavigationLink(destination: TicketReciptView(lastPage: "checkout" , movieName: movieServices.checkoutDetails?.movieName ?? "", showDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "" , theatreName: (movieServices.checkoutDetails?.theatreName ?? "") , screenName: (movieServices.checkoutDetails?.screenName ?? "") , seatNumber: ((movieServices.selectedSeats[0].ticketType ?? "") + "- " +  movieServices.calculateSeats().removeWhitespace()), bookingId: bookingConfirmId , snacksName: ((getFinalPaymentProcessData().1) + " x " + (getFinalPaymentProcessData().2)), ticketPrice: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksprice: storeDataViewModel.calculateTotalPrice(), deliverPrice: snacksOrderMode == "0" ? "" : "10", totalPrice: totalAmountFullCalculation() , discountAmount:  (applyCouponData?.data?.calculatedDiscountAmount ?? "0")), isActive: $moveTicketReciptView){
+            NavigationLink(destination: TicketReciptView(lastPage: "checkout" , movieName: movieServices.checkoutDetails?.movieName ?? "", showDate: Common.sharedInstance.changeFormatMonthAndYear(item: movieServices.checkoutDetails?.date ?? ""), showTime: movieServices.checkoutDetails?.showTime ?? "" , theatreName: (movieServices.checkoutDetails?.theatreName ?? "") , screenName: (movieServices.checkoutDetails?.screenName ?? "") , seatNumber: ((movieServices.selectedSeats[0].ticketType ?? "") + "- " +  movieServices.calculateSeats().removeWhitespace()), bookingId: bookingConfirmId , snacksName: (getFinalFoodID().1), ticketPrice: String((Int(movieServices.checkoutDetails?.ticketPrice ?? "") ?? 0) * (movieServices.selectedSeats.count)), snacksprice: storeDataViewModel.calculateTotalPrice(), deliverPrice: snacksOrderMode == "0" ? "" : "10", totalPrice: totalAmountFullCalculation() , discountAmount:  (applyCouponData?.data?.calculatedDiscountAmount ?? "0") , foodOrderId : itemBookingId ?? ""), isActive: $moveTicketReciptView){
            
             }.isDetailLink(false)
          
@@ -297,7 +327,7 @@ struct CheckoutView: View {
                     primaryButton: .default(Text("Yes"), action: {
                         storeDataViewModel.deleteAllDatas()
                         resetSeatMultipleSeats()
-                        rootPresentationMode.wrappedValue.dismiss()
+                        NavigationUtil.popToRootView()
                     }),
                     secondaryButton: .cancel(Text("Cancel"), action: { // 1
                         showingAlert = false
@@ -306,8 +336,9 @@ struct CheckoutView: View {
                 )
             }
     }
-    func bookingidChangeApi(id : String){
-        movieServices.finalOrderBookingApi(seatConfirmId: seatConfirmId , bookConfirmId: id , completionHandler: { finalResult in
+    func bookingidChangeApi(id : String , itemBookingId : String = ""){
+        
+        movieServices.finalOrderBookingApi(seatConfirmId: seatConfirmId , bookConfirmId: id , itemBookingId:  itemBookingId, completionHandler: { finalResult in
             
            
             toastMsg = "Ticket booked sucessfully"
@@ -337,6 +368,28 @@ struct CheckoutView: View {
          //   movieServices.selectedSeats = []
       //  }
        
+    }
+    func getFinalFoodID() -> (String , String){
+        var finalId = ""
+        var nameAndQuantity = ""
+        var foodId = ""
+        var foodQty = ""
+     
+        
+        for i in storeDataViewModel.items{
+            nameAndQuantity += "\(i.foodQuantity ?? "") x \(i.foodName ?? ""),"
+            if foodId == ""{
+                foodId = ("|" + String(storeDataViewModel.items.count) + "|" + (i.foodId ?? "") + "|")
+                foodQty = ((i.foodQuantity ?? "") + "|-1|")
+               
+            }else{
+                foodId = ((i.foodId ?? "") + "|")
+                foodQty = ((i.foodQuantity ?? "") + "|-1|")
+            }
+            finalId += foodId + foodQty
+            nameAndQuantity = String(nameAndQuantity.dropLast())
+        }
+        return (finalId , nameAndQuantity)
     }
     func getFinalPaymentProcessData() -> (String , String , String , String , String){
         var foodId = ""

@@ -36,6 +36,7 @@ struct OrderHisroryViewCell: View {
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(Color.white)
                             .multilineTextAlignment(.leading)
+                        Spacer()
                         Text(amount)
                             .font(.system(size: 18))
                             .foregroundColor(Color.white)
@@ -52,8 +53,8 @@ struct OrderHisroryViewCell: View {
                     HStack{
                         Text(date)
                             .font(.system(size: 16)).multilineTextAlignment(.leading)
-                            .foregroundColor(Color.white).frame(maxWidth : .infinity)
-                    
+                            .foregroundColor(Color.white)//.frame(maxWidth : .infinity)
+                    Spacer()
                        
                     }
                     if bookingId != "768783"{

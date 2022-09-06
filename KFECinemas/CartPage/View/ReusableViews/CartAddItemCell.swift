@@ -91,3 +91,80 @@ struct CartAddItemCell: View {
 //            .background(Color("ColorAppGrey"))
 //    }
 //}
+
+struct CheckoutAdditemCell: View {
+    @State var itemNames : String?
+    @State var itemPrice : Float
+    @State var itemQuantity : Int = 0
+    @State var itemId : String?
+    @State var catId : String?
+ 
+    var getDataValue : () -> ()
+    @EnvironmentObject var storeDataViewModel:CartAddFunctionalityViewModel
+
+    var body: some View {
+        HStack{
+            VStack(alignment: .leading){
+                Text(itemNames ?? "")
+                    .foregroundColor(Color.white.opacity(0.7))
+                Text("₹ " + String(Float(itemPrice) * Float(itemQuantity)))
+                    .foregroundColor(Color.white.opacity(0.7))
+            }
+            Spacer()
+            HStack{
+                Button{
+                    itemQuantity -= 1
+                    for i in 0..<storeDataViewModel.items.count{
+                        if storeDataViewModel.items[i].foodId == itemId{
+                            storeDataViewModel.items.remove(at: i)
+                            if itemQuantity == 0{
+                          //      addButtonClick = false
+                                getDataValue()
+                                break
+                            }else{
+                                let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity) , categoryId: catId)
+                                storeDataViewModel.items.insert(item, at: i)
+                                getDataValue()
+                               // break
+                            }
+                        }
+                    }
+                   
+                } label: {
+                    Text("-")
+                 .foregroundColor(Color.white)
+                 .fontWeight(.bold)
+                }.buttonStyle(PlainButtonStyle())
+                Text(String(itemQuantity))
+                    .foregroundColor(Color.white)
+                    .fontWeight(.bold)
+                Button{
+                    itemQuantity += 1
+                    
+                    for i in 0..<storeDataViewModel.items.count{
+                        if storeDataViewModel.items[i].foodId == itemId{
+                            storeDataViewModel.items.remove(at: i)
+//                                if itemQuantity == 0{
+//
+//                                }else{
+                            let item = CartFullDataModel(foodId: itemId ?? "", foodName: itemNames ?? "", foodPrice: String(itemPrice), totalPrice: calculatePrice(price: Float(itemPrice ) , quantity: Float(itemQuantity)) , foodQuantity : String(itemQuantity), categoryId: catId)
+                            storeDataViewModel.items.insert(item, at: i)
+                          //  }
+                        }
+                    }
+
+                    getDataValue()
+                } label: {
+                    Text("+")
+                        .foregroundColor(Color.white)
+                        .fontWeight(.bold)
+                } .buttonStyle(BorderlessButtonStyle())
+                
+            }
+        }.padding()
+    }
+    func calculatePrice(price : Float ,quantity : Float) -> String{
+        
+        return String(format: "%.2f", (price * quantity))
+    }
+}

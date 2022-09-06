@@ -18,6 +18,8 @@ struct MyProfilePageView: View {
     @State var errorPopup : Bool? = false
     @State var toastMsg : String = "Not valid"
     @ObservedObject var viewModel = UserAuthModel()
+    @EnvironmentObject var storageSettings:StorageSettings
+
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -53,6 +55,9 @@ struct MyProfilePageView: View {
                                     }else{
                                         if mobileNumber != "" && emailId != "" && userName != ""{
                                             viewModel.updateProfileApi(name : userName , mobileNumber : mobileNumber , email :emailId) { result in
+                                                storageSettings.userName = userName
+                                                storageSettings.emailAddress = emailId
+                                                storageSettings.mobileNumber = mobileNumber
                                                 errorPopup = true
                                                 toastMsg = "Profile updated sucessfully"
                                                 editBtnName = "Edit"
@@ -100,7 +105,7 @@ struct MyProfilePageView: View {
                             .disabled(disableTextField)
                             .placeholder(when: userName.isEmpty) {
                                 Text("Enter your Name").foregroundColor(.white).opacity(0.4)
-                            }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                            }.accentColor(Color.white).foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }                            //.frame(maxWidth : .infinity)
                     VStack{
                         HStack{
@@ -116,7 +121,7 @@ struct MyProfilePageView: View {
                             .disabled(disableTextField)
                             .placeholder(when: mobileNumber.isEmpty) {
                                 Text("Enter your Mobile Number").foregroundColor(.white).opacity(0.4)
-                            }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                            }.accentColor(Color.white).foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
                     VStack{
                         HStack{
@@ -132,7 +137,7 @@ struct MyProfilePageView: View {
                             .disabled(disableTextField)
                             .placeholder(when: emailId.isEmpty) {
                                 Text("Enter your Email").foregroundColor(.white).opacity(0.4)
-                            }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                            }.accentColor(Color.white).foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
                 }.frame( maxWidth: .infinity)
                 

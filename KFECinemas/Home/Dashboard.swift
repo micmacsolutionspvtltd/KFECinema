@@ -39,7 +39,9 @@ struct Dashboard: View {
     @State var spiceKitchenActive : Bool = false
     @State var movieActive : Bool = false
     @State private var selectedItem: UUID? = nil
-
+    @State var movieId : String = ""
+    @State var movieName : String = ""
+    
   //  var proxy: ScrollViewProxy? = nil
     var body: some View {
         NavigationView{
@@ -90,9 +92,9 @@ struct Dashboard: View {
                     }.padding(.leading,5)
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:30){
-                            ForEach(dashboardServices.spiceCinemas, id: \.id) { movie in
-                                NavigationLink(destination: MovieDetailView(movie:movie ) ) {
-                                    MovieCardView(model: movie).frame(width: 150, height: 250)
+                            ForEach(0..<dashboardServices.finalSpiceImageData.count, id: \.self) { movie in
+                                NavigationLink(destination: MovieDetailView(movie:dashboardServices.spiceCinemas[movie], imageData: dashboardServices.finalSpiceImageData[movie] ) ) {
+                                    MovieCardView(model: dashboardServices.spiceCinemas[movie] , imageData : dashboardServices.finalSpiceImageData[movie]).frame(width: 150, height: 250)
 //                                        .onTapGesture {
 //                                            self.selectedItem = movie.id
 //                                        }.background(
@@ -112,9 +114,9 @@ struct Dashboard: View {
                     }.padding(.leading,5)
                     ScrollView(.horizontal,showsIndicators:false) {
                         HStack (spacing:30){
-                            ForEach(dashboardServices.moneCinemas, id: \.id) { movie in
-                                NavigationLink(destination: MovieDetailView(movie:movie)) {
-                                    MovieCardView(model: movie).frame(width: 150, height: 250)
+                            ForEach(0..<(dashboardServices.finalMoneImageData.count), id: \.self) { movie in
+                                NavigationLink(destination: MovieDetailView(movie:dashboardServices.moneCinemas[movie], imageData: dashboardServices.finalMoneImageData[movie])) {
+                                    MovieCardView(model: dashboardServices.moneCinemas[movie], imageData: dashboardServices.finalMoneImageData[movie]).frame(width: 150, height: 250)
                                 }
                                 
                             }
@@ -140,12 +142,12 @@ struct Dashboard: View {
                         }
                         ScrollView(.horizontal,showsIndicators:false) {
                             HStack (spacing:20){
-                                ForEach(dashboardServices.concessionZoneItems, id: \.id) { movie in
+                                ForEach(0..<(dashboardServices.newSpiceZoneData.count), id: \.self) { movie in
                                   //  NavigationLink(destination: SpiceKitchenView(pageName : "Concession Zone")) {
                                     Button{
                                         showTheaterSelectPopup = true
                                     }label: {
-                                        ConcessionZoneCardView(model: movie).frame(width: 150, height: 220).cornerRadius(10)
+                                        ConcessionZoneCardView(model: dashboardServices.newSpiceZoneData[movie]).frame(width: 150, height: 220).cornerRadius(10)
                                     }
                                 }
                             }
@@ -207,7 +209,7 @@ struct Dashboard: View {
                             }
                         })
                 }
-            }
+            }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("").navigationViewStyle(.stack)
         }.onAppear {
             showTheaterSelectPopup = false
             storeDataViewModel.deleteAllDatas()
@@ -215,18 +217,57 @@ struct Dashboard: View {
             dashboardServices.getAllBannerImages(completionHandler: ({ result in
                 
             }))
-            dashboardServices.getAllFilms()
+         
             dashboardServices.getAllSpiceKitchenItems()
-            dashboardServices.getConcessionZoneItems()
+          //  dashboardServices.getConcessionZoneItems()
             dashboardServices.getAllActiveTheatres()
-            dashboardServices.getParticularCinemaApi(cinemaCode: "0002")
-            dashboardServices.getParticularCinemaApi(cinemaCode: "0003")
-            dashboardServices.getUpcomingMovies()
+            dashboardServices.getAllFilms(completionHandler: { result in
+                for i in result{
+                    movieId += "\(i.filmStrCode ?? ""),"
+                    movieName += "\(i.filmStrTitle ?? ""),"
+                }
+                movieId = String(movieId.dropLast())
+                movieName = String(movieName.dropLast())
+            //    dashboardServices.postMovieDetail(movieId: movieId, movieName: movieName)
+            })
+
+            dashboardServices.getParticularCinemaApi(cinemaCode: "0002", completionHandler: { _ in
+              
+             
+                dashboardServices.getFinalCiemasApi(movieId: dashboardServices.spiceCienmasID, theaterId: "0002" , movieName : dashboardServices.spiceMovieName)
+            })
+            dashboardServices.getParticularCinemaApi(cinemaCode: "0003", completionHandler: { _ in
+                
+                 dashboardServices.getFinalCiemasApi(movieId: dashboardServices.moneCienmasID, theaterId: "0003" , movieName : dashboardServices.moneMovieName)
+
+            })
+            dashboardServices.getUpcomingMovies(completionHandler: { _ in
+                dashboardServices.getFinalCiemasApi(movieId: dashboardServices.upComingMoviesID, theaterId: "0004" , movieName : dashboardServices.upcomingMovieName)
+            })
+            dashboardServices.getNewConcessionZoneApi(cinemaCode: "0002") { _ in
+                var convertValue : Int = 0
+                for i in 0..<dashboardServices.newSpiceZoneData.count{
+                    convertValue = (dashboardServices.newSpiceZoneData[i].itemIntPrice ?? 0)/100
+                    dashboardServices.initialSpiceFoodData[i].itemIntPrice = convertValue
+                    dashboardServices.newSpiceZoneData[i].itemIntPrice = convertValue
+                }
+                dashboardServices.postImageDetail(foodId: dashboardServices.spiceFoodId, foodName: dashboardServices.spiceFoodName , cinemaCode: "0002")
+            }
+            dashboardServices.getNewConcessionZoneApi(cinemaCode: "0003") { _ in
+                var convertValue : Int = 0
+                for i in 0..<dashboardServices.newMoneZoneData.count{
+                    convertValue = (dashboardServices.newMoneZoneData[i].itemIntPrice ?? 0)/100
+                    dashboardServices.initialMoneFoodData[i].itemIntPrice = convertValue
+                    dashboardServices.newMoneZoneData[i].itemIntPrice = convertValue
+                }
+                dashboardServices.postImageDetail(foodId: dashboardServices.moneFoodId, foodName: dashboardServices.moneFoodName , cinemaCode: "0003")
+            }
+            
             showLoader = false
             // scrollView.scrollTo(movieNotes[movieNotes.endIndex - 1])
         }.navigationBarHidden(true).navigationTitle("").navigationBarTitle("").navigationViewStyle(.stack)
-            .environment(\.rootPresentationMode, self.$isActive)
-           // .createLoader(isShowing: $showLoader)]
+          //  .environment(\.rootPresentationMode, self.$isActive)
+         // .createLoader(isShowing: $showLoader)]
             .loaderView(isShowing: $showLoader)
             .toast(isShowing: $showToast, textContent : toastMsgs)
     }
@@ -238,7 +279,7 @@ struct Dashboard: View {
 
 struct Dashboard_Previews: PreviewProvider {
     static var previews: some View {
-        Dashboard( toastMsgs: "")
+        Dashboard(toastMsgs: "")
     }
 }
 
@@ -327,7 +368,7 @@ struct TableHeaderView<Content: View>: View {
                             Text("View All").font(.system(size: 13)).fontWeight(.bold).foregroundColor(.white)
                             Image(systemName: "arrow.right").foregroundColor(.white)
                         }
-                        .padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
+                        .padding(8).frame(width: 110,height: 30).background(LinearGradient(gradient: SwiftUI.Gradient(colors: [Constants.CustomColors.colorAppPink,Constants.CustomColors.colorAppRed]), startPoint: .leading, endPoint: .trailing)).cornerRadius(15)
                     }
                 }else{
                 NavigationLink(isActive : $isActive){
@@ -337,7 +378,7 @@ struct TableHeaderView<Content: View>: View {
                         Text("View All").font(.system(size: 13)).fontWeight(.bold).foregroundColor(.white)
                         Image(systemName: "arrow.right").foregroundColor(.white)
                     }
-                    .padding(8).frame(width: 110,height: 30).background(.red).cornerRadius(15)
+                    .padding(8).frame(width: 110,height: 30).background(LinearGradient(gradient: SwiftUI.Gradient(colors: [Constants.CustomColors.colorAppPink,Constants.CustomColors.colorAppRed]), startPoint: .leading, endPoint: .trailing)).cornerRadius(15)
                 }.isDetailLink(false)
                 }
                 

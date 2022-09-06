@@ -53,30 +53,30 @@ class UserAuthModel: ObservableObject {
        guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
 
         let signInConfig = GIDConfiguration.init(clientID: "371242278405-pqqnrmm748gm6uggf0lc0ssbkbkelo2f.apps.googleusercontent.com")
-        GIDSignIn.sharedInstance.signIn(
-            with: signInConfig,
-            presenting: presentingViewController,
-            callback: { user, error in
-                if let error = error {
-                    self.errorMessage = "error: \(error.localizedDescription)"
-                }
-                if(GIDSignIn.sharedInstance.currentUser != nil){
-                    let user = GIDSignIn.sharedInstance.currentUser
-                    guard let user = user else { return }
-         
-                    self.givenName = user.profile?.name ?? ""
-                    self.email = user.profile?.email ?? ""
-                    self.loginId = user.userID ?? ""
-                    self.isLoggedIn = true
-                    completionHandler(user)
-                }else{
-                    self.isLoggedIn = false
-                    self.givenName = "Not Logged In"
-                  //  self.profilePicUrl =  ""
-                }
-            
-            }
-        )
+//        GIDSignIn.sharedInstance.signIn(
+//            with: signInConfig,
+//            presenting: presentingViewController,
+//            callback: { user, error in
+//                if let error = error {
+//                    self.errorMessage = "error: \(error.localizedDescription)"
+//                }
+//                if(GIDSignIn.sharedInstance.currentUser != nil){
+//                    let user = GIDSignIn.sharedInstance.currentUser
+//                    guard let user = user else { return }
+//
+//                    self.givenName = user.profile?.name ?? ""
+//                    self.email = user.profile?.email ?? ""
+//                    self.loginId = user.userID ?? ""
+//                    self.isLoggedIn = true
+//                    completionHandler(user)
+//                }else{
+//                    self.isLoggedIn = false
+//                    self.givenName = "Not Logged In"
+//                  //  self.profilePicUrl =  ""
+//                }
+//
+//            }
+//        )
     }
     
     func signOut(){
@@ -85,17 +85,17 @@ class UserAuthModel: ObservableObject {
     }
     func facebookLogin() {
         Settings.shared.appID = "1312073875795599"
-           loginManager.logIn(permissions: [.publicProfile, .email], viewController: nil) { loginResult in
-               switch loginResult {
-               case .failed(let error):
-                   print(error)
-               case .cancelled:
-                   print("User cancelled login.")
-               case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                   print("Logged in! \(grantedPermissions) \(declinedPermissions) \(accessToken)")
-
-               }
-           }
+//           loginManager.logIn(permissions: [.publicProfile, .email], viewController: nil) { loginResult in
+//               switch loginResult {
+//               case .failed(let error):
+//                   print(error)
+//               case .cancelled:
+//                   print("User cancelled login.")
+//               case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+//                   print("Logged in! \(grantedPermissions) \(declinedPermissions) \(accessToken)")
+//
+//               }
+//           }
     }
     
     func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String , completionHandler : @escaping((SignUpDataModel) -> Void) ){
@@ -208,20 +208,20 @@ class UserAuthModel: ObservableObject {
         }
     }
 }
-    class FBLogin: LoginManager {
-
-        let loginButton = FBLoginButton()
-        let token = AccessToken.current
-        let permissions = ["user_birthday", "user_gender", "public_profile"]
-
-        override init(){
-            super.init()
-            logIn(permissions: permissions, from: nil)
-            print("fb init()")
-        }
-
-        override func logIn(permissions: [String], from fromViewController: UIViewController?, handler: LoginManagerLoginResultBlock? = nil) {
-            // TODO
-        }
-
-    }
+//    class FBLogin: LoginManager {
+//
+//        let loginButton = FBLoginButton()
+//        let token = AccessToken.current
+//        let permissions = ["user_birthday", "user_gender", "public_profile"]
+//
+//        override init(){
+//            super.init()
+//            logIn(permissions: permissions, from: nil)
+//            print("fb init()")
+//        }
+//
+//        override func logIn(permissions: [String], from fromViewController: UIViewController?, handler: LoginManagerLoginResultBlock? = nil) {
+//            // TODO
+//        }
+//
+//    }

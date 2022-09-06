@@ -155,13 +155,14 @@ class CartAddFunctionalityViewModel : ObservableObject{
         }
         
     }
-    func orderConcessionZoneSnacks(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String , amountDiscounted : String, completionHandler : @escaping((FoodOrderResponseModel) -> Void) ){
+    func orderConcessionZoneSnacks(orderDate :  String ,itemId : String , categoryId : String ,quantity : String , price : String , gst : String ,promoId : String , totalAmt : String ,pickUpCounter : String ,theaterId : String , screenId : String , seatNo : String , totalPrice : String ,showTime : String ,seatRow : String , promoCode : String , discountPrice : String , amountDiscounted : String , orderConfirmId : String, completionHandler : @escaping((String) -> Void) ){
         let params : [String : String]?
         params = [
             "order_date" : orderDate ,
             "user_id" : StorageSettings().userId,
             "item_id" : itemId,
             "categoryId": categoryId,
+            "sub_categoryId": "",
             "quantity" : quantity,
             "price" : price,
             "gst" : categoryId,
@@ -180,7 +181,9 @@ class CartAddFunctionalityViewModel : ObservableObject{
             "is_vip_card_used" : "",
             "vip_card_id" : "",
             "snacks_delivery_at_beg_inter" : "1",
+            "order_confirm_id":orderConfirmId
         ]
+        //http://202.83.31.153:8075/KFE_Android/insert_snacks_ordered_items.php?order_date=2022-08-26&order_confirm_id=WB4N2WM&user_id=13&item_id=636&categoryId=4&sub_categoryId=&quantity=1&price=120.0&gst=636&payment_type=1&ordered_during=0&deliver_to_seat_or_pickup_at_counter=1&theatre_id=Spice Cinemas&screen_id=Screen 2&seat_no=2&order_total_price=120.00&show_time=Afternoon Show&zone=Elite&deliver_to_seat_or_pickup_at_counter=1&order_date=2022-08-26&promocode_id=&total_amt_discounted=&total_amt_after_discounted=130.0&is_vip_card_used=&vip_card_id=&snacks_delivery_at_beg_inter=1
 //        params = [
 //            "order_date" : "2022-05-26" ,
 //            "user_id" : "42",
@@ -210,13 +213,46 @@ class CartAddFunctionalityViewModel : ObservableObject{
             DispatchQueue.main.async {
             if restValue == true{
             //    self.getPromoCodeData = result
-                completionHandler(result!)
+                completionHandler("")
             }else{
-             
+                completionHandler("")
             }
             }
         }
         
+    }
+    func confirmSnacksItem( cinemaCOde : String , itemID : String, completionHandler : @escaping (ConfirmSeatsModel) -> Void){
+        let finalRequest = [
+            "strItemsOrder" : itemID  ,
+           // "strTransId" : transactionId ,
+            "strCinemaCode" : cinemaCOde,
+            "lngSessionId" : "4" ,
+            "blnPaid": "true",
+              "strCardNo": "sample string 5",
+              "strCardType": "Depit",
+              "strCardExpiryMonth": "5",
+              "strCardExpiryYear": "40",
+              "strCardCVV": "sample string 9",
+            "strCustomerName": StorageSettings().userName,
+            "strCustomerPhone": StorageSettings().mobileNumber,
+              "strComments": "nil",
+              "strPickupName": "sample string 13",
+        ]
+      //  finalRequest.merge(requestBody , uniquingKeysWith: +)
+        let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.confirmSnacks,requestBody: finalRequest))!
+    
+        NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: ConfirmSeatsModel.self) { (restValue, result, error) in
+            DispatchQueue.main.async { [unowned self] in
+                if restValue == true{
+                   completionHandler(result!)
+                 print("Seat reset has been done")
+                }else{
+                    
+                }
+               
+           
+            }
+        }
     }
     func calculateTotalPrice() -> String{
       //  getAllDataFromTable()

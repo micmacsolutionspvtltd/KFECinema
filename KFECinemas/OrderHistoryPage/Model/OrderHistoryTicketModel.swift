@@ -34,6 +34,8 @@ struct SnacksDetails: Codable,Hashable {
     let snacksDeliveryAtBegInter, orderedDuring, theatreID, showTime: String?
     let screenID, zone, seatNo, createdAt: String?
     let updatedAt: String?
+   
+    
 
     enum CodingKeys: String, CodingKey {
         case snacksItemName = "snacks_item_name"
@@ -68,6 +70,7 @@ struct SnacksDetails: Codable,Hashable {
         case seatNo = "seat_no"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+       
     }
 }
 
@@ -83,8 +86,9 @@ struct MovieDetails: Codable , Hashable{
     let zoneInScreen: String?
     let seatNo, isSnacksOrdered, snacksPickup, isFoodOrdered: String?
     let foodPickup, totalAmount: String?
-    let snacksOrderID , orderConfirmId : String?
+    let snacksOrderID , orderConfirmId , itemBookingid : String?
     let isSnacksDelivered, snacksDeliveryAmt , discountAmt: String?
+    let totalAmtAfterDiscounted : String?
 
     enum CodingKeys: String, CodingKey {
         case bookingID = "booking_id"
@@ -110,6 +114,7 @@ struct MovieDetails: Codable , Hashable{
         case email = "email"
         case orderConfirmId = "order_confirm_id"
         case discountAmt = "total_amt_discounted"
-        
+        case totalAmtAfterDiscounted = "total_amt_after_discounted"
+        case itemBookingid = "item_Booking_id"
     }
 }

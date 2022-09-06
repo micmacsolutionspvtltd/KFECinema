@@ -139,9 +139,9 @@ struct BookSeatView: View {
             }else{
                 NavigationLink( isActive : self.$isActive){
                     if model.theatreName == "Spice  Cinemas"{
-                        SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView",theaterID : "8",theaterName : model.theatreName)
+                        SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView",theaterID : "0002",theaterName : model.theatreName)
                     }else{
-                        SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView",theaterID : "2", theaterName : model.theatreName)
+                        SpiceKitchenView(pageName : "Concession Zone" , lastPage: "bookSeatView",theaterID : "0003", theaterName : model.theatreName)
                     }
                 } label: {
                     HStack(spacing :20){

@@ -15,7 +15,7 @@
       "location" : "https://github.com/facebook/facebook-ios-sdk",
       "state" : {
         "branch" : "main",
-        "revision" : "5fdbd9cae82bca22f7b9c3dc8c72c8c44acf356d"
+        "revision" : "c13bd7d9d80da4132a8ca5ab7a5c023c57c9ccdc"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/google/GoogleSignIn-iOS.git",
       "state" : {
         "branch" : "main",
-        "revision" : "11c5c566088434eedf27a7c52faba467a0920c0c"
+        "revision" : "8345fcc43c38cefb67f1ad0d5dcd51a1d036e460"
       }
     },
     {
