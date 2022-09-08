@@ -26,17 +26,44 @@ struct SignupView: View {
                     Image("batne").resizable().scaledToFill()
                     Image("kfelogo").resizable().frame(width: 100, height: 60).offset(y: -100)
                     VStack {
-                        TextField("Enter your Name", text: $userName)
-                            .foregroundColor(Color.white)
-                            .padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
-                        TextField("Enter your mobile number", text: $mobileNumber).foregroundColor(Color.white).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
-                        TextField("Enter your Email", text: $emailId).foregroundColor(Color.white).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        TextField("", text: $userName)
+                            .keyboardType(.numberPad)
+                            .placeholder(when: userName.isEmpty) {
+                                Text("Enter your Name").foregroundColor(.white).opacity(0.4)
+                        }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        
+//                        TextField("Enter your Name", text: $userName)
+//                            .foregroundColor(Color.white)
+//                            .padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        TextField("", text: $mobileNumber)
+                            .keyboardType(.numberPad)
+                            .placeholder(when: mobileNumber.isEmpty) {
+                                Text("Enter your mobile number").foregroundColor(.white).opacity(0.4)
+                        }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        
+//                        TextField("Enter your mobile number", text: $mobileNumber).foregroundColor(Color.white).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+//                        TextField("Enter your Email", text: $emailId).foregroundColor(Color.white).padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        TextField("", text: $emailId)
+                            .keyboardType(.numberPad)
+                            .placeholder(when: emailId.isEmpty) {
+                                Text("Enter your Email").foregroundColor(.white).opacity(0.4)
+                        }.foregroundColor(Color.white).padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+
                         HStack {
                             if showPassword{
-                                TextField("Enter your password", text: $password)
+                                TextField("", text: $password)
+                                    .keyboardType(.numberPad)
+                                    .placeholder(when: password.isEmpty) {
+                                        Text("Enter your password").foregroundColor(.white).opacity(0.4)
+                                }.foregroundColor(.white)
+                               // TextField("Enter your password", text: $password)
                                 
                             }else{
-                                SecureField("Enter your password", text: $password)
+                                SecureField("", text: $password)
+                                    .placeholder(when: password.isEmpty) {
+                                        Text("Enter your password").foregroundColor(.white).opacity(0.4)
+                                    }.foregroundColor(.white)
+                               // SecureField("Enter your password", text: $password)
                                 
                             }
                             Button(action:{
@@ -47,19 +74,27 @@ struct SignupView: View {
                                 }
                             }){
                                 
-                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color.gray)
+                                Image(systemName: showPassword ? "eye" : "eye.slash").background(Color("ColorAppGrey"))
+
                                 
                                 
                             }
                             
-                        }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        }.padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                         HStack {
-                            if showPassword{
-                                TextField("Confirm your password", text: $confirmPassword)
-                                
+                            if confirmPasswordShow{
+                               // TextField("Confirm your password", text: $confirmPassword)
+                                TextField("", text: $confirmPassword)
+                                    .keyboardType(.numberPad)
+                                    .placeholder(when: confirmPassword.isEmpty) {
+                                        Text("Enter your password").foregroundColor(.white).opacity(0.4)
+                                }.foregroundColor(.white)
                             }else{
-                                SecureField("Confirm your password", text: $confirmPassword)
-                                
+                              //  SecureField("Confirm your password", text: $confirmPassword)
+                                SecureField("", text: $confirmPassword)
+                                    .placeholder(when: confirmPassword.isEmpty) {
+                                        Text("Enter your password").foregroundColor(.white).opacity(0.4)
+                                    }.foregroundColor(.white)
                             }
                             Button(action:{
                                 if confirmPasswordShow == false{
@@ -69,12 +104,12 @@ struct SignupView: View {
                                 }
                             }){
                                 
-                                Image(systemName: confirmPasswordShow ? "eye" : "eye.slash").background(Color.gray)
+                                Image(systemName: confirmPasswordShow ? "eye" : "eye.slash").background(Color("ColorAppGrey"))
                                 
                                 
                             }
                             
-                        }.padding().background(Color.gray).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
+                        }.padding().background(Color("ColorAppGrey")).cornerRadius(5).padding(EdgeInsets(top: 2, leading: 12, bottom: 2, trailing: 12))
                     }
                     
                     Button(action: {
@@ -106,7 +141,7 @@ struct SignupView: View {
                     HStack(alignment: .center, spacing: 5.0) {
                         Spacer()
                         Text("Continue With")
-                            .foregroundColor(.black)
+                           // .foregroundColor(.black)
                         //  .padding(.trailing, 10.0)
                         Spacer()
                         Image("google")
@@ -121,7 +156,7 @@ struct SignupView: View {
                     )
                     
                 }
-                .background(Color.gray)
+                .background(Color("ColorAppGrey"))
                 .cornerRadius(.infinity)
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 2, trailing: 15))
                 
@@ -131,7 +166,7 @@ struct SignupView: View {
                     HStack(alignment: .center, spacing: 5.0) {
                         Spacer()
                         Text("Continue With")
-                            .foregroundColor(.black)
+                            
                         //  .padding(.trailing, 10.0)
                         Spacer()
                         Image("facebook")
@@ -146,7 +181,7 @@ struct SignupView: View {
                     )
                     
                 }
-                .background(Color.gray)
+                .background(Color("ColorAppGrey"))
                 .cornerRadius(.infinity)
                 .padding(EdgeInsets(top: 10, leading: 15, bottom: 15, trailing: 15))
                 VStack(alignment: .center, spacing: 15.0){
