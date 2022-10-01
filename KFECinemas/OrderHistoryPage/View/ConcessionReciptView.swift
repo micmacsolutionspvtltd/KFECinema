@@ -1,35 +1,34 @@
 //
-//  TicketReciptView.swift
+//  ConcessionReciptView.swift
 //  KFECinemas
 //
-//  Created by MAC on 04/05/22.
+//  Created by MAC on 13/09/22.
 //
 
 import SwiftUI
 
-struct TicketReciptView: View {
-   @State var reciptDatas: MovieDetails?
-    @State var lastPage : String?
-    @Environment(\.presentationMode) private var presentationMode : Binding<PresentationMode>
-    @State var movieName :String?
-    @State var showDate : String?
-    @State var showTime : String?
-    @State var ticketFormat : String?
-    @State var theatreName : String?
-    @State var screenName : String?
-    @State var seatNumber : String?
-    @State var bookingId : String?
-    @State var snacksName : String?
-    @State var ticketPrice : String?
-    @State var snacksprice : String?
-    @State var deliverPrice : String?
-    @State var totalPrice : String?
-    @State var discountAmount : String?
-    @State var moveToDashBoard : Bool = false
-    @State var imageName = "historyName"
-    @State var foodOrderId = ""
-    @Environment(\.rootPresentationMode)  var rootPresentationMode: Binding<RootPresentationMode>
+struct ConcessionReciptView: View {
+    @State var spiceDatas: HistorySpiceKitchen?
+    @State var reciptDatas: ConcessionHistoryData?
+     @State var lastPage : String?
+     @Environment(\.presentationMode) private var presentationMode : Binding<PresentationMode>
+     @State var pageName :String?
+     @State var showDate : String?
+     @State var showTime : String?
     
+     @State var theatreName : String?
+     @State var screenName : String?
+     @State var seatNumber : String?
+     @State var bookingId : String?
+     @State var snacksName : String? = "l"
+     @State var ticketPrice : String?
+     @State var snacksprice : String?
+     @State var deliverPrice : String?
+     @State var totalPrice : String?
+     @State var discountAmount : String?
+     @State var moveToDashBoard : Bool = false
+     @State var imageName = "historyName"
+     @State var foodOrderId = ""
     var body: some View {
         GeometryReader{ geometry in
             ScrollView(showsIndicators:false){
@@ -38,7 +37,7 @@ struct TicketReciptView: View {
            //     GeometryReader{ innerGeometry in
                 VStack(alignment : .leading,spacing: 50){
                     ZStack{
-                        Text("Ticket Recipt")
+                        Text(pageName ?? "")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
                             
@@ -79,8 +78,9 @@ struct TicketReciptView: View {
                             .aspectRatio(contentMode: .fill)
                         Spacer()
                     }
-                        Text(movieName ?? "")
+                        Text("Concession Zone")
                         .fontWeight(.bold).multilineTextAlignment(.leading)
+                        .frame(maxWidth : .infinity , alignment: .leading)
                         .padding(EdgeInsets(top: 10, leading: 0, bottom: 20, trailing: 0))
                     Divider()
                         .frame( height:1)
@@ -91,7 +91,7 @@ struct TicketReciptView: View {
                                 Text("Date")
                                     .foregroundColor(.gray).multilineTextAlignment(.leading)
                                      
-                                     .frame(maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity)
                                      .fixedSize(horizontal: false, vertical: true)
                                 Text("Time")
                                     .foregroundColor(.gray)
@@ -176,6 +176,7 @@ struct TicketReciptView: View {
 //
 //                        }
                     }
+                        
                     Divider()
                         .frame( height:1)
                         .background(Color.white)
@@ -193,13 +194,7 @@ struct TicketReciptView: View {
                                     .multilineTextAlignment(.leading)
                                 Spacer().frame( height: 6)
                                
-                                    HStack{
-                                        Text("Snacks Order Id : ")
-                                            .foregroundColor(.gray).multilineTextAlignment(.leading)
-                                        Text(foodOrderId )
-                                            .multilineTextAlignment(.leading)
-                                        Spacer()
-                                    }
+
                              
                                 
                             }
@@ -213,25 +208,25 @@ struct TicketReciptView: View {
                     }
                         }
                     VStack(spacing : 7){
-                        HStack{
-                            Text("Ticket Price")
-                                .font(.system(size: 15)).multilineTextAlignment(.leading)
-                            Spacer()
-                            Text("₹ \(ticketPrice ?? "")")
-                                .multilineTextAlignment(.trailing)
-                        }
+//                        HStack{
+//                            Text("Ticket Price")
+//                                .font(.system(size: 15)).multilineTextAlignment(.leading)
+//                            Spacer()
+//                            Text("₹ \(ticketPrice ?? "")")
+//                                .multilineTextAlignment(.trailing)
+//                        }
                         if snacksName != "" && snacksName != " x "{
                             HStack{
                                 Text("Snacks and Beverage Price")
                                     .font(.system(size: 15)).multilineTextAlignment(.leading)
                                 Spacer()
-                                Text("\(snacksprice ?? "")")
+                                Text("₹ \(snacksprice ?? "")")
                                     .multilineTextAlignment(.trailing)
                             }
                         }
                         if deliverPrice != "" && deliverPrice != nil && deliverPrice != "0"{
                             HStack{
-                                Text("Deliver Price")
+                                Text("Deliver Charge")
                                     .font(.system(size: 15)).multilineTextAlignment(.leading)
                                 Spacer()
                                 Text("₹ \(deliverPrice ?? "")")
@@ -282,47 +277,58 @@ struct TicketReciptView: View {
               
                 .navigationBarHidden(true)
                 .onAppear(){
-                    if reciptDatas?.theatreName == "M1 Cinemas" || theatreName == "M1 Cinemas"{
-                        self.imageName = "m1 Black"
-                    }
+//                    if reciptDatas?.theatreName == "M1 Cinemas"{
+//                        self.imageName = "m1 Black"
+//                    }
                     if lastPage != "checkout"{
-                   
-                        movieName = reciptDatas?.movieName
-                        movieName = reciptDatas?.movieName
-                        showDate = reciptDatas?.bookingDate
-                        showTime = reciptDatas?.showTime
-                        foodOrderId = reciptDatas?.itemBookingid ?? ""
-                        theatreName = reciptDatas?.theatreName
-                        screenName = reciptDatas?.screenName
-                        seatNumber = ("\(reciptDatas?.zoneInScreen ?? "") - \(reciptDatas?.seatNo ?? "")")
+                        if lastPage == "Spice Kitchen"{
+                            showDate = spiceDatas?.orderDate ?? ""
+                            showTime = spiceDatas?.showTime ?? ""
+                            theatreName = "M1 Cinemas"
+                          //  if reciptDatas?.theaterId == "M1 Cinemas"{
+                                self.imageName = "m1 Black"
+                           // }
+                            seatNumber = "\(spiceDatas?.zone ?? "") - \(spiceDatas?.seatNo ?? "")"
+                            bookingId = spiceDatas?.foodOrderID ?? ""
+                            snacksprice = spiceDatas?.totalPrice ?? ""
+                            screenName = spiceDatas?.screenId ?? ""
+                            if spiceDatas?.deliveryMode == "0"{
+                                deliverPrice = ""
+                            }else{
+                                deliverPrice = "10"
+                            }
+                            totalPrice = spiceDatas?.diccountedAmount ?? ""
+                            discountAmount = spiceDatas?.calculateDiscountAmt ?? ""
+                            pageName = "Spice Kitchen"
+                        }else{
+                        showDate = reciptDatas?.orderDate ?? ""
+                        showTime = reciptDatas?.showTime ?? ""
+                        theatreName = reciptDatas?.theaterId ?? ""
+                        if reciptDatas?.theaterId == "M1 Cinemas"{
+                            self.imageName = "m1 Black"
+                        }
+                        seatNumber = "\(reciptDatas?.zone ?? "") - \(reciptDatas?.seatNo ?? "")"
                         bookingId = reciptDatas?.orderConfirmId ?? ""
-                       
-                        ticketPrice = reciptDatas?.movieAmount ?? ""
-                       // snacksprice = reciptDatas?.snacksDeliveryAmt ?? ""
-                        deliverPrice = reciptDatas?.snacksDeliveryAmt ?? ""
-                        totalPrice = reciptDatas?.totalAmtAfterDiscounted ?? ""
-                        discountAmount = reciptDatas?.discountAmt ?? ""
+                        snacksprice = reciptDatas?.totalPrice ?? ""
+                        screenName = reciptDatas?.screenId ?? ""
+                        if reciptDatas?.deliveryMode == "0"{
+                            deliverPrice = ""
+                        }else{
+                            deliverPrice = "10"
+                        }
+                        totalPrice = reciptDatas?.diccountedAmount ?? ""
+                        discountAmount = reciptDatas?.calculateDiscountAmt ?? ""
+                            pageName = "Concession Zone"
+                    }
                     }
                    
                 }
-//            NavigationLink(destination: Dashboard(), isActive: $moveToDashBoard){
-//
-//            }
- 
-//            VStack{
-//                Circle()
-//
-//            .frame(height : 50,alignment : .topLeading)
-//                Spacer()
-//            }.padding(.top ,20)
         }.background(LinearGradient(gradient: SwiftUI.Gradient(colors: [Constants.CustomColors.sideMenuColor1,Constants.CustomColors.sideMenuColor2]), startPoint: .top, endPoint: .bottom))
-  
-        
     }
 }
 
-struct TicketReciptView_Previews: PreviewProvider {
+struct ConcessionReciptView_Previews: PreviewProvider {
     static var previews: some View {
-        TicketReciptView()
+        ConcessionReciptView()
     }
 }

@@ -305,7 +305,7 @@ struct AppBarView: View {
             
             
             HStack {
-                TextField("Search movie", text: $searchText).onChange(of: searchText, perform: { newValue in
+                TextField("Movies,Snacks,Theaters..", text: $searchText).onChange(of: searchText, perform: { newValue in
                     print(newValue)
                     dashboardServices.searhFilter(text: newValue)
                 })

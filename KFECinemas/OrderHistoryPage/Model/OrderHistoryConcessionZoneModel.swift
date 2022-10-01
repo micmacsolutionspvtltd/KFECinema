@@ -15,8 +15,8 @@ struct OrderHistoryConcessionZoneModel: Codable , Hashable{
 
 // MARK: - Datum
 struct ConcessionHistoryData: Codable  , Hashable {
-    let id, orderID, totalPrice, orderDate: String?
-    let itemName: String?
+    let id, orderID, totalPrice, orderDate , screenId: String?
+    let itemName , theaterId: String?
     let quantity: String?
     let zone: String?
     let itemPrice: String?
@@ -26,9 +26,10 @@ struct ConcessionHistoryData: Codable  , Hashable {
     let showTime: String?
     let mbleNum: String?
     let email: String?
-    let orderDuring: String?
+    let orderDuring , calculateDiscountAmt: String?
     let theatreName, screenName, seatNo , orderConfirmId : String?
-    let diccountedAmount : String?
+    let diccountedAmount,orderTotalPrice : String?
+    let deliveryMode : String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -36,6 +37,8 @@ struct ConcessionHistoryData: Codable  , Hashable {
         case totalPrice = "total_price"
         case orderDate = "order_date"
         case itemName = "item_name"
+        case theaterId = "theatre_id"
+        case calculateDiscountAmt = "calculated_discount_amount"
         case quantity, zone
         case itemPrice = "item_price"
         case paymentType = "payment_type"
@@ -51,5 +54,8 @@ struct ConcessionHistoryData: Codable  , Hashable {
         case seatNo = "seat_no"
         case orderConfirmId = "order_confirm_id"
         case diccountedAmount = "discounted_amount"
+        case orderTotalPrice = "order_total_price"
+        case deliveryMode = "deliver_to_seat_or_pickup_at_counter"
+        case screenId = "screen_id"
     }
 }

@@ -12,11 +12,12 @@ struct SpiceKitchenView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @Environment(\.rootPresentationMode) var rootPresentationMode: Binding<RootPresentationMode>
     @State private var isActive : Bool = false
-    
+    @EnvironmentObject var promoDataViewModel : PromoViewModel
     @State var bannerImageData: FoodBannerImageModel?
     @State var getConcessionData : FoodListModel?
     @State var getSpiceKitchenData: SpiceKitchenModel?
     @State var concessionZoneData : [NewConceesionData] = []
+   
     @State var pageName : String = "Spice Kitchen"
     var lastPage : String? = ""
     @State var vegClicked : Bool = false
@@ -319,7 +320,8 @@ struct SpiceKitchenView: View {
             .navigationBarBackButtonHidden(true).navigationViewStyle(.stack)
             .loaderView(isShowing: $showLoader)
             .onAppear(){
-                
+                promoDataViewModel.promoId = ""
+                promoDataViewModel.promoCode = ""
                 storeDataViewModel.deleteAllDatas()
                 viewModel.getAllBannerImages{ result in
                     bannerImageData = result
@@ -397,11 +399,11 @@ struct SpiceKitchenView: View {
     }
     func resetSeatMultipleSeats(){
         
-        let filteredArray = movieServices.selectedSeats.filter { value in
-            movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransId ?? "")"])
+        let filteredArray = movieServices.selectedSeatId.filter { value in
+            movieServices.resetSeats(requestBody: ["CinemaCode":movieServices.selectedScreen?.show.cinemaStrID ?? "","StrTransId":"\(value.strTransID )"])
             return false
         }
-        movieServices.selectedSeats = []
+        movieServices.selectedSeatId = []
     }
 }
 

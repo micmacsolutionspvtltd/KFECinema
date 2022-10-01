@@ -5,11 +5,9 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.371242278405-pqqnrmm748gm6uggf0lc0ssbkbkelo2f</string>
+				<string>fb1312073875795599</string>
 			</array>
 		</dict>
 		<dict>
@@ -17,28 +15,19 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1312073875795599</string>
+				<string>com.googleusercontent.apps.371242278405-pqqnrmm748gm6uggf0lc0ssbkbkelo2f</string>
 			</array>
 		</dict>
 	</array>
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb1312073875795599</string>
-      </array>
-      </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>1312073875795599</string>
-    <key>KFE cinemas</key>
-    <string>KFE cinemas</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbapi</string>
-      <string>fb-messenger-share-api</string>
-    </array>
+	<key>FacebookAppID</key>
+	<string>1312073875795599</string>
+	<key>KFE cinemas</key>
+	<string>KFE cinemas</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIImageName</key>

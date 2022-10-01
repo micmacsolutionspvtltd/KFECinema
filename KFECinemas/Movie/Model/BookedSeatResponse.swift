@@ -32,3 +32,10 @@ struct BookedSeat: Codable {
         case strBookId = "strBookId"
     }
 }
+
+struct FinalSeatModel: Codable {
+    var strSeatInfo: String
+    var intBookID: Int
+    var strTransID: String
+    var strBookId : String
+}

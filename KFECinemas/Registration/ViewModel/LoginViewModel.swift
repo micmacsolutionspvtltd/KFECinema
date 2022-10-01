@@ -16,7 +16,7 @@ class UserAuthModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String = ""
     @Published var loginId :  String = ""
-    let loginManager = LoginManager()
+   
 
     
     init(){
@@ -53,30 +53,30 @@ class UserAuthModel: ObservableObject {
        guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
 
         let signInConfig = GIDConfiguration.init(clientID: "371242278405-pqqnrmm748gm6uggf0lc0ssbkbkelo2f.apps.googleusercontent.com")
-//        GIDSignIn.sharedInstance.signIn(
-//            with: signInConfig,
-//            presenting: presentingViewController,
-//            callback: { user, error in
-//                if let error = error {
-//                    self.errorMessage = "error: \(error.localizedDescription)"
-//                }
-//                if(GIDSignIn.sharedInstance.currentUser != nil){
-//                    let user = GIDSignIn.sharedInstance.currentUser
-//                    guard let user = user else { return }
-//
-//                    self.givenName = user.profile?.name ?? ""
-//                    self.email = user.profile?.email ?? ""
-//                    self.loginId = user.userID ?? ""
-//                    self.isLoggedIn = true
-//                    completionHandler(user)
-//                }else{
-//                    self.isLoggedIn = false
-//                    self.givenName = "Not Logged In"
-//                  //  self.profilePicUrl =  ""
-//                }
-//
-//            }
-//        )
+        GIDSignIn.sharedInstance.signIn(
+            with: signInConfig,
+            presenting: presentingViewController) { user, error in
+                if let error = error {
+                       self.errorMessage = "error: \(error.localizedDescription)"
+                   }
+                   if(GIDSignIn.sharedInstance.currentUser != nil){
+                       let user = GIDSignIn.sharedInstance.currentUser
+                       guard let user = user else { return }
+   
+                       self.givenName = user.profile?.name ?? ""
+                       self.email = user.profile?.email ?? ""
+                       self.loginId = user.userID ?? ""
+                       self.isLoggedIn = true
+                       completionHandler(user)
+                   }else{
+                       self.isLoggedIn = false
+                       self.givenName = "Not Logged In"
+                     //  self.profilePicUrl =  ""
+                   }
+   
+               }
+            
+
     }
     
     func signOut(){
@@ -84,18 +84,26 @@ class UserAuthModel: ObservableObject {
         self.checkStatus()
     }
     func facebookLogin() {
+        let loginManager = LoginManager()
         Settings.shared.appID = "1312073875795599"
-//           loginManager.logIn(permissions: [.publicProfile, .email], viewController: nil) { loginResult in
-//               switch loginResult {
-//               case .failed(let error):
-//                   print(error)
-//               case .cancelled:
-//                   print("User cancelled login.")
-//               case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-//                   print("Logged in! \(grantedPermissions) \(declinedPermissions) \(accessToken)")
-//
-//               }
-//           }
+        
+//        loginManager.logIn(permissions: [.publicProfile, .email], viewController: nil) { loginResult in
+//                  switch loginResult {
+//                  case .failed(let error):
+//                      print(error)
+//                  case .cancelled:
+//                      print("User cancelled login.")
+//                  case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+//                      print("Logged in! \(grantedPermissions) \(declinedPermissions) \(accessToken)")
+//                      GraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name"]).start(completionHandler: { (connection, result, error) -> Void in
+//                          if (error == nil){
+//                              let fbDetails = result as! NSDictionary
+//                              print(fbDetails)
+//                          }
+//                      })
+//                  }
+//              }
+        
     }
     
     func signUpApi(mobno: String,emailId : String,password :  String ,name : String , loginMethod : String , completionHandler : @escaping((SignUpDataModel) -> Void) ){

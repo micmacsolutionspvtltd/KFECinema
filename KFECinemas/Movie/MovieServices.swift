@@ -13,9 +13,12 @@ class MovieServices:ObservableObject {
     @Published var seatLayouts:SeatLayoutResponse?
     @Published var selectedMovie:AllFilms?
     @Published var selectedSeats:[Seat] = []
+    @Published var selectedSeatId : [FinalSeatModel] = []
     @Published var selectedScreen:BookSeatModel?
     @Published var checkoutDetails:CheckoutModel?
+    @Published var storeSelectedSeats : [SetSeatRequestModel] = []
     @Published var cinemaStrid : String? = ""
+    @Published var cinemaStridTwo : String? = ""
 
     func getAllshows(requestBody:[String:String]){
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.allShowsByFilm,requestBody: requestBody))!
@@ -24,9 +27,13 @@ class MovieServices:ObservableObject {
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
                     for show in result?.data ?? []{
-                        if show.shows?.count != 0{
-                            cinemaStrid = show.shows?[0].strTicketType
+                        if show.cinemaStrID == "0003"{
+                            if show.shows?.count != 0{
+                                cinemaStrid = show.shows?[0].strTicketType
+                                cinemaStridTwo = show.shows?[1].strTicketType
+                            }
                         }
+                       
                       
                     }
                     shows = result?.data ?? []
@@ -47,6 +54,18 @@ class MovieServices:ObservableObject {
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: SeatLayoutResponse.self) { (restValue, result, error) in
             DispatchQueue.main.async { [unowned self] in
                 if restValue == true{
+                    if (result?.screenname?.contains("-")) == false {
+                        var screenNameChange = (result?.screenname ?? "")
+                        
+                      //  let lastValue = screenNameChange.last
+                        let newName = "\(screenNameChange.removeLast())"// + "\(String(describing: lastValue))"
+                        //result?.screenname = newName
+                        print(newName)
+                    }else{
+//                        var screenNameChange = (result?.screenname ?? "")
+//                        var newName = "\(screenNameChange.removeLast())" + "\(screenNameChange)"
+                        
+                    }
                     seatLayouts = result
                     completionHandler(result!)
                 }else{
@@ -59,8 +78,8 @@ class MovieServices:ObservableObject {
         
     }
     
-    func setSeats(seat:Seat,layout:SeatLayout,requestBody:[String:String],completionHandler : @escaping (BookedSeatResponse) -> Void){
-        
+   // func setSeats(seat:Seat,layout:SeatLayout,requestBody:[String:String],completionHandler : @escaping (BookedSeatResponse) -> Void){
+    func setSeats(requestBody:[String:String],completionHandler : @escaping (BookedSeatResponse) -> Void){
         let urlRequest = (try?  RequestGenerator.sharedInstance.generateURLRequestTypeThree(endpoint:Endpoint.setSeats,requestBody: requestBody))!
     
         NetWorkManger.sharedInstance.postData(request: urlRequest, resultType: BookedSeatResponse.self) { (restValue, result, error) in
@@ -70,16 +89,16 @@ class MovieServices:ObservableObject {
                       
                         print(result?.responseMessage ?? "")
                     }else{
-                        var seatValue = seat
-                        seatValue.key = seat.key
-                        seatValue.strTransId = result?.data?.strTransID
-                        seatValue.intBookId = result?.data?.intBookID
-                        seatValue.strSeatInfo = result?.data?.strSeatInfo
-                        seatValue.amount = layout.amount
-                        seatValue.ticketType = layout.strAreaDesc
-                       seatValue.rowId = requestBody["rowId"]
-                        selectedSeats.append(seatValue)
-                        print(selectedSeats)
+//                        var seatValue : Seat
+//                      //  seatValue.key = seat.key
+//                        seatValue.strTransId = result?.data?.strTransID
+//                        seatValue.intBookId = result?.data?.intBookID
+//                        seatValue.strSeatInfo = result?.data?.strSeatInfo
+////                        seatValue.amount = layout.amount
+////                        seatValue.ticketType = layout.strAreaDesc
+////                       seatValue.rowId = requestBody["rowId"]
+//                        selectedSeats.append(seatValue)
+//                        print(selectedSeats)
                     }
                   completionHandler(result!)
 //                    seatLayouts = result?.data ?? []
@@ -318,13 +337,13 @@ class MovieServices:ObservableObject {
         var seatNo = ""
         var seatRow = ""
         
-        if selectedSeats.count > 0 {
+        if storeSelectedSeats.count > 0 {
          //   seatNo = "\(selectedSeats[0].ticketType ?? "") - "
         }
 
-        selectedSeats.forEach { item in
-            seatRow += "\(item.rowId ?? "") ,"
-            seatNo +=  "\(item.rowId ?? "")\(item.intGridSeatNum?.description ?? ""),"
+        storeSelectedSeats.forEach { item in
+            seatRow += "\(item.rowId ) ,"
+            seatNo +=  "\(item.rowId )\(item.srtSeatNumber.description ),"
         }
         seatNo.removeLast()
        seatRow.removeLast()
@@ -340,14 +359,14 @@ class MovieServices:ObservableObject {
     
     func calculateTotalPrice() -> String{
         var price : Float = 0
-        selectedSeats.forEach { item in
-            price += (Float(item.amount ?? 0) )
+        storeSelectedSeats.forEach { item in
+            price += (Float(item.amount ) ?? 0.00 )
         }
 
         DispatchQueue.main.async { [unowned self] in
             if selectedSeats.count > 0{
-                checkoutDetails?.ticketPrice = "\(selectedSeats[0].amount ?? 0)"
-                checkoutDetails?.totalPrice = "\(Int(selectedSeats[0].amount ?? 0) * (selectedSeats.count))"
+                checkoutDetails?.ticketPrice = "\(storeSelectedSeats[0].amount )"
+                checkoutDetails?.totalPrice = "\((Int(storeSelectedSeats[0].amount) ?? 0) * (selectedSeats.count))"
                     }
         }
 

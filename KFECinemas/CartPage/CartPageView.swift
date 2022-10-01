@@ -39,6 +39,8 @@ struct CartPageView: View {
     @State var toastMsg : String = "Not valid"
     @State var showLoader : Bool = false
     @State var theaterId : String = ""
+    @State var moveReciptPage = false
+    @State var orderId = ""
     var body: some View {
         //
         GeometryReader { geometry in
@@ -148,7 +150,7 @@ struct CartPageView: View {
                                                 .resizable()
                                                 .frame(width: 15, height: 15)
                                                 .foregroundColor(.white)
-                                            Text("TakeAway")
+                                            Text("Pick & Go")
                                                 .foregroundColor(.white)
                                             
                                         }.frame(width: 150)
@@ -230,7 +232,7 @@ struct CartPageView: View {
                                                         
                                                         TextField("", text: $seatNo)
                                                             .placeholder(when: seatNo.isEmpty) {
-                                                                Text("Ex : S1,S2,S3").foregroundColor(.white).opacity(0.4)
+                                                                Text("Enter seat number").foregroundColor(.white).opacity(0.4)
                                                             }.foregroundColor(Color.white).frame(width: 100, height: 30, alignment: .center).multilineTextAlignment(.center).foregroundColor(Color.white)
                                                             .background(Color("ColorAppGrey"))
                                                     }.frame(width: 150, height: 25)
@@ -474,13 +476,14 @@ struct CartPageView: View {
                             storeDataViewModel.orderSnackItem(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: paymentData.1 , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "", seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")) ) { result in
                                 toastMsg = "Ordered sucessfully completed"
                                 errorPopup = true
-                               
+                                orderId = result.orderId ?? ""
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                    storeDataViewModel.deleteAllDatas()
-                                    promoDataViewModel.promoId = ""
-                                    promoDataViewModel.promoCode = ""
+//                                    storeDataViewModel.deleteAllDatas()
+//                                    promoDataViewModel.promoId = ""
+//                                    promoDataViewModel.promoCode = ""
                                     showLoader = false
-                                    NavigationUtil.popToRootView()
+                                    moveReciptPage = true
+                                 //   NavigationUtil.popToRootView()
 //                                    rootPresentationMode.wrappedValue.dismiss()
 //                                    presentationMode.wrappedValue.dismiss()
                                  //   moveToDashBoard = true
@@ -493,15 +496,17 @@ struct CartPageView: View {
                             //
                             //                        }
                             storeDataViewModel.confirmSnacksItem(cinemaCOde : theaterId, itemID: getFinalFoodID().0) { result in
-                                storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: "4" , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")), orderConfirmId: result.data?.curItemsID ?? "") { result in
+                                orderId = result.data?.curItemsID ?? ""
+                                storeDataViewModel.orderConcessionZoneSnacks(orderDate: Common.sharedInstance.changingDateFormat(date: selectionMovieDate ?? Date.now , dateFormat : "yyyy-MM-dd"), itemId: paymentData.0, categoryId: "4" , quantity: paymentData.4, price: paymentData.3, gst: paymentData.0, promoId: promoDataViewModel.promoId ?? "", totalAmt: storeDataViewModel.calculateTotalPrice(), pickUpCounter: deliveryCLicked ? "1" : "0", theaterId: selectedTheaterName ?? "", screenId: selectedScreenName ?? "", seatNo: seatNo, totalPrice: storeDataViewModel.calculateTotalPrice(), showTime: selectedShowTime ?? "" , seatRow: selectedSeatArea ?? "", promoCode: promoDataViewModel.promoCode ?? "", discountPrice: calculateAmount() , amountDiscounted : ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")), orderConfirmId: result.data?.curItemsID ?? "") { finalResult in
                                     toastMsg = "Ordered sucessfully completed"
                                     errorPopup = true
                                      DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                    storeDataViewModel.deleteAllDatas()
-                                    promoDataViewModel.promoId = ""
-                                    promoDataViewModel.promoCode = ""
-                                    showLoader = false
-                                         NavigationUtil.popToRootView()
+//                                    storeDataViewModel.deleteAllDatas()
+//                                    promoDataViewModel.promoId = ""
+//                                    promoDataViewModel.promoCode = ""
+                                         showLoader = false
+                                         moveReciptPage = true
+                                       //  NavigationUtil.popToRootView()
     //                                rootPresentationMode.wrappedValue.dismiss()
     //                                     presentationMode.wrappedValue.dismiss()
                                         // moveToDashBoard = true
@@ -515,6 +520,12 @@ struct CartPageView: View {
                     })
                 }
             }.toast(isShowing: $errorPopup,textContent: toastMsg , backGroundColor : Color.white)
+                .background(
+                    NavigationLink(destination: ConcessionReciptView(lastPage : "checkout", pageName: pageNames, showDate: Common.sharedInstance.changingDateFormat(date: Date.now ), showTime: selectedShowTime, theatreName: selectedTheaterName, screenName: selectedScreenName, seatNumber: seatNo , bookingId: orderId, snacksName: getFinalPaymentProcessData().5,  snacksprice: "\(storeDataViewModel.calculateTotalPrice())", deliverPrice: (deliveryCLicked) ? "10" : "", totalPrice: calculateAmount(), discountAmount: ((promoDataViewModel.promoId == "") ? "" : String(applyCouponData?.data?.calculatedDiscountAmount ?? "0")) ), isActive: $moveReciptPage) {
+                       // LoginView()
+                    }
+                        .hidden()
+                )
                 .loaderView(isShowing: $showLoader)
                 .background(Color.black)
                 .navigationBarHidden(true)
@@ -586,12 +597,13 @@ struct CartPageView: View {
         }
         return (finalId , nameAndQuantity)
     }
-    func getFinalPaymentProcessData() -> (String , String , String , String , String){
+    func getFinalPaymentProcessData() -> (String , String , String , String , String , String){
         var foodId = ""
         var categoryId = ""
         var foodName = ""
         var foodPrice = ""
         var foodQty = ""
+        var foodNameQty = ""
      
         
         for i in storeDataViewModel.items{
@@ -601,15 +613,17 @@ struct CartPageView: View {
                 foodName =  (i.foodName ?? "")
                 foodPrice = (i.foodPrice ?? "")
                 foodQty = (i.foodQuantity ?? "")
+                foodNameQty = "\(i.foodQuantity ?? "") X \(i.foodName ?? "")"
             }else{
                 foodId = (foodId + "," + (i.foodId ?? ""))
                 categoryId = (categoryId + "," + (i.categoryId ?? ""))
                 foodName = (foodName + "," + (i.foodName ?? ""))
                 foodPrice = (foodPrice + "," + (i.foodPrice ?? ""))
                 foodQty = (foodQty + "," + (i.foodQuantity ?? ""))
+                foodNameQty = "\(foodNameQty) , \(i.foodQuantity ?? "") X \(i.foodName ?? "")"
             }
         }
-        return (foodId , categoryId , foodName , foodPrice , foodQty)
+        return (foodId , categoryId , foodName , foodPrice , foodQty , foodNameQty)
     }
     
 }

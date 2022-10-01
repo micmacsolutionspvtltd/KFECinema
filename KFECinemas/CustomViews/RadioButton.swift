@@ -58,7 +58,7 @@ struct RadioButtonField: View {
 //MARK:- Group of Radio Buttons
 enum SnacksDeliveryType: String {
     case deliverAtSeat = "Deliver at Seat"
-    case takeAway = "Takeaway"
+    case takeAway = "Pick & Go"
 }
 
 enum SnacksDeliveryTimeType: String {

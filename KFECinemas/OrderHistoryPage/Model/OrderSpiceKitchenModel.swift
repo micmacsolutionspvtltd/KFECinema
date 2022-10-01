@@ -25,12 +25,14 @@ struct HistorySpiceKitchen: Codable , Hashable {
     let mbleNum: String?
     let email: String?
     let orderDuring: String?
-    let theatreName, screenName: String?
-    let diccountedAmount : String?
+    let theatreName, screenName , screenId: String?
+    let diccountedAmount , calculateDiscountAmt: String?
+    let deliveryMode : String?
 //    let snacksName:String?
     
 
     enum CodingKeys: String, CodingKey {
+        case calculateDiscountAmt = "calculated_discount_amount"
         case foodOrderID = "food_order_id"
         case orderDate = "order_date"
         case totalPrice = "total_price"
@@ -49,6 +51,8 @@ struct HistorySpiceKitchen: Codable , Hashable {
         case theatreName = "theatre_name"
         case screenName = "screen_name"
         case diccountedAmount = "discounted_amount"
+        case screenId = "screen_id"
+        case deliveryMode = "deliver_to_seat_or_pickup_at_counter"
      //   case snacksName = "snacksName"
     }
 }

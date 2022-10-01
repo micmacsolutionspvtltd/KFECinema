@@ -16,6 +16,8 @@
 		0433B6B4281C0A08004558B6 /* OrderHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B3281C0A08004558B6 /* OrderHistoryViewModel.swift */; };
 		0433B6B7281C11D1004558B6 /* OrderHisroryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B6281C11D1004558B6 /* OrderHisroryViewCell.swift */; };
 		0433B6BA281C11F0004558B6 /* OrderHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */; };
+		0436C08528D058CB00383C27 /* ConcessionReciptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436C08428D058CB00383C27 /* ConcessionReciptView.swift */; };
+		0436C08728D09B7900383C27 /* TermsAndConditionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436C08628D09B7900383C27 /* TermsAndConditionPopup.swift */; };
 		043B5C5F282379D2009166DF /* PromoCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C5E282379D2009166DF /* PromoCodeModel.swift */; };
 		043D6252281AADC80053F2BE /* DatePickerWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043D6251281AADC80053F2BE /* DatePickerWithButton.swift */; };
 		04571144284DDA1000249E48 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04571143284DDA1000249E48 /* WebView.swift */; };
@@ -139,6 +141,8 @@
 		0433B6B3281C0A08004558B6 /* OrderHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewModel.swift; sourceTree = "<group>"; };
 		0433B6B6281C11D1004558B6 /* OrderHisroryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHisroryViewCell.swift; sourceTree = "<group>"; };
 		0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryView.swift; sourceTree = "<group>"; };
+		0436C08428D058CB00383C27 /* ConcessionReciptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcessionReciptView.swift; sourceTree = "<group>"; };
+		0436C08628D09B7900383C27 /* TermsAndConditionPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionPopup.swift; sourceTree = "<group>"; };
 		043B5C5E282379D2009166DF /* PromoCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeModel.swift; sourceTree = "<group>"; };
 		043D6251281AADC80053F2BE /* DatePickerWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWithButton.swift; sourceTree = "<group>"; };
 		04571143284DDA1000249E48 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 				0433B6B8281C11D7004558B6 /* ReusableViews */,
 				0433B6B9281C11F0004558B6 /* OrderHistoryView.swift */,
 				047E950428221C710051C289 /* TicketReciptView.swift */,
+				0436C08428D058CB00383C27 /* ConcessionReciptView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				0481D0BC2859C373008DAEE6 /* FoodTheaterSelectPopupView.swift */,
+				0436C08628D09B7900383C27 /* TermsAndConditionPopup.swift */,
 				042984732863493A007AB049 /* CheckoutSnacksCell.swift */,
 				045D8E4428649CBA00811807 /* SeatAreaChangePopupView.swift */,
 			);
@@ -771,6 +777,7 @@
 				04571144284DDA1000249E48 /* WebView.swift in Sources */,
 				D3CC71B927E8F9C900C33787 /* ApiKeys.swift in Sources */,
 				04DDB6ED282814D200E3DD28 /* CustomToastView.swift in Sources */,
+				0436C08728D09B7900383C27 /* TermsAndConditionPopup.swift in Sources */,
 				04FE7AEE2815D181004B9EC4 /* CartAddFunctionalityViewModel.swift in Sources */,
 				0C13DB48282AE833006C4D13 /* BookSeatModel.swift in Sources */,
 				0CA478F62801A3FD000B5C57 /* AllFilmsResponse.swift in Sources */,
@@ -815,6 +822,7 @@
 				D345A45227E50C6700D1D5AD /* Endpoint.swift in Sources */,
 				D38A8E8927FCA71400B26340 /* StorageSettings.swift in Sources */,
 				D38A8E9327FE14D000B26340 /* BannerImagesResponse.swift in Sources */,
+				0436C08528D058CB00383C27 /* ConcessionReciptView.swift in Sources */,
 				0C13DB44282A8751006C4D13 /* BookSeatView.swift in Sources */,
 				0C8D7BAD282E3584009FE973 /* BookedSeatResponse.swift in Sources */,
 				04FE7AEB2815D029004B9EC4 /* CartModel.swift in Sources */,

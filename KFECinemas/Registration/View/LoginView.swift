@@ -127,27 +127,27 @@ struct LoginView: View {
                 .cornerRadius(.infinity)
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 2, trailing: 15))
                 
-                Button(action: {
-                    viewModel.facebookLogin()
-                }) {
-                    HStack(alignment: .center, spacing: 5.0) {
-                        Spacer()
-                        Text("CONTINUE WITH").font(.footnote)
-                            .foregroundColor(.white)
-                        //  .padding(.trailing, 10.0)
-                        Spacer()
-                        Image("facebook")
-                            .padding(.leading, 10.0)
-                    }
-                    .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
-                    .frame(minWidth: geometry.size.width * 0.9)
-                    .foregroundColor(Color.white).background(Color("ColorAppGrey"))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: .infinity)
-                            .stroke(Color.red, lineWidth: 2)
-                    )
+//                Button(action: {
+//                    viewModel.facebookLogin()
+//                }) {
+//                    HStack(alignment: .center, spacing: 5.0) {
+//                        Spacer()
+//                        Text("CONTINUE WITH").font(.footnote)
+//                            .foregroundColor(.white)
+//                        //  .padding(.trailing, 10.0)
+//                        Spacer()
+//                        Image("facebook")
+//                            .padding(.leading, 10.0)
+//                    }
+//                    .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20))
+//                    .frame(minWidth: geometry.size.width * 0.9)
+//                    .foregroundColor(Color.white).background(Color("ColorAppGrey"))
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: .infinity)
+//                            .stroke(Color.red, lineWidth: 2)
+//                    )
                     
-                }
+             //   }
                 .cornerRadius(.infinity)
                 .padding(EdgeInsets(top: 10, leading: 15, bottom: 20, trailing: 15))
            // }

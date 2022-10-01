@@ -16,6 +16,8 @@ struct OrderHistoryView: View {
     @ObservedObject var viewModel = OrderHistoryViewModel()
    @State var name : String = ""
     @State private var linkActive = false
+    @State private var spiceActive = false
+    @State private var concessionActive = false
    @State var selectedRowNumber  = 0
     init(){
         UITableView.appearance().backgroundColor = .clear
@@ -146,14 +148,30 @@ struct OrderHistoryView: View {
                         
                        
                         List(0..<(viewModel.getSpiceKitcehnData?.data?.count ?? 0), id : \.self){ (finalValues) in
+                            
+                            Button(action: { self.selectedRowNumber = finalValues
+                                spiceActive = true
+
+                            }){
+                            
                             OrderHisroryViewCell(movieName : "Spice Kitchen" , theaterName: "Order ID \(viewModel.getSpiceKitcehnData?.data?[finalValues][0].foodOrderID ?? "")", amount: viewModel.getSpiceKitcehnData?.data?[finalValues][0].diccountedAmount ?? "", date: "Ordered on : \(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getSpiceKitcehnData?.data?[finalValues][0].orderDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat))", snacksItems: viewModel.getKitchenSnacksData[finalValues])
                                 .frame(maxWidth: .infinity)
                                 .padding(10)
                                 .background(RoundedRectangle(cornerRadius: 8)
                                     .fill(Color.black)
                                     .shadow(color: Color.black.opacity(0.3), radius: 3, x: 1, y: 1))
-//                            }
-                        } .listStyle(PlainListStyle())
+                          //  }
+                        }.overlay(VStack {
+                                    if spiceActive {
+                                        NavigationLink(destination:  ConcessionReciptView(spiceDatas : viewModel.getSpiceKitcehnData?.data?[selectedRowNumber][0] , lastPage : "Spice Kitchen", snacksName : viewModel.getKitchenSnacksData[selectedRowNumber]), isActive: $concessionActive) {
+                                            
+    //                                        (viewModel.getTicketHistoryData?.data?[finalValues] ?? [])
+                                        }.isDetailLink(false).opacity(0)
+                                            .background(Color.clear)
+                                        
+                                    }
+                                })
+                    }   .listStyle(PlainListStyle())
 
                     }
                   
@@ -161,14 +179,27 @@ struct OrderHistoryView: View {
                     if viewModel.getConcessionZoneData?.data?.count != 0{
                        
                             List(0..<(viewModel.getConcessionZoneData?.data?.count ?? 0), id : \.self){ (finalValues) in
-                                OrderHisroryViewCell(movieName : "Concession Zone" , theaterName: "Order ID \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderID ?? "")", amount: viewModel.getConcessionZoneData?.data?[finalValues][0].diccountedAmount ?? "", date: "Ordered on : \(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getConcessionZoneData?.data?[finalValues][0].orderDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat))", bookingSeat : "Seats: \(viewModel.getConcessionZoneData?.data?[finalValues][0].seatNo ?? "")", snacksItems: viewModel.getConcessionSnacksData[finalValues])
+                                Button(action: { self.selectedRowNumber = finalValues
+                                    concessionActive = true
+                                    
+                                }){
+                                OrderHisroryViewCell(movieName : "Concession Zone" , theaterName: "Order ID \(viewModel.getConcessionZoneData?.data?[finalValues][0].orderConfirmId ?? "")", amount: viewModel.getConcessionZoneData?.data?[finalValues][0].diccountedAmount ?? "", date: "Ordered on : \(Common.sharedInstance.changeFormatMonthAndYear(item:  viewModel.getConcessionZoneData?.data?[finalValues][0].orderDate ?? "" , alreadyInType: Constants.DateFormat.dateFormatReverse , needType: Constants.DateFormat.normalDateFormat))", bookingSeat : "Seats: \(viewModel.getConcessionZoneData?.data?[finalValues][0].seatNo ?? "")", snacksItems: viewModel.getConcessionSnacksData[finalValues])
                             
                                     .frame(maxWidth: .infinity)
                                     .padding(10)
                                     .background(RoundedRectangle(cornerRadius: 8)
                                         .fill(Color.black)
                                         .shadow(color: Color.black.opacity(0.3), radius: 3, x: 1, y: 1))
-
+                            }.overlay(VStack {
+                                        if concessionActive {
+                                            NavigationLink(destination:  ConcessionReciptView(reciptDatas : viewModel.getConcessionZoneData?.data?[selectedRowNumber][0] , snacksName : viewModel.getConcessionSnacksData[selectedRowNumber]), isActive: $concessionActive) {
+                                                
+        //                                        (viewModel.getTicketHistoryData?.data?[finalValues] ?? [])
+                                            }.isDetailLink(false).opacity(0)
+                                                .background(Color.red)
+                                            
+                                        }
+                                    })
                         }   .listStyle(PlainListStyle())
                     }
                 }

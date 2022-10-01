@@ -16,7 +16,10 @@ struct BookTicketView: View {
     @State var isActive : Bool = false
     @State var daysOfWeek:[Date] = []
     @State var selectedDate = ""
+    
     var body: some View {
+        ZStack{
+            
         ScrollView(showsIndicators:false){
             VStack {
                 HStack(alignment: .center) {
@@ -61,7 +64,10 @@ struct BookTicketView: View {
                 
                 
             }.foregroundColor(.white)
-        }.onAppear(perform: {
+        }
+//
+    }.onAppear(perform: {
+         
             movieServices.selectedSeats = []
             let daysOfWeek = Date().daysOfWeek(using: .gregorian)
             selectedDate = String(daysOfWeek[0].currentDayDate)
@@ -71,6 +77,7 @@ struct BookTicketView: View {
             movieServices.getAllshows(requestBody: requestModel)
             movieServices.selectedMovie = movie
         }).background(Color("ColorAppGrey")).ignoresSafeArea().navigationBarHidden(true)
+
     }
     
 }
@@ -119,7 +126,7 @@ struct showGridView:View {
                            if movieServices.cinemaStrid == show.strTicketType{
                         if selectedDateCurrent{
                         if timeValidate(movieTimes: show.showTime ?? ""){
-                            NavigationLink(destination: BookSeatView(model: BookSeatModel(movieName: movieServices.selectedMovie?.filmStrTitle ?? "", theatreName: selectedTheatre, show: show))){
+                            NavigationLink(destination: BookSeatView(model: BookSeatModel(movieName: movieServices.selectedMovie?.filmStrTitle ?? "", theatreName: selectedTheatre , show: show))){
                                     showDetailView(show: show)
                                 }
                         }

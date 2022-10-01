@@ -21,8 +21,15 @@ struct MovieCardView: View {
             }
             VStack(alignment:.center,spacing:6) {
                 Text(model.filmStrTitle?.capitalizingFirstLetter() ?? "").clipped().foregroundColor(.white).frame(maxHeight:20).font(.system(size: 16,weight: .bold))
-        
-                Text( "\(model.filmStrShortNameAlt ?? "") \(model.filmStrCensor ?? "")").foregroundColor(.white).opacity(0.7).font(.system(size: 13,weight: .bold))
+                HStack{
+                    Text( "\(model.filmStrShortNameAlt ?? "")").foregroundColor(.white).opacity(0.7).font(.system(size: 13,weight: .bold))
+                    if model.filmStrCensor == "A"{
+                        Text( "\(model.filmStrCensor ?? "")").foregroundColor(.white).opacity(0.7).minimumScaleFactor(0.4).font(.system(size: 13,weight: .bold)).frame(width : 20, height:20).background(Color.red).cornerRadius(20)
+                    }else{
+                        Text( "\(model.filmStrCensor ?? "")").foregroundColor(.black).opacity(0.7).minimumScaleFactor(0.4).font(.system(size: 13,weight: .bold)).frame(width : 20, height:20).background(Color.white).cornerRadius(20)
+                    }
+                    
+                }
             }.padding(EdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 5)).frame(maxWidth:.infinity)
            
         }.navigationBarHidden(true)

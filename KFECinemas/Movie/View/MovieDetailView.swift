@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieDetailView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode> 
 
-
+    @State var showingAlert = false
     @State private var isActive : Bool = false
     var movie:AllFilms
     @State var imageData : GetFinalDataImage
@@ -37,6 +37,12 @@ struct MovieDetailView: View {
                     Text("\(movie.filmStrTitle ?? "")").foregroundColor(.white)
                     Divider().background(.white).frame(height:30)
                     Text("\(movie.filmStrShortNameAlt ?? "")").foregroundColor(.white)
+                    Spacer().frame(width: 5)
+                    if movie.filmStrCensor == "A"{
+                        Text( "\(movie.filmStrCensor ?? "")").foregroundColor(.white).opacity(0.7).minimumScaleFactor(0.4).font(.system(size: 13,weight: .bold)).frame(width : 20, height:20).background(Color.red).cornerRadius(20)
+                    }else{
+                        Text( "\(movie.filmStrCensor ?? "")").foregroundColor(.black).opacity(0.7).minimumScaleFactor(0.4).font(.system(size: 13,weight: .bold)).frame(width : 20, height:20).background(Color.white).cornerRadius(20)
+                    }
                     Spacer()
                 }
                 HStack {
@@ -65,14 +71,51 @@ struct MovieDetailView: View {
                     .foregroundColor(Color.white).font(.system(size: 14))
             }.padding(.leading,20).padding(.bottom,20)
             Spacer()
-            NavigationLink(isActive : self.$isActive){
-                BookTicketView(movie: movie)
-            }label: {
-                Text("BOOK TICKET").padding().frame(maxWidth: .infinity).background(.red)
-            }.isDetailLink(false)
-           
-            .navigationViewStyle(.stack)
-        }.background(Color("ColorAppGrey")).ignoresSafeArea().navigationBarHidden(true)
+         //   if movie.filmStrCensor == "U"{
+                Button(action: {
+                    if movie.filmStrCensor == "A"{
+                        showingAlert = true
+                    }else{
+                        isActive = true
+                    }
+                    
+                }){
+                    Text("BOOK TICKET").padding().frame(maxWidth: .infinity).background(.red)
+                }
+//            }else{
+//            NavigationLink(isActive : self.$isActive){
+//                BookTicketView(movie: movie)
+//            }label: {
+//                Text("BOOK TICKET").padding().frame(maxWidth: .infinity).background(.red)
+//            }.isDetailLink(false).navigationViewStyle(.stack)
+//            }
+        }
+                .background(Color("ColorAppGrey")).ignoresSafeArea().navigationBarHidden(true)
+            .overlay(VStack {
+                if isActive {
+                    NavigationLink(destination: BookTicketView(movie: movie), isActive: $isActive) {
+                        
+//                                        (viewModel.getTicketHistoryData?.data?[finalValues] ?? [])
+                    }.isDetailLink(false).opacity(0)
+                        .background(Color.red)
+                    
+                }
+            })
+            .alert(isPresented: $showingAlert){
+                Alert(
+                    title: Text(""),
+                    message: Text("This movie has been rated \(String("A")) and is for audiences above the age of 18.Please carry a valid photo ID and age proof to the theatre. No refund of tickets once bought.").fontWeight(.bold),
+                    primaryButton: .default(Text("Accept"), action: {
+                        self.isActive = true
+                    }),
+                    secondaryButton: .cancel(Text("Cancel"), action: { // 1
+                        showingAlert = false
+                        
+                    })
+                )
+            }
+        
+
     }
 }
 

@@ -10,7 +10,7 @@ struct SeatLayoutResponse: Codable {
     let responseCode: Int?
     let responseMessage, strTransID: String?
     let screenNumber: Int?
-    let screenname: String?
+    var screenname: String?
     let data: [SeatLayout]?
 
 

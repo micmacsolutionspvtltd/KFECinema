@@ -5,6 +5,10 @@
 //  Created by MAC on 25/04/22.
 //
 
+
+
+
+
 import Foundation
 
 struct CartFullDataModel : Codable , Identifiable , Hashable{
@@ -102,7 +106,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
             "seat_no" : seatNo,
             "show_time" : showTime,
             "zone" : seatRow,
-            "deliver_to_seat_or_pickup_at_counter" : "1",
+            "deliver_to_seat_or_pickup_at_counter" : pickUpCounter,
             "order_date" : orderDate,
             "promocode_id" : promoCode,
             "total_amt_discounted" : amountDiscounted,
@@ -110,10 +114,7 @@ class CartAddFunctionalityViewModel : ObservableObject{
             "is_vip_card_used" : "",
             "vip_card_id" : "",
         ]
-    
-                  
-           
-             
+   
             
 //        params = [
 //            "user_id" : "42",
@@ -277,4 +278,5 @@ class CartAddFunctionalityViewModel : ObservableObject{
 struct FoodOrderResponseModel: Codable {
     let status: Int?
     let reason: String?
+    let orderId : String?
 }

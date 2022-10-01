@@ -10,6 +10,7 @@ import Foundation
 struct BookSeatModel {
     let movieName:String
     let theatreName:String
+ //   let strTicketTypeTwo : String
     let show:Show
 }
 
